@@ -1,0 +1,5246 @@
+commit 11823af
+Author: o2on4github <o2on4github@freemail>
+Date:   2014-03-13
+
+    svnのブランチをgitのブランチに修正したため、branchesフォルダを削除
+
+branches/BRANCH_0043/o2on/admin/bbsmenu.xsl
+branches/BRANCH_0043/o2on/admin/dat.xsl
+branches/BRANCH_0043/o2on/admin/friend.xsl
+branches/BRANCH_0043/o2on/admin/im.xsl
+branches/BRANCH_0043/o2on/admin/images/loading.gif
+branches/BRANCH_0043/o2on/admin/images/mypc.png
+branches/BRANCH_0043/o2on/admin/images/o2on.png
+branches/BRANCH_0043/o2on/admin/images/toolbg.png
+branches/BRANCH_0043/o2on/admin/imbroadcast.xsl
+branches/BRANCH_0043/o2on/admin/index.html
+branches/BRANCH_0043/o2on/admin/ipf.xsl
+branches/BRANCH_0043/o2on/admin/jkl-parsexml.js
+branches/BRANCH_0043/o2on/admin/key.xsl
+branches/BRANCH_0043/o2on/admin/log.xsl
+branches/BRANCH_0043/o2on/admin/main.html
+branches/BRANCH_0043/o2on/admin/menu.html
+branches/BRANCH_0043/o2on/admin/node.xsl
+branches/BRANCH_0043/o2on/admin/notification.xsl
+branches/BRANCH_0043/o2on/admin/o2on.js
+branches/BRANCH_0043/o2on/admin/profile.xsl
+branches/BRANCH_0043/o2on/admin/query.xsl
+branches/BRANCH_0043/o2on/admin/report.xsl
+branches/BRANCH_0043/o2on/admin/saku.xsl
+branches/BRANCH_0043/o2on/admin/sql.xsl
+branches/BRANCH_0043/o2on/admin/style.css
+branches/BRANCH_0043/o2on/admin/thread.xsl
+branches/BRANCH_0043/o2on/admin/work.html
+branches/BRANCH_0043/o2on/admin/xml
+branches/BRANCH_0043/o2on/doc/build.txt
+branches/BRANCH_0043/o2on/doc/history.txt
+branches/BRANCH_0043/o2on/doc/license.txt
+branches/BRANCH_0043/o2on/doc/readme.txt
+branches/BRANCH_0043/o2on/o2on.sln
+branches/BRANCH_0043/o2on/resource/a.ico
+branches/BRANCH_0043/o2on/resource/a_in.ico
+branches/BRANCH_0043/o2on/resource/a_inout.ico
+branches/BRANCH_0043/o2on/resource/a_out.ico
+branches/BRANCH_0043/o2on/resource/b.ico
+branches/BRANCH_0043/o2on/resource/b_in.ico
+branches/BRANCH_0043/o2on/resource/b_inout.ico
+branches/BRANCH_0043/o2on/resource/b_out.ico
+branches/BRANCH_0043/o2on/resource/disable.ico
+branches/BRANCH_0043/o2on/resource/err.ico
+branches/BRANCH_0043/o2on/resource/o2on.ico
+branches/BRANCH_0043/o2on/src.browser/browser.manifest
+branches/BRANCH_0043/o2on/src.browser/browser.rc
+branches/BRANCH_0043/o2on/src.browser/browser.vcproj
+branches/BRANCH_0043/o2on/src.browser/main.cpp
+branches/BRANCH_0043/o2on/src.browser/resource.h
+branches/BRANCH_0043/o2on/src.o2on/KademliaKBucket.h
+branches/BRANCH_0043/o2on/src.o2on/KademliaNode.h
+branches/BRANCH_0043/o2on/src.o2on/KademliaRoutingTable.h
+branches/BRANCH_0043/o2on/src.o2on/O2Agent.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2Agent.h
+branches/BRANCH_0043/o2on/src.o2on/O2Boards.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2Boards.h
+branches/BRANCH_0043/o2on/src.o2on/O2Client.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2Client.h
+branches/BRANCH_0043/o2on/src.o2on/O2Client_HTTP.h
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.h
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.h
+branches/BRANCH_0043/o2on/src.o2on/O2DatIndex.h
+branches/BRANCH_0043/o2on/src.o2on/O2DatPath.h
+branches/BRANCH_0043/o2on/src.o2on/O2Define.h
+branches/BRANCH_0043/o2on/src.o2on/O2FriendDB.h
+branches/BRANCH_0043/o2on/src.o2on/O2IMDB.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2IMDB.h
+branches/BRANCH_0043/o2on/src.o2on/O2IPFilter.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2IPFilter.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job.h
+branches/BRANCH_0043/o2on/src.o2on/O2JobSchedule.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_AskCollection.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_AutoSave.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_Broadcast.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_ClearWorkset.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_DatCollector.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_GetGlobalIP.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_GetGlobalIP2.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_NodeCollector.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_PublishKeys.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_PublishOriginal.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_QueryDat.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_Search.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_SearchFriends.h
+branches/BRANCH_0043/o2on/src.o2on/O2Key.h
+branches/BRANCH_0043/o2on/src.o2on/O2KeyDB.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2KeyDB.h
+branches/BRANCH_0043/o2on/src.o2on/O2LagQueryQueue.h
+branches/BRANCH_0043/o2on/src.o2on/O2Logger.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2Logger.h
+branches/BRANCH_0043/o2on/src.o2on/O2Node.h
+branches/BRANCH_0043/o2on/src.o2on/O2NodeDB.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2NodeDB.h
+branches/BRANCH_0043/o2on/src.o2on/O2NodeKBucket.h
+branches/BRANCH_0043/o2on/src.o2on/O2PerformanceCounter.h
+branches/BRANCH_0043/o2on/src.o2on/O2Profile.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2Profile.h
+branches/BRANCH_0043/o2on/src.o2on/O2ProgressInfo.h
+branches/BRANCH_0043/o2on/src.o2on/O2Protocol.h
+branches/BRANCH_0043/o2on/src.o2on/O2Protocol_Dat.h
+branches/BRANCH_0043/o2on/src.o2on/O2Protocol_Kademlia.h
+branches/BRANCH_0043/o2on/src.o2on/O2ReportMaker.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2ReportMaker.h
+branches/BRANCH_0043/o2on/src.o2on/O2SAX2Parser.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2SAX2Parser.h
+branches/BRANCH_0043/o2on/src.o2on/O2Scheduler.h
+branches/BRANCH_0043/o2on/src.o2on/O2Server.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2Server.h
+branches/BRANCH_0043/o2on/src.o2on/O2Server_HTTP.h
+branches/BRANCH_0043/o2on/src.o2on/O2Server_HTTP_Admin.h
+branches/BRANCH_0043/o2on/src.o2on/O2Server_HTTP_P2P.h
+branches/BRANCH_0043/o2on/src.o2on/O2Server_HTTP_Proxy.h
+branches/BRANCH_0043/o2on/src.o2on/O2SocketSession.h
+branches/BRANCH_0043/o2on/src.o2on/O2Version.h
+branches/BRANCH_0043/o2on/src.o2on/barray.h
+branches/BRANCH_0043/o2on/src.o2on/dataconv.cpp
+branches/BRANCH_0043/o2on/src.o2on/dataconv.h
+branches/BRANCH_0043/o2on/src.o2on/debug.h
+branches/BRANCH_0043/o2on/src.o2on/event.h
+branches/BRANCH_0043/o2on/src.o2on/file.cpp
+branches/BRANCH_0043/o2on/src.o2on/file.h
+branches/BRANCH_0043/o2on/src.o2on/headertest.cpp
+branches/BRANCH_0043/o2on/src.o2on/httpheader.cpp
+branches/BRANCH_0043/o2on/src.o2on/httpheader.h
+branches/BRANCH_0043/o2on/src.o2on/main.cpp
+branches/BRANCH_0043/o2on/src.o2on/mutex.h
+branches/BRANCH_0043/o2on/src.o2on/o2on.manifest
+branches/BRANCH_0043/o2on/src.o2on/o2on.vcproj
+branches/BRANCH_0043/o2on/src.o2on/resource.h
+branches/BRANCH_0043/o2on/src.o2on/resource.rc
+branches/BRANCH_0043/o2on/src.o2on/rsa.h
+branches/BRANCH_0043/o2on/src.o2on/sha.h
+branches/BRANCH_0043/o2on/src.o2on/simplehttpsocket.h
+branches/BRANCH_0043/o2on/src.o2on/simplessdpsocket.h
+branches/BRANCH_0043/o2on/src.o2on/simpletcpsocket.h
+branches/BRANCH_0043/o2on/src.o2on/simpleudpsocket.h
+branches/BRANCH_0043/o2on/src.o2on/stopwatch.h
+branches/BRANCH_0043/o2on/src.o2on/thread.h
+branches/BRANCH_0043/o2on/src.o2on/typedef.h
+branches/BRANCH_0043/o2on/src.o2on/upnp.h
+branches/BRANCH_0043/o2on/src.o2on/upnp_description.h
+branches/BRANCH_0043/o2on/src.o2on/zlib.h
+
+commit dd6d704
+Author: o2on4github <o2on4github@freemail>
+Date:   2014-03-12
+
+    tagsフォルダの中身をgitのタグに設定変更
+
+tags/build0042/o2on/admin/bbsmenu.xsl
+tags/build0042/o2on/admin/dat.xsl
+tags/build0042/o2on/admin/friend.xsl
+tags/build0042/o2on/admin/im.xsl
+tags/build0042/o2on/admin/images/loading.gif
+tags/build0042/o2on/admin/images/mypc.png
+tags/build0042/o2on/admin/images/o2on.png
+tags/build0042/o2on/admin/images/toolbg.png
+tags/build0042/o2on/admin/imbroadcast.xsl
+tags/build0042/o2on/admin/index.html
+tags/build0042/o2on/admin/ipf.xsl
+tags/build0042/o2on/admin/jkl-parsexml.js
+tags/build0042/o2on/admin/key.xsl
+tags/build0042/o2on/admin/log.xsl
+tags/build0042/o2on/admin/main.html
+tags/build0042/o2on/admin/menu.html
+tags/build0042/o2on/admin/node.xsl
+tags/build0042/o2on/admin/notification.xsl
+tags/build0042/o2on/admin/o2on.js
+tags/build0042/o2on/admin/profile.xsl
+tags/build0042/o2on/admin/query.xsl
+tags/build0042/o2on/admin/report.xsl
+tags/build0042/o2on/admin/saku.xsl
+tags/build0042/o2on/admin/sql.xsl
+tags/build0042/o2on/admin/style.css
+tags/build0042/o2on/admin/thread.xsl
+tags/build0042/o2on/admin/work.html
+tags/build0042/o2on/admin/xml
+tags/build0042/o2on/doc/build.txt
+tags/build0042/o2on/doc/history.txt
+tags/build0042/o2on/doc/license.txt
+tags/build0042/o2on/doc/readme.txt
+tags/build0042/o2on/o2on.sln
+tags/build0042/o2on/resource/a.ico
+tags/build0042/o2on/resource/a_in.ico
+tags/build0042/o2on/resource/a_inout.ico
+tags/build0042/o2on/resource/a_out.ico
+tags/build0042/o2on/resource/b.ico
+tags/build0042/o2on/resource/b_in.ico
+tags/build0042/o2on/resource/b_inout.ico
+tags/build0042/o2on/resource/b_out.ico
+tags/build0042/o2on/resource/disable.ico
+tags/build0042/o2on/resource/err.ico
+tags/build0042/o2on/resource/o2on.ico
+tags/build0042/o2on/src.browser/browser.manifest
+tags/build0042/o2on/src.browser/browser.rc
+tags/build0042/o2on/src.browser/browser.vcproj
+tags/build0042/o2on/src.browser/main.cpp
+tags/build0042/o2on/src.browser/resource.h
+tags/build0042/o2on/src.o2on/KademliaKBucket.h
+tags/build0042/o2on/src.o2on/KademliaNode.h
+tags/build0042/o2on/src.o2on/KademliaRoutingTable.h
+tags/build0042/o2on/src.o2on/O2Agent.cpp
+tags/build0042/o2on/src.o2on/O2Agent.h
+tags/build0042/o2on/src.o2on/O2Boards.cpp
+tags/build0042/o2on/src.o2on/O2Boards.h
+tags/build0042/o2on/src.o2on/O2Client.cpp
+tags/build0042/o2on/src.o2on/O2Client.h
+tags/build0042/o2on/src.o2on/O2Client_HTTP.h
+tags/build0042/o2on/src.o2on/O2DatDB.cpp
+tags/build0042/o2on/src.o2on/O2DatDB.h
+tags/build0042/o2on/src.o2on/O2DatIO.cpp
+tags/build0042/o2on/src.o2on/O2DatIO.h
+tags/build0042/o2on/src.o2on/O2DatIndex.h
+tags/build0042/o2on/src.o2on/O2DatPath.h
+tags/build0042/o2on/src.o2on/O2Define.h
+tags/build0042/o2on/src.o2on/O2FriendDB.h
+tags/build0042/o2on/src.o2on/O2IMDB.cpp
+tags/build0042/o2on/src.o2on/O2IMDB.h
+tags/build0042/o2on/src.o2on/O2IPFilter.cpp
+tags/build0042/o2on/src.o2on/O2IPFilter.h
+tags/build0042/o2on/src.o2on/O2Job.h
+tags/build0042/o2on/src.o2on/O2JobSchedule.h
+tags/build0042/o2on/src.o2on/O2Job_AskCollection.h
+tags/build0042/o2on/src.o2on/O2Job_AutoSave.h
+tags/build0042/o2on/src.o2on/O2Job_Broadcast.h
+tags/build0042/o2on/src.o2on/O2Job_ClearWorkset.h
+tags/build0042/o2on/src.o2on/O2Job_DatCollector.h
+tags/build0042/o2on/src.o2on/O2Job_GetGlobalIP.h
+tags/build0042/o2on/src.o2on/O2Job_GetGlobalIP2.h
+tags/build0042/o2on/src.o2on/O2Job_NodeCollector.h
+tags/build0042/o2on/src.o2on/O2Job_PublishKeys.h
+tags/build0042/o2on/src.o2on/O2Job_PublishOriginal.h
+tags/build0042/o2on/src.o2on/O2Job_QueryDat.h
+tags/build0042/o2on/src.o2on/O2Job_Search.h
+tags/build0042/o2on/src.o2on/O2Job_SearchFriends.h
+tags/build0042/o2on/src.o2on/O2Key.h
+tags/build0042/o2on/src.o2on/O2KeyDB.cpp
+tags/build0042/o2on/src.o2on/O2KeyDB.h
+tags/build0042/o2on/src.o2on/O2LagQueryQueue.h
+tags/build0042/o2on/src.o2on/O2Logger.cpp
+tags/build0042/o2on/src.o2on/O2Logger.h
+tags/build0042/o2on/src.o2on/O2Node.h
+tags/build0042/o2on/src.o2on/O2NodeDB.cpp
+tags/build0042/o2on/src.o2on/O2NodeDB.h
+tags/build0042/o2on/src.o2on/O2NodeKBucket.h
+tags/build0042/o2on/src.o2on/O2PerformanceCounter.h
+tags/build0042/o2on/src.o2on/O2Profile.cpp
+tags/build0042/o2on/src.o2on/O2Profile.h
+tags/build0042/o2on/src.o2on/O2ProgressInfo.h
+tags/build0042/o2on/src.o2on/O2Protocol.h
+tags/build0042/o2on/src.o2on/O2Protocol_Dat.h
+tags/build0042/o2on/src.o2on/O2Protocol_Kademlia.h
+tags/build0042/o2on/src.o2on/O2ReportMaker.cpp
+tags/build0042/o2on/src.o2on/O2ReportMaker.h
+tags/build0042/o2on/src.o2on/O2SAX2Parser.cpp
+tags/build0042/o2on/src.o2on/O2SAX2Parser.h
+tags/build0042/o2on/src.o2on/O2Scheduler.h
+tags/build0042/o2on/src.o2on/O2Server.cpp
+tags/build0042/o2on/src.o2on/O2Server.h
+tags/build0042/o2on/src.o2on/O2Server_HTTP.h
+tags/build0042/o2on/src.o2on/O2Server_HTTP_Admin.h
+tags/build0042/o2on/src.o2on/O2Server_HTTP_P2P.h
+tags/build0042/o2on/src.o2on/O2Server_HTTP_Proxy.h
+tags/build0042/o2on/src.o2on/O2SocketSession.h
+tags/build0042/o2on/src.o2on/O2Version.h
+tags/build0042/o2on/src.o2on/barray.h
+tags/build0042/o2on/src.o2on/dataconv.cpp
+tags/build0042/o2on/src.o2on/dataconv.h
+tags/build0042/o2on/src.o2on/debug.h
+tags/build0042/o2on/src.o2on/event.h
+tags/build0042/o2on/src.o2on/file.cpp
+tags/build0042/o2on/src.o2on/file.h
+tags/build0042/o2on/src.o2on/headertest.cpp
+tags/build0042/o2on/src.o2on/httpheader.cpp
+tags/build0042/o2on/src.o2on/httpheader.h
+tags/build0042/o2on/src.o2on/main.cpp
+tags/build0042/o2on/src.o2on/mutex.h
+tags/build0042/o2on/src.o2on/o2on.manifest
+tags/build0042/o2on/src.o2on/o2on.vcproj
+tags/build0042/o2on/src.o2on/resource.h
+tags/build0042/o2on/src.o2on/resource.rc
+tags/build0042/o2on/src.o2on/rsa.h
+tags/build0042/o2on/src.o2on/sha.h
+tags/build0042/o2on/src.o2on/simplehttpsocket.h
+tags/build0042/o2on/src.o2on/simplessdpsocket.h
+tags/build0042/o2on/src.o2on/simpletcpsocket.h
+tags/build0042/o2on/src.o2on/simpleudpsocket.h
+tags/build0042/o2on/src.o2on/stopwatch.h
+tags/build0042/o2on/src.o2on/thread.h
+tags/build0042/o2on/src.o2on/typedef.h
+tags/build0042/o2on/src.o2on/upnp.h
+tags/build0042/o2on/src.o2on/upnp_description.h
+tags/build0042/o2on/src.o2on/zlib.h
+tags/build0043/o2on/admin/bbsmenu.xsl
+tags/build0043/o2on/admin/dat.xsl
+tags/build0043/o2on/admin/friend.xsl
+tags/build0043/o2on/admin/im.xsl
+tags/build0043/o2on/admin/images/loading.gif
+tags/build0043/o2on/admin/images/mypc.png
+tags/build0043/o2on/admin/images/o2on.png
+tags/build0043/o2on/admin/images/toolbg.png
+tags/build0043/o2on/admin/imbroadcast.xsl
+tags/build0043/o2on/admin/index.html
+tags/build0043/o2on/admin/ipf.xsl
+tags/build0043/o2on/admin/jkl-parsexml.js
+tags/build0043/o2on/admin/key.xsl
+tags/build0043/o2on/admin/log.xsl
+tags/build0043/o2on/admin/main.html
+tags/build0043/o2on/admin/menu.html
+tags/build0043/o2on/admin/node.xsl
+tags/build0043/o2on/admin/notification.xsl
+tags/build0043/o2on/admin/o2on.js
+tags/build0043/o2on/admin/profile.xsl
+tags/build0043/o2on/admin/query.xsl
+tags/build0043/o2on/admin/report.xsl
+tags/build0043/o2on/admin/saku.xsl
+tags/build0043/o2on/admin/sql.xsl
+tags/build0043/o2on/admin/style.css
+tags/build0043/o2on/admin/thread.xsl
+tags/build0043/o2on/admin/work.html
+tags/build0043/o2on/admin/xml
+tags/build0043/o2on/doc/build.txt
+tags/build0043/o2on/doc/history.txt
+tags/build0043/o2on/doc/license.txt
+tags/build0043/o2on/doc/readme.txt
+tags/build0043/o2on/o2on.sln
+tags/build0043/o2on/resource/a.ico
+tags/build0043/o2on/resource/a_in.ico
+tags/build0043/o2on/resource/a_inout.ico
+tags/build0043/o2on/resource/a_out.ico
+tags/build0043/o2on/resource/b.ico
+tags/build0043/o2on/resource/b_in.ico
+tags/build0043/o2on/resource/b_inout.ico
+tags/build0043/o2on/resource/b_out.ico
+tags/build0043/o2on/resource/disable.ico
+tags/build0043/o2on/resource/err.ico
+tags/build0043/o2on/resource/o2on.ico
+tags/build0043/o2on/src.browser/browser.manifest
+tags/build0043/o2on/src.browser/browser.rc
+tags/build0043/o2on/src.browser/browser.vcproj
+tags/build0043/o2on/src.browser/main.cpp
+tags/build0043/o2on/src.browser/resource.h
+tags/build0043/o2on/src.o2on/KademliaKBucket.h
+tags/build0043/o2on/src.o2on/KademliaNode.h
+tags/build0043/o2on/src.o2on/KademliaRoutingTable.h
+tags/build0043/o2on/src.o2on/O2Agent.cpp
+tags/build0043/o2on/src.o2on/O2Agent.h
+tags/build0043/o2on/src.o2on/O2Boards.cpp
+tags/build0043/o2on/src.o2on/O2Boards.h
+tags/build0043/o2on/src.o2on/O2Client.cpp
+tags/build0043/o2on/src.o2on/O2Client.h
+tags/build0043/o2on/src.o2on/O2Client_HTTP.h
+tags/build0043/o2on/src.o2on/O2DatDB.cpp
+tags/build0043/o2on/src.o2on/O2DatDB.h
+tags/build0043/o2on/src.o2on/O2DatIO.cpp
+tags/build0043/o2on/src.o2on/O2DatIO.h
+tags/build0043/o2on/src.o2on/O2DatIndex.h
+tags/build0043/o2on/src.o2on/O2DatPath.h
+tags/build0043/o2on/src.o2on/O2Define.h
+tags/build0043/o2on/src.o2on/O2FriendDB.h
+tags/build0043/o2on/src.o2on/O2IMDB.cpp
+tags/build0043/o2on/src.o2on/O2IMDB.h
+tags/build0043/o2on/src.o2on/O2IPFilter.cpp
+tags/build0043/o2on/src.o2on/O2IPFilter.h
+tags/build0043/o2on/src.o2on/O2Job.h
+tags/build0043/o2on/src.o2on/O2JobSchedule.h
+tags/build0043/o2on/src.o2on/O2Job_AskCollection.h
+tags/build0043/o2on/src.o2on/O2Job_AutoSave.h
+tags/build0043/o2on/src.o2on/O2Job_Broadcast.h
+tags/build0043/o2on/src.o2on/O2Job_ClearWorkset.h
+tags/build0043/o2on/src.o2on/O2Job_DatCollector.h
+tags/build0043/o2on/src.o2on/O2Job_GetGlobalIP.h
+tags/build0043/o2on/src.o2on/O2Job_GetGlobalIP2.h
+tags/build0043/o2on/src.o2on/O2Job_NodeCollector.h
+tags/build0043/o2on/src.o2on/O2Job_PublishKeys.h
+tags/build0043/o2on/src.o2on/O2Job_PublishOriginal.h
+tags/build0043/o2on/src.o2on/O2Job_QueryDat.h
+tags/build0043/o2on/src.o2on/O2Job_Search.h
+tags/build0043/o2on/src.o2on/O2Job_SearchFriends.h
+tags/build0043/o2on/src.o2on/O2Key.h
+tags/build0043/o2on/src.o2on/O2KeyDB.cpp
+tags/build0043/o2on/src.o2on/O2KeyDB.h
+tags/build0043/o2on/src.o2on/O2LagQueryQueue.h
+tags/build0043/o2on/src.o2on/O2Logger.cpp
+tags/build0043/o2on/src.o2on/O2Logger.h
+tags/build0043/o2on/src.o2on/O2Node.h
+tags/build0043/o2on/src.o2on/O2NodeDB.cpp
+tags/build0043/o2on/src.o2on/O2NodeDB.h
+tags/build0043/o2on/src.o2on/O2NodeKBucket.h
+tags/build0043/o2on/src.o2on/O2PerformanceCounter.h
+tags/build0043/o2on/src.o2on/O2Profile.cpp
+tags/build0043/o2on/src.o2on/O2Profile.h
+tags/build0043/o2on/src.o2on/O2ProgressInfo.h
+tags/build0043/o2on/src.o2on/O2Protocol.h
+tags/build0043/o2on/src.o2on/O2Protocol_Dat.h
+tags/build0043/o2on/src.o2on/O2Protocol_Kademlia.h
+tags/build0043/o2on/src.o2on/O2ReportMaker.cpp
+tags/build0043/o2on/src.o2on/O2ReportMaker.h
+tags/build0043/o2on/src.o2on/O2SAX2Parser.cpp
+tags/build0043/o2on/src.o2on/O2SAX2Parser.h
+tags/build0043/o2on/src.o2on/O2Scheduler.h
+tags/build0043/o2on/src.o2on/O2Server.cpp
+tags/build0043/o2on/src.o2on/O2Server.h
+tags/build0043/o2on/src.o2on/O2Server_HTTP.h
+tags/build0043/o2on/src.o2on/O2Server_HTTP_Admin.h
+tags/build0043/o2on/src.o2on/O2Server_HTTP_P2P.h
+tags/build0043/o2on/src.o2on/O2Server_HTTP_Proxy.h
+tags/build0043/o2on/src.o2on/O2SocketSession.h
+tags/build0043/o2on/src.o2on/O2Version.h
+tags/build0043/o2on/src.o2on/barray.h
+tags/build0043/o2on/src.o2on/dataconv.cpp
+tags/build0043/o2on/src.o2on/dataconv.h
+tags/build0043/o2on/src.o2on/debug.h
+tags/build0043/o2on/src.o2on/event.h
+tags/build0043/o2on/src.o2on/file.cpp
+tags/build0043/o2on/src.o2on/file.h
+tags/build0043/o2on/src.o2on/headertest.cpp
+tags/build0043/o2on/src.o2on/httpheader.cpp
+tags/build0043/o2on/src.o2on/httpheader.h
+tags/build0043/o2on/src.o2on/main.cpp
+tags/build0043/o2on/src.o2on/mutex.h
+tags/build0043/o2on/src.o2on/o2on.manifest
+tags/build0043/o2on/src.o2on/o2on.vcproj
+tags/build0043/o2on/src.o2on/resource.h
+tags/build0043/o2on/src.o2on/resource.rc
+tags/build0043/o2on/src.o2on/rsa.h
+tags/build0043/o2on/src.o2on/sha.h
+tags/build0043/o2on/src.o2on/simplehttpsocket.h
+tags/build0043/o2on/src.o2on/simplessdpsocket.h
+tags/build0043/o2on/src.o2on/simpletcpsocket.h
+tags/build0043/o2on/src.o2on/simpleudpsocket.h
+tags/build0043/o2on/src.o2on/stopwatch.h
+tags/build0043/o2on/src.o2on/thread.h
+tags/build0043/o2on/src.o2on/typedef.h
+tags/build0043/o2on/src.o2on/upnp.h
+tags/build0043/o2on/src.o2on/upnp_description.h
+tags/build0043/o2on/src.o2on/zlib.h
+tags/build0044/o2on/admin/bbsmenu.xsl
+tags/build0044/o2on/admin/dat.xsl
+tags/build0044/o2on/admin/friend.xsl
+tags/build0044/o2on/admin/im.xsl
+tags/build0044/o2on/admin/images/loading.gif
+tags/build0044/o2on/admin/images/mypc.png
+tags/build0044/o2on/admin/images/o2on.png
+tags/build0044/o2on/admin/images/toolbg.png
+tags/build0044/o2on/admin/imbroadcast.xsl
+tags/build0044/o2on/admin/index.html
+tags/build0044/o2on/admin/ipf.xsl
+tags/build0044/o2on/admin/jkl-parsexml.js
+tags/build0044/o2on/admin/key.xsl
+tags/build0044/o2on/admin/log.xsl
+tags/build0044/o2on/admin/main.html
+tags/build0044/o2on/admin/menu.html
+tags/build0044/o2on/admin/node.xsl
+tags/build0044/o2on/admin/notification.xsl
+tags/build0044/o2on/admin/o2on.js
+tags/build0044/o2on/admin/profile.xsl
+tags/build0044/o2on/admin/query.xsl
+tags/build0044/o2on/admin/report.xsl
+tags/build0044/o2on/admin/saku.xsl
+tags/build0044/o2on/admin/sql.xsl
+tags/build0044/o2on/admin/style.css
+tags/build0044/o2on/admin/thread.xsl
+tags/build0044/o2on/admin/work.html
+tags/build0044/o2on/admin/xml
+tags/build0044/o2on/doc/build.txt
+tags/build0044/o2on/doc/history.txt
+tags/build0044/o2on/doc/license.txt
+tags/build0044/o2on/doc/readme.txt
+tags/build0044/o2on/o2on.sln
+tags/build0044/o2on/resource/a.ico
+tags/build0044/o2on/resource/a_in.ico
+tags/build0044/o2on/resource/a_inout.ico
+tags/build0044/o2on/resource/a_out.ico
+tags/build0044/o2on/resource/b.ico
+tags/build0044/o2on/resource/b_in.ico
+tags/build0044/o2on/resource/b_inout.ico
+tags/build0044/o2on/resource/b_out.ico
+tags/build0044/o2on/resource/disable.ico
+tags/build0044/o2on/resource/err.ico
+tags/build0044/o2on/resource/o2on.ico
+tags/build0044/o2on/src.browser/browser.manifest
+tags/build0044/o2on/src.browser/browser.rc
+tags/build0044/o2on/src.browser/browser.vcproj
+tags/build0044/o2on/src.browser/main.cpp
+tags/build0044/o2on/src.browser/resource.h
+tags/build0044/o2on/src.o2on/KademliaKBucket.h
+tags/build0044/o2on/src.o2on/KademliaNode.h
+tags/build0044/o2on/src.o2on/KademliaRoutingTable.h
+tags/build0044/o2on/src.o2on/O2Agent.cpp
+tags/build0044/o2on/src.o2on/O2Agent.h
+tags/build0044/o2on/src.o2on/O2Boards.cpp
+tags/build0044/o2on/src.o2on/O2Boards.h
+tags/build0044/o2on/src.o2on/O2Client.cpp
+tags/build0044/o2on/src.o2on/O2Client.h
+tags/build0044/o2on/src.o2on/O2Client_HTTP.h
+tags/build0044/o2on/src.o2on/O2DatDB.cpp
+tags/build0044/o2on/src.o2on/O2DatDB.h
+tags/build0044/o2on/src.o2on/O2DatIO.cpp
+tags/build0044/o2on/src.o2on/O2DatIO.h
+tags/build0044/o2on/src.o2on/O2DatIndex.h
+tags/build0044/o2on/src.o2on/O2DatPath.h
+tags/build0044/o2on/src.o2on/O2Define.h
+tags/build0044/o2on/src.o2on/O2FriendDB.h
+tags/build0044/o2on/src.o2on/O2IMDB.cpp
+tags/build0044/o2on/src.o2on/O2IMDB.h
+tags/build0044/o2on/src.o2on/O2IPFilter.cpp
+tags/build0044/o2on/src.o2on/O2IPFilter.h
+tags/build0044/o2on/src.o2on/O2Job.h
+tags/build0044/o2on/src.o2on/O2JobSchedule.h
+tags/build0044/o2on/src.o2on/O2Job_AskCollection.h
+tags/build0044/o2on/src.o2on/O2Job_AutoSave.h
+tags/build0044/o2on/src.o2on/O2Job_Broadcast.h
+tags/build0044/o2on/src.o2on/O2Job_ClearWorkset.h
+tags/build0044/o2on/src.o2on/O2Job_DatCollector.h
+tags/build0044/o2on/src.o2on/O2Job_GetGlobalIP.h
+tags/build0044/o2on/src.o2on/O2Job_GetGlobalIP2.h
+tags/build0044/o2on/src.o2on/O2Job_NodeCollector.h
+tags/build0044/o2on/src.o2on/O2Job_PublishKeys.h
+tags/build0044/o2on/src.o2on/O2Job_PublishOriginal.h
+tags/build0044/o2on/src.o2on/O2Job_QueryDat.h
+tags/build0044/o2on/src.o2on/O2Job_Search.h
+tags/build0044/o2on/src.o2on/O2Job_SearchFriends.h
+tags/build0044/o2on/src.o2on/O2Key.h
+tags/build0044/o2on/src.o2on/O2KeyDB.cpp
+tags/build0044/o2on/src.o2on/O2KeyDB.h
+tags/build0044/o2on/src.o2on/O2LagQueryQueue.h
+tags/build0044/o2on/src.o2on/O2Logger.cpp
+tags/build0044/o2on/src.o2on/O2Logger.h
+tags/build0044/o2on/src.o2on/O2Node.h
+tags/build0044/o2on/src.o2on/O2NodeDB.cpp
+tags/build0044/o2on/src.o2on/O2NodeDB.h
+tags/build0044/o2on/src.o2on/O2NodeKBucket.h
+tags/build0044/o2on/src.o2on/O2PerformanceCounter.h
+tags/build0044/o2on/src.o2on/O2Profile.cpp
+tags/build0044/o2on/src.o2on/O2Profile.h
+tags/build0044/o2on/src.o2on/O2ProgressInfo.h
+tags/build0044/o2on/src.o2on/O2Protocol.h
+tags/build0044/o2on/src.o2on/O2Protocol_Dat.h
+tags/build0044/o2on/src.o2on/O2Protocol_Kademlia.h
+tags/build0044/o2on/src.o2on/O2ReportMaker.cpp
+tags/build0044/o2on/src.o2on/O2ReportMaker.h
+tags/build0044/o2on/src.o2on/O2SAX2Parser.cpp
+tags/build0044/o2on/src.o2on/O2SAX2Parser.h
+tags/build0044/o2on/src.o2on/O2Scheduler.h
+tags/build0044/o2on/src.o2on/O2Server.cpp
+tags/build0044/o2on/src.o2on/O2Server.h
+tags/build0044/o2on/src.o2on/O2Server_HTTP.h
+tags/build0044/o2on/src.o2on/O2Server_HTTP_Admin.h
+tags/build0044/o2on/src.o2on/O2Server_HTTP_P2P.h
+tags/build0044/o2on/src.o2on/O2Server_HTTP_Proxy.h
+tags/build0044/o2on/src.o2on/O2SocketSession.h
+tags/build0044/o2on/src.o2on/O2Version.h
+tags/build0044/o2on/src.o2on/barray.h
+tags/build0044/o2on/src.o2on/dataconv.cpp
+tags/build0044/o2on/src.o2on/dataconv.h
+tags/build0044/o2on/src.o2on/debug.h
+tags/build0044/o2on/src.o2on/event.h
+tags/build0044/o2on/src.o2on/file.cpp
+tags/build0044/o2on/src.o2on/file.h
+tags/build0044/o2on/src.o2on/headertest.cpp
+tags/build0044/o2on/src.o2on/httpheader.cpp
+tags/build0044/o2on/src.o2on/httpheader.h
+tags/build0044/o2on/src.o2on/main.cpp
+tags/build0044/o2on/src.o2on/mutex.h
+tags/build0044/o2on/src.o2on/o2on.manifest
+tags/build0044/o2on/src.o2on/o2on.vcproj
+tags/build0044/o2on/src.o2on/resource.h
+tags/build0044/o2on/src.o2on/resource.rc
+tags/build0044/o2on/src.o2on/rsa.h
+tags/build0044/o2on/src.o2on/sha.h
+tags/build0044/o2on/src.o2on/simplehttpsocket.h
+tags/build0044/o2on/src.o2on/simplessdpsocket.h
+tags/build0044/o2on/src.o2on/simpletcpsocket.h
+tags/build0044/o2on/src.o2on/simpleudpsocket.h
+tags/build0044/o2on/src.o2on/stopwatch.h
+tags/build0044/o2on/src.o2on/thread.h
+tags/build0044/o2on/src.o2on/typedef.h
+tags/build0044/o2on/src.o2on/upnp.h
+tags/build0044/o2on/src.o2on/upnp_description.h
+tags/build0044/o2on/src.o2on/zlib.h
+tags/build0045/o2on/admin/bbsmenu.xsl
+tags/build0045/o2on/admin/dat.xsl
+tags/build0045/o2on/admin/friend.xsl
+tags/build0045/o2on/admin/im.xsl
+tags/build0045/o2on/admin/images/loading.gif
+tags/build0045/o2on/admin/images/mypc.png
+tags/build0045/o2on/admin/images/o2on.png
+tags/build0045/o2on/admin/images/toolbg.png
+tags/build0045/o2on/admin/imbroadcast.xsl
+tags/build0045/o2on/admin/index.html
+tags/build0045/o2on/admin/ipf.xsl
+tags/build0045/o2on/admin/jkl-parsexml.js
+tags/build0045/o2on/admin/key.xsl
+tags/build0045/o2on/admin/log.xsl
+tags/build0045/o2on/admin/main.html
+tags/build0045/o2on/admin/menu.html
+tags/build0045/o2on/admin/node.xsl
+tags/build0045/o2on/admin/notification.xsl
+tags/build0045/o2on/admin/o2on.js
+tags/build0045/o2on/admin/profile.xsl
+tags/build0045/o2on/admin/query.xsl
+tags/build0045/o2on/admin/report.xsl
+tags/build0045/o2on/admin/saku.xsl
+tags/build0045/o2on/admin/sql.xsl
+tags/build0045/o2on/admin/style.css
+tags/build0045/o2on/admin/thread.xsl
+tags/build0045/o2on/admin/work.html
+tags/build0045/o2on/admin/xml
+tags/build0045/o2on/doc/build.txt
+tags/build0045/o2on/doc/history.txt
+tags/build0045/o2on/doc/license.txt
+tags/build0045/o2on/doc/readme.txt
+tags/build0045/o2on/o2on.sln
+tags/build0045/o2on/resource/a.ico
+tags/build0045/o2on/resource/a_in.ico
+tags/build0045/o2on/resource/a_inout.ico
+tags/build0045/o2on/resource/a_out.ico
+tags/build0045/o2on/resource/b.ico
+tags/build0045/o2on/resource/b_in.ico
+tags/build0045/o2on/resource/b_inout.ico
+tags/build0045/o2on/resource/b_out.ico
+tags/build0045/o2on/resource/disable.ico
+tags/build0045/o2on/resource/err.ico
+tags/build0045/o2on/resource/o2on.ico
+tags/build0045/o2on/src.browser/browser.manifest
+tags/build0045/o2on/src.browser/browser.rc
+tags/build0045/o2on/src.browser/browser.vcproj
+tags/build0045/o2on/src.browser/main.cpp
+tags/build0045/o2on/src.browser/resource.h
+tags/build0045/o2on/src.o2on/KademliaKBucket.h
+tags/build0045/o2on/src.o2on/KademliaNode.h
+tags/build0045/o2on/src.o2on/KademliaRoutingTable.h
+tags/build0045/o2on/src.o2on/O2Agent.cpp
+tags/build0045/o2on/src.o2on/O2Agent.h
+tags/build0045/o2on/src.o2on/O2Boards.cpp
+tags/build0045/o2on/src.o2on/O2Boards.h
+tags/build0045/o2on/src.o2on/O2Client.cpp
+tags/build0045/o2on/src.o2on/O2Client.h
+tags/build0045/o2on/src.o2on/O2Client_HTTP.h
+tags/build0045/o2on/src.o2on/O2DatDB.cpp
+tags/build0045/o2on/src.o2on/O2DatDB.h
+tags/build0045/o2on/src.o2on/O2DatIO.cpp
+tags/build0045/o2on/src.o2on/O2DatIO.h
+tags/build0045/o2on/src.o2on/O2DatIndex.h
+tags/build0045/o2on/src.o2on/O2DatPath.h
+tags/build0045/o2on/src.o2on/O2Define.h
+tags/build0045/o2on/src.o2on/O2FriendDB.h
+tags/build0045/o2on/src.o2on/O2IMDB.cpp
+tags/build0045/o2on/src.o2on/O2IMDB.h
+tags/build0045/o2on/src.o2on/O2IPFilter.cpp
+tags/build0045/o2on/src.o2on/O2IPFilter.h
+tags/build0045/o2on/src.o2on/O2Job.h
+tags/build0045/o2on/src.o2on/O2JobSchedule.h
+tags/build0045/o2on/src.o2on/O2Job_AskCollection.h
+tags/build0045/o2on/src.o2on/O2Job_AutoSave.h
+tags/build0045/o2on/src.o2on/O2Job_Broadcast.h
+tags/build0045/o2on/src.o2on/O2Job_ClearWorkset.h
+tags/build0045/o2on/src.o2on/O2Job_DatCollector.h
+tags/build0045/o2on/src.o2on/O2Job_GetGlobalIP.h
+tags/build0045/o2on/src.o2on/O2Job_GetGlobalIP2.h
+tags/build0045/o2on/src.o2on/O2Job_NodeCollector.h
+tags/build0045/o2on/src.o2on/O2Job_PublishKeys.h
+tags/build0045/o2on/src.o2on/O2Job_PublishOriginal.h
+tags/build0045/o2on/src.o2on/O2Job_QueryDat.h
+tags/build0045/o2on/src.o2on/O2Job_Search.h
+tags/build0045/o2on/src.o2on/O2Job_SearchFriends.h
+tags/build0045/o2on/src.o2on/O2Key.h
+tags/build0045/o2on/src.o2on/O2KeyDB.cpp
+tags/build0045/o2on/src.o2on/O2KeyDB.h
+tags/build0045/o2on/src.o2on/O2LagQueryQueue.h
+tags/build0045/o2on/src.o2on/O2Logger.cpp
+tags/build0045/o2on/src.o2on/O2Logger.h
+tags/build0045/o2on/src.o2on/O2Node.h
+tags/build0045/o2on/src.o2on/O2NodeDB.cpp
+tags/build0045/o2on/src.o2on/O2NodeDB.h
+tags/build0045/o2on/src.o2on/O2NodeKBucket.h
+tags/build0045/o2on/src.o2on/O2PerformanceCounter.h
+tags/build0045/o2on/src.o2on/O2Profile.cpp
+tags/build0045/o2on/src.o2on/O2Profile.h
+tags/build0045/o2on/src.o2on/O2ProgressInfo.h
+tags/build0045/o2on/src.o2on/O2Protocol.h
+tags/build0045/o2on/src.o2on/O2Protocol_Dat.h
+tags/build0045/o2on/src.o2on/O2Protocol_Kademlia.h
+tags/build0045/o2on/src.o2on/O2ReportMaker.cpp
+tags/build0045/o2on/src.o2on/O2ReportMaker.h
+tags/build0045/o2on/src.o2on/O2SAX2Parser.cpp
+tags/build0045/o2on/src.o2on/O2SAX2Parser.h
+tags/build0045/o2on/src.o2on/O2Scheduler.h
+tags/build0045/o2on/src.o2on/O2Server.cpp
+tags/build0045/o2on/src.o2on/O2Server.h
+tags/build0045/o2on/src.o2on/O2Server_HTTP.h
+tags/build0045/o2on/src.o2on/O2Server_HTTP_Admin.h
+tags/build0045/o2on/src.o2on/O2Server_HTTP_P2P.h
+tags/build0045/o2on/src.o2on/O2Server_HTTP_Proxy.h
+tags/build0045/o2on/src.o2on/O2SocketSession.h
+tags/build0045/o2on/src.o2on/O2Version.h
+tags/build0045/o2on/src.o2on/barray.h
+tags/build0045/o2on/src.o2on/dataconv.cpp
+tags/build0045/o2on/src.o2on/dataconv.h
+tags/build0045/o2on/src.o2on/debug.h
+tags/build0045/o2on/src.o2on/event.h
+tags/build0045/o2on/src.o2on/file.cpp
+tags/build0045/o2on/src.o2on/file.h
+tags/build0045/o2on/src.o2on/headertest.cpp
+tags/build0045/o2on/src.o2on/httpheader.cpp
+tags/build0045/o2on/src.o2on/httpheader.h
+tags/build0045/o2on/src.o2on/main.cpp
+tags/build0045/o2on/src.o2on/mutex.h
+tags/build0045/o2on/src.o2on/o2on.manifest
+tags/build0045/o2on/src.o2on/o2on.vcproj
+tags/build0045/o2on/src.o2on/resource.h
+tags/build0045/o2on/src.o2on/resource.rc
+tags/build0045/o2on/src.o2on/rsa.h
+tags/build0045/o2on/src.o2on/sha.h
+tags/build0045/o2on/src.o2on/simplehttpsocket.h
+tags/build0045/o2on/src.o2on/simplessdpsocket.h
+tags/build0045/o2on/src.o2on/simpletcpsocket.h
+tags/build0045/o2on/src.o2on/simpleudpsocket.h
+tags/build0045/o2on/src.o2on/stopwatch.h
+tags/build0045/o2on/src.o2on/thread.h
+tags/build0045/o2on/src.o2on/typedef.h
+tags/build0045/o2on/src.o2on/upnp.h
+tags/build0045/o2on/src.o2on/upnp_description.h
+tags/build0045/o2on/src.o2on/zlib.h
+tags/trunk.080726/o2on/admin/bbsmenu.xsl
+tags/trunk.080726/o2on/admin/dat.xsl
+tags/trunk.080726/o2on/admin/friend.xsl
+tags/trunk.080726/o2on/admin/im.xsl
+tags/trunk.080726/o2on/admin/images/loading.gif
+tags/trunk.080726/o2on/admin/images/mypc.png
+tags/trunk.080726/o2on/admin/images/o2on.png
+tags/trunk.080726/o2on/admin/images/toolbg.png
+tags/trunk.080726/o2on/admin/imbroadcast.xsl
+tags/trunk.080726/o2on/admin/index.html
+tags/trunk.080726/o2on/admin/ipf.xsl
+tags/trunk.080726/o2on/admin/jkl-parsexml.js
+tags/trunk.080726/o2on/admin/key.xsl
+tags/trunk.080726/o2on/admin/log.xsl
+tags/trunk.080726/o2on/admin/main.html
+tags/trunk.080726/o2on/admin/menu.html
+tags/trunk.080726/o2on/admin/node.xsl
+tags/trunk.080726/o2on/admin/notification.xsl
+tags/trunk.080726/o2on/admin/o2on.js
+tags/trunk.080726/o2on/admin/profile.xsl
+tags/trunk.080726/o2on/admin/query.xsl
+tags/trunk.080726/o2on/admin/report.xsl
+tags/trunk.080726/o2on/admin/saku.xsl
+tags/trunk.080726/o2on/admin/sql.xsl
+tags/trunk.080726/o2on/admin/style.css
+tags/trunk.080726/o2on/admin/thread.xsl
+tags/trunk.080726/o2on/admin/work.html
+tags/trunk.080726/o2on/admin/xml
+tags/trunk.080726/o2on/doc/build.txt
+tags/trunk.080726/o2on/doc/history.txt
+tags/trunk.080726/o2on/doc/license.txt
+tags/trunk.080726/o2on/doc/readme.txt
+tags/trunk.080726/o2on/o2on.sln
+tags/trunk.080726/o2on/resource/a.ico
+tags/trunk.080726/o2on/resource/a_in.ico
+tags/trunk.080726/o2on/resource/a_inout.ico
+tags/trunk.080726/o2on/resource/a_out.ico
+tags/trunk.080726/o2on/resource/b.ico
+tags/trunk.080726/o2on/resource/b_in.ico
+tags/trunk.080726/o2on/resource/b_inout.ico
+tags/trunk.080726/o2on/resource/b_out.ico
+tags/trunk.080726/o2on/resource/disable.ico
+tags/trunk.080726/o2on/resource/err.ico
+tags/trunk.080726/o2on/resource/o2on.ico
+tags/trunk.080726/o2on/src.browser/browser.manifest
+tags/trunk.080726/o2on/src.browser/browser.rc
+tags/trunk.080726/o2on/src.browser/browser.vcproj
+tags/trunk.080726/o2on/src.browser/main.cpp
+tags/trunk.080726/o2on/src.browser/resource.h
+tags/trunk.080726/o2on/src.o2on/KademliaKBucket.h
+tags/trunk.080726/o2on/src.o2on/KademliaNode.h
+tags/trunk.080726/o2on/src.o2on/KademliaRoutingTable.h
+tags/trunk.080726/o2on/src.o2on/O2Agent.cpp
+tags/trunk.080726/o2on/src.o2on/O2Agent.h
+tags/trunk.080726/o2on/src.o2on/O2Boards.cpp
+tags/trunk.080726/o2on/src.o2on/O2Boards.h
+tags/trunk.080726/o2on/src.o2on/O2Client.cpp
+tags/trunk.080726/o2on/src.o2on/O2Client.h
+tags/trunk.080726/o2on/src.o2on/O2Client_HTTP.h
+tags/trunk.080726/o2on/src.o2on/O2DatDB.cpp
+tags/trunk.080726/o2on/src.o2on/O2DatDB.h
+tags/trunk.080726/o2on/src.o2on/O2DatIO.cpp
+tags/trunk.080726/o2on/src.o2on/O2DatIO.h
+tags/trunk.080726/o2on/src.o2on/O2DatIndex.h
+tags/trunk.080726/o2on/src.o2on/O2DatPath.h
+tags/trunk.080726/o2on/src.o2on/O2Define.h
+tags/trunk.080726/o2on/src.o2on/O2FriendDB.h
+tags/trunk.080726/o2on/src.o2on/O2IMDB.cpp
+tags/trunk.080726/o2on/src.o2on/O2IMDB.h
+tags/trunk.080726/o2on/src.o2on/O2IPFilter.cpp
+tags/trunk.080726/o2on/src.o2on/O2IPFilter.h
+tags/trunk.080726/o2on/src.o2on/O2Job.h
+tags/trunk.080726/o2on/src.o2on/O2JobSchedule.h
+tags/trunk.080726/o2on/src.o2on/O2Job_AskCollection.h
+tags/trunk.080726/o2on/src.o2on/O2Job_AutoSave.h
+tags/trunk.080726/o2on/src.o2on/O2Job_Broadcast.h
+tags/trunk.080726/o2on/src.o2on/O2Job_ClearWorkset.h
+tags/trunk.080726/o2on/src.o2on/O2Job_DatCollector.h
+tags/trunk.080726/o2on/src.o2on/O2Job_GetGlobalIP.h
+tags/trunk.080726/o2on/src.o2on/O2Job_GetGlobalIP2.h
+tags/trunk.080726/o2on/src.o2on/O2Job_NodeCollector.h
+tags/trunk.080726/o2on/src.o2on/O2Job_PublishKeys.h
+tags/trunk.080726/o2on/src.o2on/O2Job_PublishOriginal.h
+tags/trunk.080726/o2on/src.o2on/O2Job_QueryDat.h
+tags/trunk.080726/o2on/src.o2on/O2Job_Search.h
+tags/trunk.080726/o2on/src.o2on/O2Job_SearchFriends.h
+tags/trunk.080726/o2on/src.o2on/O2Key.h
+tags/trunk.080726/o2on/src.o2on/O2KeyDB.cpp
+tags/trunk.080726/o2on/src.o2on/O2KeyDB.h
+tags/trunk.080726/o2on/src.o2on/O2LagQueryQueue.h
+tags/trunk.080726/o2on/src.o2on/O2Logger.cpp
+tags/trunk.080726/o2on/src.o2on/O2Logger.h
+tags/trunk.080726/o2on/src.o2on/O2Node.h
+tags/trunk.080726/o2on/src.o2on/O2NodeDB.cpp
+tags/trunk.080726/o2on/src.o2on/O2NodeDB.h
+tags/trunk.080726/o2on/src.o2on/O2NodeKBucket.h
+tags/trunk.080726/o2on/src.o2on/O2PerformanceCounter.h
+tags/trunk.080726/o2on/src.o2on/O2Profile.cpp
+tags/trunk.080726/o2on/src.o2on/O2Profile.h
+tags/trunk.080726/o2on/src.o2on/O2ProgressInfo.h
+tags/trunk.080726/o2on/src.o2on/O2Protocol.h
+tags/trunk.080726/o2on/src.o2on/O2Protocol_Dat.h
+tags/trunk.080726/o2on/src.o2on/O2Protocol_Kademlia.h
+tags/trunk.080726/o2on/src.o2on/O2ReportMaker.cpp
+tags/trunk.080726/o2on/src.o2on/O2ReportMaker.h
+tags/trunk.080726/o2on/src.o2on/O2SAX2Parser.cpp
+tags/trunk.080726/o2on/src.o2on/O2SAX2Parser.h
+tags/trunk.080726/o2on/src.o2on/O2Scheduler.h
+tags/trunk.080726/o2on/src.o2on/O2Server.cpp
+tags/trunk.080726/o2on/src.o2on/O2Server.h
+tags/trunk.080726/o2on/src.o2on/O2Server_HTTP.h
+tags/trunk.080726/o2on/src.o2on/O2Server_HTTP_Admin.h
+tags/trunk.080726/o2on/src.o2on/O2Server_HTTP_P2P.h
+tags/trunk.080726/o2on/src.o2on/O2Server_HTTP_Proxy.h
+tags/trunk.080726/o2on/src.o2on/O2SocketSession.h
+tags/trunk.080726/o2on/src.o2on/O2Version.h
+tags/trunk.080726/o2on/src.o2on/barray.h
+tags/trunk.080726/o2on/src.o2on/dataconv.cpp
+tags/trunk.080726/o2on/src.o2on/dataconv.h
+tags/trunk.080726/o2on/src.o2on/debug.h
+tags/trunk.080726/o2on/src.o2on/event.h
+tags/trunk.080726/o2on/src.o2on/file.cpp
+tags/trunk.080726/o2on/src.o2on/file.h
+tags/trunk.080726/o2on/src.o2on/headertest.cpp
+tags/trunk.080726/o2on/src.o2on/httpheader.cpp
+tags/trunk.080726/o2on/src.o2on/httpheader.h
+tags/trunk.080726/o2on/src.o2on/main.cpp
+tags/trunk.080726/o2on/src.o2on/mutex.h
+tags/trunk.080726/o2on/src.o2on/o2on.manifest
+tags/trunk.080726/o2on/src.o2on/o2on.vcproj
+tags/trunk.080726/o2on/src.o2on/resource.h
+tags/trunk.080726/o2on/src.o2on/resource.rc
+tags/trunk.080726/o2on/src.o2on/rsa.h
+tags/trunk.080726/o2on/src.o2on/sha.h
+tags/trunk.080726/o2on/src.o2on/simplehttpsocket.h
+tags/trunk.080726/o2on/src.o2on/simplessdpsocket.h
+tags/trunk.080726/o2on/src.o2on/simpletcpsocket.h
+tags/trunk.080726/o2on/src.o2on/simpleudpsocket.h
+tags/trunk.080726/o2on/src.o2on/stopwatch.h
+tags/trunk.080726/o2on/src.o2on/thread.h
+tags/trunk.080726/o2on/src.o2on/typedef.h
+tags/trunk.080726/o2on/src.o2on/upnp.h
+tags/trunk.080726/o2on/src.o2on/upnp_description.h
+tags/trunk.080726/o2on/src.o2on/zlib.h
+
+commit b74bda0
+Author: o2on4github <o2on4github@freemail>
+Date:   2014-03-12
+
+    trunkフォルダ配下のコードをルートに移動
+
+o2on/admin/bbsmenu.xsl
+o2on/admin/dat.xsl
+o2on/admin/friend.xsl
+o2on/admin/im.xsl
+o2on/admin/images/loading.gif
+o2on/admin/images/mypc.png
+o2on/admin/images/o2on.png
+o2on/admin/images/toolbg.png
+o2on/admin/imbroadcast.xsl
+o2on/admin/index.html
+o2on/admin/ipf.xsl
+o2on/admin/jkl-parsexml.js
+o2on/admin/key.xsl
+o2on/admin/log.xsl
+o2on/admin/main.html
+o2on/admin/menu.html
+o2on/admin/node.xsl
+o2on/admin/notification.xsl
+o2on/admin/o2on.js
+o2on/admin/profile.xsl
+o2on/admin/query.xsl
+o2on/admin/report.xsl
+o2on/admin/saku.xsl
+o2on/admin/sql.xsl
+o2on/admin/style.css
+o2on/admin/thread.xsl
+o2on/admin/work.html
+o2on/admin/xml
+o2on/doc/build.txt
+o2on/doc/history.txt
+o2on/doc/license.txt
+o2on/doc/readme.txt
+o2on/o2on.sln
+o2on/resource/a.ico
+o2on/resource/a_in.ico
+o2on/resource/a_inout.ico
+o2on/resource/a_out.ico
+o2on/resource/b.ico
+o2on/resource/b_in.ico
+o2on/resource/b_inout.ico
+o2on/resource/b_out.ico
+o2on/resource/disable.ico
+o2on/resource/err.ico
+o2on/resource/o2on.ico
+o2on/src.browser/browser.manifest
+o2on/src.browser/browser.rc
+o2on/src.browser/browser.vcproj
+o2on/src.browser/main.cpp
+o2on/src.browser/resource.h
+o2on/src.o2on/KademliaKBucket.h
+o2on/src.o2on/KademliaNode.h
+o2on/src.o2on/KademliaRoutingTable.h
+o2on/src.o2on/O2Agent.cpp
+o2on/src.o2on/O2Agent.h
+o2on/src.o2on/O2Boards.cpp
+o2on/src.o2on/O2Boards.h
+o2on/src.o2on/O2Client.cpp
+o2on/src.o2on/O2Client.h
+o2on/src.o2on/O2Client_HTTP.h
+o2on/src.o2on/O2DatDB.cpp
+o2on/src.o2on/O2DatDB.h
+o2on/src.o2on/O2DatIO.cpp
+o2on/src.o2on/O2DatIO.h
+o2on/src.o2on/O2DatIndex.h
+o2on/src.o2on/O2DatPath.h
+o2on/src.o2on/O2Define.h
+o2on/src.o2on/O2FriendDB.h
+o2on/src.o2on/O2IMDB.cpp
+o2on/src.o2on/O2IMDB.h
+o2on/src.o2on/O2IPFilter.cpp
+o2on/src.o2on/O2IPFilter.h
+o2on/src.o2on/O2Job.h
+o2on/src.o2on/O2JobSchedule.h
+o2on/src.o2on/O2Job_AskCollection.h
+o2on/src.o2on/O2Job_AutoSave.h
+o2on/src.o2on/O2Job_Broadcast.h
+o2on/src.o2on/O2Job_ClearWorkset.h
+o2on/src.o2on/O2Job_DatCollector.h
+o2on/src.o2on/O2Job_GetGlobalIP.h
+o2on/src.o2on/O2Job_GetGlobalIP2.h
+o2on/src.o2on/O2Job_NodeCollector.h
+o2on/src.o2on/O2Job_PublishKeys.h
+o2on/src.o2on/O2Job_PublishOriginal.h
+o2on/src.o2on/O2Job_QueryDat.h
+o2on/src.o2on/O2Job_Search.h
+o2on/src.o2on/O2Job_SearchFriends.h
+o2on/src.o2on/O2Key.h
+o2on/src.o2on/O2KeyDB.cpp
+o2on/src.o2on/O2KeyDB.h
+o2on/src.o2on/O2LagQueryQueue.h
+o2on/src.o2on/O2Logger.cpp
+o2on/src.o2on/O2Logger.h
+o2on/src.o2on/O2Node.h
+o2on/src.o2on/O2NodeDB.cpp
+o2on/src.o2on/O2NodeDB.h
+o2on/src.o2on/O2NodeKBucket.h
+o2on/src.o2on/O2PerformanceCounter.h
+o2on/src.o2on/O2Profile.cpp
+o2on/src.o2on/O2Profile.h
+o2on/src.o2on/O2ProgressInfo.h
+o2on/src.o2on/O2Protocol.h
+o2on/src.o2on/O2Protocol_Dat.h
+o2on/src.o2on/O2Protocol_Kademlia.h
+o2on/src.o2on/O2ReportMaker.cpp
+o2on/src.o2on/O2ReportMaker.h
+o2on/src.o2on/O2SAX2Parser.cpp
+o2on/src.o2on/O2SAX2Parser.h
+o2on/src.o2on/O2Scheduler.h
+o2on/src.o2on/O2Server.cpp
+o2on/src.o2on/O2Server.h
+o2on/src.o2on/O2Server_HTTP.h
+o2on/src.o2on/O2Server_HTTP_Admin.h
+o2on/src.o2on/O2Server_HTTP_P2P.h
+o2on/src.o2on/O2Server_HTTP_Proxy.h
+o2on/src.o2on/O2SocketSession.h
+o2on/src.o2on/O2Version.h
+o2on/src.o2on/barray.h
+o2on/src.o2on/dataconv.cpp
+o2on/src.o2on/dataconv.h
+o2on/src.o2on/debug.h
+o2on/src.o2on/event.h
+o2on/src.o2on/file.cpp
+o2on/src.o2on/file.h
+o2on/src.o2on/headertest.cpp
+o2on/src.o2on/httpheader.cpp
+o2on/src.o2on/httpheader.h
+o2on/src.o2on/main.cpp
+o2on/src.o2on/mutex.h
+o2on/src.o2on/o2on.manifest
+o2on/src.o2on/o2on.vcproj
+o2on/src.o2on/resource.h
+o2on/src.o2on/resource.rc
+o2on/src.o2on/rsa.h
+o2on/src.o2on/sha.h
+o2on/src.o2on/simplehttpsocket.h
+o2on/src.o2on/simplessdpsocket.h
+o2on/src.o2on/simpletcpsocket.h
+o2on/src.o2on/simpleudpsocket.h
+o2on/src.o2on/stopwatch.h
+o2on/src.o2on/thread.h
+o2on/src.o2on/typedef.h
+o2on/src.o2on/upnp.h
+o2on/src.o2on/upnp_description.h
+o2on/src.o2on/zlib.h
+opy2on/2channel.brd
+opy2on/README
+opy2on/lib/o2on_const.py
+opy2on/lib/o2on_dat.py
+opy2on/lib/o2on_im.py
+opy2on/lib/o2on_job.py
+opy2on/lib/o2on_key.py
+opy2on/lib/o2on_node.py
+opy2on/lib/o2on_profile.py
+opy2on/lib/o2on_server.py
+opy2on/lib/o2on_util.py
+opy2on/o2on_config.py.sample
+opy2on/opy2on.py
+trunk/o2on/admin/bbsmenu.xsl
+trunk/o2on/admin/dat.xsl
+trunk/o2on/admin/friend.xsl
+trunk/o2on/admin/im.xsl
+trunk/o2on/admin/images/loading.gif
+trunk/o2on/admin/images/mypc.png
+trunk/o2on/admin/images/o2on.png
+trunk/o2on/admin/images/toolbg.png
+trunk/o2on/admin/imbroadcast.xsl
+trunk/o2on/admin/index.html
+trunk/o2on/admin/ipf.xsl
+trunk/o2on/admin/jkl-parsexml.js
+trunk/o2on/admin/key.xsl
+trunk/o2on/admin/log.xsl
+trunk/o2on/admin/main.html
+trunk/o2on/admin/menu.html
+trunk/o2on/admin/node.xsl
+trunk/o2on/admin/notification.xsl
+trunk/o2on/admin/o2on.js
+trunk/o2on/admin/profile.xsl
+trunk/o2on/admin/query.xsl
+trunk/o2on/admin/report.xsl
+trunk/o2on/admin/saku.xsl
+trunk/o2on/admin/sql.xsl
+trunk/o2on/admin/style.css
+trunk/o2on/admin/thread.xsl
+trunk/o2on/admin/work.html
+trunk/o2on/admin/xml
+trunk/o2on/doc/build.txt
+trunk/o2on/doc/history.txt
+trunk/o2on/doc/license.txt
+trunk/o2on/doc/readme.txt
+trunk/o2on/o2on.sln
+trunk/o2on/resource/a.ico
+trunk/o2on/resource/a_in.ico
+trunk/o2on/resource/a_inout.ico
+trunk/o2on/resource/a_out.ico
+trunk/o2on/resource/b.ico
+trunk/o2on/resource/b_in.ico
+trunk/o2on/resource/b_inout.ico
+trunk/o2on/resource/b_out.ico
+trunk/o2on/resource/disable.ico
+trunk/o2on/resource/err.ico
+trunk/o2on/resource/o2on.ico
+trunk/o2on/src.browser/browser.manifest
+trunk/o2on/src.browser/browser.rc
+trunk/o2on/src.browser/browser.vcproj
+trunk/o2on/src.browser/main.cpp
+trunk/o2on/src.browser/resource.h
+trunk/o2on/src.o2on/KademliaKBucket.h
+trunk/o2on/src.o2on/KademliaNode.h
+trunk/o2on/src.o2on/KademliaRoutingTable.h
+trunk/o2on/src.o2on/O2Agent.cpp
+trunk/o2on/src.o2on/O2Agent.h
+trunk/o2on/src.o2on/O2Boards.cpp
+trunk/o2on/src.o2on/O2Boards.h
+trunk/o2on/src.o2on/O2Client.cpp
+trunk/o2on/src.o2on/O2Client.h
+trunk/o2on/src.o2on/O2Client_HTTP.h
+trunk/o2on/src.o2on/O2DatDB.cpp
+trunk/o2on/src.o2on/O2DatDB.h
+trunk/o2on/src.o2on/O2DatIO.cpp
+trunk/o2on/src.o2on/O2DatIO.h
+trunk/o2on/src.o2on/O2DatIndex.h
+trunk/o2on/src.o2on/O2DatPath.h
+trunk/o2on/src.o2on/O2Define.h
+trunk/o2on/src.o2on/O2FriendDB.h
+trunk/o2on/src.o2on/O2IMDB.cpp
+trunk/o2on/src.o2on/O2IMDB.h
+trunk/o2on/src.o2on/O2IPFilter.cpp
+trunk/o2on/src.o2on/O2IPFilter.h
+trunk/o2on/src.o2on/O2Job.h
+trunk/o2on/src.o2on/O2JobSchedule.h
+trunk/o2on/src.o2on/O2Job_AskCollection.h
+trunk/o2on/src.o2on/O2Job_AutoSave.h
+trunk/o2on/src.o2on/O2Job_Broadcast.h
+trunk/o2on/src.o2on/O2Job_ClearWorkset.h
+trunk/o2on/src.o2on/O2Job_DatCollector.h
+trunk/o2on/src.o2on/O2Job_GetGlobalIP.h
+trunk/o2on/src.o2on/O2Job_GetGlobalIP2.h
+trunk/o2on/src.o2on/O2Job_NodeCollector.h
+trunk/o2on/src.o2on/O2Job_PublishKeys.h
+trunk/o2on/src.o2on/O2Job_PublishOriginal.h
+trunk/o2on/src.o2on/O2Job_QueryDat.h
+trunk/o2on/src.o2on/O2Job_Search.h
+trunk/o2on/src.o2on/O2Job_SearchFriends.h
+trunk/o2on/src.o2on/O2Key.h
+trunk/o2on/src.o2on/O2KeyDB.cpp
+trunk/o2on/src.o2on/O2KeyDB.h
+trunk/o2on/src.o2on/O2LagQueryQueue.h
+trunk/o2on/src.o2on/O2Logger.cpp
+trunk/o2on/src.o2on/O2Logger.h
+trunk/o2on/src.o2on/O2Node.h
+trunk/o2on/src.o2on/O2NodeDB.cpp
+trunk/o2on/src.o2on/O2NodeDB.h
+trunk/o2on/src.o2on/O2NodeKBucket.h
+trunk/o2on/src.o2on/O2PerformanceCounter.h
+trunk/o2on/src.o2on/O2Profile.cpp
+trunk/o2on/src.o2on/O2Profile.h
+trunk/o2on/src.o2on/O2ProgressInfo.h
+trunk/o2on/src.o2on/O2Protocol.h
+trunk/o2on/src.o2on/O2Protocol_Dat.h
+trunk/o2on/src.o2on/O2Protocol_Kademlia.h
+trunk/o2on/src.o2on/O2ReportMaker.cpp
+trunk/o2on/src.o2on/O2ReportMaker.h
+trunk/o2on/src.o2on/O2SAX2Parser.cpp
+trunk/o2on/src.o2on/O2SAX2Parser.h
+trunk/o2on/src.o2on/O2Scheduler.h
+trunk/o2on/src.o2on/O2Server.cpp
+trunk/o2on/src.o2on/O2Server.h
+trunk/o2on/src.o2on/O2Server_HTTP.h
+trunk/o2on/src.o2on/O2Server_HTTP_Admin.h
+trunk/o2on/src.o2on/O2Server_HTTP_P2P.h
+trunk/o2on/src.o2on/O2Server_HTTP_Proxy.h
+trunk/o2on/src.o2on/O2SocketSession.h
+trunk/o2on/src.o2on/O2Version.h
+trunk/o2on/src.o2on/barray.h
+trunk/o2on/src.o2on/dataconv.cpp
+trunk/o2on/src.o2on/dataconv.h
+trunk/o2on/src.o2on/debug.h
+trunk/o2on/src.o2on/event.h
+trunk/o2on/src.o2on/file.cpp
+trunk/o2on/src.o2on/file.h
+trunk/o2on/src.o2on/headertest.cpp
+trunk/o2on/src.o2on/httpheader.cpp
+trunk/o2on/src.o2on/httpheader.h
+trunk/o2on/src.o2on/main.cpp
+trunk/o2on/src.o2on/mutex.h
+trunk/o2on/src.o2on/o2on.manifest
+trunk/o2on/src.o2on/o2on.vcproj
+trunk/o2on/src.o2on/resource.h
+trunk/o2on/src.o2on/resource.rc
+trunk/o2on/src.o2on/rsa.h
+trunk/o2on/src.o2on/sha.h
+trunk/o2on/src.o2on/simplehttpsocket.h
+trunk/o2on/src.o2on/simplessdpsocket.h
+trunk/o2on/src.o2on/simpletcpsocket.h
+trunk/o2on/src.o2on/simpleudpsocket.h
+trunk/o2on/src.o2on/stopwatch.h
+trunk/o2on/src.o2on/thread.h
+trunk/o2on/src.o2on/typedef.h
+trunk/o2on/src.o2on/upnp.h
+trunk/o2on/src.o2on/upnp_description.h
+trunk/o2on/src.o2on/zlib.h
+trunk/opy2on/2channel.brd
+trunk/opy2on/README
+trunk/opy2on/lib/o2on_const.py
+trunk/opy2on/lib/o2on_dat.py
+trunk/opy2on/lib/o2on_im.py
+trunk/opy2on/lib/o2on_job.py
+trunk/opy2on/lib/o2on_key.py
+trunk/opy2on/lib/o2on_node.py
+trunk/opy2on/lib/o2on_profile.py
+trunk/opy2on/lib/o2on_server.py
+trunk/opy2on/lib/o2on_util.py
+trunk/opy2on/o2on_config.py.sample
+trunk/opy2on/opy2on.py
+
+commit 4349423
+Merge: ca75fa7 20b66fb
+Author: o2on4github <o2on4github@freemail>
+Date:   2014-03-09
+
+    Merge file:///D:/Documents/Projects/o2on/o2on-svn
+
+commit ca75fa7
+Author: o2on4github <o2on4github@freemail>
+Date:   2014-03-09
+
+    update README
+    
+    add build environment
+
+README.md
+
+commit d7e7ea5
+Author: o2on <o2on4github@gmail.com>
+Date:   2014-03-08
+
+    Initial commit
+
+README.md
+
+commit 20b66fb
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2010-02-20
+
+    Hexlify key
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@181 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_dat.py
+
+commit 77ecb7b
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2010-02-19
+
+    DatDB is now sqlite base.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@180 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_const.py
+trunk/opy2on/lib/o2on_dat.py
+trunk/opy2on/opy2on.py
+
+commit 59602ca
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2010-02-16
+
+    Check if read is completed.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@179 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_node.py
+
+commit ee76442
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2010-02-16
+
+    Check if xml was parsable.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@178 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_node.py
+
+commit 37999d3
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-11-07
+
+    DatDB の再構築を起動後に行なうように。
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@177 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_dat.py
+trunk/opy2on/lib/o2on_job.py
+trunk/opy2on/opy2on.py
+
+commit f27948f
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-10-30
+
+    bit 計算の高速化。
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@176 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_key.py
+trunk/opy2on/lib/o2on_node.py
+
+commit f8754c5
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-09-30
+
+    RecheckIPがうまく動いていなかったバグを修正
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@175 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_job.py
+
+commit 006e8f3
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-09-30
+
+    Proxy Server: POST に対応時のバグを修正
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@174 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_server.py
+
+commit 9778bee
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-09-30
+
+    Proxy Server: POST に対応
+    Admin Server: /dats を実装
+    lib/o2on_dat: class dat に title を取得する関数 title を追加
+    強制終了時に強制終了するスレッドの名前を表示
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@173 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_dat.py
+trunk/opy2on/lib/o2on_server.py
+trunk/opy2on/opy2on.py
+
+commit bb72569
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-09-22
+
+    ReCheckIP, ForceShutdown を追加
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@172 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_job.py
+trunk/opy2on/lib/o2on_node.py
+trunk/opy2on/o2on_config.py.sample
+trunk/opy2on/opy2on.py
+
+commit 24786c9
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-09-13
+
+    parse first line before encoding.
+    return 404 when client_address could not get.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@171 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_key.py
+trunk/opy2on/lib/o2on_server.py
+
+commit ac5462b
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-09-05
+
+    Fix last commit.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@170 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_key.py
+
+commit 859612b
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-09-05
+
+    - boardmap に存在しないIDが登録されていれば削除を行なうように
+    - publishmap に key が登録されていない場合に対処
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@169 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_key.py
+trunk/opy2on/lib/o2on_node.py
+
+commit 2d0ffe7
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-09-04
+
+    boardmap に存在しないIDが登録されている場合に対処
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@168 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_node.py
+
+commit 70b1a61
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-16
+
+    Don't respond when proxied server doesn't respond.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@167 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_server.py
+
+commit 43de704
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-16
+
+    Decoding is now compatible with o2on.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@166 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_key.py
+trunk/opy2on/lib/o2on_server.py
+
+commit 194cd32
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-16
+
+    Change default Timeout to 300
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@165 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/o2on_config.py.sample
+
+commit 8554c83
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-16
+
+    logger.popup() fallback to logger.log() when dbus is not supported.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@164 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_util.py
+
+commit cb1a123
+Author: osa_p <osa_p@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-13
+
+    FIX: #18169 opy2onを新バージョンと誤認する
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@163 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Node.h
+trunk/o2on/src.o2on/O2NodeDB.cpp
+trunk/o2on/src.o2on/O2Protocol.h
+
+commit 4079b15
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-09
+
+    Ignore socket.gaierror in normal_proxy()
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@162 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_server.py
+
+commit 880d7db
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-09
+
+    Fix Exception catching error.
+    KeyDB's lock is now RLock
+    Change Timeout style.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@161 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_key.py
+trunk/opy2on/lib/o2on_node.py
+trunk/opy2on/lib/o2on_server.py
+
+commit d88f548
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-09
+
+    Replace unsupported SJIS charcter.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@160 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_key.py
+trunk/opy2on/lib/o2on_server.py
+
+commit 9d0b2d2
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-09
+
+    Use errno pacakge instead of direct number.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@159 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_job.py
+trunk/opy2on/lib/o2on_key.py
+trunk/opy2on/lib/o2on_node.py
+trunk/opy2on/lib/o2on_server.py
+
+commit 0ef9f43
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-09
+
+    Fix typo in README.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@158 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/README
+
+commit 123b7b5
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-09
+
+    Fix  finish time error.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@157 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_job.py
+
+commit 3ed8947
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-09
+
+    Ignore "Connection reset by peer" error.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@156 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_server.py
+
+commit 58641c8
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-09
+
+    throw Exception which contain dat filename.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@155 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_key.py
+
+commit 90ec974
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-09
+
+    Fix dat query's bug.
+    make proxy server to try to get dat's title.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@154 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_dat.py
+trunk/opy2on/lib/o2on_job.py
+trunk/opy2on/lib/o2on_key.py
+trunk/opy2on/lib/o2on_node.py
+trunk/opy2on/lib/o2on_server.py
+trunk/opy2on/lib/o2on_util.py
+trunk/opy2on/opy2on.py
+
+commit eda2378
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-08
+
+    Start command reading thread after commands is set.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@153 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/opy2on.py
+
+commit 8b4245f
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-08
+
+    Add 2channel.brd;
+    Fix typo in opy2on.py
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@152 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/2channel.brd
+trunk/opy2on/lib/o2on_job.py
+trunk/opy2on/lib/o2on_key.py
+trunk/opy2on/lib/o2on_node.py
+trunk/opy2on/lib/o2on_server.py
+trunk/opy2on/o2on_config.py.sample
+trunk/opy2on/opy2on.py
+
+commit aac11ef
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-08
+
+    Support python 2.5
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@151 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/README
+trunk/opy2on/lib/o2on_dat.py
+trunk/opy2on/lib/o2on_im.py
+trunk/opy2on/lib/o2on_key.py
+trunk/opy2on/lib/o2on_node.py
+trunk/opy2on/lib/o2on_server.py
+trunk/opy2on/lib/o2on_util.py
+
+commit 9061fa0
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-07
+
+    key.xml() doesn't need argument anymore.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@150 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_server.py
+
+commit 78df672
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-07
+
+    import ExpatError
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@149 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_server.py
+
+commit 2638354
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-07
+
+    Fix response 400, 404.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@148 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_server.py
+
+commit 7491f4b
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-07
+
+    Fix dat query's bug.
+    Ignore XML Parse error.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@147 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_job.py
+trunk/opy2on/lib/o2on_node.py
+trunk/opy2on/lib/o2on_server.py
+
+commit 5b05276
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-07
+
+    Fix the case when dat query fail.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@146 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_job.py
+
+commit 34f4d3c
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-07
+
+    Ignore timeout error.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@145 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_server.py
+
+commit b994a6b
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-07
+
+    Ignore errors when shuting down servers.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@144 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_server.py
+
+commit 8659a0c
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-07
+
+    Fix to record profile properly.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@143 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/lib/o2on_job.py
+trunk/opy2on/lib/o2on_server.py
+
+commit 1054a6f
+Author: nawota <nawota@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-08-07
+
+    add opy2on files.
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@142 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/opy2on/README
+trunk/opy2on/lib/o2on_const.py
+trunk/opy2on/lib/o2on_dat.py
+trunk/opy2on/lib/o2on_im.py
+trunk/opy2on/lib/o2on_job.py
+trunk/opy2on/lib/o2on_key.py
+trunk/opy2on/lib/o2on_node.py
+trunk/opy2on/lib/o2on_profile.py
+trunk/opy2on/lib/o2on_server.py
+trunk/opy2on/lib/o2on_util.py
+trunk/opy2on/o2on_config.py.sample
+trunk/opy2on/opy2on.py
+
+commit 038304d
+Author: osa_p <osa_p@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-07-30
+
+    FIX: XMLの閉じタグを修正
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@141 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Boards.cpp
+
+commit 0d09f7b
+Author: osa_p <osa_p@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-07-30
+
+    FIX: ヘッダフィールド内にて、:で区切られていないときに異常となる現象の修正
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@140 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/httpheader.cpp
+
+commit b4cd834
+Author: osa_p <osa_p@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-06-26
+
+    管理画面の/xml/shutdownを呼んだら終了するようにした。
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@139 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Server_HTTP_Admin.h
+
+commit d2928d5
+Author: osa_p <osa_p@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-06-26
+
+    FIX: #12106 2度押し防止スクリプト
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@138 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/admin/bbsmenu.xsl
+trunk/o2on/admin/ipf.xsl
+trunk/o2on/admin/query.xsl
+trunk/o2on/admin/saku.xsl
+trunk/o2on/admin/sql.xsl
+
+commit 4a1fc26
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-02-09
+
+    適切にCDATAセクションを作る関数を設けた
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@137 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatIO.cpp
+trunk/o2on/src.o2on/O2IMDB.cpp
+trunk/o2on/src.o2on/O2KeyDB.cpp
+trunk/o2on/src.o2on/O2Logger.cpp
+trunk/o2on/src.o2on/O2NodeDB.cpp
+trunk/o2on/src.o2on/O2Profile.cpp
+trunk/o2on/src.o2on/O2ReportMaker.cpp
+trunk/o2on/src.o2on/O2Server_HTTP_Admin.h
+trunk/o2on/src.o2on/dataconv.cpp
+trunk/o2on/src.o2on/dataconv.h
+
+commit 8778909
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-02-03
+
+    SAX周辺の改良
+    
+    詳細:単一要素内でContentHandler::characters()が複数回呼ばれる可能性を考慮し、予期せぬデータロスを防ぐ
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@136 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Boards.cpp
+trunk/o2on/src.o2on/O2Boards.h
+trunk/o2on/src.o2on/O2IMDB.cpp
+trunk/o2on/src.o2on/O2IMDB.h
+trunk/o2on/src.o2on/O2IPFilter.cpp
+trunk/o2on/src.o2on/O2IPFilter.h
+trunk/o2on/src.o2on/O2KeyDB.cpp
+trunk/o2on/src.o2on/O2KeyDB.h
+trunk/o2on/src.o2on/O2NodeDB.cpp
+trunk/o2on/src.o2on/O2NodeDB.h
+trunk/o2on/src.o2on/O2PerformanceCounter.h
+trunk/o2on/src.o2on/O2Profile.cpp
+trunk/o2on/src.o2on/O2Profile.h
+trunk/o2on/src.o2on/upnp_description.h
+
+commit bd6618a
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-01-31
+
+    FIX: #13479 管理画面がSafari未対応
+    
+    ブロードキャストで空文字列がPOSTされたことになる件の修正
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@135 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/admin/im.xsl
+
+commit bb188e9
+Author: osa_p <osa_p@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-01-07
+
+    理解できないプロトコルで話しかけられたときに、拒否するように変更。
+    下限は見てたけど、上限を見ていなかったので。
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@134 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Server_HTTP_P2P.h
+trunk/o2on/src.o2on/O2Version.h
+
+commit 5dd7ac1
+Author: osa_p <osa_p@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2009-01-07
+
+    64ビット版のビルドが通らなくなっていたので、修正
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@133 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/o2on.vcproj
+
+commit 78bbb4d
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-11-30
+
+    FIX : o2onが異常終了時にFriend.xmlの内容がNode.xmlの内容で上書きされる。
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@132 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Server_HTTP_Admin.h
+
+commit c7113c8
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-11-29
+
+    printfの書式設定で%I64を使用している部分にRev130のパッチを導入
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@131 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatPath.h
+trunk/o2on/src.o2on/O2KeyDB.cpp
+trunk/o2on/src.o2on/dataconv.cpp
+
+commit d5634df
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-11-24
+
+    FIX :クォータサイズの制限値が16桁を超えた時、O2Profile#ExportToXMLでbuffer overflow
+    参考情報　uint64の最大桁は20桁
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@130 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Profile.cpp
+
+commit 8a31451
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-11-18
+
+    CHG : 同一ハッシュに対して複数件のＤＢ更新(lastpublish)を行っていたため一回だけ行うように変更
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@129 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Job_PublishOriginal.h
+
+commit 7456739
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-11-18
+
+    rec.lastpublishの値をO2DatDB::update(O2DatRecList &in)では使用していないので削除
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@128 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Client.cpp
+trunk/o2on/src.o2on/O2DatDB.cpp
+
+commit 8db9164
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-11-02
+
+    FIX: bbsnameに大文字が含まれる板がbbsmenuからピックアップされない
+    
+    http://pc11.2ch.net/test/read.cgi/tech/1212302014/691-696
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@127 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Boards.cpp
+
+commit 4c09f7d
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-11-01
+
+    管理画面、DBからのデータ取得を一度に行うように変更
+    http://pc11.2ch.net/test/read.cgi/tech/1212302014/520
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@126 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatDB.cpp
+trunk/o2on/src.o2on/O2DatDB.h
+trunk/o2on/src.o2on/O2ReportMaker.cpp
+
+commit f1c49a9
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-10-14
+
+    FIX: #13479 管理画面がSafari未対応
+    
+    とりあえずの対応です
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@125 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/admin/o2on.js
+
+commit eda0ec6
+Author: osa_p <osa_p@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-10-04
+
+    FIX: #12663 IP変更時に検出できない 修正が不十分だったので追加修正。
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@124 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/main.cpp
+
+commit c44f8b9
+Author: osa_p <osa_p@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-09-27
+
+    FIX: #12663 IP変更時に検出できない
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@123 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/main.cpp
+
+commit 4e26021
+Author: osa_p <osa_p@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-09-24
+
+    FIX: #13492 二重起動しようとすると初期ノードが消える
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@122 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/main.cpp
+
+commit fd44b7b
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-09-24
+
+    FIX: #13398 querylimitが反映されない
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@121 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/main.cpp
+
+commit 6d50554
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-08-10
+
+    replace trunk
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@120 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/admin/bbsmenu.xsl
+trunk/o2on/admin/dat.xsl
+trunk/o2on/admin/friend.xsl
+trunk/o2on/admin/im.xsl
+trunk/o2on/admin/images/loading.gif
+trunk/o2on/admin/images/mypc.png
+trunk/o2on/admin/images/o2on.png
+trunk/o2on/admin/images/toolbg.png
+trunk/o2on/admin/imbroadcast.xsl
+trunk/o2on/admin/index.html
+trunk/o2on/admin/ipf.xsl
+trunk/o2on/admin/jkl-parsexml.js
+trunk/o2on/admin/key.xsl
+trunk/o2on/admin/log.xsl
+trunk/o2on/admin/main.html
+trunk/o2on/admin/menu.html
+trunk/o2on/admin/node.xsl
+trunk/o2on/admin/notification.xsl
+trunk/o2on/admin/o2on.js
+trunk/o2on/admin/profile.xsl
+trunk/o2on/admin/query.xsl
+trunk/o2on/admin/report.xsl
+trunk/o2on/admin/saku.xsl
+trunk/o2on/admin/sql.xsl
+trunk/o2on/admin/style.css
+trunk/o2on/admin/thread.xsl
+trunk/o2on/admin/work.html
+trunk/o2on/admin/xml
+trunk/o2on/doc/build.txt
+trunk/o2on/doc/history.txt
+trunk/o2on/doc/license.txt
+trunk/o2on/doc/readme.txt
+trunk/o2on/o2on.sln
+trunk/o2on/resource/a.ico
+trunk/o2on/resource/a_in.ico
+trunk/o2on/resource/a_inout.ico
+trunk/o2on/resource/a_out.ico
+trunk/o2on/resource/b.ico
+trunk/o2on/resource/b_in.ico
+trunk/o2on/resource/b_inout.ico
+trunk/o2on/resource/b_out.ico
+trunk/o2on/resource/disable.ico
+trunk/o2on/resource/err.ico
+trunk/o2on/resource/o2on.ico
+trunk/o2on/src.browser/browser.manifest
+trunk/o2on/src.browser/browser.rc
+trunk/o2on/src.browser/browser.vcproj
+trunk/o2on/src.browser/main.cpp
+trunk/o2on/src.browser/resource.h
+trunk/o2on/src.o2on/KademliaKBucket.h
+trunk/o2on/src.o2on/KademliaNode.h
+trunk/o2on/src.o2on/KademliaRoutingTable.h
+trunk/o2on/src.o2on/O2Agent.cpp
+trunk/o2on/src.o2on/O2Agent.h
+trunk/o2on/src.o2on/O2Boards.cpp
+trunk/o2on/src.o2on/O2Boards.h
+trunk/o2on/src.o2on/O2Client.cpp
+trunk/o2on/src.o2on/O2Client.h
+trunk/o2on/src.o2on/O2Client_HTTP.h
+trunk/o2on/src.o2on/O2DatDB.cpp
+trunk/o2on/src.o2on/O2DatDB.h
+trunk/o2on/src.o2on/O2DatIO.cpp
+trunk/o2on/src.o2on/O2DatIO.h
+trunk/o2on/src.o2on/O2DatIndex.h
+trunk/o2on/src.o2on/O2DatPath.h
+trunk/o2on/src.o2on/O2Define.h
+trunk/o2on/src.o2on/O2FriendDB.h
+trunk/o2on/src.o2on/O2IMDB.cpp
+trunk/o2on/src.o2on/O2IMDB.h
+trunk/o2on/src.o2on/O2IPFilter.cpp
+trunk/o2on/src.o2on/O2IPFilter.h
+trunk/o2on/src.o2on/O2Job.h
+trunk/o2on/src.o2on/O2JobSchedule.h
+trunk/o2on/src.o2on/O2Job_AskCollection.h
+trunk/o2on/src.o2on/O2Job_AutoSave.h
+trunk/o2on/src.o2on/O2Job_Broadcast.h
+trunk/o2on/src.o2on/O2Job_ClearWorkset.h
+trunk/o2on/src.o2on/O2Job_DatCollector.h
+trunk/o2on/src.o2on/O2Job_GetGlobalIP.h
+trunk/o2on/src.o2on/O2Job_GetGlobalIP2.h
+trunk/o2on/src.o2on/O2Job_NodeCollector.h
+trunk/o2on/src.o2on/O2Job_PublishKeys.h
+trunk/o2on/src.o2on/O2Job_PublishOriginal.h
+trunk/o2on/src.o2on/O2Job_QueryDat.h
+trunk/o2on/src.o2on/O2Job_Search.h
+trunk/o2on/src.o2on/O2Job_SearchFriends.h
+trunk/o2on/src.o2on/O2Key.h
+trunk/o2on/src.o2on/O2KeyDB.cpp
+trunk/o2on/src.o2on/O2KeyDB.h
+trunk/o2on/src.o2on/O2LagQueryQueue.h
+trunk/o2on/src.o2on/O2Logger.cpp
+trunk/o2on/src.o2on/O2Logger.h
+trunk/o2on/src.o2on/O2Node.h
+trunk/o2on/src.o2on/O2NodeDB.cpp
+trunk/o2on/src.o2on/O2NodeDB.h
+trunk/o2on/src.o2on/O2NodeKBucket.h
+trunk/o2on/src.o2on/O2PerformanceCounter.h
+trunk/o2on/src.o2on/O2Profile.cpp
+trunk/o2on/src.o2on/O2Profile.h
+trunk/o2on/src.o2on/O2ProgressInfo.h
+trunk/o2on/src.o2on/O2Protocol.h
+trunk/o2on/src.o2on/O2Protocol_Dat.h
+trunk/o2on/src.o2on/O2Protocol_Kademlia.h
+trunk/o2on/src.o2on/O2ReportMaker.cpp
+trunk/o2on/src.o2on/O2ReportMaker.h
+trunk/o2on/src.o2on/O2SAX2Parser.cpp
+trunk/o2on/src.o2on/O2SAX2Parser.h
+trunk/o2on/src.o2on/O2Scheduler.h
+trunk/o2on/src.o2on/O2Server.cpp
+trunk/o2on/src.o2on/O2Server.h
+trunk/o2on/src.o2on/O2Server_HTTP.h
+trunk/o2on/src.o2on/O2Server_HTTP_Admin.h
+trunk/o2on/src.o2on/O2Server_HTTP_P2P.h
+trunk/o2on/src.o2on/O2Server_HTTP_Proxy.h
+trunk/o2on/src.o2on/O2SocketSession.h
+trunk/o2on/src.o2on/O2Version.h
+trunk/o2on/src.o2on/barray.h
+trunk/o2on/src.o2on/dataconv.cpp
+trunk/o2on/src.o2on/dataconv.h
+trunk/o2on/src.o2on/debug.h
+trunk/o2on/src.o2on/event.h
+trunk/o2on/src.o2on/file.cpp
+trunk/o2on/src.o2on/file.h
+trunk/o2on/src.o2on/headertest.cpp
+trunk/o2on/src.o2on/httpheader.cpp
+trunk/o2on/src.o2on/httpheader.h
+trunk/o2on/src.o2on/main.cpp
+trunk/o2on/src.o2on/mutex.h
+trunk/o2on/src.o2on/o2on.manifest
+trunk/o2on/src.o2on/o2on.vcproj
+trunk/o2on/src.o2on/resource.h
+trunk/o2on/src.o2on/resource.rc
+trunk/o2on/src.o2on/rsa.h
+trunk/o2on/src.o2on/sha.h
+trunk/o2on/src.o2on/simplehttpsocket.h
+trunk/o2on/src.o2on/simplessdpsocket.h
+trunk/o2on/src.o2on/simpletcpsocket.h
+trunk/o2on/src.o2on/simpleudpsocket.h
+trunk/o2on/src.o2on/stopwatch.h
+trunk/o2on/src.o2on/thread.h
+trunk/o2on/src.o2on/typedef.h
+trunk/o2on/src.o2on/upnp.h
+trunk/o2on/src.o2on/upnp_description.h
+trunk/o2on/src.o2on/zlib.h
+
+commit cbbab86
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-08-10
+
+    replace trunk
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@119 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/admin/bbsmenu.xsl
+trunk/o2on/admin/dat.xsl
+trunk/o2on/admin/friend.xsl
+trunk/o2on/admin/im.xsl
+trunk/o2on/admin/images/loading.gif
+trunk/o2on/admin/images/mypc.png
+trunk/o2on/admin/images/o2on.png
+trunk/o2on/admin/images/toolbg.png
+trunk/o2on/admin/imbroadcast.xsl
+trunk/o2on/admin/index.html
+trunk/o2on/admin/ipf.xsl
+trunk/o2on/admin/jkl-parsexml.js
+trunk/o2on/admin/key.xsl
+trunk/o2on/admin/log.xsl
+trunk/o2on/admin/main.html
+trunk/o2on/admin/menu.html
+trunk/o2on/admin/node.xsl
+trunk/o2on/admin/notification.xsl
+trunk/o2on/admin/o2on.js
+trunk/o2on/admin/profile.xsl
+trunk/o2on/admin/query.xsl
+trunk/o2on/admin/report.xsl
+trunk/o2on/admin/saku.xsl
+trunk/o2on/admin/sql.xsl
+trunk/o2on/admin/style.css
+trunk/o2on/admin/thread.xsl
+trunk/o2on/admin/work.html
+trunk/o2on/admin/xml
+trunk/o2on/doc/build.txt
+trunk/o2on/doc/history.txt
+trunk/o2on/doc/license.txt
+trunk/o2on/doc/readme.txt
+trunk/o2on/o2on.sln
+trunk/o2on/resource/a.ico
+trunk/o2on/resource/a_in.ico
+trunk/o2on/resource/a_inout.ico
+trunk/o2on/resource/a_out.ico
+trunk/o2on/resource/b.ico
+trunk/o2on/resource/b_in.ico
+trunk/o2on/resource/b_inout.ico
+trunk/o2on/resource/b_out.ico
+trunk/o2on/resource/disable.ico
+trunk/o2on/resource/err.ico
+trunk/o2on/resource/o2on.ico
+trunk/o2on/src.browser/browser.manifest
+trunk/o2on/src.browser/browser.rc
+trunk/o2on/src.browser/browser.vcproj
+trunk/o2on/src.browser/main.cpp
+trunk/o2on/src.browser/resource.h
+trunk/o2on/src.o2on/KademliaKBucket.h
+trunk/o2on/src.o2on/KademliaNode.h
+trunk/o2on/src.o2on/KademliaRoutingTable.h
+trunk/o2on/src.o2on/O2Agent.cpp
+trunk/o2on/src.o2on/O2Agent.h
+trunk/o2on/src.o2on/O2Boards.cpp
+trunk/o2on/src.o2on/O2Boards.h
+trunk/o2on/src.o2on/O2Client.cpp
+trunk/o2on/src.o2on/O2Client.h
+trunk/o2on/src.o2on/O2Client_HTTP.h
+trunk/o2on/src.o2on/O2DatDB.cpp
+trunk/o2on/src.o2on/O2DatDB.h
+trunk/o2on/src.o2on/O2DatIO.cpp
+trunk/o2on/src.o2on/O2DatIO.h
+trunk/o2on/src.o2on/O2DatIndex.h
+trunk/o2on/src.o2on/O2DatPath.h
+trunk/o2on/src.o2on/O2Define.h
+trunk/o2on/src.o2on/O2FriendDB.h
+trunk/o2on/src.o2on/O2IMDB.cpp
+trunk/o2on/src.o2on/O2IMDB.h
+trunk/o2on/src.o2on/O2IPFilter.cpp
+trunk/o2on/src.o2on/O2IPFilter.h
+trunk/o2on/src.o2on/O2Job.h
+trunk/o2on/src.o2on/O2JobSchedule.h
+trunk/o2on/src.o2on/O2Job_AskCollection.h
+trunk/o2on/src.o2on/O2Job_AutoSave.h
+trunk/o2on/src.o2on/O2Job_Broadcast.h
+trunk/o2on/src.o2on/O2Job_ClearWorkset.h
+trunk/o2on/src.o2on/O2Job_DatCollector.h
+trunk/o2on/src.o2on/O2Job_GetGlobalIP.h
+trunk/o2on/src.o2on/O2Job_GetGlobalIP2.h
+trunk/o2on/src.o2on/O2Job_NodeCollector.h
+trunk/o2on/src.o2on/O2Job_PublishKeys.h
+trunk/o2on/src.o2on/O2Job_PublishOriginal.h
+trunk/o2on/src.o2on/O2Job_QueryDat.h
+trunk/o2on/src.o2on/O2Job_Search.h
+trunk/o2on/src.o2on/O2Job_SearchFriends.h
+trunk/o2on/src.o2on/O2Key.h
+trunk/o2on/src.o2on/O2KeyDB.cpp
+trunk/o2on/src.o2on/O2KeyDB.h
+trunk/o2on/src.o2on/O2LagQueryQueue.h
+trunk/o2on/src.o2on/O2Logger.cpp
+trunk/o2on/src.o2on/O2Logger.h
+trunk/o2on/src.o2on/O2Node.h
+trunk/o2on/src.o2on/O2NodeDB.cpp
+trunk/o2on/src.o2on/O2NodeDB.h
+trunk/o2on/src.o2on/O2NodeKBucket.h
+trunk/o2on/src.o2on/O2PerformanceCounter.h
+trunk/o2on/src.o2on/O2Profile.cpp
+trunk/o2on/src.o2on/O2Profile.h
+trunk/o2on/src.o2on/O2ProgressInfo.h
+trunk/o2on/src.o2on/O2Protocol.h
+trunk/o2on/src.o2on/O2Protocol_Dat.h
+trunk/o2on/src.o2on/O2Protocol_Kademlia.h
+trunk/o2on/src.o2on/O2ReportMaker.cpp
+trunk/o2on/src.o2on/O2ReportMaker.h
+trunk/o2on/src.o2on/O2SAX2Parser.cpp
+trunk/o2on/src.o2on/O2SAX2Parser.h
+trunk/o2on/src.o2on/O2Scheduler.h
+trunk/o2on/src.o2on/O2Server.cpp
+trunk/o2on/src.o2on/O2Server.h
+trunk/o2on/src.o2on/O2Server_HTTP.h
+trunk/o2on/src.o2on/O2Server_HTTP_Admin.h
+trunk/o2on/src.o2on/O2Server_HTTP_P2P.h
+trunk/o2on/src.o2on/O2Server_HTTP_Proxy.h
+trunk/o2on/src.o2on/O2SocketSession.h
+trunk/o2on/src.o2on/O2Version.h
+trunk/o2on/src.o2on/barray.h
+trunk/o2on/src.o2on/dataconv.cpp
+trunk/o2on/src.o2on/dataconv.h
+trunk/o2on/src.o2on/debug.h
+trunk/o2on/src.o2on/event.h
+trunk/o2on/src.o2on/file.cpp
+trunk/o2on/src.o2on/file.h
+trunk/o2on/src.o2on/headertest.cpp
+trunk/o2on/src.o2on/httpheader.cpp
+trunk/o2on/src.o2on/httpheader.h
+trunk/o2on/src.o2on/main.cpp
+trunk/o2on/src.o2on/mutex.h
+trunk/o2on/src.o2on/o2on.manifest
+trunk/o2on/src.o2on/o2on.vcproj
+trunk/o2on/src.o2on/resource.h
+trunk/o2on/src.o2on/resource.rc
+trunk/o2on/src.o2on/rsa.h
+trunk/o2on/src.o2on/sha.h
+trunk/o2on/src.o2on/simplehttpsocket.h
+trunk/o2on/src.o2on/simplessdpsocket.h
+trunk/o2on/src.o2on/simpletcpsocket.h
+trunk/o2on/src.o2on/simpleudpsocket.h
+trunk/o2on/src.o2on/stopwatch.h
+trunk/o2on/src.o2on/thread.h
+trunk/o2on/src.o2on/typedef.h
+trunk/o2on/src.o2on/upnp.h
+trunk/o2on/src.o2on/upnp_description.h
+trunk/o2on/src.o2on/zlib.h
+
+commit e1ded56
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-08-09
+
+    ・検索クエリの一括変更機能追加
+    ・DB再構築プロセス変更
+    ・無視板のdatリクエストを送らないようにした
+    ・使用ライブラリバージョンアップ
+     - Boost 1.35.0
+     - SQLite 3.6.0
+    * バグフィックス
+    ・SQLの変数バインド忘れ
+    ・DB再構築時に破損datで落ちることがある
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@118 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+tags/build0045/o2on/admin/bbsmenu.xsl
+tags/build0045/o2on/admin/dat.xsl
+tags/build0045/o2on/admin/friend.xsl
+tags/build0045/o2on/admin/im.xsl
+tags/build0045/o2on/admin/images/loading.gif
+tags/build0045/o2on/admin/images/mypc.png
+tags/build0045/o2on/admin/images/o2on.png
+tags/build0045/o2on/admin/images/toolbg.png
+tags/build0045/o2on/admin/imbroadcast.xsl
+tags/build0045/o2on/admin/index.html
+tags/build0045/o2on/admin/ipf.xsl
+tags/build0045/o2on/admin/jkl-parsexml.js
+tags/build0045/o2on/admin/key.xsl
+tags/build0045/o2on/admin/log.xsl
+tags/build0045/o2on/admin/main.html
+tags/build0045/o2on/admin/menu.html
+tags/build0045/o2on/admin/node.xsl
+tags/build0045/o2on/admin/notification.xsl
+tags/build0045/o2on/admin/o2on.js
+tags/build0045/o2on/admin/profile.xsl
+tags/build0045/o2on/admin/query.xsl
+tags/build0045/o2on/admin/report.xsl
+tags/build0045/o2on/admin/saku.xsl
+tags/build0045/o2on/admin/sql.xsl
+tags/build0045/o2on/admin/style.css
+tags/build0045/o2on/admin/thread.xsl
+tags/build0045/o2on/admin/work.html
+tags/build0045/o2on/admin/xml
+tags/build0045/o2on/doc/build.txt
+tags/build0045/o2on/doc/history.txt
+tags/build0045/o2on/doc/license.txt
+tags/build0045/o2on/doc/readme.txt
+tags/build0045/o2on/o2on.sln
+tags/build0045/o2on/resource/a.ico
+tags/build0045/o2on/resource/a_in.ico
+tags/build0045/o2on/resource/a_inout.ico
+tags/build0045/o2on/resource/a_out.ico
+tags/build0045/o2on/resource/b.ico
+tags/build0045/o2on/resource/b_in.ico
+tags/build0045/o2on/resource/b_inout.ico
+tags/build0045/o2on/resource/b_out.ico
+tags/build0045/o2on/resource/disable.ico
+tags/build0045/o2on/resource/err.ico
+tags/build0045/o2on/resource/o2on.ico
+tags/build0045/o2on/src.browser/browser.manifest
+tags/build0045/o2on/src.browser/browser.rc
+tags/build0045/o2on/src.browser/browser.vcproj
+tags/build0045/o2on/src.browser/main.cpp
+tags/build0045/o2on/src.browser/resource.h
+tags/build0045/o2on/src.o2on/KademliaKBucket.h
+tags/build0045/o2on/src.o2on/KademliaNode.h
+tags/build0045/o2on/src.o2on/KademliaRoutingTable.h
+tags/build0045/o2on/src.o2on/O2Agent.cpp
+tags/build0045/o2on/src.o2on/O2Agent.h
+tags/build0045/o2on/src.o2on/O2Boards.cpp
+tags/build0045/o2on/src.o2on/O2Boards.h
+tags/build0045/o2on/src.o2on/O2Client.cpp
+tags/build0045/o2on/src.o2on/O2Client.h
+tags/build0045/o2on/src.o2on/O2Client_HTTP.h
+tags/build0045/o2on/src.o2on/O2DatDB.cpp
+tags/build0045/o2on/src.o2on/O2DatDB.h
+tags/build0045/o2on/src.o2on/O2DatIO.cpp
+tags/build0045/o2on/src.o2on/O2DatIO.h
+tags/build0045/o2on/src.o2on/O2DatIndex.h
+tags/build0045/o2on/src.o2on/O2DatPath.h
+tags/build0045/o2on/src.o2on/O2Define.h
+tags/build0045/o2on/src.o2on/O2FriendDB.h
+tags/build0045/o2on/src.o2on/O2IMDB.cpp
+tags/build0045/o2on/src.o2on/O2IMDB.h
+tags/build0045/o2on/src.o2on/O2IPFilter.cpp
+tags/build0045/o2on/src.o2on/O2IPFilter.h
+tags/build0045/o2on/src.o2on/O2Job.h
+tags/build0045/o2on/src.o2on/O2JobSchedule.h
+tags/build0045/o2on/src.o2on/O2Job_AskCollection.h
+tags/build0045/o2on/src.o2on/O2Job_AutoSave.h
+tags/build0045/o2on/src.o2on/O2Job_Broadcast.h
+tags/build0045/o2on/src.o2on/O2Job_ClearWorkset.h
+tags/build0045/o2on/src.o2on/O2Job_DatCollector.h
+tags/build0045/o2on/src.o2on/O2Job_GetGlobalIP.h
+tags/build0045/o2on/src.o2on/O2Job_GetGlobalIP2.h
+tags/build0045/o2on/src.o2on/O2Job_NodeCollector.h
+tags/build0045/o2on/src.o2on/O2Job_PublishKeys.h
+tags/build0045/o2on/src.o2on/O2Job_PublishOriginal.h
+tags/build0045/o2on/src.o2on/O2Job_QueryDat.h
+tags/build0045/o2on/src.o2on/O2Job_Search.h
+tags/build0045/o2on/src.o2on/O2Job_SearchFriends.h
+tags/build0045/o2on/src.o2on/O2Key.h
+tags/build0045/o2on/src.o2on/O2KeyDB.cpp
+tags/build0045/o2on/src.o2on/O2KeyDB.h
+tags/build0045/o2on/src.o2on/O2LagQueryQueue.h
+tags/build0045/o2on/src.o2on/O2Logger.cpp
+tags/build0045/o2on/src.o2on/O2Logger.h
+tags/build0045/o2on/src.o2on/O2Node.h
+tags/build0045/o2on/src.o2on/O2NodeDB.cpp
+tags/build0045/o2on/src.o2on/O2NodeDB.h
+tags/build0045/o2on/src.o2on/O2NodeKBucket.h
+tags/build0045/o2on/src.o2on/O2PerformanceCounter.h
+tags/build0045/o2on/src.o2on/O2Profile.cpp
+tags/build0045/o2on/src.o2on/O2Profile.h
+tags/build0045/o2on/src.o2on/O2ProgressInfo.h
+tags/build0045/o2on/src.o2on/O2Protocol.h
+tags/build0045/o2on/src.o2on/O2Protocol_Dat.h
+tags/build0045/o2on/src.o2on/O2Protocol_Kademlia.h
+tags/build0045/o2on/src.o2on/O2ReportMaker.cpp
+tags/build0045/o2on/src.o2on/O2ReportMaker.h
+tags/build0045/o2on/src.o2on/O2SAX2Parser.cpp
+tags/build0045/o2on/src.o2on/O2SAX2Parser.h
+tags/build0045/o2on/src.o2on/O2Scheduler.h
+tags/build0045/o2on/src.o2on/O2Server.cpp
+tags/build0045/o2on/src.o2on/O2Server.h
+tags/build0045/o2on/src.o2on/O2Server_HTTP.h
+tags/build0045/o2on/src.o2on/O2Server_HTTP_Admin.h
+tags/build0045/o2on/src.o2on/O2Server_HTTP_P2P.h
+tags/build0045/o2on/src.o2on/O2Server_HTTP_Proxy.h
+tags/build0045/o2on/src.o2on/O2SocketSession.h
+tags/build0045/o2on/src.o2on/O2Version.h
+tags/build0045/o2on/src.o2on/barray.h
+tags/build0045/o2on/src.o2on/dataconv.cpp
+tags/build0045/o2on/src.o2on/dataconv.h
+tags/build0045/o2on/src.o2on/debug.h
+tags/build0045/o2on/src.o2on/event.h
+tags/build0045/o2on/src.o2on/file.cpp
+tags/build0045/o2on/src.o2on/file.h
+tags/build0045/o2on/src.o2on/headertest.cpp
+tags/build0045/o2on/src.o2on/httpheader.cpp
+tags/build0045/o2on/src.o2on/httpheader.h
+tags/build0045/o2on/src.o2on/main.cpp
+tags/build0045/o2on/src.o2on/mutex.h
+tags/build0045/o2on/src.o2on/o2on.manifest
+tags/build0045/o2on/src.o2on/o2on.vcproj
+tags/build0045/o2on/src.o2on/resource.h
+tags/build0045/o2on/src.o2on/resource.rc
+tags/build0045/o2on/src.o2on/rsa.h
+tags/build0045/o2on/src.o2on/sha.h
+tags/build0045/o2on/src.o2on/simplehttpsocket.h
+tags/build0045/o2on/src.o2on/simplessdpsocket.h
+tags/build0045/o2on/src.o2on/simpletcpsocket.h
+tags/build0045/o2on/src.o2on/simpleudpsocket.h
+tags/build0045/o2on/src.o2on/stopwatch.h
+tags/build0045/o2on/src.o2on/thread.h
+tags/build0045/o2on/src.o2on/typedef.h
+tags/build0045/o2on/src.o2on/upnp.h
+tags/build0045/o2on/src.o2on/upnp_description.h
+tags/build0045/o2on/src.o2on/zlib.h
+
+commit ee3f215
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-08-09
+
+    build 0045 リリース
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@117 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/doc/history.txt
+branches/BRANCH_0043/o2on/src.o2on/O2Version.h
+
+commit 02dc503
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-08-05
+
+    FIX: datファイルの先頭にLFがあると落ちる
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@116 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.cpp
+
+commit cb2e65f
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-08-05
+
+    REVERT: rev107 begin; end; を使うと正常に値が取得できない為
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@115 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.cpp
+
+commit 1f7b668
+Author: osa_p <osa_p@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-08-02
+
+    スレッド検索画面で、チェックボックスを使って複数のスレッドに対して処理するインターフェイスを追加。
+    上書き更新後ブラウザのキャッシュをクリアしないと、古いo2on.jsが参照されてしまうのか処理に失敗します。（落ちたりはしない）
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@114 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/admin/o2on.js
+branches/BRANCH_0043/o2on/admin/query.xsl
+branches/BRANCH_0043/o2on/src.o2on/O2Server_HTTP_Admin.h
+
+commit 2e02c09
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-07-31
+
+    divide_update廃止
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@113 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.h
+
+commit ec7de2c
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-07-26
+
+    trunk待避
+    FireBird対応はなかったことにする
+    FIX: rename
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@112 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+tags/trunk.080706/o2on/admin/bbsmenu.xsl
+tags/trunk.080706/o2on/admin/dat.xsl
+tags/trunk.080706/o2on/admin/friend.xsl
+tags/trunk.080706/o2on/admin/im.xsl
+tags/trunk.080706/o2on/admin/images/loading.gif
+tags/trunk.080706/o2on/admin/images/mypc.png
+tags/trunk.080706/o2on/admin/images/o2on.png
+tags/trunk.080706/o2on/admin/images/toolbg.png
+tags/trunk.080706/o2on/admin/imbroadcast.xsl
+tags/trunk.080706/o2on/admin/index.html
+tags/trunk.080706/o2on/admin/ipf.xsl
+tags/trunk.080706/o2on/admin/jkl-parsexml.js
+tags/trunk.080706/o2on/admin/key.xsl
+tags/trunk.080706/o2on/admin/log.xsl
+tags/trunk.080706/o2on/admin/main.html
+tags/trunk.080706/o2on/admin/menu.html
+tags/trunk.080706/o2on/admin/node.xsl
+tags/trunk.080706/o2on/admin/notification.xsl
+tags/trunk.080706/o2on/admin/o2on.js
+tags/trunk.080706/o2on/admin/profile.xsl
+tags/trunk.080706/o2on/admin/query.xsl
+tags/trunk.080706/o2on/admin/report.xsl
+tags/trunk.080706/o2on/admin/saku.xsl
+tags/trunk.080706/o2on/admin/sql.xsl
+tags/trunk.080706/o2on/admin/style.css
+tags/trunk.080706/o2on/admin/thread.xsl
+tags/trunk.080706/o2on/admin/work.html
+tags/trunk.080706/o2on/admin/xml
+tags/trunk.080706/o2on/doc/build.txt
+tags/trunk.080706/o2on/doc/history.txt
+tags/trunk.080706/o2on/doc/license.txt
+tags/trunk.080706/o2on/doc/readme.txt
+tags/trunk.080706/o2on/o2on.sln
+tags/trunk.080706/o2on/resource/a.ico
+tags/trunk.080706/o2on/resource/a_in.ico
+tags/trunk.080706/o2on/resource/a_inout.ico
+tags/trunk.080706/o2on/resource/a_out.ico
+tags/trunk.080706/o2on/resource/b.ico
+tags/trunk.080706/o2on/resource/b_in.ico
+tags/trunk.080706/o2on/resource/b_inout.ico
+tags/trunk.080706/o2on/resource/b_out.ico
+tags/trunk.080706/o2on/resource/disable.ico
+tags/trunk.080706/o2on/resource/err.ico
+tags/trunk.080706/o2on/resource/o2on.ico
+tags/trunk.080706/o2on/src.browser/browser.manifest
+tags/trunk.080706/o2on/src.browser/browser.rc
+tags/trunk.080706/o2on/src.browser/browser.vcproj
+tags/trunk.080706/o2on/src.browser/main.cpp
+tags/trunk.080706/o2on/src.browser/resource.h
+tags/trunk.080706/o2on/src.o2on/KademliaKBucket.h
+tags/trunk.080706/o2on/src.o2on/KademliaNode.h
+tags/trunk.080706/o2on/src.o2on/KademliaRoutingTable.h
+tags/trunk.080706/o2on/src.o2on/O2Agent.cpp
+tags/trunk.080706/o2on/src.o2on/O2Agent.h
+tags/trunk.080706/o2on/src.o2on/O2Boards.cpp
+tags/trunk.080706/o2on/src.o2on/O2Boards.h
+tags/trunk.080706/o2on/src.o2on/O2Client.cpp
+tags/trunk.080706/o2on/src.o2on/O2Client.h
+tags/trunk.080706/o2on/src.o2on/O2Client_HTTP.h
+tags/trunk.080706/o2on/src.o2on/O2DatDB.cpp
+tags/trunk.080706/o2on/src.o2on/O2DatDB.h
+tags/trunk.080706/o2on/src.o2on/O2DatIO.cpp
+tags/trunk.080706/o2on/src.o2on/O2DatIO.h
+tags/trunk.080706/o2on/src.o2on/O2DatIndex.h
+tags/trunk.080706/o2on/src.o2on/O2DatPath.h
+tags/trunk.080706/o2on/src.o2on/O2Define.h
+tags/trunk.080706/o2on/src.o2on/O2FriendDB.h
+tags/trunk.080706/o2on/src.o2on/O2IMDB.cpp
+tags/trunk.080706/o2on/src.o2on/O2IMDB.h
+tags/trunk.080706/o2on/src.o2on/O2IPFilter.cpp
+tags/trunk.080706/o2on/src.o2on/O2IPFilter.h
+tags/trunk.080706/o2on/src.o2on/O2Job.h
+tags/trunk.080706/o2on/src.o2on/O2JobSchedule.h
+tags/trunk.080706/o2on/src.o2on/O2Job_AskCollection.h
+tags/trunk.080706/o2on/src.o2on/O2Job_AutoSave.h
+tags/trunk.080706/o2on/src.o2on/O2Job_Broadcast.h
+tags/trunk.080706/o2on/src.o2on/O2Job_ClearWorkset.h
+tags/trunk.080706/o2on/src.o2on/O2Job_DatCollector.h
+tags/trunk.080706/o2on/src.o2on/O2Job_GetGlobalIP.h
+tags/trunk.080706/o2on/src.o2on/O2Job_GetGlobalIP2.h
+tags/trunk.080706/o2on/src.o2on/O2Job_NodeCollector.h
+tags/trunk.080706/o2on/src.o2on/O2Job_PublishKeys.h
+tags/trunk.080706/o2on/src.o2on/O2Job_PublishOriginal.h
+tags/trunk.080706/o2on/src.o2on/O2Job_QueryDat.h
+tags/trunk.080706/o2on/src.o2on/O2Job_Search.h
+tags/trunk.080706/o2on/src.o2on/O2Job_SearchFriends.h
+tags/trunk.080706/o2on/src.o2on/O2Key.h
+tags/trunk.080706/o2on/src.o2on/O2KeyDB.cpp
+tags/trunk.080706/o2on/src.o2on/O2KeyDB.h
+tags/trunk.080706/o2on/src.o2on/O2LagQueryQueue.h
+tags/trunk.080706/o2on/src.o2on/O2Logger.cpp
+tags/trunk.080706/o2on/src.o2on/O2Logger.h
+tags/trunk.080706/o2on/src.o2on/O2Node.h
+tags/trunk.080706/o2on/src.o2on/O2NodeDB.cpp
+tags/trunk.080706/o2on/src.o2on/O2NodeDB.h
+tags/trunk.080706/o2on/src.o2on/O2NodeKBucket.h
+tags/trunk.080706/o2on/src.o2on/O2PerformanceCounter.h
+tags/trunk.080706/o2on/src.o2on/O2Profile.cpp
+tags/trunk.080706/o2on/src.o2on/O2Profile.h
+tags/trunk.080706/o2on/src.o2on/O2ProgressInfo.h
+tags/trunk.080706/o2on/src.o2on/O2Protocol.h
+tags/trunk.080706/o2on/src.o2on/O2Protocol_Dat.h
+tags/trunk.080706/o2on/src.o2on/O2Protocol_Kademlia.h
+tags/trunk.080706/o2on/src.o2on/O2ReportMaker.cpp
+tags/trunk.080706/o2on/src.o2on/O2ReportMaker.h
+tags/trunk.080706/o2on/src.o2on/O2SAX2Parser.cpp
+tags/trunk.080706/o2on/src.o2on/O2SAX2Parser.h
+tags/trunk.080706/o2on/src.o2on/O2Scheduler.h
+tags/trunk.080706/o2on/src.o2on/O2Server.cpp
+tags/trunk.080706/o2on/src.o2on/O2Server.h
+tags/trunk.080706/o2on/src.o2on/O2Server_HTTP.h
+tags/trunk.080706/o2on/src.o2on/O2Server_HTTP_Admin.h
+tags/trunk.080706/o2on/src.o2on/O2Server_HTTP_P2P.h
+tags/trunk.080706/o2on/src.o2on/O2Server_HTTP_Proxy.h
+tags/trunk.080706/o2on/src.o2on/O2SocketSession.h
+tags/trunk.080706/o2on/src.o2on/O2Version.h
+tags/trunk.080706/o2on/src.o2on/barray.h
+tags/trunk.080706/o2on/src.o2on/dataconv.cpp
+tags/trunk.080706/o2on/src.o2on/dataconv.h
+tags/trunk.080706/o2on/src.o2on/debug.h
+tags/trunk.080706/o2on/src.o2on/event.h
+tags/trunk.080706/o2on/src.o2on/file.cpp
+tags/trunk.080706/o2on/src.o2on/file.h
+tags/trunk.080706/o2on/src.o2on/headertest.cpp
+tags/trunk.080706/o2on/src.o2on/httpheader.cpp
+tags/trunk.080706/o2on/src.o2on/httpheader.h
+tags/trunk.080706/o2on/src.o2on/main.cpp
+tags/trunk.080706/o2on/src.o2on/mutex.h
+tags/trunk.080706/o2on/src.o2on/o2on.manifest
+tags/trunk.080706/o2on/src.o2on/o2on.vcproj
+tags/trunk.080706/o2on/src.o2on/resource.h
+tags/trunk.080706/o2on/src.o2on/resource.rc
+tags/trunk.080706/o2on/src.o2on/rsa.h
+tags/trunk.080706/o2on/src.o2on/sha.h
+tags/trunk.080706/o2on/src.o2on/simplehttpsocket.h
+tags/trunk.080706/o2on/src.o2on/simplessdpsocket.h
+tags/trunk.080706/o2on/src.o2on/simpletcpsocket.h
+tags/trunk.080706/o2on/src.o2on/simpleudpsocket.h
+tags/trunk.080706/o2on/src.o2on/stopwatch.h
+tags/trunk.080706/o2on/src.o2on/thread.h
+tags/trunk.080706/o2on/src.o2on/typedef.h
+tags/trunk.080706/o2on/src.o2on/upnp.h
+tags/trunk.080706/o2on/src.o2on/upnp_description.h
+tags/trunk.080706/o2on/src.o2on/zlib.h
+tags/trunk.080726/o2on/admin/bbsmenu.xsl
+tags/trunk.080726/o2on/admin/dat.xsl
+tags/trunk.080726/o2on/admin/friend.xsl
+tags/trunk.080726/o2on/admin/im.xsl
+tags/trunk.080726/o2on/admin/images/loading.gif
+tags/trunk.080726/o2on/admin/images/mypc.png
+tags/trunk.080726/o2on/admin/images/o2on.png
+tags/trunk.080726/o2on/admin/images/toolbg.png
+tags/trunk.080726/o2on/admin/imbroadcast.xsl
+tags/trunk.080726/o2on/admin/index.html
+tags/trunk.080726/o2on/admin/ipf.xsl
+tags/trunk.080726/o2on/admin/jkl-parsexml.js
+tags/trunk.080726/o2on/admin/key.xsl
+tags/trunk.080726/o2on/admin/log.xsl
+tags/trunk.080726/o2on/admin/main.html
+tags/trunk.080726/o2on/admin/menu.html
+tags/trunk.080726/o2on/admin/node.xsl
+tags/trunk.080726/o2on/admin/notification.xsl
+tags/trunk.080726/o2on/admin/o2on.js
+tags/trunk.080726/o2on/admin/profile.xsl
+tags/trunk.080726/o2on/admin/query.xsl
+tags/trunk.080726/o2on/admin/report.xsl
+tags/trunk.080726/o2on/admin/saku.xsl
+tags/trunk.080726/o2on/admin/sql.xsl
+tags/trunk.080726/o2on/admin/style.css
+tags/trunk.080726/o2on/admin/thread.xsl
+tags/trunk.080726/o2on/admin/work.html
+tags/trunk.080726/o2on/admin/xml
+tags/trunk.080726/o2on/doc/build.txt
+tags/trunk.080726/o2on/doc/history.txt
+tags/trunk.080726/o2on/doc/license.txt
+tags/trunk.080726/o2on/doc/readme.txt
+tags/trunk.080726/o2on/o2on.sln
+tags/trunk.080726/o2on/resource/a.ico
+tags/trunk.080726/o2on/resource/a_in.ico
+tags/trunk.080726/o2on/resource/a_inout.ico
+tags/trunk.080726/o2on/resource/a_out.ico
+tags/trunk.080726/o2on/resource/b.ico
+tags/trunk.080726/o2on/resource/b_in.ico
+tags/trunk.080726/o2on/resource/b_inout.ico
+tags/trunk.080726/o2on/resource/b_out.ico
+tags/trunk.080726/o2on/resource/disable.ico
+tags/trunk.080726/o2on/resource/err.ico
+tags/trunk.080726/o2on/resource/o2on.ico
+tags/trunk.080726/o2on/src.browser/browser.manifest
+tags/trunk.080726/o2on/src.browser/browser.rc
+tags/trunk.080726/o2on/src.browser/browser.vcproj
+tags/trunk.080726/o2on/src.browser/main.cpp
+tags/trunk.080726/o2on/src.browser/resource.h
+tags/trunk.080726/o2on/src.o2on/KademliaKBucket.h
+tags/trunk.080726/o2on/src.o2on/KademliaNode.h
+tags/trunk.080726/o2on/src.o2on/KademliaRoutingTable.h
+tags/trunk.080726/o2on/src.o2on/O2Agent.cpp
+tags/trunk.080726/o2on/src.o2on/O2Agent.h
+tags/trunk.080726/o2on/src.o2on/O2Boards.cpp
+tags/trunk.080726/o2on/src.o2on/O2Boards.h
+tags/trunk.080726/o2on/src.o2on/O2Client.cpp
+tags/trunk.080726/o2on/src.o2on/O2Client.h
+tags/trunk.080726/o2on/src.o2on/O2Client_HTTP.h
+tags/trunk.080726/o2on/src.o2on/O2DatDB.cpp
+tags/trunk.080726/o2on/src.o2on/O2DatDB.h
+tags/trunk.080726/o2on/src.o2on/O2DatIO.cpp
+tags/trunk.080726/o2on/src.o2on/O2DatIO.h
+tags/trunk.080726/o2on/src.o2on/O2DatIndex.h
+tags/trunk.080726/o2on/src.o2on/O2DatPath.h
+tags/trunk.080726/o2on/src.o2on/O2Define.h
+tags/trunk.080726/o2on/src.o2on/O2FriendDB.h
+tags/trunk.080726/o2on/src.o2on/O2IMDB.cpp
+tags/trunk.080726/o2on/src.o2on/O2IMDB.h
+tags/trunk.080726/o2on/src.o2on/O2IPFilter.cpp
+tags/trunk.080726/o2on/src.o2on/O2IPFilter.h
+tags/trunk.080726/o2on/src.o2on/O2Job.h
+tags/trunk.080726/o2on/src.o2on/O2JobSchedule.h
+tags/trunk.080726/o2on/src.o2on/O2Job_AskCollection.h
+tags/trunk.080726/o2on/src.o2on/O2Job_AutoSave.h
+tags/trunk.080726/o2on/src.o2on/O2Job_Broadcast.h
+tags/trunk.080726/o2on/src.o2on/O2Job_ClearWorkset.h
+tags/trunk.080726/o2on/src.o2on/O2Job_DatCollector.h
+tags/trunk.080726/o2on/src.o2on/O2Job_GetGlobalIP.h
+tags/trunk.080726/o2on/src.o2on/O2Job_GetGlobalIP2.h
+tags/trunk.080726/o2on/src.o2on/O2Job_NodeCollector.h
+tags/trunk.080726/o2on/src.o2on/O2Job_PublishKeys.h
+tags/trunk.080726/o2on/src.o2on/O2Job_PublishOriginal.h
+tags/trunk.080726/o2on/src.o2on/O2Job_QueryDat.h
+tags/trunk.080726/o2on/src.o2on/O2Job_Search.h
+tags/trunk.080726/o2on/src.o2on/O2Job_SearchFriends.h
+tags/trunk.080726/o2on/src.o2on/O2Key.h
+tags/trunk.080726/o2on/src.o2on/O2KeyDB.cpp
+tags/trunk.080726/o2on/src.o2on/O2KeyDB.h
+tags/trunk.080726/o2on/src.o2on/O2LagQueryQueue.h
+tags/trunk.080726/o2on/src.o2on/O2Logger.cpp
+tags/trunk.080726/o2on/src.o2on/O2Logger.h
+tags/trunk.080726/o2on/src.o2on/O2Node.h
+tags/trunk.080726/o2on/src.o2on/O2NodeDB.cpp
+tags/trunk.080726/o2on/src.o2on/O2NodeDB.h
+tags/trunk.080726/o2on/src.o2on/O2NodeKBucket.h
+tags/trunk.080726/o2on/src.o2on/O2PerformanceCounter.h
+tags/trunk.080726/o2on/src.o2on/O2Profile.cpp
+tags/trunk.080726/o2on/src.o2on/O2Profile.h
+tags/trunk.080726/o2on/src.o2on/O2ProgressInfo.h
+tags/trunk.080726/o2on/src.o2on/O2Protocol.h
+tags/trunk.080726/o2on/src.o2on/O2Protocol_Dat.h
+tags/trunk.080726/o2on/src.o2on/O2Protocol_Kademlia.h
+tags/trunk.080726/o2on/src.o2on/O2ReportMaker.cpp
+tags/trunk.080726/o2on/src.o2on/O2ReportMaker.h
+tags/trunk.080726/o2on/src.o2on/O2SAX2Parser.cpp
+tags/trunk.080726/o2on/src.o2on/O2SAX2Parser.h
+tags/trunk.080726/o2on/src.o2on/O2Scheduler.h
+tags/trunk.080726/o2on/src.o2on/O2Server.cpp
+tags/trunk.080726/o2on/src.o2on/O2Server.h
+tags/trunk.080726/o2on/src.o2on/O2Server_HTTP.h
+tags/trunk.080726/o2on/src.o2on/O2Server_HTTP_Admin.h
+tags/trunk.080726/o2on/src.o2on/O2Server_HTTP_P2P.h
+tags/trunk.080726/o2on/src.o2on/O2Server_HTTP_Proxy.h
+tags/trunk.080726/o2on/src.o2on/O2SocketSession.h
+tags/trunk.080726/o2on/src.o2on/O2Version.h
+tags/trunk.080726/o2on/src.o2on/barray.h
+tags/trunk.080726/o2on/src.o2on/dataconv.cpp
+tags/trunk.080726/o2on/src.o2on/dataconv.h
+tags/trunk.080726/o2on/src.o2on/debug.h
+tags/trunk.080726/o2on/src.o2on/event.h
+tags/trunk.080726/o2on/src.o2on/file.cpp
+tags/trunk.080726/o2on/src.o2on/file.h
+tags/trunk.080726/o2on/src.o2on/headertest.cpp
+tags/trunk.080726/o2on/src.o2on/httpheader.cpp
+tags/trunk.080726/o2on/src.o2on/httpheader.h
+tags/trunk.080726/o2on/src.o2on/main.cpp
+tags/trunk.080726/o2on/src.o2on/mutex.h
+tags/trunk.080726/o2on/src.o2on/o2on.manifest
+tags/trunk.080726/o2on/src.o2on/o2on.vcproj
+tags/trunk.080726/o2on/src.o2on/resource.h
+tags/trunk.080726/o2on/src.o2on/resource.rc
+tags/trunk.080726/o2on/src.o2on/rsa.h
+tags/trunk.080726/o2on/src.o2on/sha.h
+tags/trunk.080726/o2on/src.o2on/simplehttpsocket.h
+tags/trunk.080726/o2on/src.o2on/simplessdpsocket.h
+tags/trunk.080726/o2on/src.o2on/simpletcpsocket.h
+tags/trunk.080726/o2on/src.o2on/simpleudpsocket.h
+tags/trunk.080726/o2on/src.o2on/stopwatch.h
+tags/trunk.080726/o2on/src.o2on/thread.h
+tags/trunk.080726/o2on/src.o2on/typedef.h
+tags/trunk.080726/o2on/src.o2on/upnp.h
+tags/trunk.080726/o2on/src.o2on/upnp_description.h
+tags/trunk.080726/o2on/src.o2on/zlib.h
+
+commit 65c0a3a
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-07-26
+
+    trunk待避
+    FireBird対応はなかったことにする
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@111 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+tags/trunk.080706/o2on/admin/bbsmenu.xsl
+tags/trunk.080706/o2on/admin/dat.xsl
+tags/trunk.080706/o2on/admin/friend.xsl
+tags/trunk.080706/o2on/admin/im.xsl
+tags/trunk.080706/o2on/admin/images/loading.gif
+tags/trunk.080706/o2on/admin/images/mypc.png
+tags/trunk.080706/o2on/admin/images/o2on.png
+tags/trunk.080706/o2on/admin/images/toolbg.png
+tags/trunk.080706/o2on/admin/imbroadcast.xsl
+tags/trunk.080706/o2on/admin/index.html
+tags/trunk.080706/o2on/admin/ipf.xsl
+tags/trunk.080706/o2on/admin/jkl-parsexml.js
+tags/trunk.080706/o2on/admin/key.xsl
+tags/trunk.080706/o2on/admin/log.xsl
+tags/trunk.080706/o2on/admin/main.html
+tags/trunk.080706/o2on/admin/menu.html
+tags/trunk.080706/o2on/admin/node.xsl
+tags/trunk.080706/o2on/admin/notification.xsl
+tags/trunk.080706/o2on/admin/o2on.js
+tags/trunk.080706/o2on/admin/profile.xsl
+tags/trunk.080706/o2on/admin/query.xsl
+tags/trunk.080706/o2on/admin/report.xsl
+tags/trunk.080706/o2on/admin/saku.xsl
+tags/trunk.080706/o2on/admin/sql.xsl
+tags/trunk.080706/o2on/admin/style.css
+tags/trunk.080706/o2on/admin/thread.xsl
+tags/trunk.080706/o2on/admin/work.html
+tags/trunk.080706/o2on/admin/xml
+tags/trunk.080706/o2on/doc/build.txt
+tags/trunk.080706/o2on/doc/history.txt
+tags/trunk.080706/o2on/doc/license.txt
+tags/trunk.080706/o2on/doc/readme.txt
+tags/trunk.080706/o2on/o2on.sln
+tags/trunk.080706/o2on/resource/a.ico
+tags/trunk.080706/o2on/resource/a_in.ico
+tags/trunk.080706/o2on/resource/a_inout.ico
+tags/trunk.080706/o2on/resource/a_out.ico
+tags/trunk.080706/o2on/resource/b.ico
+tags/trunk.080706/o2on/resource/b_in.ico
+tags/trunk.080706/o2on/resource/b_inout.ico
+tags/trunk.080706/o2on/resource/b_out.ico
+tags/trunk.080706/o2on/resource/disable.ico
+tags/trunk.080706/o2on/resource/err.ico
+tags/trunk.080706/o2on/resource/o2on.ico
+tags/trunk.080706/o2on/src.browser/browser.manifest
+tags/trunk.080706/o2on/src.browser/browser.rc
+tags/trunk.080706/o2on/src.browser/browser.vcproj
+tags/trunk.080706/o2on/src.browser/main.cpp
+tags/trunk.080706/o2on/src.browser/resource.h
+tags/trunk.080706/o2on/src.o2on/KademliaKBucket.h
+tags/trunk.080706/o2on/src.o2on/KademliaNode.h
+tags/trunk.080706/o2on/src.o2on/KademliaRoutingTable.h
+tags/trunk.080706/o2on/src.o2on/O2Agent.cpp
+tags/trunk.080706/o2on/src.o2on/O2Agent.h
+tags/trunk.080706/o2on/src.o2on/O2Boards.cpp
+tags/trunk.080706/o2on/src.o2on/O2Boards.h
+tags/trunk.080706/o2on/src.o2on/O2Client.cpp
+tags/trunk.080706/o2on/src.o2on/O2Client.h
+tags/trunk.080706/o2on/src.o2on/O2Client_HTTP.h
+tags/trunk.080706/o2on/src.o2on/O2DatDB.cpp
+tags/trunk.080706/o2on/src.o2on/O2DatDB.h
+tags/trunk.080706/o2on/src.o2on/O2DatIO.cpp
+tags/trunk.080706/o2on/src.o2on/O2DatIO.h
+tags/trunk.080706/o2on/src.o2on/O2DatIndex.h
+tags/trunk.080706/o2on/src.o2on/O2DatPath.h
+tags/trunk.080706/o2on/src.o2on/O2Define.h
+tags/trunk.080706/o2on/src.o2on/O2FriendDB.h
+tags/trunk.080706/o2on/src.o2on/O2IMDB.cpp
+tags/trunk.080706/o2on/src.o2on/O2IMDB.h
+tags/trunk.080706/o2on/src.o2on/O2IPFilter.cpp
+tags/trunk.080706/o2on/src.o2on/O2IPFilter.h
+tags/trunk.080706/o2on/src.o2on/O2Job.h
+tags/trunk.080706/o2on/src.o2on/O2JobSchedule.h
+tags/trunk.080706/o2on/src.o2on/O2Job_AskCollection.h
+tags/trunk.080706/o2on/src.o2on/O2Job_AutoSave.h
+tags/trunk.080706/o2on/src.o2on/O2Job_Broadcast.h
+tags/trunk.080706/o2on/src.o2on/O2Job_ClearWorkset.h
+tags/trunk.080706/o2on/src.o2on/O2Job_DatCollector.h
+tags/trunk.080706/o2on/src.o2on/O2Job_GetGlobalIP.h
+tags/trunk.080706/o2on/src.o2on/O2Job_GetGlobalIP2.h
+tags/trunk.080706/o2on/src.o2on/O2Job_NodeCollector.h
+tags/trunk.080706/o2on/src.o2on/O2Job_PublishKeys.h
+tags/trunk.080706/o2on/src.o2on/O2Job_PublishOriginal.h
+tags/trunk.080706/o2on/src.o2on/O2Job_QueryDat.h
+tags/trunk.080706/o2on/src.o2on/O2Job_Search.h
+tags/trunk.080706/o2on/src.o2on/O2Job_SearchFriends.h
+tags/trunk.080706/o2on/src.o2on/O2Key.h
+tags/trunk.080706/o2on/src.o2on/O2KeyDB.cpp
+tags/trunk.080706/o2on/src.o2on/O2KeyDB.h
+tags/trunk.080706/o2on/src.o2on/O2LagQueryQueue.h
+tags/trunk.080706/o2on/src.o2on/O2Logger.cpp
+tags/trunk.080706/o2on/src.o2on/O2Logger.h
+tags/trunk.080706/o2on/src.o2on/O2Node.h
+tags/trunk.080706/o2on/src.o2on/O2NodeDB.cpp
+tags/trunk.080706/o2on/src.o2on/O2NodeDB.h
+tags/trunk.080706/o2on/src.o2on/O2NodeKBucket.h
+tags/trunk.080706/o2on/src.o2on/O2PerformanceCounter.h
+tags/trunk.080706/o2on/src.o2on/O2Profile.cpp
+tags/trunk.080706/o2on/src.o2on/O2Profile.h
+tags/trunk.080706/o2on/src.o2on/O2ProgressInfo.h
+tags/trunk.080706/o2on/src.o2on/O2Protocol.h
+tags/trunk.080706/o2on/src.o2on/O2Protocol_Dat.h
+tags/trunk.080706/o2on/src.o2on/O2Protocol_Kademlia.h
+tags/trunk.080706/o2on/src.o2on/O2ReportMaker.cpp
+tags/trunk.080706/o2on/src.o2on/O2ReportMaker.h
+tags/trunk.080706/o2on/src.o2on/O2SAX2Parser.cpp
+tags/trunk.080706/o2on/src.o2on/O2SAX2Parser.h
+tags/trunk.080706/o2on/src.o2on/O2Scheduler.h
+tags/trunk.080706/o2on/src.o2on/O2Server.cpp
+tags/trunk.080706/o2on/src.o2on/O2Server.h
+tags/trunk.080706/o2on/src.o2on/O2Server_HTTP.h
+tags/trunk.080706/o2on/src.o2on/O2Server_HTTP_Admin.h
+tags/trunk.080706/o2on/src.o2on/O2Server_HTTP_P2P.h
+tags/trunk.080706/o2on/src.o2on/O2Server_HTTP_Proxy.h
+tags/trunk.080706/o2on/src.o2on/O2SocketSession.h
+tags/trunk.080706/o2on/src.o2on/O2Version.h
+tags/trunk.080706/o2on/src.o2on/barray.h
+tags/trunk.080706/o2on/src.o2on/dataconv.cpp
+tags/trunk.080706/o2on/src.o2on/dataconv.h
+tags/trunk.080706/o2on/src.o2on/debug.h
+tags/trunk.080706/o2on/src.o2on/event.h
+tags/trunk.080706/o2on/src.o2on/file.cpp
+tags/trunk.080706/o2on/src.o2on/file.h
+tags/trunk.080706/o2on/src.o2on/headertest.cpp
+tags/trunk.080706/o2on/src.o2on/httpheader.cpp
+tags/trunk.080706/o2on/src.o2on/httpheader.h
+tags/trunk.080706/o2on/src.o2on/main.cpp
+tags/trunk.080706/o2on/src.o2on/mutex.h
+tags/trunk.080706/o2on/src.o2on/o2on.manifest
+tags/trunk.080706/o2on/src.o2on/o2on.vcproj
+tags/trunk.080706/o2on/src.o2on/resource.h
+tags/trunk.080706/o2on/src.o2on/resource.rc
+tags/trunk.080706/o2on/src.o2on/rsa.h
+tags/trunk.080706/o2on/src.o2on/sha.h
+tags/trunk.080706/o2on/src.o2on/simplehttpsocket.h
+tags/trunk.080706/o2on/src.o2on/simplessdpsocket.h
+tags/trunk.080706/o2on/src.o2on/simpletcpsocket.h
+tags/trunk.080706/o2on/src.o2on/simpleudpsocket.h
+tags/trunk.080706/o2on/src.o2on/stopwatch.h
+tags/trunk.080706/o2on/src.o2on/thread.h
+tags/trunk.080706/o2on/src.o2on/typedef.h
+tags/trunk.080706/o2on/src.o2on/upnp.h
+tags/trunk.080706/o2on/src.o2on/upnp_description.h
+tags/trunk.080706/o2on/src.o2on/zlib.h
+
+commit 1082104
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-07-26
+
+    ライブラリアップデート: SQLite 3.6.0
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@110 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/doc/build.txt
+branches/BRANCH_0043/o2on/src.o2on/o2on.vcproj
+
+commit 9f5002c
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-07-26
+
+    CLEAN UP: 未使用メソッドを削除
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@109 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.h
+
+commit d2d3b95
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-07-26
+
+    FIX: #12995 無視している板のdatのリクエストを送らないようにした
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@108 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2Boards.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2Boards.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_DatCollector.h
+
+commit 0b14dd4
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-07-26
+
+    DBチューニング
+    起動時analyzeをやめた
+    適宜begin; end;でトランザクションを利用
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@107 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.cpp
+
+commit 2d30299
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-07-26
+
+    FIX: typo
+    http://pc11.2ch.net/test/read.cgi/tech/1212302014/435
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@106 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2Server_HTTP_Admin.h
+
+commit 1d2e832
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-07-21
+
+    FIX: SQL文で変数がバインドされていない箇所がある
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@105 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.cpp
+
+commit d43e8cd
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-07-21
+
+    DB再構築の方法を変更
+    
+    詳細:
+    ・dat.db.rebuild上で再構築し、完了時に差し替え
+    ・datフォルダの走査と再構築を同期して行う
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@104 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.h
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.h
+branches/BRANCH_0043/o2on/src.o2on/main.cpp
+
+commit dc49af1
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-06-26
+
+    FIX: for rev102
+    キャストでは不十分だったのできちんと対応
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@103 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2IPFilter.cpp
+
+commit de39d60
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-06-25
+
+    FIX: コンパイラの警告が出ないようにキャスト
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@102 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2IPFilter.cpp
+
+commit ace2cf0
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-06-17
+
+    ライブラリアップデート: Boost 1.35.0 / SQLite 3.5.9
+    ドキュメント更新: x64の記述を削除
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@101 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/doc/build.txt
+branches/BRANCH_0043/o2on/src.o2on/o2on.vcproj
+
+commit e88f45b
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-31
+
+    ・analyzeを手動で行うようにした
+    ・datnameのインデックスを作成
+    ・終了時間の短縮(2秒程度)
+    ・強制スワップアウトを廃止
+    ・UPnP対応強化
+    ・シャットダウン時の優先度を変更
+    ・コード変換をIMultiLanguage2に変更
+    ・UPXをやめた
+    
+    * バグフィックス
+    ・DBオープン失敗時に落ちる
+    ・DB再構築で"database is locked"エラーが頻発することがある
+    ・Reindexでのエラー時に落ちる
+    ・スレ番号が長すぎると落ちる
+    ・SQL発行画面のバグ(2件)
+    ・IM関係(2件)
+    ・補完時バルーンOFFの設定が動作していない
+    ・EUC-JPのdatに対応
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@100 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+tags/build0044/o2on/admin/bbsmenu.xsl
+tags/build0044/o2on/admin/dat.xsl
+tags/build0044/o2on/admin/friend.xsl
+tags/build0044/o2on/admin/im.xsl
+tags/build0044/o2on/admin/images/loading.gif
+tags/build0044/o2on/admin/images/mypc.png
+tags/build0044/o2on/admin/images/o2on.png
+tags/build0044/o2on/admin/images/toolbg.png
+tags/build0044/o2on/admin/imbroadcast.xsl
+tags/build0044/o2on/admin/index.html
+tags/build0044/o2on/admin/ipf.xsl
+tags/build0044/o2on/admin/jkl-parsexml.js
+tags/build0044/o2on/admin/key.xsl
+tags/build0044/o2on/admin/log.xsl
+tags/build0044/o2on/admin/main.html
+tags/build0044/o2on/admin/menu.html
+tags/build0044/o2on/admin/node.xsl
+tags/build0044/o2on/admin/notification.xsl
+tags/build0044/o2on/admin/o2on.js
+tags/build0044/o2on/admin/profile.xsl
+tags/build0044/o2on/admin/query.xsl
+tags/build0044/o2on/admin/report.xsl
+tags/build0044/o2on/admin/saku.xsl
+tags/build0044/o2on/admin/sql.xsl
+tags/build0044/o2on/admin/style.css
+tags/build0044/o2on/admin/thread.xsl
+tags/build0044/o2on/admin/work.html
+tags/build0044/o2on/admin/xml
+tags/build0044/o2on/doc/build.txt
+tags/build0044/o2on/doc/history.txt
+tags/build0044/o2on/doc/license.txt
+tags/build0044/o2on/doc/readme.txt
+tags/build0044/o2on/o2on.sln
+tags/build0044/o2on/resource/a.ico
+tags/build0044/o2on/resource/a_in.ico
+tags/build0044/o2on/resource/a_inout.ico
+tags/build0044/o2on/resource/a_out.ico
+tags/build0044/o2on/resource/b.ico
+tags/build0044/o2on/resource/b_in.ico
+tags/build0044/o2on/resource/b_inout.ico
+tags/build0044/o2on/resource/b_out.ico
+tags/build0044/o2on/resource/disable.ico
+tags/build0044/o2on/resource/err.ico
+tags/build0044/o2on/resource/o2on.ico
+tags/build0044/o2on/src.browser/browser.manifest
+tags/build0044/o2on/src.browser/browser.rc
+tags/build0044/o2on/src.browser/browser.vcproj
+tags/build0044/o2on/src.browser/main.cpp
+tags/build0044/o2on/src.browser/resource.h
+tags/build0044/o2on/src.o2on/KademliaKBucket.h
+tags/build0044/o2on/src.o2on/KademliaNode.h
+tags/build0044/o2on/src.o2on/KademliaRoutingTable.h
+tags/build0044/o2on/src.o2on/O2Agent.cpp
+tags/build0044/o2on/src.o2on/O2Agent.h
+tags/build0044/o2on/src.o2on/O2Boards.cpp
+tags/build0044/o2on/src.o2on/O2Boards.h
+tags/build0044/o2on/src.o2on/O2Client.cpp
+tags/build0044/o2on/src.o2on/O2Client.h
+tags/build0044/o2on/src.o2on/O2Client_HTTP.h
+tags/build0044/o2on/src.o2on/O2DatDB.cpp
+tags/build0044/o2on/src.o2on/O2DatDB.h
+tags/build0044/o2on/src.o2on/O2DatIO.cpp
+tags/build0044/o2on/src.o2on/O2DatIO.h
+tags/build0044/o2on/src.o2on/O2DatIndex.h
+tags/build0044/o2on/src.o2on/O2DatPath.h
+tags/build0044/o2on/src.o2on/O2Define.h
+tags/build0044/o2on/src.o2on/O2FriendDB.h
+tags/build0044/o2on/src.o2on/O2IMDB.cpp
+tags/build0044/o2on/src.o2on/O2IMDB.h
+tags/build0044/o2on/src.o2on/O2IPFilter.cpp
+tags/build0044/o2on/src.o2on/O2IPFilter.h
+tags/build0044/o2on/src.o2on/O2Job.h
+tags/build0044/o2on/src.o2on/O2JobSchedule.h
+tags/build0044/o2on/src.o2on/O2Job_AskCollection.h
+tags/build0044/o2on/src.o2on/O2Job_AutoSave.h
+tags/build0044/o2on/src.o2on/O2Job_Broadcast.h
+tags/build0044/o2on/src.o2on/O2Job_ClearWorkset.h
+tags/build0044/o2on/src.o2on/O2Job_DatCollector.h
+tags/build0044/o2on/src.o2on/O2Job_GetGlobalIP.h
+tags/build0044/o2on/src.o2on/O2Job_GetGlobalIP2.h
+tags/build0044/o2on/src.o2on/O2Job_NodeCollector.h
+tags/build0044/o2on/src.o2on/O2Job_PublishKeys.h
+tags/build0044/o2on/src.o2on/O2Job_PublishOriginal.h
+tags/build0044/o2on/src.o2on/O2Job_QueryDat.h
+tags/build0044/o2on/src.o2on/O2Job_Search.h
+tags/build0044/o2on/src.o2on/O2Job_SearchFriends.h
+tags/build0044/o2on/src.o2on/O2Key.h
+tags/build0044/o2on/src.o2on/O2KeyDB.cpp
+tags/build0044/o2on/src.o2on/O2KeyDB.h
+tags/build0044/o2on/src.o2on/O2LagQueryQueue.h
+tags/build0044/o2on/src.o2on/O2Logger.cpp
+tags/build0044/o2on/src.o2on/O2Logger.h
+tags/build0044/o2on/src.o2on/O2Node.h
+tags/build0044/o2on/src.o2on/O2NodeDB.cpp
+tags/build0044/o2on/src.o2on/O2NodeDB.h
+tags/build0044/o2on/src.o2on/O2NodeKBucket.h
+tags/build0044/o2on/src.o2on/O2PerformanceCounter.h
+tags/build0044/o2on/src.o2on/O2Profile.cpp
+tags/build0044/o2on/src.o2on/O2Profile.h
+tags/build0044/o2on/src.o2on/O2ProgressInfo.h
+tags/build0044/o2on/src.o2on/O2Protocol.h
+tags/build0044/o2on/src.o2on/O2Protocol_Dat.h
+tags/build0044/o2on/src.o2on/O2Protocol_Kademlia.h
+tags/build0044/o2on/src.o2on/O2ReportMaker.cpp
+tags/build0044/o2on/src.o2on/O2ReportMaker.h
+tags/build0044/o2on/src.o2on/O2SAX2Parser.cpp
+tags/build0044/o2on/src.o2on/O2SAX2Parser.h
+tags/build0044/o2on/src.o2on/O2Scheduler.h
+tags/build0044/o2on/src.o2on/O2Server.cpp
+tags/build0044/o2on/src.o2on/O2Server.h
+tags/build0044/o2on/src.o2on/O2Server_HTTP.h
+tags/build0044/o2on/src.o2on/O2Server_HTTP_Admin.h
+tags/build0044/o2on/src.o2on/O2Server_HTTP_P2P.h
+tags/build0044/o2on/src.o2on/O2Server_HTTP_Proxy.h
+tags/build0044/o2on/src.o2on/O2SocketSession.h
+tags/build0044/o2on/src.o2on/O2Version.h
+tags/build0044/o2on/src.o2on/barray.h
+tags/build0044/o2on/src.o2on/dataconv.cpp
+tags/build0044/o2on/src.o2on/dataconv.h
+tags/build0044/o2on/src.o2on/debug.h
+tags/build0044/o2on/src.o2on/event.h
+tags/build0044/o2on/src.o2on/file.cpp
+tags/build0044/o2on/src.o2on/file.h
+tags/build0044/o2on/src.o2on/headertest.cpp
+tags/build0044/o2on/src.o2on/httpheader.cpp
+tags/build0044/o2on/src.o2on/httpheader.h
+tags/build0044/o2on/src.o2on/main.cpp
+tags/build0044/o2on/src.o2on/mutex.h
+tags/build0044/o2on/src.o2on/o2on.manifest
+tags/build0044/o2on/src.o2on/o2on.vcproj
+tags/build0044/o2on/src.o2on/resource.h
+tags/build0044/o2on/src.o2on/resource.rc
+tags/build0044/o2on/src.o2on/rsa.h
+tags/build0044/o2on/src.o2on/sha.h
+tags/build0044/o2on/src.o2on/simplehttpsocket.h
+tags/build0044/o2on/src.o2on/simplessdpsocket.h
+tags/build0044/o2on/src.o2on/simpletcpsocket.h
+tags/build0044/o2on/src.o2on/simpleudpsocket.h
+tags/build0044/o2on/src.o2on/stopwatch.h
+tags/build0044/o2on/src.o2on/thread.h
+tags/build0044/o2on/src.o2on/typedef.h
+tags/build0044/o2on/src.o2on/upnp.h
+tags/build0044/o2on/src.o2on/upnp_description.h
+tags/build0044/o2on/src.o2on/zlib.h
+
+commit a6347a7
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-31
+
+    build 0044 リリース
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@99 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/doc/history.txt
+branches/BRANCH_0043/o2on/src.o2on/O2Version.h
+
+commit 086e197
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-31
+
+    o2on.exeのUPX圧縮を廃止
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@98 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/doc/build.txt
+branches/BRANCH_0043/o2on/src.o2on/o2on.vcproj
+
+commit f0ab015
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-29
+
+    FIX: #12553 UPnPがうまく動かないルータがある
+    
+    詳細: 1. URLBaseがあれば使用する
+    2. Hostヘッダにポート番号を付ける（デフォルトポート除く）
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@97 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2Protocol.h
+branches/BRANCH_0043/o2on/src.o2on/simplehttpsocket.h
+branches/BRANCH_0043/o2on/src.o2on/upnp_description.h
+
+commit 65d687a
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-29
+
+    FIX: DB再構築で"database is locked"エラーが頻発することがある
+    
+    詳細: 一回のトランザクションで処理する件数を最大で1000に制限して小分けし、個々のトランザクションに要する時間を短縮する
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@96 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.h
+
+commit 1fdacab
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-28
+
+    初期ノード追加手順の変更
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@95 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/doc/readme.txt
+
+commit c76d6dd
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-27
+
+    ADD: メニューからのanalyze
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@94 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.h
+branches/BRANCH_0043/o2on/src.o2on/main.cpp
+branches/BRANCH_0043/o2on/src.o2on/resource.h
+branches/BRANCH_0043/o2on/src.o2on/resource.rc
+
+commit 60e0eb7
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-27
+
+    IMultiLanguage2に変更
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@93 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/dataconv.cpp
+
+commit 8345e11
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-24
+
+    ADD: O2DatDB::analyze()
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@92 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.h
+
+commit e7d9f62
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-24
+
+    FIX: スレ番号が長すぎると落ちる
+    http://pc11.2ch.net/test/read.cgi/tech/1180440415/856
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@91 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatPath.h
+
+commit 1484fcc
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-24
+
+    FIX: DBオープン失敗時に落ちる問題
+    stmtの初期化を最初に行うように変更
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@90 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.cpp
+
+commit af8924f
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-23
+
+    FIX: #12289 シャットダウン時の優先度を変更
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@89 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/main.cpp
+
+commit 2037f35
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-21
+
+    FIX: Reindexでのエラー時に落ちるバグ修正
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@88 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.cpp
+
+commit 1baf42f
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-21
+
+    FIX:datnameのインデックスを作成 一部更新忘れ
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@87 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.cpp
+
+commit 8f58582
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-21
+
+    datnameのインデックスを作成
+    dat一覧画面でのパフォーマンスアップ
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@86 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.cpp
+
+commit 33057f9
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-17
+
+    FFirebird対応: コード整理
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@85 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatDB.cpp
+
+commit a48df11
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-12
+
+    エンコーディング判定の精度を向上
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@84 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.cpp
+
+commit 7165521
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-12
+
+    FIX: IMを全件削除するとIM.xmlに反映されない
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@83 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2IMDB.cpp
+
+commit 67b98be
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-05-01
+
+    FIX: ブロードキャストメッセージのループの暫定修正によるIMへの副作用
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@82 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2IMDB.h
+branches/BRANCH_0043/o2on/src.o2on/O2Server_HTTP_Admin.h
+branches/BRANCH_0043/o2on/src.o2on/O2Server_HTTP_P2P.h
+
+commit c269aa2
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-04-27
+
+    MERGE: trunkより rev48, rev61
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@81 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/main.cpp
+branches/BRANCH_0043/o2on/src.o2on/upnp_description.h
+
+commit c31ffab
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-04-23
+
+    FIX: 補完時のバルーンをOFFにしてもバルーンが表示される
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@80 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2Job_DatCollector.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_QueryDat.h
+branches/BRANCH_0043/o2on/src.o2on/O2Protocol_Dat.h
+branches/BRANCH_0043/o2on/src.o2on/O2Server_HTTP_P2P.h
+
+commit 8a39bd1
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-04-23
+
+    FIX: EUC-JPなdatに未対応
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@79 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.h
+
+commit 9a6ae3a
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-04-22
+
+    FIX: 「取得失敗」時にエンコーディングが未指定
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@78 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.cpp
+
+commit 47ba229
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-04-21
+
+    CLEAR_WORKSET を無効化
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@77 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2Define.h
+
+commit c53935e
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-04-21
+
+    FIX: #12130 SQL結果件数の誤表示
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@76 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.cpp
+
+commit 835df1d
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-04-19
+
+    FIX: SQL文によっては不正なXMLが生成される
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@75 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2Server_HTTP_Admin.h
+branches/BRANCH_0043/o2on/src.o2on/dataconv.cpp
+branches/BRANCH_0043/o2on/src.o2on/dataconv.h
+
+commit ad5f6dd
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-04-19
+
+    バベル追加漏れ
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@74 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/o2on.vcproj
+
+commit f82eef4
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-04-18
+
+    バベルを追加
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@73 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/doc/build.txt
+
+commit 88ab1eb
+Author: electrolysis <electrolysis@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-04-18
+
+    FIX: EUC-JPなdatに未対応
+    
+    詳細: Be板にはEUC-JPなdatがあるため、バベルを使ってShift_JISかEUC-JPかを判別し、適切に扱うようにした
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@72 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.h
+branches/BRANCH_0043/o2on/src.o2on/O2DatPath.h
+branches/BRANCH_0043/o2on/src.o2on/O2Server_HTTP_Admin.h
+branches/BRANCH_0043/o2on/src.o2on/dataconv.cpp
+branches/BRANCH_0043/o2on/src.o2on/dataconv.h
+branches/BRANCH_0043/o2on/src.o2on/o2on.vcproj
+
+commit adeabc5
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-04-06
+
+    fFirebird対応:
+    select 追加
+    バグフィックス
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@71 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatDB.cpp
+trunk/o2on/src.o2on/O2DatDB.h
+
+commit 6e595e7
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-04-03
+
+    Firebird対応:
+    free_xsqlda
+    bind
+    select, select_datcount, select_publishcount
+    update
+    remove
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@70 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatDB.cpp
+trunk/o2on/src.o2on/O2DatDB.h
+
+commit a291114
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-31
+
+    Firebird対応:
+    select(O2DatRec &out)
+    select(O2DatRec &out, const hashT hash)
+    select_datcount(void)
+    reindex
+    prepare_xsqlda
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@69 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatDB.cpp
+trunk/o2on/src.o2on/O2DatDB.h
+
+commit 7b9f741
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-29
+
+    Firebird対応: DBファイル名変更
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@68 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/main.cpp
+
+commit 820e76e
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-29
+
+    Firebird対応:
+    get_columns
+    get_column_names
+    select(O2DatRecList &out)
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@67 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatDB.cpp
+trunk/o2on/src.o2on/O2DatDB.h
+
+commit d34bb50
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-25
+
+    Firebird対応:create_table, コンストラクタ
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@66 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatDB.cpp
+trunk/o2on/src.o2on/O2DatDB.h
+
+commit d0657bf
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-23
+
+    Firebird対応:コンパイル条件分け
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@65 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatDB.cpp
+trunk/o2on/src.o2on/O2DatDB.h
+
+commit b8b389f
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-23
+
+    FIX:終了処理にかかる時間を平均2秒短縮
+    
+    詳細:待機関数をSleepからWaitForSingleObjectへ変更
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@64 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.h
+branches/BRANCH_0043/o2on/src.o2on/O2LagQueryQueue.h
+
+commit 378379d
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-20
+
+    コピーコンストラクタと代入演算子をpublicからprivateに変更
+    
+    変更したクラス：Mutex,File,MappedFile,EventObject
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@63 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/event.h
+branches/BRANCH_0043/o2on/src.o2on/file.h
+branches/BRANCH_0043/o2on/src.o2on/mutex.h
+
+commit bfd97b3
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-18
+
+    条件変数のクリア忘れ
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@62 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.cpp
+
+commit dea631a
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-17
+
+    デバッグ時の多重起動許可
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@61 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/main.cpp
+
+commit 220ab3c
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-17
+
+    複数datフォルダ機能追加(O2DatIO)
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@60 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatIO.cpp
+
+commit 613022b
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-17
+
+    build 0043 リリース後のbug fixはこちらへ
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@59 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/BRANCH_0043/o2on/admin/bbsmenu.xsl
+branches/BRANCH_0043/o2on/admin/dat.xsl
+branches/BRANCH_0043/o2on/admin/friend.xsl
+branches/BRANCH_0043/o2on/admin/im.xsl
+branches/BRANCH_0043/o2on/admin/images/loading.gif
+branches/BRANCH_0043/o2on/admin/images/mypc.png
+branches/BRANCH_0043/o2on/admin/images/o2on.png
+branches/BRANCH_0043/o2on/admin/images/toolbg.png
+branches/BRANCH_0043/o2on/admin/imbroadcast.xsl
+branches/BRANCH_0043/o2on/admin/index.html
+branches/BRANCH_0043/o2on/admin/ipf.xsl
+branches/BRANCH_0043/o2on/admin/jkl-parsexml.js
+branches/BRANCH_0043/o2on/admin/key.xsl
+branches/BRANCH_0043/o2on/admin/log.xsl
+branches/BRANCH_0043/o2on/admin/main.html
+branches/BRANCH_0043/o2on/admin/menu.html
+branches/BRANCH_0043/o2on/admin/node.xsl
+branches/BRANCH_0043/o2on/admin/notification.xsl
+branches/BRANCH_0043/o2on/admin/o2on.js
+branches/BRANCH_0043/o2on/admin/profile.xsl
+branches/BRANCH_0043/o2on/admin/query.xsl
+branches/BRANCH_0043/o2on/admin/report.xsl
+branches/BRANCH_0043/o2on/admin/saku.xsl
+branches/BRANCH_0043/o2on/admin/sql.xsl
+branches/BRANCH_0043/o2on/admin/style.css
+branches/BRANCH_0043/o2on/admin/thread.xsl
+branches/BRANCH_0043/o2on/admin/work.html
+branches/BRANCH_0043/o2on/admin/xml
+branches/BRANCH_0043/o2on/doc/build.txt
+branches/BRANCH_0043/o2on/doc/history.txt
+branches/BRANCH_0043/o2on/doc/license.txt
+branches/BRANCH_0043/o2on/doc/readme.txt
+branches/BRANCH_0043/o2on/o2on.sln
+branches/BRANCH_0043/o2on/resource/a.ico
+branches/BRANCH_0043/o2on/resource/a_in.ico
+branches/BRANCH_0043/o2on/resource/a_inout.ico
+branches/BRANCH_0043/o2on/resource/a_out.ico
+branches/BRANCH_0043/o2on/resource/b.ico
+branches/BRANCH_0043/o2on/resource/b_in.ico
+branches/BRANCH_0043/o2on/resource/b_inout.ico
+branches/BRANCH_0043/o2on/resource/b_out.ico
+branches/BRANCH_0043/o2on/resource/disable.ico
+branches/BRANCH_0043/o2on/resource/err.ico
+branches/BRANCH_0043/o2on/resource/o2on.ico
+branches/BRANCH_0043/o2on/src.browser/browser.manifest
+branches/BRANCH_0043/o2on/src.browser/browser.rc
+branches/BRANCH_0043/o2on/src.browser/browser.vcproj
+branches/BRANCH_0043/o2on/src.browser/main.cpp
+branches/BRANCH_0043/o2on/src.browser/resource.h
+branches/BRANCH_0043/o2on/src.o2on/KademliaKBucket.h
+branches/BRANCH_0043/o2on/src.o2on/KademliaNode.h
+branches/BRANCH_0043/o2on/src.o2on/KademliaRoutingTable.h
+branches/BRANCH_0043/o2on/src.o2on/O2Agent.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2Agent.h
+branches/BRANCH_0043/o2on/src.o2on/O2Boards.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2Boards.h
+branches/BRANCH_0043/o2on/src.o2on/O2Client.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2Client.h
+branches/BRANCH_0043/o2on/src.o2on/O2Client_HTTP.h
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2DatDB.h
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2DatIO.h
+branches/BRANCH_0043/o2on/src.o2on/O2DatIndex.h
+branches/BRANCH_0043/o2on/src.o2on/O2DatPath.h
+branches/BRANCH_0043/o2on/src.o2on/O2Define.h
+branches/BRANCH_0043/o2on/src.o2on/O2FriendDB.h
+branches/BRANCH_0043/o2on/src.o2on/O2IMDB.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2IMDB.h
+branches/BRANCH_0043/o2on/src.o2on/O2IPFilter.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2IPFilter.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job.h
+branches/BRANCH_0043/o2on/src.o2on/O2JobSchedule.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_AskCollection.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_AutoSave.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_Broadcast.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_ClearWorkset.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_DatCollector.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_GetGlobalIP.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_GetGlobalIP2.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_NodeCollector.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_PublishKeys.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_PublishOriginal.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_QueryDat.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_Search.h
+branches/BRANCH_0043/o2on/src.o2on/O2Job_SearchFriends.h
+branches/BRANCH_0043/o2on/src.o2on/O2Key.h
+branches/BRANCH_0043/o2on/src.o2on/O2KeyDB.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2KeyDB.h
+branches/BRANCH_0043/o2on/src.o2on/O2LagQueryQueue.h
+branches/BRANCH_0043/o2on/src.o2on/O2Logger.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2Logger.h
+branches/BRANCH_0043/o2on/src.o2on/O2Node.h
+branches/BRANCH_0043/o2on/src.o2on/O2NodeDB.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2NodeDB.h
+branches/BRANCH_0043/o2on/src.o2on/O2NodeKBucket.h
+branches/BRANCH_0043/o2on/src.o2on/O2PerformanceCounter.h
+branches/BRANCH_0043/o2on/src.o2on/O2Profile.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2Profile.h
+branches/BRANCH_0043/o2on/src.o2on/O2ProgressInfo.h
+branches/BRANCH_0043/o2on/src.o2on/O2Protocol.h
+branches/BRANCH_0043/o2on/src.o2on/O2Protocol_Dat.h
+branches/BRANCH_0043/o2on/src.o2on/O2Protocol_Kademlia.h
+branches/BRANCH_0043/o2on/src.o2on/O2ReportMaker.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2ReportMaker.h
+branches/BRANCH_0043/o2on/src.o2on/O2SAX2Parser.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2SAX2Parser.h
+branches/BRANCH_0043/o2on/src.o2on/O2Scheduler.h
+branches/BRANCH_0043/o2on/src.o2on/O2Server.cpp
+branches/BRANCH_0043/o2on/src.o2on/O2Server.h
+branches/BRANCH_0043/o2on/src.o2on/O2Server_HTTP.h
+branches/BRANCH_0043/o2on/src.o2on/O2Server_HTTP_Admin.h
+branches/BRANCH_0043/o2on/src.o2on/O2Server_HTTP_P2P.h
+branches/BRANCH_0043/o2on/src.o2on/O2Server_HTTP_Proxy.h
+branches/BRANCH_0043/o2on/src.o2on/O2SocketSession.h
+branches/BRANCH_0043/o2on/src.o2on/O2Version.h
+branches/BRANCH_0043/o2on/src.o2on/barray.h
+branches/BRANCH_0043/o2on/src.o2on/dataconv.cpp
+branches/BRANCH_0043/o2on/src.o2on/dataconv.h
+branches/BRANCH_0043/o2on/src.o2on/debug.h
+branches/BRANCH_0043/o2on/src.o2on/event.h
+branches/BRANCH_0043/o2on/src.o2on/file.cpp
+branches/BRANCH_0043/o2on/src.o2on/file.h
+branches/BRANCH_0043/o2on/src.o2on/headertest.cpp
+branches/BRANCH_0043/o2on/src.o2on/httpheader.cpp
+branches/BRANCH_0043/o2on/src.o2on/httpheader.h
+branches/BRANCH_0043/o2on/src.o2on/main.cpp
+branches/BRANCH_0043/o2on/src.o2on/mutex.h
+branches/BRANCH_0043/o2on/src.o2on/o2on.manifest
+branches/BRANCH_0043/o2on/src.o2on/o2on.vcproj
+branches/BRANCH_0043/o2on/src.o2on/resource.h
+branches/BRANCH_0043/o2on/src.o2on/resource.rc
+branches/BRANCH_0043/o2on/src.o2on/rsa.h
+branches/BRANCH_0043/o2on/src.o2on/sha.h
+branches/BRANCH_0043/o2on/src.o2on/simplehttpsocket.h
+branches/BRANCH_0043/o2on/src.o2on/simplessdpsocket.h
+branches/BRANCH_0043/o2on/src.o2on/simpletcpsocket.h
+branches/BRANCH_0043/o2on/src.o2on/simpleudpsocket.h
+branches/BRANCH_0043/o2on/src.o2on/stopwatch.h
+branches/BRANCH_0043/o2on/src.o2on/thread.h
+branches/BRANCH_0043/o2on/src.o2on/typedef.h
+branches/BRANCH_0043/o2on/src.o2on/upnp.h
+branches/BRANCH_0043/o2on/src.o2on/upnp_description.h
+branches/BRANCH_0043/o2on/src.o2on/zlib.h
+branches/PRE_0043/o2on/admin/bbsmenu.xsl
+branches/PRE_0043/o2on/admin/dat.xsl
+branches/PRE_0043/o2on/admin/friend.xsl
+branches/PRE_0043/o2on/admin/im.xsl
+branches/PRE_0043/o2on/admin/images/loading.gif
+branches/PRE_0043/o2on/admin/images/mypc.png
+branches/PRE_0043/o2on/admin/images/o2on.png
+branches/PRE_0043/o2on/admin/images/toolbg.png
+branches/PRE_0043/o2on/admin/imbroadcast.xsl
+branches/PRE_0043/o2on/admin/index.html
+branches/PRE_0043/o2on/admin/ipf.xsl
+branches/PRE_0043/o2on/admin/jkl-parsexml.js
+branches/PRE_0043/o2on/admin/key.xsl
+branches/PRE_0043/o2on/admin/log.xsl
+branches/PRE_0043/o2on/admin/main.html
+branches/PRE_0043/o2on/admin/menu.html
+branches/PRE_0043/o2on/admin/node.xsl
+branches/PRE_0043/o2on/admin/notification.xsl
+branches/PRE_0043/o2on/admin/o2on.js
+branches/PRE_0043/o2on/admin/profile.xsl
+branches/PRE_0043/o2on/admin/query.xsl
+branches/PRE_0043/o2on/admin/report.xsl
+branches/PRE_0043/o2on/admin/saku.xsl
+branches/PRE_0043/o2on/admin/sql.xsl
+branches/PRE_0043/o2on/admin/style.css
+branches/PRE_0043/o2on/admin/thread.xsl
+branches/PRE_0043/o2on/admin/work.html
+branches/PRE_0043/o2on/admin/xml
+branches/PRE_0043/o2on/doc/build.txt
+branches/PRE_0043/o2on/doc/history.txt
+branches/PRE_0043/o2on/doc/license.txt
+branches/PRE_0043/o2on/doc/readme.txt
+branches/PRE_0043/o2on/o2on.sln
+branches/PRE_0043/o2on/resource/a.ico
+branches/PRE_0043/o2on/resource/a_in.ico
+branches/PRE_0043/o2on/resource/a_inout.ico
+branches/PRE_0043/o2on/resource/a_out.ico
+branches/PRE_0043/o2on/resource/b.ico
+branches/PRE_0043/o2on/resource/b_in.ico
+branches/PRE_0043/o2on/resource/b_inout.ico
+branches/PRE_0043/o2on/resource/b_out.ico
+branches/PRE_0043/o2on/resource/disable.ico
+branches/PRE_0043/o2on/resource/err.ico
+branches/PRE_0043/o2on/resource/o2on.ico
+branches/PRE_0043/o2on/src.browser/browser.manifest
+branches/PRE_0043/o2on/src.browser/browser.rc
+branches/PRE_0043/o2on/src.browser/browser.vcproj
+branches/PRE_0043/o2on/src.browser/main.cpp
+branches/PRE_0043/o2on/src.browser/resource.h
+branches/PRE_0043/o2on/src.o2on/KademliaKBucket.h
+branches/PRE_0043/o2on/src.o2on/KademliaNode.h
+branches/PRE_0043/o2on/src.o2on/KademliaRoutingTable.h
+branches/PRE_0043/o2on/src.o2on/O2Agent.cpp
+branches/PRE_0043/o2on/src.o2on/O2Agent.h
+branches/PRE_0043/o2on/src.o2on/O2Boards.cpp
+branches/PRE_0043/o2on/src.o2on/O2Boards.h
+branches/PRE_0043/o2on/src.o2on/O2Client.cpp
+branches/PRE_0043/o2on/src.o2on/O2Client.h
+branches/PRE_0043/o2on/src.o2on/O2Client_HTTP.h
+branches/PRE_0043/o2on/src.o2on/O2DatDB.cpp
+branches/PRE_0043/o2on/src.o2on/O2DatDB.h
+branches/PRE_0043/o2on/src.o2on/O2DatIO.cpp
+branches/PRE_0043/o2on/src.o2on/O2DatIO.h
+branches/PRE_0043/o2on/src.o2on/O2DatIndex.h
+branches/PRE_0043/o2on/src.o2on/O2DatPath.h
+branches/PRE_0043/o2on/src.o2on/O2Define.h
+branches/PRE_0043/o2on/src.o2on/O2FriendDB.h
+branches/PRE_0043/o2on/src.o2on/O2IMDB.cpp
+branches/PRE_0043/o2on/src.o2on/O2IMDB.h
+branches/PRE_0043/o2on/src.o2on/O2IPFilter.cpp
+branches/PRE_0043/o2on/src.o2on/O2IPFilter.h
+branches/PRE_0043/o2on/src.o2on/O2Job.h
+branches/PRE_0043/o2on/src.o2on/O2JobSchedule.h
+branches/PRE_0043/o2on/src.o2on/O2Job_AskCollection.h
+branches/PRE_0043/o2on/src.o2on/O2Job_AutoSave.h
+branches/PRE_0043/o2on/src.o2on/O2Job_Broadcast.h
+branches/PRE_0043/o2on/src.o2on/O2Job_ClearWorkset.h
+branches/PRE_0043/o2on/src.o2on/O2Job_DatCollector.h
+branches/PRE_0043/o2on/src.o2on/O2Job_GetGlobalIP.h
+branches/PRE_0043/o2on/src.o2on/O2Job_GetGlobalIP2.h
+branches/PRE_0043/o2on/src.o2on/O2Job_NodeCollector.h
+branches/PRE_0043/o2on/src.o2on/O2Job_PublishKeys.h
+branches/PRE_0043/o2on/src.o2on/O2Job_PublishOriginal.h
+branches/PRE_0043/o2on/src.o2on/O2Job_QueryDat.h
+branches/PRE_0043/o2on/src.o2on/O2Job_Search.h
+branches/PRE_0043/o2on/src.o2on/O2Job_SearchFriends.h
+branches/PRE_0043/o2on/src.o2on/O2Key.h
+branches/PRE_0043/o2on/src.o2on/O2KeyDB.cpp
+branches/PRE_0043/o2on/src.o2on/O2KeyDB.h
+branches/PRE_0043/o2on/src.o2on/O2LagQueryQueue.h
+branches/PRE_0043/o2on/src.o2on/O2Logger.cpp
+branches/PRE_0043/o2on/src.o2on/O2Logger.h
+branches/PRE_0043/o2on/src.o2on/O2Node.h
+branches/PRE_0043/o2on/src.o2on/O2NodeDB.cpp
+branches/PRE_0043/o2on/src.o2on/O2NodeDB.h
+branches/PRE_0043/o2on/src.o2on/O2NodeKBucket.h
+branches/PRE_0043/o2on/src.o2on/O2PerformanceCounter.h
+branches/PRE_0043/o2on/src.o2on/O2Profile.cpp
+branches/PRE_0043/o2on/src.o2on/O2Profile.h
+branches/PRE_0043/o2on/src.o2on/O2ProgressInfo.h
+branches/PRE_0043/o2on/src.o2on/O2Protocol.h
+branches/PRE_0043/o2on/src.o2on/O2Protocol_Dat.h
+branches/PRE_0043/o2on/src.o2on/O2Protocol_Kademlia.h
+branches/PRE_0043/o2on/src.o2on/O2ReportMaker.cpp
+branches/PRE_0043/o2on/src.o2on/O2ReportMaker.h
+branches/PRE_0043/o2on/src.o2on/O2SAX2Parser.cpp
+branches/PRE_0043/o2on/src.o2on/O2SAX2Parser.h
+branches/PRE_0043/o2on/src.o2on/O2Scheduler.h
+branches/PRE_0043/o2on/src.o2on/O2Server.cpp
+branches/PRE_0043/o2on/src.o2on/O2Server.h
+branches/PRE_0043/o2on/src.o2on/O2Server_HTTP.h
+branches/PRE_0043/o2on/src.o2on/O2Server_HTTP_Admin.h
+branches/PRE_0043/o2on/src.o2on/O2Server_HTTP_P2P.h
+branches/PRE_0043/o2on/src.o2on/O2Server_HTTP_Proxy.h
+branches/PRE_0043/o2on/src.o2on/O2SocketSession.h
+branches/PRE_0043/o2on/src.o2on/O2Version.h
+branches/PRE_0043/o2on/src.o2on/barray.h
+branches/PRE_0043/o2on/src.o2on/dataconv.cpp
+branches/PRE_0043/o2on/src.o2on/dataconv.h
+branches/PRE_0043/o2on/src.o2on/debug.h
+branches/PRE_0043/o2on/src.o2on/event.h
+branches/PRE_0043/o2on/src.o2on/file.cpp
+branches/PRE_0043/o2on/src.o2on/file.h
+branches/PRE_0043/o2on/src.o2on/headertest.cpp
+branches/PRE_0043/o2on/src.o2on/httpheader.cpp
+branches/PRE_0043/o2on/src.o2on/httpheader.h
+branches/PRE_0043/o2on/src.o2on/main.cpp
+branches/PRE_0043/o2on/src.o2on/mutex.h
+branches/PRE_0043/o2on/src.o2on/o2on.manifest
+branches/PRE_0043/o2on/src.o2on/o2on.vcproj
+branches/PRE_0043/o2on/src.o2on/resource.h
+branches/PRE_0043/o2on/src.o2on/resource.rc
+branches/PRE_0043/o2on/src.o2on/rsa.h
+branches/PRE_0043/o2on/src.o2on/sha.h
+branches/PRE_0043/o2on/src.o2on/simplehttpsocket.h
+branches/PRE_0043/o2on/src.o2on/simplessdpsocket.h
+branches/PRE_0043/o2on/src.o2on/simpletcpsocket.h
+branches/PRE_0043/o2on/src.o2on/simpleudpsocket.h
+branches/PRE_0043/o2on/src.o2on/stopwatch.h
+branches/PRE_0043/o2on/src.o2on/thread.h
+branches/PRE_0043/o2on/src.o2on/typedef.h
+branches/PRE_0043/o2on/src.o2on/upnp.h
+branches/PRE_0043/o2on/src.o2on/upnp_description.h
+branches/PRE_0043/o2on/src.o2on/zlib.h
+
+commit 1cf4a28
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-16
+
+    ・内蔵ブラウザ廃止･オプションの無効化
+    ・使用ライブラリバージョンアップ
+     - Boost 1.34.1
+     - Crypto++ Library 5.5.2
+     - Xerces-C++ 2.8.0
+     - SQLite 3.5.6
+    * バグフィックス
+    ・UPnPまわり
+    ・datのHTML変換部
+    ・検索クエリが消えてしまう件
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@58 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+tags/build0043/o2on/admin/bbsmenu.xsl
+tags/build0043/o2on/admin/dat.xsl
+tags/build0043/o2on/admin/friend.xsl
+tags/build0043/o2on/admin/im.xsl
+tags/build0043/o2on/admin/images/loading.gif
+tags/build0043/o2on/admin/images/mypc.png
+tags/build0043/o2on/admin/images/o2on.png
+tags/build0043/o2on/admin/images/toolbg.png
+tags/build0043/o2on/admin/imbroadcast.xsl
+tags/build0043/o2on/admin/index.html
+tags/build0043/o2on/admin/ipf.xsl
+tags/build0043/o2on/admin/jkl-parsexml.js
+tags/build0043/o2on/admin/key.xsl
+tags/build0043/o2on/admin/log.xsl
+tags/build0043/o2on/admin/main.html
+tags/build0043/o2on/admin/menu.html
+tags/build0043/o2on/admin/node.xsl
+tags/build0043/o2on/admin/notification.xsl
+tags/build0043/o2on/admin/o2on.js
+tags/build0043/o2on/admin/profile.xsl
+tags/build0043/o2on/admin/query.xsl
+tags/build0043/o2on/admin/report.xsl
+tags/build0043/o2on/admin/saku.xsl
+tags/build0043/o2on/admin/sql.xsl
+tags/build0043/o2on/admin/style.css
+tags/build0043/o2on/admin/thread.xsl
+tags/build0043/o2on/admin/work.html
+tags/build0043/o2on/admin/xml
+tags/build0043/o2on/doc/build.txt
+tags/build0043/o2on/doc/history.txt
+tags/build0043/o2on/doc/license.txt
+tags/build0043/o2on/doc/readme.txt
+tags/build0043/o2on/o2on.sln
+tags/build0043/o2on/resource/a.ico
+tags/build0043/o2on/resource/a_in.ico
+tags/build0043/o2on/resource/a_inout.ico
+tags/build0043/o2on/resource/a_out.ico
+tags/build0043/o2on/resource/b.ico
+tags/build0043/o2on/resource/b_in.ico
+tags/build0043/o2on/resource/b_inout.ico
+tags/build0043/o2on/resource/b_out.ico
+tags/build0043/o2on/resource/disable.ico
+tags/build0043/o2on/resource/err.ico
+tags/build0043/o2on/resource/o2on.ico
+tags/build0043/o2on/src.browser/browser.manifest
+tags/build0043/o2on/src.browser/browser.rc
+tags/build0043/o2on/src.browser/browser.vcproj
+tags/build0043/o2on/src.browser/main.cpp
+tags/build0043/o2on/src.browser/resource.h
+tags/build0043/o2on/src.o2on/KademliaKBucket.h
+tags/build0043/o2on/src.o2on/KademliaNode.h
+tags/build0043/o2on/src.o2on/KademliaRoutingTable.h
+tags/build0043/o2on/src.o2on/O2Agent.cpp
+tags/build0043/o2on/src.o2on/O2Agent.h
+tags/build0043/o2on/src.o2on/O2Boards.cpp
+tags/build0043/o2on/src.o2on/O2Boards.h
+tags/build0043/o2on/src.o2on/O2Client.cpp
+tags/build0043/o2on/src.o2on/O2Client.h
+tags/build0043/o2on/src.o2on/O2Client_HTTP.h
+tags/build0043/o2on/src.o2on/O2DatDB.cpp
+tags/build0043/o2on/src.o2on/O2DatDB.h
+tags/build0043/o2on/src.o2on/O2DatIO.cpp
+tags/build0043/o2on/src.o2on/O2DatIO.h
+tags/build0043/o2on/src.o2on/O2DatIndex.h
+tags/build0043/o2on/src.o2on/O2DatPath.h
+tags/build0043/o2on/src.o2on/O2Define.h
+tags/build0043/o2on/src.o2on/O2FriendDB.h
+tags/build0043/o2on/src.o2on/O2IMDB.cpp
+tags/build0043/o2on/src.o2on/O2IMDB.h
+tags/build0043/o2on/src.o2on/O2IPFilter.cpp
+tags/build0043/o2on/src.o2on/O2IPFilter.h
+tags/build0043/o2on/src.o2on/O2Job.h
+tags/build0043/o2on/src.o2on/O2JobSchedule.h
+tags/build0043/o2on/src.o2on/O2Job_AskCollection.h
+tags/build0043/o2on/src.o2on/O2Job_AutoSave.h
+tags/build0043/o2on/src.o2on/O2Job_Broadcast.h
+tags/build0043/o2on/src.o2on/O2Job_ClearWorkset.h
+tags/build0043/o2on/src.o2on/O2Job_DatCollector.h
+tags/build0043/o2on/src.o2on/O2Job_GetGlobalIP.h
+tags/build0043/o2on/src.o2on/O2Job_GetGlobalIP2.h
+tags/build0043/o2on/src.o2on/O2Job_NodeCollector.h
+tags/build0043/o2on/src.o2on/O2Job_PublishKeys.h
+tags/build0043/o2on/src.o2on/O2Job_PublishOriginal.h
+tags/build0043/o2on/src.o2on/O2Job_QueryDat.h
+tags/build0043/o2on/src.o2on/O2Job_Search.h
+tags/build0043/o2on/src.o2on/O2Job_SearchFriends.h
+tags/build0043/o2on/src.o2on/O2Key.h
+tags/build0043/o2on/src.o2on/O2KeyDB.cpp
+tags/build0043/o2on/src.o2on/O2KeyDB.h
+tags/build0043/o2on/src.o2on/O2LagQueryQueue.h
+tags/build0043/o2on/src.o2on/O2Logger.cpp
+tags/build0043/o2on/src.o2on/O2Logger.h
+tags/build0043/o2on/src.o2on/O2Node.h
+tags/build0043/o2on/src.o2on/O2NodeDB.cpp
+tags/build0043/o2on/src.o2on/O2NodeDB.h
+tags/build0043/o2on/src.o2on/O2NodeKBucket.h
+tags/build0043/o2on/src.o2on/O2PerformanceCounter.h
+tags/build0043/o2on/src.o2on/O2Profile.cpp
+tags/build0043/o2on/src.o2on/O2Profile.h
+tags/build0043/o2on/src.o2on/O2ProgressInfo.h
+tags/build0043/o2on/src.o2on/O2Protocol.h
+tags/build0043/o2on/src.o2on/O2Protocol_Dat.h
+tags/build0043/o2on/src.o2on/O2Protocol_Kademlia.h
+tags/build0043/o2on/src.o2on/O2ReportMaker.cpp
+tags/build0043/o2on/src.o2on/O2ReportMaker.h
+tags/build0043/o2on/src.o2on/O2SAX2Parser.cpp
+tags/build0043/o2on/src.o2on/O2SAX2Parser.h
+tags/build0043/o2on/src.o2on/O2Scheduler.h
+tags/build0043/o2on/src.o2on/O2Server.cpp
+tags/build0043/o2on/src.o2on/O2Server.h
+tags/build0043/o2on/src.o2on/O2Server_HTTP.h
+tags/build0043/o2on/src.o2on/O2Server_HTTP_Admin.h
+tags/build0043/o2on/src.o2on/O2Server_HTTP_P2P.h
+tags/build0043/o2on/src.o2on/O2Server_HTTP_Proxy.h
+tags/build0043/o2on/src.o2on/O2SocketSession.h
+tags/build0043/o2on/src.o2on/O2Version.h
+tags/build0043/o2on/src.o2on/barray.h
+tags/build0043/o2on/src.o2on/dataconv.cpp
+tags/build0043/o2on/src.o2on/dataconv.h
+tags/build0043/o2on/src.o2on/debug.h
+tags/build0043/o2on/src.o2on/event.h
+tags/build0043/o2on/src.o2on/file.cpp
+tags/build0043/o2on/src.o2on/file.h
+tags/build0043/o2on/src.o2on/headertest.cpp
+tags/build0043/o2on/src.o2on/httpheader.cpp
+tags/build0043/o2on/src.o2on/httpheader.h
+tags/build0043/o2on/src.o2on/main.cpp
+tags/build0043/o2on/src.o2on/mutex.h
+tags/build0043/o2on/src.o2on/o2on.manifest
+tags/build0043/o2on/src.o2on/o2on.vcproj
+tags/build0043/o2on/src.o2on/resource.h
+tags/build0043/o2on/src.o2on/resource.rc
+tags/build0043/o2on/src.o2on/rsa.h
+tags/build0043/o2on/src.o2on/sha.h
+tags/build0043/o2on/src.o2on/simplehttpsocket.h
+tags/build0043/o2on/src.o2on/simplessdpsocket.h
+tags/build0043/o2on/src.o2on/simpletcpsocket.h
+tags/build0043/o2on/src.o2on/simpleudpsocket.h
+tags/build0043/o2on/src.o2on/stopwatch.h
+tags/build0043/o2on/src.o2on/thread.h
+tags/build0043/o2on/src.o2on/typedef.h
+tags/build0043/o2on/src.o2on/upnp.h
+tags/build0043/o2on/src.o2on/upnp_description.h
+tags/build0043/o2on/src.o2on/zlib.h
+
+commit 95907a9
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-16
+
+    build 0043 リリース
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@57 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/PRE_0043/o2on/doc/history.txt
+branches/PRE_0043/o2on/src.o2on/O2Version.h
+
+commit af1720d
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-16
+
+    ビルドに際して整理
+    zlibをインクルードパスに追加
+    <time.h>のインクルード
+    mzpの説明を追加
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@56 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/PRE_0043/o2on/doc/build.txt
+branches/PRE_0043/o2on/doc/history.txt
+branches/PRE_0043/o2on/src.o2on/O2DatDB.cpp
+branches/PRE_0043/o2on/src.o2on/O2IMDB.cpp
+branches/PRE_0043/o2on/src.o2on/o2on.vcproj
+
+commit 3074c98
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-16
+
+    カスタムビルドステップ更新
+    license.txtの記述を追加
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@55 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/PRE_0043/o2on/src.o2on/o2on.vcproj
+
+commit 940ddc8
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-16
+
+    UPXの記述を追加
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@54 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/PRE_0043/o2on/doc/build.txt
+
+commit 3275135
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-15
+
+    ドキュメント更新
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@53 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/PRE_0043/o2on/doc/history.txt
+branches/PRE_0043/o2on/doc/license.txt
+
+commit 77f06f6
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-15
+
+    カスタムビルドステップ更新
+    mzp upx のパス変更(o2onフォルダと同じ場所に)
+    browser削除
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@52 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/PRE_0043/o2on/src.o2on/o2on.vcproj
+
+commit c201088
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-15
+
+    デフォルトのノードサイトURL変更
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@51 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/PRE_0043/o2on/admin/main.html
+
+commit 7923c76
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-15
+
+    FIX:UPnPダイアログで項目未選択時にもボタンが押せる
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@50 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/PRE_0043/o2on/src.o2on/main.cpp
+
+commit 34a440e
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-15
+
+    FIX: SQLエラーに'%'が含まれると落ちる
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@49 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/PRE_0043/o2on/src.o2on/O2DatDB.cpp
+
+commit b73d564
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-15
+
+    FIX:UPnPデバイス検索時に必ず(グローバルIP不明)になる件
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@48 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/upnp_description.h
+
+commit bbbaf31
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-14
+
+    複数datフォルダ機能追加(O2Profile)
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@47 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Profile.cpp
+trunk/o2on/src.o2on/O2Profile.h
+
+commit a626764
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-11
+
+    build0043 用ブランチ
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@46 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+branches/PRE_0043/o2on/admin/bbsmenu.xsl
+branches/PRE_0043/o2on/admin/dat.xsl
+branches/PRE_0043/o2on/admin/friend.xsl
+branches/PRE_0043/o2on/admin/im.xsl
+branches/PRE_0043/o2on/admin/images/loading.gif
+branches/PRE_0043/o2on/admin/images/mypc.png
+branches/PRE_0043/o2on/admin/images/o2on.png
+branches/PRE_0043/o2on/admin/images/toolbg.png
+branches/PRE_0043/o2on/admin/imbroadcast.xsl
+branches/PRE_0043/o2on/admin/index.html
+branches/PRE_0043/o2on/admin/ipf.xsl
+branches/PRE_0043/o2on/admin/jkl-parsexml.js
+branches/PRE_0043/o2on/admin/key.xsl
+branches/PRE_0043/o2on/admin/log.xsl
+branches/PRE_0043/o2on/admin/main.html
+branches/PRE_0043/o2on/admin/menu.html
+branches/PRE_0043/o2on/admin/node.xsl
+branches/PRE_0043/o2on/admin/notification.xsl
+branches/PRE_0043/o2on/admin/o2on.js
+branches/PRE_0043/o2on/admin/profile.xsl
+branches/PRE_0043/o2on/admin/query.xsl
+branches/PRE_0043/o2on/admin/report.xsl
+branches/PRE_0043/o2on/admin/saku.xsl
+branches/PRE_0043/o2on/admin/sql.xsl
+branches/PRE_0043/o2on/admin/style.css
+branches/PRE_0043/o2on/admin/thread.xsl
+branches/PRE_0043/o2on/admin/work.html
+branches/PRE_0043/o2on/admin/xml
+branches/PRE_0043/o2on/doc/build.txt
+branches/PRE_0043/o2on/doc/history.txt
+branches/PRE_0043/o2on/doc/license.txt
+branches/PRE_0043/o2on/doc/readme.txt
+branches/PRE_0043/o2on/o2on.sln
+branches/PRE_0043/o2on/resource/a.ico
+branches/PRE_0043/o2on/resource/a_in.ico
+branches/PRE_0043/o2on/resource/a_inout.ico
+branches/PRE_0043/o2on/resource/a_out.ico
+branches/PRE_0043/o2on/resource/b.ico
+branches/PRE_0043/o2on/resource/b_in.ico
+branches/PRE_0043/o2on/resource/b_inout.ico
+branches/PRE_0043/o2on/resource/b_out.ico
+branches/PRE_0043/o2on/resource/disable.ico
+branches/PRE_0043/o2on/resource/err.ico
+branches/PRE_0043/o2on/resource/o2on.ico
+branches/PRE_0043/o2on/src.browser/browser.manifest
+branches/PRE_0043/o2on/src.browser/browser.rc
+branches/PRE_0043/o2on/src.browser/browser.vcproj
+branches/PRE_0043/o2on/src.browser/main.cpp
+branches/PRE_0043/o2on/src.browser/resource.h
+branches/PRE_0043/o2on/src.o2on/KademliaKBucket.h
+branches/PRE_0043/o2on/src.o2on/KademliaNode.h
+branches/PRE_0043/o2on/src.o2on/KademliaRoutingTable.h
+branches/PRE_0043/o2on/src.o2on/O2Agent.cpp
+branches/PRE_0043/o2on/src.o2on/O2Agent.h
+branches/PRE_0043/o2on/src.o2on/O2Boards.cpp
+branches/PRE_0043/o2on/src.o2on/O2Boards.h
+branches/PRE_0043/o2on/src.o2on/O2Client.cpp
+branches/PRE_0043/o2on/src.o2on/O2Client.h
+branches/PRE_0043/o2on/src.o2on/O2Client_HTTP.h
+branches/PRE_0043/o2on/src.o2on/O2DatDB.cpp
+branches/PRE_0043/o2on/src.o2on/O2DatDB.h
+branches/PRE_0043/o2on/src.o2on/O2DatIO.cpp
+branches/PRE_0043/o2on/src.o2on/O2DatIO.h
+branches/PRE_0043/o2on/src.o2on/O2DatIndex.h
+branches/PRE_0043/o2on/src.o2on/O2DatPath.h
+branches/PRE_0043/o2on/src.o2on/O2Define.h
+branches/PRE_0043/o2on/src.o2on/O2FriendDB.h
+branches/PRE_0043/o2on/src.o2on/O2IMDB.cpp
+branches/PRE_0043/o2on/src.o2on/O2IMDB.h
+branches/PRE_0043/o2on/src.o2on/O2IPFilter.cpp
+branches/PRE_0043/o2on/src.o2on/O2IPFilter.h
+branches/PRE_0043/o2on/src.o2on/O2Job.h
+branches/PRE_0043/o2on/src.o2on/O2JobSchedule.h
+branches/PRE_0043/o2on/src.o2on/O2Job_AskCollection.h
+branches/PRE_0043/o2on/src.o2on/O2Job_AutoSave.h
+branches/PRE_0043/o2on/src.o2on/O2Job_Broadcast.h
+branches/PRE_0043/o2on/src.o2on/O2Job_ClearWorkset.h
+branches/PRE_0043/o2on/src.o2on/O2Job_DatCollector.h
+branches/PRE_0043/o2on/src.o2on/O2Job_GetGlobalIP.h
+branches/PRE_0043/o2on/src.o2on/O2Job_GetGlobalIP2.h
+branches/PRE_0043/o2on/src.o2on/O2Job_NodeCollector.h
+branches/PRE_0043/o2on/src.o2on/O2Job_PublishKeys.h
+branches/PRE_0043/o2on/src.o2on/O2Job_PublishOriginal.h
+branches/PRE_0043/o2on/src.o2on/O2Job_QueryDat.h
+branches/PRE_0043/o2on/src.o2on/O2Job_Search.h
+branches/PRE_0043/o2on/src.o2on/O2Job_SearchFriends.h
+branches/PRE_0043/o2on/src.o2on/O2Key.h
+branches/PRE_0043/o2on/src.o2on/O2KeyDB.cpp
+branches/PRE_0043/o2on/src.o2on/O2KeyDB.h
+branches/PRE_0043/o2on/src.o2on/O2LagQueryQueue.h
+branches/PRE_0043/o2on/src.o2on/O2Logger.cpp
+branches/PRE_0043/o2on/src.o2on/O2Logger.h
+branches/PRE_0043/o2on/src.o2on/O2Node.h
+branches/PRE_0043/o2on/src.o2on/O2NodeDB.cpp
+branches/PRE_0043/o2on/src.o2on/O2NodeDB.h
+branches/PRE_0043/o2on/src.o2on/O2NodeKBucket.h
+branches/PRE_0043/o2on/src.o2on/O2PerformanceCounter.h
+branches/PRE_0043/o2on/src.o2on/O2Profile.cpp
+branches/PRE_0043/o2on/src.o2on/O2Profile.h
+branches/PRE_0043/o2on/src.o2on/O2ProgressInfo.h
+branches/PRE_0043/o2on/src.o2on/O2Protocol.h
+branches/PRE_0043/o2on/src.o2on/O2Protocol_Dat.h
+branches/PRE_0043/o2on/src.o2on/O2Protocol_Kademlia.h
+branches/PRE_0043/o2on/src.o2on/O2ReportMaker.cpp
+branches/PRE_0043/o2on/src.o2on/O2ReportMaker.h
+branches/PRE_0043/o2on/src.o2on/O2SAX2Parser.cpp
+branches/PRE_0043/o2on/src.o2on/O2SAX2Parser.h
+branches/PRE_0043/o2on/src.o2on/O2Scheduler.h
+branches/PRE_0043/o2on/src.o2on/O2Server.cpp
+branches/PRE_0043/o2on/src.o2on/O2Server.h
+branches/PRE_0043/o2on/src.o2on/O2Server_HTTP.h
+branches/PRE_0043/o2on/src.o2on/O2Server_HTTP_Admin.h
+branches/PRE_0043/o2on/src.o2on/O2Server_HTTP_P2P.h
+branches/PRE_0043/o2on/src.o2on/O2Server_HTTP_Proxy.h
+branches/PRE_0043/o2on/src.o2on/O2SocketSession.h
+branches/PRE_0043/o2on/src.o2on/O2Version.h
+branches/PRE_0043/o2on/src.o2on/barray.h
+branches/PRE_0043/o2on/src.o2on/dataconv.cpp
+branches/PRE_0043/o2on/src.o2on/dataconv.h
+branches/PRE_0043/o2on/src.o2on/debug.h
+branches/PRE_0043/o2on/src.o2on/event.h
+branches/PRE_0043/o2on/src.o2on/file.cpp
+branches/PRE_0043/o2on/src.o2on/file.h
+branches/PRE_0043/o2on/src.o2on/headertest.cpp
+branches/PRE_0043/o2on/src.o2on/httpheader.cpp
+branches/PRE_0043/o2on/src.o2on/httpheader.h
+branches/PRE_0043/o2on/src.o2on/main.cpp
+branches/PRE_0043/o2on/src.o2on/mutex.h
+branches/PRE_0043/o2on/src.o2on/o2on.manifest
+branches/PRE_0043/o2on/src.o2on/o2on.vcproj
+branches/PRE_0043/o2on/src.o2on/resource.h
+branches/PRE_0043/o2on/src.o2on/resource.rc
+branches/PRE_0043/o2on/src.o2on/rsa.h
+branches/PRE_0043/o2on/src.o2on/sha.h
+branches/PRE_0043/o2on/src.o2on/simplehttpsocket.h
+branches/PRE_0043/o2on/src.o2on/simplessdpsocket.h
+branches/PRE_0043/o2on/src.o2on/simpletcpsocket.h
+branches/PRE_0043/o2on/src.o2on/simpleudpsocket.h
+branches/PRE_0043/o2on/src.o2on/stopwatch.h
+branches/PRE_0043/o2on/src.o2on/thread.h
+branches/PRE_0043/o2on/src.o2on/typedef.h
+branches/PRE_0043/o2on/src.o2on/upnp.h
+branches/PRE_0043/o2on/src.o2on/upnp_description.h
+branches/PRE_0043/o2on/src.o2on/zlib.h
+
+commit 172a19d
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-09
+
+    FIX: 開始タグ忘れ
+    http://pc11.2ch.net/test/read.cgi/tech/1180440415/511
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@45 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatIO.cpp
+
+commit 21ac158
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-09
+
+    ファイル名等の更新
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@44 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/doc/build.txt
+
+commit d8f5aa6
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-08
+
+    ライブラリのバージョンを変更
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@43 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/doc/build.txt
+
+commit 6bded91
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-08
+
+    トレイアイコンのチップに送受信速度を表示
+    デフォルトで全板をdat保存対象に設定する
+    jkl-parsexml.jsのアップデート
+    
+    * 以下バグフィックス
+    ブロードキャストメッセージのループ
+    クォータが制限値を超えるとタスクトレイから操作できなくなる
+    管理画面でのSQL実行結果が1件少ない
+    プロキシ使用時のハンドルリーク
+    HTML化した過去ログをプロキシで取得時にgzip圧縮でdatが保存される
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@42 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+tags/build0042/o2on/admin/bbsmenu.xsl
+tags/build0042/o2on/admin/dat.xsl
+tags/build0042/o2on/admin/friend.xsl
+tags/build0042/o2on/admin/im.xsl
+tags/build0042/o2on/admin/images/loading.gif
+tags/build0042/o2on/admin/images/mypc.png
+tags/build0042/o2on/admin/images/o2on.png
+tags/build0042/o2on/admin/images/toolbg.png
+tags/build0042/o2on/admin/imbroadcast.xsl
+tags/build0042/o2on/admin/index.html
+tags/build0042/o2on/admin/ipf.xsl
+tags/build0042/o2on/admin/jkl-parsexml.js
+tags/build0042/o2on/admin/key.xsl
+tags/build0042/o2on/admin/log.xsl
+tags/build0042/o2on/admin/main.html
+tags/build0042/o2on/admin/menu.html
+tags/build0042/o2on/admin/node.xsl
+tags/build0042/o2on/admin/notification.xsl
+tags/build0042/o2on/admin/o2on.js
+tags/build0042/o2on/admin/profile.xsl
+tags/build0042/o2on/admin/query.xsl
+tags/build0042/o2on/admin/report.xsl
+tags/build0042/o2on/admin/saku.xsl
+tags/build0042/o2on/admin/sql.xsl
+tags/build0042/o2on/admin/style.css
+tags/build0042/o2on/admin/thread.xsl
+tags/build0042/o2on/admin/work.html
+tags/build0042/o2on/admin/xml
+tags/build0042/o2on/doc/build.txt
+tags/build0042/o2on/doc/history.txt
+tags/build0042/o2on/doc/license.txt
+tags/build0042/o2on/doc/readme.txt
+tags/build0042/o2on/o2on.sln
+tags/build0042/o2on/resource/a.ico
+tags/build0042/o2on/resource/a_in.ico
+tags/build0042/o2on/resource/a_inout.ico
+tags/build0042/o2on/resource/a_out.ico
+tags/build0042/o2on/resource/b.ico
+tags/build0042/o2on/resource/b_in.ico
+tags/build0042/o2on/resource/b_inout.ico
+tags/build0042/o2on/resource/b_out.ico
+tags/build0042/o2on/resource/disable.ico
+tags/build0042/o2on/resource/err.ico
+tags/build0042/o2on/resource/o2on.ico
+tags/build0042/o2on/src.browser/browser.manifest
+tags/build0042/o2on/src.browser/browser.rc
+tags/build0042/o2on/src.browser/browser.vcproj
+tags/build0042/o2on/src.browser/main.cpp
+tags/build0042/o2on/src.browser/resource.h
+tags/build0042/o2on/src.o2on/KademliaKBucket.h
+tags/build0042/o2on/src.o2on/KademliaNode.h
+tags/build0042/o2on/src.o2on/KademliaRoutingTable.h
+tags/build0042/o2on/src.o2on/O2Agent.cpp
+tags/build0042/o2on/src.o2on/O2Agent.h
+tags/build0042/o2on/src.o2on/O2Boards.cpp
+tags/build0042/o2on/src.o2on/O2Boards.h
+tags/build0042/o2on/src.o2on/O2Client.cpp
+tags/build0042/o2on/src.o2on/O2Client.h
+tags/build0042/o2on/src.o2on/O2Client_HTTP.h
+tags/build0042/o2on/src.o2on/O2DatDB.cpp
+tags/build0042/o2on/src.o2on/O2DatDB.h
+tags/build0042/o2on/src.o2on/O2DatIO.cpp
+tags/build0042/o2on/src.o2on/O2DatIO.h
+tags/build0042/o2on/src.o2on/O2DatIndex.h
+tags/build0042/o2on/src.o2on/O2DatPath.h
+tags/build0042/o2on/src.o2on/O2Define.h
+tags/build0042/o2on/src.o2on/O2FriendDB.h
+tags/build0042/o2on/src.o2on/O2IMDB.cpp
+tags/build0042/o2on/src.o2on/O2IMDB.h
+tags/build0042/o2on/src.o2on/O2IPFilter.cpp
+tags/build0042/o2on/src.o2on/O2IPFilter.h
+tags/build0042/o2on/src.o2on/O2Job.h
+tags/build0042/o2on/src.o2on/O2JobSchedule.h
+tags/build0042/o2on/src.o2on/O2Job_AskCollection.h
+tags/build0042/o2on/src.o2on/O2Job_AutoSave.h
+tags/build0042/o2on/src.o2on/O2Job_Broadcast.h
+tags/build0042/o2on/src.o2on/O2Job_ClearWorkset.h
+tags/build0042/o2on/src.o2on/O2Job_DatCollector.h
+tags/build0042/o2on/src.o2on/O2Job_GetGlobalIP.h
+tags/build0042/o2on/src.o2on/O2Job_GetGlobalIP2.h
+tags/build0042/o2on/src.o2on/O2Job_NodeCollector.h
+tags/build0042/o2on/src.o2on/O2Job_PublishKeys.h
+tags/build0042/o2on/src.o2on/O2Job_PublishOriginal.h
+tags/build0042/o2on/src.o2on/O2Job_QueryDat.h
+tags/build0042/o2on/src.o2on/O2Job_Search.h
+tags/build0042/o2on/src.o2on/O2Job_SearchFriends.h
+tags/build0042/o2on/src.o2on/O2Key.h
+tags/build0042/o2on/src.o2on/O2KeyDB.cpp
+tags/build0042/o2on/src.o2on/O2KeyDB.h
+tags/build0042/o2on/src.o2on/O2LagQueryQueue.h
+tags/build0042/o2on/src.o2on/O2Logger.cpp
+tags/build0042/o2on/src.o2on/O2Logger.h
+tags/build0042/o2on/src.o2on/O2Node.h
+tags/build0042/o2on/src.o2on/O2NodeDB.cpp
+tags/build0042/o2on/src.o2on/O2NodeDB.h
+tags/build0042/o2on/src.o2on/O2NodeKBucket.h
+tags/build0042/o2on/src.o2on/O2PerformanceCounter.h
+tags/build0042/o2on/src.o2on/O2Profile.cpp
+tags/build0042/o2on/src.o2on/O2Profile.h
+tags/build0042/o2on/src.o2on/O2ProgressInfo.h
+tags/build0042/o2on/src.o2on/O2Protocol.h
+tags/build0042/o2on/src.o2on/O2Protocol_Dat.h
+tags/build0042/o2on/src.o2on/O2Protocol_Kademlia.h
+tags/build0042/o2on/src.o2on/O2ReportMaker.cpp
+tags/build0042/o2on/src.o2on/O2ReportMaker.h
+tags/build0042/o2on/src.o2on/O2SAX2Parser.cpp
+tags/build0042/o2on/src.o2on/O2SAX2Parser.h
+tags/build0042/o2on/src.o2on/O2Scheduler.h
+tags/build0042/o2on/src.o2on/O2Server.cpp
+tags/build0042/o2on/src.o2on/O2Server.h
+tags/build0042/o2on/src.o2on/O2Server_HTTP.h
+tags/build0042/o2on/src.o2on/O2Server_HTTP_Admin.h
+tags/build0042/o2on/src.o2on/O2Server_HTTP_P2P.h
+tags/build0042/o2on/src.o2on/O2Server_HTTP_Proxy.h
+tags/build0042/o2on/src.o2on/O2SocketSession.h
+tags/build0042/o2on/src.o2on/O2Version.h
+tags/build0042/o2on/src.o2on/barray.h
+tags/build0042/o2on/src.o2on/dataconv.cpp
+tags/build0042/o2on/src.o2on/dataconv.h
+tags/build0042/o2on/src.o2on/debug.h
+tags/build0042/o2on/src.o2on/event.h
+tags/build0042/o2on/src.o2on/file.cpp
+tags/build0042/o2on/src.o2on/file.h
+tags/build0042/o2on/src.o2on/headertest.cpp
+tags/build0042/o2on/src.o2on/httpheader.cpp
+tags/build0042/o2on/src.o2on/httpheader.h
+tags/build0042/o2on/src.o2on/main.cpp
+tags/build0042/o2on/src.o2on/mutex.h
+tags/build0042/o2on/src.o2on/o2on.manifest
+tags/build0042/o2on/src.o2on/o2on.vcproj
+tags/build0042/o2on/src.o2on/resource.h
+tags/build0042/o2on/src.o2on/resource.rc
+tags/build0042/o2on/src.o2on/rsa.h
+tags/build0042/o2on/src.o2on/sha.h
+tags/build0042/o2on/src.o2on/simplehttpsocket.h
+tags/build0042/o2on/src.o2on/simplessdpsocket.h
+tags/build0042/o2on/src.o2on/simpletcpsocket.h
+tags/build0042/o2on/src.o2on/simpleudpsocket.h
+tags/build0042/o2on/src.o2on/stopwatch.h
+tags/build0042/o2on/src.o2on/thread.h
+tags/build0042/o2on/src.o2on/typedef.h
+tags/build0042/o2on/src.o2on/upnp.h
+tags/build0042/o2on/src.o2on/upnp_description.h
+tags/build0042/o2on/src.o2on/zlib.h
+
+commit 1139280
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-08
+
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@41 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+commit bee7624
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-08
+
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@40 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+commit 7bf65ec
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-08
+
+    VC Express向け インクルードライブラリの追加
+    sqlite一部更新漏れ
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@39 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/o2on.vcproj
+
+commit 08c6c65
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-08
+
+    sqlite-3.5.6の更新
+    パスを ../../sqlite に変更
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@38 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/o2on.vcproj
+
+commit 7266d4c
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-08
+
+    VC Express向け変更
+    x64およびbrowser廃止
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@37 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/o2on.sln
+
+commit 03748b9
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-06
+
+    FIX: typo
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@36 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Profile.cpp
+
+commit 0787cce
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-03-05
+
+    FIX: UPnPのURL処理の不備
+    http://pc11.2ch.net/test/read.cgi/tech/1180440415/458 より
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@35 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/upnp_description.h
+
+commit 276ea85
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-02-28
+
+    FromUnicodeとToUnicodeにassert文を追加
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@34 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/dataconv.cpp
+
+commit 39709f0
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-02-23
+
+    FIX: 内蔵ブラウザオプションを無効化
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@33 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/resource.rc
+
+commit c312bf9
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-02-23
+
+    FIX:o2on稼動中に検索クエリの登録が全て消える
+    
+    原因:dataconv#FromUnicodeの呼び出し前にCoInitialize(NULL)；の呼び出しがないためdataconv#FromUnicodeに失敗するため
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@32 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2LagQueryQueue.h
+
+commit e45cc6b
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-02-20
+
+    FIX:CreateFileの戻り値がINVALID_HANDLE_VALUEの時に、
+    デストラクタでCloseHandleを呼び出してしまう
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@31 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/file.h
+
+commit e78beb1
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2008-02-17
+
+    コード修正漏れ(Rev4とRev11)
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@30 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Agent.cpp
+
+commit 1bd1b9f
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-07-20
+
+    内蔵ブラウザオプションを無効化
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@29 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/resource.rc
+
+commit fbd1f71
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-07-16
+
+    bug fix: P2P停止後にツールチップの速度表示がおかしくなる問題
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@28 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/main.cpp
+
+commit 22713cd
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-07-04
+
+    Fix:ディレクトリ・トラバーサル攻撃への対策
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@27 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Protocol_Dat.h
+
+commit ca80546
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-07-01
+
+    Fix:設定画面の補完ログとIPFへの設定値が違う値で設定される
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@26 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/resource.rc
+
+commit d81b660
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-06-30
+
+    Fix:管理画面のdat表示であぼーんがあると以後のレス表示が右にずれる件
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@25 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatIO.cpp
+
+commit ddf9eb0
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-06-29
+
+    私の修正ミスで管理画面のdat収集画面で該当のDatが表示できない。
+    rev.22時点のソースに戻しました。
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@24 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatIO.cpp
+trunk/o2on/src.o2on/O2Profile.cpp
+trunk/o2on/src.o2on/O2Profile.h
+
+commit d7bf0dc
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-06-27
+
+    Securty Fix:ディレクトリ・トラバーサル攻撃への対策
+    
+    詳細
+    1,O2Protocol_Dat#ImportDat関数内でHTTPリクエストの値を設定している。
+    2,設定した値の検証が正しく行われていない。
+    3,よってdatio->Putを呼び出し時にに外部からの信用できない値がわたる。
+    4,datio->Put内では渡された引数をもとにファイルの作成・更新を行っている。
+    
+    対策としては
+    ・サービス機能の不活性化
+    ・上記に関連してキャッシュフォルダのパスを絶対パスで扱う
+    
+    サービス機能の不活性化に関しては
+    IPA ISEC セキュア・プログラミング講座のWindowsパス名の落とし穴の項を参照してください。
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@23 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatIO.cpp
+trunk/o2on/src.o2on/O2Profile.cpp
+trunk/o2on/src.o2on/O2Profile.h
+
+commit 9e541af
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-06-26
+
+    build 0042 リリース
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@22 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/doc/history.txt
+
+commit f066d26
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-06-24
+
+    BOM(Byte Order Mark)がファイルに付いていたので削除
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@21 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/o2on.vcproj
+
+commit 037db8d
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-06-24
+
+    build 42: ドキュメント更新
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@20 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/doc/history.txt
+trunk/o2on/doc/readme.txt
+trunk/o2on/src.o2on/O2Version.h
+
+commit d74abec
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-06-24
+
+    license.txtを追加
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@19 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/doc/license.txt
+trunk/o2on/src.o2on/o2on.vcproj
+
+commit 4e5f403
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-06-23
+
+    fix: ツールチップメッセージ
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@18 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/main.cpp
+
+commit 14132c2
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-06-23
+
+    typo
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@17 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/admin/menu.html
+
+commit c0ea6bf
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-06-22
+
+    トレイアイコンのツールチップに送受信速度を表示
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@16 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/main.cpp
+
+commit 88acf5c
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-06-17
+
+    HTML化した過去ログをプロキシで取得時にgzip圧縮でdatが保存されるバグを修正
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@15 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Server_HTTP_Proxy.h
+
+commit ecb6db4
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-06-16
+
+    デフォルトですべての板のdatを収集するよう変更
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@14 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Boards.cpp
+trunk/o2on/src.o2on/O2Boards.h
+trunk/o2on/src.o2on/main.cpp
+
+commit a6a55fc
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-06-15
+
+    クォータが制限値を超えるとタスクトレイから操作できなくなるのを修正
+    注意点
+    ・プロキシと管理画面は使用可能。
+    ・制限値と越えるとP2Pが停止するため、
+    　再開するときはクォータ制限を解除した後にタスクトレイからP2Pを開始してください。
+    
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@13 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatIO.cpp
+trunk/o2on/src.o2on/main.cpp
+
+commit 865d39a
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-06-14
+
+    スレッド11dat>>326のバグ修正
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@12 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2SAX2Parser.cpp
+trunk/o2on/src.o2on/main.cpp
+trunk/o2on/src.o2on/upnp_description.h
+
+commit 2a7c9e4
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-06-10
+
+    _endthreadexの呼び出しをコメントアウト
+    ・スレッドが関数を抜けたときに自動的に_endthreadexは呼び出される。
+    ・明示的に_endthreadexの呼び出しを行うと、ローカル変数のデストラクタが呼び出されない。
+    
+    詳細はMSDNの_beginthreadexと_endthreadexのそれぞれの項目を参照して下さい。
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@11 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Client.cpp
+trunk/o2on/src.o2on/O2DatDB.cpp
+trunk/o2on/src.o2on/O2DatIO.cpp
+trunk/o2on/src.o2on/O2LagQueryQueue.h
+trunk/o2on/src.o2on/O2Scheduler.h
+trunk/o2on/src.o2on/O2Server.cpp
+trunk/o2on/src.o2on/O2Server_HTTP_Admin.h
+trunk/o2on/src.o2on/O2Server_HTTP_P2P.h
+trunk/o2on/src.o2on/O2Server_HTTP_Proxy.h
+trunk/o2on/src.o2on/main.cpp
+
+commit e11321f
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-05-26
+
+    ブロードキャスト暫定対応版
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@10 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2IMDB.h
+
+commit 0386f6c
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-05-25
+
+    fix: 相対パスに変更
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@9 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.browser/browser.rc
+
+commit 41f3f3e
+Author: nullp <nullp@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-05-25
+
+    Rが入力できないバグを修正
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@8 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.browser/main.cpp
+
+commit d77df91
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-05-23
+
+    プロジェクトURL書き換え
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@7 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/admin/menu.html
+trunk/o2on/doc/readme.txt
+
+commit b92847d
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-05-23
+
+    update jkl-parsexml.js to ver 0.22
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@6 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/admin/jkl-parsexml.js
+
+commit 79d2b6e
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-05-22
+
+    1,管理画面でSQL実行時に結果が1件少なくなるのを修正。
+    2,プロキシ使用時のハンドルリークを修正＜自信なし。
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@5 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2DatDB.cpp
+trunk/o2on/src.o2on/O2Server_HTTP_Proxy.h
+
+commit da687d4
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-05-19
+
+    WSAStartupとWSACleanupの呼び出しをアプリ起動時と終了時のみ行うように変更。
+    理由はmsdn英語版のWSACleanup関数の説明で
+    ＞In a multithreaded environment, WSACleanup
+    terminates Windows Sockets operations for all threads.
+    という文章を読んだため。
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@4 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Client.cpp
+trunk/o2on/src.o2on/O2Server.cpp
+trunk/o2on/src.o2on/main.cpp
+
+commit 3a66973
+Author: laxmi <laxmi@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-05-19
+
+    _tcstoulがエラーを返したときにif文で正しく比較できないのを修正
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@3 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/main.cpp
+
+commit bdc72d5
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-05-19
+
+    bug fix: ブロードキャストメッセージの多重送信
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@2 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/src.o2on/O2Server_HTTP_Admin.h
+
+commit 8acd4dc
+Author: k-uehara <k-uehara@ac9984d6-f82f-0410-8253-bf21b04e86e2>
+Date:   2007-05-17
+
+    o2on 0.02 (build 0040)
+    
+    git-svn-id: http://svn.sourceforge.jp/svnroot/o2on@1 ac9984d6-f82f-0410-8253-bf21b04e86e2
+
+trunk/o2on/admin/bbsmenu.xsl
+trunk/o2on/admin/dat.xsl
+trunk/o2on/admin/friend.xsl
+trunk/o2on/admin/im.xsl
+trunk/o2on/admin/images/loading.gif
+trunk/o2on/admin/images/mypc.png
+trunk/o2on/admin/images/o2on.png
+trunk/o2on/admin/images/toolbg.png
+trunk/o2on/admin/imbroadcast.xsl
+trunk/o2on/admin/index.html
+trunk/o2on/admin/ipf.xsl
+trunk/o2on/admin/jkl-parsexml.js
+trunk/o2on/admin/key.xsl
+trunk/o2on/admin/log.xsl
+trunk/o2on/admin/main.html
+trunk/o2on/admin/menu.html
+trunk/o2on/admin/node.xsl
+trunk/o2on/admin/notification.xsl
+trunk/o2on/admin/o2on.js
+trunk/o2on/admin/profile.xsl
+trunk/o2on/admin/query.xsl
+trunk/o2on/admin/report.xsl
+trunk/o2on/admin/saku.xsl
+trunk/o2on/admin/sql.xsl
+trunk/o2on/admin/style.css
+trunk/o2on/admin/thread.xsl
+trunk/o2on/admin/work.html
+trunk/o2on/admin/xml
+trunk/o2on/doc/build.txt
+trunk/o2on/doc/history.txt
+trunk/o2on/doc/readme.txt
+trunk/o2on/o2on.sln
+trunk/o2on/resource/a.ico
+trunk/o2on/resource/a_in.ico
+trunk/o2on/resource/a_inout.ico
+trunk/o2on/resource/a_out.ico
+trunk/o2on/resource/b.ico
+trunk/o2on/resource/b_in.ico
+trunk/o2on/resource/b_inout.ico
+trunk/o2on/resource/b_out.ico
+trunk/o2on/resource/disable.ico
+trunk/o2on/resource/err.ico
+trunk/o2on/resource/o2on.ico
+trunk/o2on/src.browser/browser.manifest
+trunk/o2on/src.browser/browser.rc
+trunk/o2on/src.browser/browser.vcproj
+trunk/o2on/src.browser/main.cpp
+trunk/o2on/src.browser/resource.h
+trunk/o2on/src.o2on/KademliaKBucket.h
+trunk/o2on/src.o2on/KademliaNode.h
+trunk/o2on/src.o2on/KademliaRoutingTable.h
+trunk/o2on/src.o2on/O2Agent.cpp
+trunk/o2on/src.o2on/O2Agent.h
+trunk/o2on/src.o2on/O2Boards.cpp
+trunk/o2on/src.o2on/O2Boards.h
+trunk/o2on/src.o2on/O2Client.cpp
+trunk/o2on/src.o2on/O2Client.h
+trunk/o2on/src.o2on/O2Client_HTTP.h
+trunk/o2on/src.o2on/O2DatDB.cpp
+trunk/o2on/src.o2on/O2DatDB.h
+trunk/o2on/src.o2on/O2DatIO.cpp
+trunk/o2on/src.o2on/O2DatIO.h
+trunk/o2on/src.o2on/O2DatIndex.h
+trunk/o2on/src.o2on/O2DatPath.h
+trunk/o2on/src.o2on/O2Define.h
+trunk/o2on/src.o2on/O2FriendDB.h
+trunk/o2on/src.o2on/O2IMDB.cpp
+trunk/o2on/src.o2on/O2IMDB.h
+trunk/o2on/src.o2on/O2IPFilter.cpp
+trunk/o2on/src.o2on/O2IPFilter.h
+trunk/o2on/src.o2on/O2Job.h
+trunk/o2on/src.o2on/O2JobSchedule.h
+trunk/o2on/src.o2on/O2Job_AskCollection.h
+trunk/o2on/src.o2on/O2Job_AutoSave.h
+trunk/o2on/src.o2on/O2Job_Broadcast.h
+trunk/o2on/src.o2on/O2Job_ClearWorkset.h
+trunk/o2on/src.o2on/O2Job_DatCollector.h
+trunk/o2on/src.o2on/O2Job_GetGlobalIP.h
+trunk/o2on/src.o2on/O2Job_GetGlobalIP2.h
+trunk/o2on/src.o2on/O2Job_NodeCollector.h
+trunk/o2on/src.o2on/O2Job_PublishKeys.h
+trunk/o2on/src.o2on/O2Job_PublishOriginal.h
+trunk/o2on/src.o2on/O2Job_QueryDat.h
+trunk/o2on/src.o2on/O2Job_Search.h
+trunk/o2on/src.o2on/O2Job_SearchFriends.h
+trunk/o2on/src.o2on/O2Key.h
+trunk/o2on/src.o2on/O2KeyDB.cpp
+trunk/o2on/src.o2on/O2KeyDB.h
+trunk/o2on/src.o2on/O2LagQueryQueue.h
+trunk/o2on/src.o2on/O2Logger.cpp
+trunk/o2on/src.o2on/O2Logger.h
+trunk/o2on/src.o2on/O2Node.h
+trunk/o2on/src.o2on/O2NodeDB.cpp
+trunk/o2on/src.o2on/O2NodeDB.h
+trunk/o2on/src.o2on/O2NodeKBucket.h
+trunk/o2on/src.o2on/O2PerformanceCounter.h
+trunk/o2on/src.o2on/O2Profile.cpp
+trunk/o2on/src.o2on/O2Profile.h
+trunk/o2on/src.o2on/O2ProgressInfo.h
+trunk/o2on/src.o2on/O2Protocol.h
+trunk/o2on/src.o2on/O2Protocol_Dat.h
+trunk/o2on/src.o2on/O2Protocol_Kademlia.h
+trunk/o2on/src.o2on/O2ReportMaker.cpp
+trunk/o2on/src.o2on/O2ReportMaker.h
+trunk/o2on/src.o2on/O2SAX2Parser.cpp
+trunk/o2on/src.o2on/O2SAX2Parser.h
+trunk/o2on/src.o2on/O2Scheduler.h
+trunk/o2on/src.o2on/O2Server.cpp
+trunk/o2on/src.o2on/O2Server.h
+trunk/o2on/src.o2on/O2Server_HTTP.h
+trunk/o2on/src.o2on/O2Server_HTTP_Admin.h
+trunk/o2on/src.o2on/O2Server_HTTP_P2P.h
+trunk/o2on/src.o2on/O2Server_HTTP_Proxy.h
+trunk/o2on/src.o2on/O2SocketSession.h
+trunk/o2on/src.o2on/O2Version.h
+trunk/o2on/src.o2on/barray.h
+trunk/o2on/src.o2on/dataconv.cpp
+trunk/o2on/src.o2on/dataconv.h
+trunk/o2on/src.o2on/debug.h
+trunk/o2on/src.o2on/event.h
+trunk/o2on/src.o2on/file.cpp
+trunk/o2on/src.o2on/file.h
+trunk/o2on/src.o2on/headertest.cpp
+trunk/o2on/src.o2on/httpheader.cpp
+trunk/o2on/src.o2on/httpheader.h
+trunk/o2on/src.o2on/main.cpp
+trunk/o2on/src.o2on/mutex.h
+trunk/o2on/src.o2on/o2on.manifest
+trunk/o2on/src.o2on/o2on.vcproj
+trunk/o2on/src.o2on/resource.h
+trunk/o2on/src.o2on/resource.rc
+trunk/o2on/src.o2on/rsa.h
+trunk/o2on/src.o2on/sha.h
+trunk/o2on/src.o2on/simplehttpsocket.h
+trunk/o2on/src.o2on/simplessdpsocket.h
+trunk/o2on/src.o2on/simpletcpsocket.h
+trunk/o2on/src.o2on/simpleudpsocket.h
+trunk/o2on/src.o2on/stopwatch.h
+trunk/o2on/src.o2on/thread.h
+trunk/o2on/src.o2on/typedef.h
+trunk/o2on/src.o2on/upnp.h
+trunk/o2on/src.o2on/upnp_description.h
+trunk/o2on/src.o2on/zlib.h
