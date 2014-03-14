@@ -13,14 +13,18 @@
 #include "O2Define.h"
 #include "mutex.h"
 #include "O2SAX2Parser.h"
-#include <tchar.h>
+
+#ifdef _WIN32
+   #include <tchar.h>   // For C++ Builder
+#else
+   #include <iostream>  // std C++
+#endif
+
 #include <list>
 
 
-
-
 #define O2LT_INFO		0x00000001	//info
-#define O2LT_WARNING	0x00000002	//warning
+#define O2LT_WARNING		0x00000002	//warning
 #define O2LT_ERROR		0x00000004	//error
 #define O2LT_FATAL		0x00000008	//fatal
 #define O2LT_IM			0x00000010	//im
@@ -29,8 +33,6 @@
 #define O2LT_HOKAN		0x00000080	//hokan
 #define O2LT_IPF		0x00000100	//ipf
 #define O2LT_DEBUG		0x80000000	//debug
-
-
 
 
 /*

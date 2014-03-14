@@ -9,19 +9,22 @@
  *
  */
 
-#include <winsock2.h>
+#ifdef _WIN32
+   #include <winsock2.h>
+#else
+
+#endif
+
 #include "O2Agent.h"
 #include "dataconv.h"
 #include <process.h>
 
-#define MODULE						L"Agent"
-#define DEBUG_SESSION_COUNT			0
-#define DEBUG_THREADLOOP			0
+#define MODULE				L"Agent"
+#define DEBUG_SESSION_COUNT		0
+#define DEBUG_THREADLOOP		0
 
 #define DEFAULT_CONNECT_INTERVAL	10000
 #define GIP_CONNECT_TIMEOUT_MS		2000
-
-
 
 
 O2Agent::
@@ -38,15 +41,10 @@ O2Agent(O2Logger *lgr, O2Profile *prof, O2NodeDB *ndb)
 {
 }
 
-
-
-
 O2Agent::
 ~O2Agent()
 {
 }
-
-
 
 
 bool

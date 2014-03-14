@@ -23,8 +23,6 @@ XERCES_CPP_NAMESPACE_USE
 class O2Logger;
 
 
-
-
 class O2SAX2Parser
 {
 protected:

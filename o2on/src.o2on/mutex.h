@@ -10,41 +10,14 @@
  */
 
 #pragma once
-#include <windows.h>
 
+#ifdef _WIN32
+   #include <windows.h>
+   #include "stopwatch.h"
+#else
 
+#endif
 
-
-/*
-class Mutex
-{
-protected:
-	CRITICAL_SECTION critical_section;
-
-public:
-	Mutex(void)
-	{
-		InitializeCriticalSection(&critical_section);
-	}
-	~Mutex(void)
-	{
-		Lock();
-		Unlock();
-		DeleteCriticalSection(&critical_section);
-	}
-	void Lock(void)
-	{
-		EnterCriticalSection(&critical_section);
-	}
-
-	void Unlock(void)
-	{
-		LeaveCriticalSection(&critical_section);
-	}
-};
-*/
-
-#include "stopwatch.h"
 class Mutex
 {
 protected:

@@ -18,6 +18,20 @@ LT_INIT
 
 # Checks for libraries.
 
+# libxerces-c
+AC_CHECK_HEADER([xercesc/util/XercesVersion.hpp], 
+                [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], 
+                [AC_MSG_ERROR([xerces include file not found. o2on need xerces-c.])])
+
+AC_CHECK_LIB([xerces-c], 
+	     [main], 
+	     [has_xerces_c=1],
+             [has_xerces_c=0])
+
+if test $has_xerces_c = 0; then
+  AC_MSG_ERROR("ERROR: libxerces-c not found. o2on need xerces-c.")
+fi
+
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.
