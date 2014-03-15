@@ -18,6 +18,6 @@ build environment
 build
 -----
 
-$ ./bootstrap
-$ ./configure
-$ make
+$ ./bootstrap  
+$ ./configure  
+$ make  
