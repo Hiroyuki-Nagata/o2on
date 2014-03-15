@@ -13,9 +13,13 @@
 // ‚±‚±‚ÉWin32/POSIXƒXƒŒƒbƒh‚ÌWrapper‚ğ‘‚­—\’è
 
 #pragma once
-#include <windows.h>
-#include <process.h>
 
+#ifdef _WIN32
+   #include <windows.h>
+   #include <process.h>
+#else
+   #include <cstdlib> 
+#endif
 
 inline HANDLE GetRealThreadHandle(void)
 {

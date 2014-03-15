@@ -20,7 +20,7 @@ extras/*
 *.exe
 compile
 config.guess
-config.h
+config.h*
 config.log
 config.status
 config.sub

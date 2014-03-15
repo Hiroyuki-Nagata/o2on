@@ -12,6 +12,7 @@ AC_CONFIG_MACRO_DIR([m4])
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
+AC_LANG_PUSH([C++])
 AC_PROG_MKDIR_P
 AC_LIBTOOL_WIN32_DLL
 LT_INIT
@@ -30,6 +31,20 @@ AC_CHECK_LIB([xerces-c],
 
 if test $has_xerces_c = 0; then
   AC_MSG_ERROR("ERROR: libxerces-c not found. o2on need xerces-c.")
+fi
+
+# libcryptopp(crypto++)
+AC_CHECK_HEADER([cryptopp/sha.h], 
+                [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], 
+                [AC_MSG_ERROR([cryptopp include file not found. o2on need cryptopp.])])
+
+AC_CHECK_LIB([cryptopp], 
+	     [main], 
+	     [has_cryptopp=1],
+             [has_cryptopp=0])
+
+if test $has_cryptopp = 0; then
+  AC_MSG_ERROR("ERROR: cryptopp not found. o2on need cryptopp.")
 fi
 
 # Checks for header files.

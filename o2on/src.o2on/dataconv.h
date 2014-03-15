@@ -12,10 +12,10 @@
 #pragma once
 #include "typedef.h"
 #include "sha.h"
-#include <windows.h>
 
-
-
+#ifdef _WIN32
+   #include <windows.h>
+#endif
 
 extern const char *hex;
 extern const wchar_t *whex;

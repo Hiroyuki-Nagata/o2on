@@ -17,7 +17,12 @@
 
 #include "O2Agent.h"
 #include "dataconv.h"
-#include <process.h>
+
+#ifdef _WIN32
+   #include <process.h>
+#else
+   #include <cstdlib> 
+#endif
 
 #define MODULE				L"Agent"
 #define DEBUG_SESSION_COUNT		0
