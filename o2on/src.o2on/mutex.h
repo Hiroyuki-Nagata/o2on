@@ -15,7 +15,7 @@
    #include <windows.h>
    #include "stopwatch.h"
 #else
-
+   #include "typedef.h"
 #endif
 
 class Mutex

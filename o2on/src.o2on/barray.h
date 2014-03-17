@@ -11,8 +11,12 @@
 
 #pragma once
 #include "typedef.h"
-#include "../cryptopp/osrng.h"
 
+#ifdef _WIN32
+   #include "../cryptopp/osrng.h"
+#else
+   #include <cryptopp/osrng.h>
+#endif
 
 
 

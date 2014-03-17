@@ -16,29 +16,40 @@
 #include <set>
 #include <map>
 
-
-
+#ifndef _WIN32 /** UNIX only typedef */
+   typedef void*         HANDLE;
+   typedef unsigned long DWORD;
+   #define FALSE false;
+   #define TRUE  true;
+#endif
 
 /* unsigned */
 typedef unsigned char				byte;
 typedef unsigned short				ushort;
 typedef unsigned int				uint;
 typedef unsigned long				ulong;
-typedef unsigned __int64			uint64;
+
+#if defined(_MSC_VER) && (_MSC_VER <= 1500)
+    typedef __int64				uint64;
+#else
+    /* gcc or VC10 */
+    #include <stdint.h>
+    typedef int64_t				uint64;
+#endif
 
 /* char and strings */
-typedef std::string					string;
+typedef std::string				string;
 typedef std::wstring				wstring;
 
 /* string container */
 typedef std::vector<string>			strarray;
-typedef std::vector<wstring>		wstrarray;
+typedef std::vector<wstring>			wstrarray;
 typedef std::set<string>			stringset;
 typedef std::set<wstring>			wstringset;
-typedef std::map<string,string>		strmap;
-typedef std::map<wstring,wstring>	wstrmap;
-typedef std::map<string,uint64>		strnummap;
-typedef std::map<wstring,uint64>	wstrnummap;
+typedef std::map<string,string>		        strmap;
+typedef std::map<wstring,wstring>		wstrmap;
+typedef std::map<string,uint64>			strnummap;
+typedef std::map<wstring,uint64>		wstrnummap;
 
 /* tstring */
 #if defined(UNICODE) || defined(_UNICODE)
@@ -47,7 +58,7 @@ typedef std::wfstream				tfstream;
 typedef std::wifstream				tifstream;
 typedef std::wofstream				tofstream;
 #else
-typedef std::string					tstring;
+typedef std::string				tstring;
 typedef std::fstream				tfstream;
 typedef std::ifstream				tifstream;
 typedef std::ofstream				tofstream;

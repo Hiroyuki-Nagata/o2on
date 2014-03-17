@@ -14,7 +14,7 @@
 #ifdef _WIN32
    #include "../cryptopp/sha.h"
 #else
-   #include <crypto++/sha.h>
+   #include <cryptopp/sha.h>
 #endif
 
 #include "barray.h"
