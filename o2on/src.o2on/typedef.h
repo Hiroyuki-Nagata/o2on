@@ -52,16 +52,28 @@ typedef std::map<string,uint64>			strnummap;
 typedef std::map<wstring,uint64>		wstrnummap;
 
 /* tstring */
-#if defined(UNICODE) || defined(_UNICODE)
-typedef std::wstring				tstring;
-typedef std::wfstream				tfstream;
-typedef std::wifstream				tifstream;
-typedef std::wofstream				tofstream;
+#if defined(UNICODE) || defined(_UNICODE) || !defined(_WIN32)
+   typedef std::wstring				tstring;
+   typedef std::wfstream			tfstream;
+   typedef std::wifstream			tifstream;
+   typedef std::wofstream			tofstream;
 #else
-typedef std::string				tstring;
-typedef std::fstream				tfstream;
-typedef std::ifstream				tifstream;
-typedef std::ofstream				tofstream;
+   typedef std::string				tstring;
+   typedef std::fstream				tfstream;
+   typedef std::ifstream			tifstream;
+   typedef std::ofstream			tofstream;
 #endif
 
 #define FOUND(i) ((i) != tstring::npos)
+
+/* some _T macro trick */
+#ifndef _WIN32
+   #if defined(UNICODE) || defined(_UNICODE) || !defined(_WIN32)
+      #define __T(x)      L ## x
+   #else
+      #define __T(x)      x
+   #endif
+    
+   #define _T(x)       __T(x)
+   #define _TEXT(x)    __T(x)
+#endif

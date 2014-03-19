@@ -11,6 +11,7 @@
 
 #pragma once
 #include "typedef.h"
+#include "dataconv.h"
 
 #ifdef _WIN32
    #include "../cryptopp/osrng.h"
@@ -32,7 +33,7 @@ public:
 
 	// constructor
 	barrayT(void)
-    {
+	{
 		clear();
 	}
 	barrayT(const barrayT<N> &src)
