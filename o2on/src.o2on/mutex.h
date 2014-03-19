@@ -3,10 +3,9 @@
  */
 
 /*
- * project		: 
+ * project		: o2on
  * filename		: mutex.h
- * description	: 
- *
+ * description		: class for multi thread
  */
 
 #pragma once
@@ -16,44 +15,81 @@
    #include "stopwatch.h"
 #else
    #include "typedef.h"
+   #include <pthread.h>
 #endif
 
 class Mutex
 {
 protected:
+
+#ifdef _WIN32
 	HANDLE mutex_handle;
+#else
+	pthread_mutex_t mutex_handle;
+#endif
 
 public:
+
+#ifdef _WIN32
 	Mutex(void)
-		: mutex_handle(CreateMutex(NULL, FALSE, NULL))
-	{
-	}
+	  : mutex_handle(CreateMutex(NULL, FALSE, NULL)){};
+
 	~Mutex(void)
 	{
 		Lock();
 		Unlock();
 		CloseHandle(mutex_handle);
-	}
+	};
 	void Lock(void)
 	{
-		//stopwatch sw("LOCK");
 		WaitForSingleObject(mutex_handle, INFINITE);
-		//sw.end();
-		//if (sw.d >= 50)
-		//	Sleep(0);
-	}
+	};
 	bool LockTest(void)
 	{
 		DWORD r = WaitForSingleObject(mutex_handle, 0);
 		if (r == WAIT_TIMEOUT)
 			return false;
 		return true;
-	}
+	};
 
 	void Unlock(void)
 	{
 		ReleaseMutex(mutex_handle);
-	}
+	};
+
+#else
+
+	Mutex(void)
+	{
+	  pthread_mutex_init(&mutex_handle, NULL);
+	};
+
+	~Mutex(void)
+	{
+		Lock();
+		Unlock();
+		pthread_mutex_destroy(&mutex_handle);
+	};
+
+	void Lock(void)
+	{
+	  	pthread_mutex_lock(&mutex_handle);
+	};
+
+	bool LockTest(void)
+	{
+	  //DWORD r = WaitForSingleObject(mutex_handle, 0);
+	  //	if (r == WAIT_TIMEOUT)
+	  //		return false;
+		return true;
+	};
+
+	void Unlock(void)
+	{
+		pthread_mutex_unlock(&mutex_handle);
+	};
+
+#endif
 
 private:
 	Mutex(const Mutex& rhs);
