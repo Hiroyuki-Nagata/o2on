@@ -47,6 +47,11 @@ if test $has_cryptopp = 0; then
   AC_MSG_ERROR("ERROR: cryptopp not found. o2on need cryptopp.")
 fi
 
+# Boost
+BOOST_REQUIRE([1.49.0])
+BOOST_REGEX
+BOOST_THREADS
+
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.

@@ -1,4 +1,12 @@
+# o2on is not GPL
 AUTOMAKE_OPTIONS 	= foreign
+
+# For Boost compile option
+AM_CPPFLAGS		= $(BOOST_CPPFLAGS)
+AM_LDFLAGS		= $(BOOST_REGEX_LDFLAGS) $(BOOST_THREADS_LDFLAGS)
+LIBS			= $(BOOST_REGEX_LIBS) $(BOOST_THREAD_LIBS)
+
+# For o2on sources
 bin_PROGRAMS		= o2on
 o2on_SOURCES		= \
 KademliaKBucket.h	  \

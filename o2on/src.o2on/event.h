@@ -11,9 +11,9 @@
 
 #pragma once
 
-#ifdef _WIN32
-   #include <windows.h>
-#endif
+#ifdef _WIN32 /** Windows EventObject */
+
+#include <windows.h>
 
 class EventObject
 {
@@ -56,3 +56,10 @@ private:
 	EventObject(const EventObject& rhs);
 	EventObject& operator=(const EventObject& rhs);
 };
+
+#else /** Unix side EventObject equivalent implement */
+
+
+
+
+#endif

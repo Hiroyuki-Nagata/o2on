@@ -10,8 +10,8 @@
  */
 
 #pragma once
-#include "typedef.h"
 #include "sha.h"
+#include "typedef.h"
 
 #ifdef _WIN32
    #include <windows.h>
@@ -32,20 +32,24 @@ extern void random_hex(uint len, string &out);
 extern void random_whex(uint len, wstring &out);
 extern time_t datetime2time_t(const wchar_t *in, int len);
 extern void time_t2datetime(time_t in, long tzoffset, wstring &out);
+
+#ifdef _WIN32
 extern time_t filetime2time_t(const FILETIME &ft);
 extern void time_t2filetime(time_t t, FILETIME &ft);
+#endif
+
 extern ulong ipstr2ulong(const wchar_t *in, int len);
 extern void ulong2ipstr(ulong ip, string &out);
 extern void ulong2ipstr(ulong ip, wstring &out);
 extern void simple_aes_ctr(byte *in, uint inlen, byte *out);
-
+/** TODO hashT
 extern void hash_xor(hashT &out, const hashT &h1, const hashT &h2);
 extern size_t hash_bitlength(const hashT &hash);
 extern bool hash_bittest(const hashT &hash, size_t pos);
 extern size_t hash_xor_bitlength(const hashT &h1, const hashT &h2);
 extern bool less_xor_bitlength(const hashT &target, const hashT &h1, const hashT &h2);
+*/
 extern void bench(void);
-
 
 extern void ip2e(ulong ip, string &out);
 extern void ip2e(ulong ip, wstring &out);
@@ -84,6 +88,8 @@ extern void makeCDATA(const wstring &in, wstring &out);
 extern void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, const wchar_t *val, bool escape = false);
 extern void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, int val);
 extern void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, uint val);
+#ifdef _WIN32
 extern void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, __int64 val);
+#endif
 extern void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, uint64 val);
 extern void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, double val);
