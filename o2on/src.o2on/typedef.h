@@ -5,7 +5,7 @@
 /*
  * project		: 
  * filename		: typedef.h
- * description	: 
+ * description		: header file for typedef settings 
  *
  */
 
@@ -16,11 +16,21 @@
 #include <set>
 #include <map>
 
-#ifndef _WIN32 /** UNIX only typedef */
-   typedef void*         HANDLE;
+#ifndef _WIN32 /** UNIX only typedef for MSW dirty typedefs... */
+   #include <cstring>
+   typedef void*	 HANDLE;
+   typedef HANDLE	 HWND;
    typedef unsigned long DWORD;
-   #define FALSE false;
-   #define TRUE  true;
+   typedef unsigned int  UINT;
+   #define FALSE	false
+   #define TRUE		true
+   #define WINAPI
+   /** Linux or other don't call WINAPI... */
+   #define _stricmp(x, y)	strcasecmp(x, y)
+
+   /** MSW's many many ~_s function series... */
+   #define sprintf_s(buffer, buffer_size, stringbuffer, ...) (sprintf(buffer, stringbuffer, __VA_ARGS__))
+   #define swprintf_s(buffer, buffer_size, stringbuffer, ...) (swprintf(buffer, stringbuffer, __VA_ARGS__))
 #endif
 
 /* unsigned */
@@ -76,4 +86,10 @@ typedef std::map<wstring,uint64>		wstrnummap;
     
    #define _T(x)       __T(x)
    #define _TEXT(x)    __T(x)
+#endif
+
+/** Some WinSock to BSD socket equivalent */
+#ifndef _WIN32
+   typedef uint		SOCKET;
+   #define INVALID_SOCKET -1
 #endif
