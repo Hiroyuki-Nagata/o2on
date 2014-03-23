@@ -29,8 +29,8 @@
    #define _stricmp(x, y)	strcasecmp(x, y)
 
    /** MSW's many many ~_s function series... */
-   #define sprintf_s(buffer, buffer_size, stringbuffer, ...) (sprintf(buffer, stringbuffer, __VA_ARGS__))
-   #define swprintf_s(buffer, buffer_size, stringbuffer, ...) (swprintf(buffer, buffer_size, stringbuffer, __VA_ARGS__))
+   #define sprintf_s(buffer, buffer_size, stringbuffer, ...) sprintf(buffer, stringbuffer, __VA_ARGS__)
+   #define swprintf_s(buffer, buffer_size, stringbuffer, ...) swprintf(buffer, buffer_size, stringbuffer, __VA_ARGS__)
 #endif
 
 /* unsigned */
