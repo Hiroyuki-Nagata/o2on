@@ -17,7 +17,39 @@ AC_PROG_MKDIR_P
 AC_LIBTOOL_WIN32_DLL
 LT_INIT
 
+# Checks for HostOS
+case "$host" in
+        *-*-mingw*|*-*-cygwin*)
+                AC_DEFINE(PLATFORM_WIN32, 1, [Platform is Win32])
+                PLATFORM_STRING="Win32"
+                AC_SUBST(PLATFORM_STRING)
+                ;;
+        *-*-linux*)
+                AC_DEFINE(PLATFORM_LINUX, 1, [Platform is Linux])
+                PLATFORM_STRING="Linux"
+                AC_SUBST(PLATFORM_STRING)
+                ;;
+        *-*-darwin*)
+                AC_DEFINE(PLATFORM_APPLE, 1, [Platform is Apple])
+                PLATFORM_STRING="Apple"
+                AC_SUBST(PLATFORM_STRING)
+                ;;
+        *-*-*bsd*)
+                AC_DEFINE(PLATFORM_BSD, 1, [Platform is BSD])
+                PLATFORM_STRING="BSD"
+                AC_SUBST(PLATFORM_STRING)
+                ;;
+        *)
+                AC_MSG_WARN([*** Please add $host to configure.ac checks!])
+                ;;
+esac
+
+# Checks for compiler
+AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
+
+#
 # Checks for libraries.
+#
 
 # libxerces-c
 AC_CHECK_HEADER([xercesc/util/XercesVersion.hpp], 
