@@ -27,6 +27,7 @@
    #define WINAPI
    /** Linux or other don't call WINAPI... */
    #define _stricmp(x, y)	strcasecmp(x, y)
+   #define Sleep(x)		usleep((x)*1000)
 
    /** MSW's many many ~_s function series... */
    #define sprintf_s(buffer, buffer_size, stringbuffer, ...) sprintf(buffer, stringbuffer, __VA_ARGS__)

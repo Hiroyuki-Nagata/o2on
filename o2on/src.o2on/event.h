@@ -64,7 +64,7 @@ private:
 
 class EventObject;
 typedef EventObject* EventHandle;
-static const unsigned k_INFINITE = 0xFFFFFFFF;
+static const unsigned INFINITE = 0xFFFFFFFF;
 
 class EventObject
 {
@@ -101,7 +101,7 @@ public:
 	{
 		ResetEvent(evt);
 	};
-	void Wait(DWORD timeout_ms = k_INFINITE)
+	void Wait(DWORD timeout_ms = INFINITE)
 	{
 		WaitForSingleObject(evt, timeout_ms);
 	};
@@ -128,7 +128,7 @@ private:
 	void WaitForSingleObject(EventHandle evt, DWORD timeout_ms)
 	{
 		boost::mutex::scoped_lock lock( evt->m_mutex );
-		if( timeout_ms == k_INFINITE )
+		if( timeout_ms == INFINITE )
 		{
 			while( !evt->m_bool )
 			{
