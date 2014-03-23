@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+﻿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 

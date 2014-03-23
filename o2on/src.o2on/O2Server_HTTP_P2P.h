@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -272,7 +272,7 @@ private:
 		}
 		else if (( node.o2ver() < ACCEPT_PROTOCOL_VER_MIN ) ||
 			     ( ACCEPT_PROTOCOL_VER_MAX < node.o2ver() )) {
-			// —‰ğ‚Å‚«‚È‚¢ƒvƒƒgƒRƒ‹‚È‚ç‹‘”Û‚·‚é
+			// ç†è§£ã§ããªã„ãƒ—ãƒ­ãƒˆã‚³ãƒ«ãªã‚‰æ‹’å¦ã™ã‚‹
 			ss->Lock();
 			MakeResponse_403(Profile, ss->sbuff);
 			ss->Unlock();
@@ -403,11 +403,11 @@ private:
 
 		if (Logger) {
 			Logger->AddLog(O2LT_IM, MODULE, node.ip, node.port,
-				L"ƒƒbƒZ[ƒWóM (%d byte)", hdr->contentlength);
+				L"ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å—ä¿¡ (%d byte)", hdr->contentlength);
 		}
 		if (hwndBaloonCallback && Profile->IsBaloon_IM()) {
 			SendMessage(hwndBaloonCallback, msgBaloonCallback,
-				(WPARAM)L"o2on", (LPARAM)L"ƒƒbƒZ[ƒW‚ª“Í‚«‚Ü‚µ‚½");
+				(WPARAM)L"o2on", (LPARAM)L"ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒå±Šãã¾ã—ãŸ");
 		}
 	}
 	// -----------------------------------------------------------------------

@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -436,13 +436,13 @@ public:
 			xml += "<e>" + nodestr + "</e>";
 		}
 		else if (!Profile->GetP2PPort()) {
-			wstring w = L"<e>ƒ|[ƒg‚ğŠJ•ú‚µ‚Ä‚¢‚È‚¢‚Ì‚Åæ“¾‚Å‚«‚Ü‚¹‚ñ</e>";
+			wstring w = L"<e>ãƒãƒ¼ãƒˆã‚’é–‹æ”¾ã—ã¦ã„ãªã„ã®ã§å–å¾—ã§ãã¾ã›ã‚“</e>";
 			string s;
 			FromUnicode(_T(DEFAULT_XML_CHARSET), w, s);
 			xml += s;
 		}
 		else {
-			wstring w = L"<e>ƒOƒ[ƒoƒ‹IP‚ªŠm’è‚µ‚Ä‚¢‚È‚¢‚½‚ßæ“¾‚Å‚«‚Ü‚¹‚ñ</e>";
+			wstring w = L"<e>ã‚°ãƒ­ãƒ¼ãƒãƒ«IPãŒç¢ºå®šã—ã¦ã„ãªã„ãŸã‚å–å¾—ã§ãã¾ã›ã‚“</e>";
 			string s;
 			FromUnicode(_T(DEFAULT_XML_CHARSET), w, s);
 			xml += s;
@@ -501,11 +501,11 @@ public:
 
 		if (addnum) {
 			wchar_t message[64];
-			swprintf_s(message, 64, L"%uŒ’Ç‰Á‚µ‚Ü‚µ‚½", addnum);
+			swprintf_s(message, 64, L"%uä»¶è¿½åŠ ã—ã¾ã—ãŸ", addnum);
 			NodeDB->SetXMLMessage(message, L"succeeded");
 		}
 		else {
-			NodeDB->SetXMLMessage(L"’Ç‰Á¸”s", L"error");
+			NodeDB->SetXMLMessage(L"è¿½åŠ å¤±æ•—", L"error");
 		}
 
 		//
@@ -620,17 +620,17 @@ public:
 							QueryDB->Save(Profile->GetQueryFilePath());
 
 							if (DatIO->KakoHantei(datpath)) {
-								msg = L"“o˜^‚µ‚Ü‚µ‚½iŠ®‘S‚Û‚¢ƒLƒƒƒbƒVƒ…‚ğŠ—Lj";
+								msg = L"ç™»éŒ²ã—ã¾ã—ãŸï¼ˆå®Œå…¨ã½ã„ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚’æ‰€æœ‰ï¼‰";
 							}
 							else if (key.size) {
-								msg = L"“o˜^‚µ‚Ü‚µ‚½iƒLƒƒƒbƒVƒ…Š—Lj";
+								msg = L"ç™»éŒ²ã—ã¾ã—ãŸï¼ˆã‚­ãƒ£ãƒƒã‚·ãƒ¥æ‰€æœ‰ï¼‰";
 							}
 							else {
-								msg = L"“o˜^‚µ‚Ü‚µ‚½";
+								msg = L"ç™»éŒ²ã—ã¾ã—ãŸ";
 							}
 						}
 						else {
-							msg = L"URL‚ª‚¨‚©‚µ‚¢‚Å‚·";
+							msg = L"URLãŒãŠã‹ã—ã„ã§ã™";
 							msgtype = L"error";
 						}
 					}
@@ -647,7 +647,7 @@ public:
 									hashT hash;
 									hash.assign( hasharray[ hashidx ].c_str(), hasharray[ hashidx ].size() );
 									if (QueryDB->DeleteKey(hash)) {
-										msg = L"íœ‚µ‚Ü‚µ‚½";
+										msg = L"å‰Šé™¤ã—ã¾ã—ãŸ";
 										QueryDB->Save(Profile->GetQueryFilePath());
 									}
 								}
@@ -667,7 +667,7 @@ public:
 									hashT hash;
 									hash.assign( hasharray[ hashidx ].c_str(), hasharray[ hashidx ].size() );
 									if (QueryDB->SetEnable(hash,true)) {
-										msg = L"—LŒø‚É‚µ‚Ü‚µ‚½";
+										msg = L"æœ‰åŠ¹ã«ã—ã¾ã—ãŸ";
 										QueryDB->Save(Profile->GetQueryFilePath());
 									}
 								}
@@ -687,7 +687,7 @@ public:
 									hashT hash;
 									hash.assign( hasharray[ hashidx ].c_str(), hasharray[ hashidx ].size() );
 									if (QueryDB->SetEnable(hash,false)) {
-										msg = L"–³Œø‚É‚µ‚Ü‚µ‚½";
+										msg = L"ç„¡åŠ¹ã«ã—ã¾ã—ãŸ";
 										QueryDB->Save(Profile->GetQueryFilePath());
 									}
 								}
@@ -699,7 +699,7 @@ public:
 		}
 
 		if (msg.empty())
-			QueryDB->SetXMLMessage(L"ˆ—¸”s", L"error");
+			QueryDB->SetXMLMessage(L"å‡¦ç†å¤±æ•—", L"error");
 		else
 			QueryDB->SetXMLMessage(msg.c_str(), msgtype.c_str());
 
@@ -774,15 +774,15 @@ public:
 							if (!key.note.empty()) {
 								SakuDB->AddKey(key);
 								SakuDB->Save(Profile->GetSakuFilePath());
-								msg = L"“o˜^‚µ‚Ü‚µ‚½";
+								msg = L"ç™»éŒ²ã—ã¾ã—ãŸ";
 							}
 							else {
-								msg = L"——R‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢";
+								msg = L"ç†ç”±ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„";
 								msgtype = L"error";
 							}
 						}
 						else {
-							msg = L"URL‚ª‚¨‚©‚µ‚¢‚Å‚·";
+							msg = L"URLãŒãŠã‹ã—ã„ã§ã™";
 							msgtype = L"error";
 						}
 					}
@@ -795,7 +795,7 @@ public:
 							hashT hash;
 							hash.assign(it->second.c_str(), it->second.size());
 							if (SakuDB->DeleteKey(hash)) {
-								msg = L"íœ‚µ‚Ü‚µ‚½";
+								msg = L"å‰Šé™¤ã—ã¾ã—ãŸ";
 								SakuDB->Save(Profile->GetSakuFilePath());
 							}
 						}
@@ -809,7 +809,7 @@ public:
 							hashT hash;
 							hash.assign(it->second.c_str(), it->second.size());
 							if (SakuDB->SetEnable(hash,true)) {
-								msg = L"—LŒø‚É‚µ‚Ü‚µ‚½";
+								msg = L"æœ‰åŠ¹ã«ã—ã¾ã—ãŸ";
 								SakuDB->Save(Profile->GetSakuFilePath());
 							}
 						}
@@ -823,7 +823,7 @@ public:
 							hashT hash;
 							hash.assign(it->second.c_str(), it->second.size());
 							if (SakuDB->SetEnable(hash,false)) {
-								msg = L"”zM‚ğ’â~‚µ‚Ü‚µ‚½";
+								msg = L"é…ä¿¡ã‚’åœæ­¢ã—ã¾ã—ãŸ";
 								SakuDB->Save(Profile->GetSakuFilePath());
 							}
 						}
@@ -833,7 +833,7 @@ public:
 		}
 
 		if (msg.empty())
-			SakuDB->SetXMLMessage(L"ˆ—¸”s", L"error");
+			SakuDB->SetXMLMessage(L"å‡¦ç†å¤±æ•—", L"error");
 		else
 			SakuDB->SetXMLMessage(msg.c_str(), msgtype.c_str());
 
@@ -948,9 +948,9 @@ public:
 
 				if (!ipf->check(rec.enable, rec.flag, rec.cond.c_str())) {
 					msgtype = L"error";
-					msg = L"ƒGƒ‰[i";
+					msg = L"ã‚¨ãƒ©ãƒ¼ï¼ˆ";
 					msg += rec.cond;
-					msg += L"j";
+					msg += L"ï¼‰";
 					error = true;
 					break;
 				}
@@ -962,13 +962,13 @@ public:
 				ipf->clear();
 				for (size_t i = 0; i < recs.size(); i++)
 					ipf->add(recs[i].enable, recs[i].flag, recs[i].cond.c_str());
-				msg = L"•ÏX‚µ‚Ü‚µ‚½";
+				msg = L"å¤‰æ›´ã—ã¾ã—ãŸ";
 				ipf->Save(filename.c_str());
 			}
 		}
 
 		if (msg.empty())
-			QueryDB->SetXMLMessage(L"ˆ—¸”s", L"error");
+			QueryDB->SetXMLMessage(L"å‡¦ç†å¤±æ•—", L"error");
 		else
 			QueryDB->SetXMLMessage(msg.c_str(), msgtype.c_str());
 
@@ -1145,7 +1145,7 @@ public:
 		}
 
 		if (html.empty())
-			html = "æ“¾¸”s";
+			html = "å–å¾—å¤±æ•—";
 
 		//
 		HTTPHeader header(HTTPHEADERTYPE_RESPONSE);
@@ -1261,7 +1261,7 @@ public:
 					imss.Wait();
 
 					if (!imss.error && !imss.rbuff.empty()) {
-						msg = L"‘—M‚µ‚Ü‚µ‚½";
+						msg = L"é€ä¿¡ã—ã¾ã—ãŸ";
 						O2IMessage im;
 						im.ip = imss.ip;
 						im.port = imss.port;
@@ -1273,7 +1273,7 @@ public:
 						IMDB->AddMessage(im);
 					}
 					else {
-						msg = L"‘—M¸”s";
+						msg = L"é€ä¿¡å¤±æ•—";
 						msgtype = L"error";
 					}
 
@@ -1301,7 +1301,7 @@ public:
 		}
 
 		if (msg.empty())
-			QueryDB->SetXMLMessage(L"ˆ—¸”s", L"error");
+			QueryDB->SetXMLMessage(L"å‡¦ç†å¤±æ•—", L"error");
 		else
 			QueryDB->SetXMLMessage(msg.c_str(), msgtype.c_str());
 
@@ -1424,10 +1424,10 @@ public:
 						ToUnicode(_T(DEFAULT_XML_CHARSET), name, node.name);
 						node.pubkey.assign(pub_str.c_str(), pub_str.size());
 						if (FriendDB->Add(node)) {
-							NodeDB->SetXMLMessage(L"’Ç‰Á‚µ‚Ü‚µ‚½", L"succeeded");
+							NodeDB->SetXMLMessage(L"è¿½åŠ ã—ã¾ã—ãŸ", L"succeeded");
 						}
 						else {
-							NodeDB->SetXMLMessage(L"Šù‚É’Ç‰Á‚³‚ê‚Ä‚¢‚Ü‚·", L"succeeded");
+							NodeDB->SetXMLMessage(L"æ—¢ã«è¿½åŠ ã•ã‚Œã¦ã„ã¾ã™", L"succeeded");
 						}
 						FriendDB->Save(Profile->GetFriendFilePath());
 					}
@@ -1592,7 +1592,7 @@ public:
 			xml += _T(DEFAULT_XML_CHARSET);
 			xml += L"\"?>";
 			xml += L"<?xml-stylesheet type=\"text/xsl\" href=\"/profile.xsl\"?>";
-			xml += L"<report><message>æ“¾‚É¸”s‚µ‚Ü‚µ‚½</message></report>";
+			xml += L"<report><message>å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸ</message></report>";
 			FromUnicode(_T(DEFAULT_XML_CHARSET), xml, out);
 		}
 

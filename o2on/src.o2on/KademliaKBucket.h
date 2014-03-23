@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -117,7 +117,7 @@ public:
                 InternalList.begin(), InternalList.end(), node);
 
             if (it != InternalList.end()) {
-                //Šù‘¶‚È‚çÅŒã”ö‚Ö
+                //æ—¢å­˜ãªã‚‰æœ€å¾Œå°¾ã¸
 				T mnode(*it);
                 InternalList.erase(it);
 
@@ -127,7 +127,7 @@ public:
                 proceeded = true;
             }
             else if (InternalList.size() < Capacity) {
-                //ƒŠƒXƒg‚É—]—T‚ª‚ ‚é‚È‚çÅŒã”ö‚É’Ç‰Á
+                //ãƒªã‚¹ãƒˆã«ä½™è£•ãŒã‚ã‚‹ãªã‚‰æœ€å¾Œå°¾ã«è¿½åŠ 
 				T newnode(node);
 				newnode.lastlink = time(NULL);
                 InternalList.push_back(newnode);
@@ -149,14 +149,14 @@ public:
         if (proceeded)
             return true;
 
-        //ƒŠƒXƒg‚Ìˆê”Ôã‚Ìƒm[ƒhÅŒÃƒm[ƒh‚Ì¶‘¶Šm”F
+        //ãƒªã‚¹ãƒˆã®ä¸€ç•ªä¸Šã®ãƒãƒ¼ãƒ‰ï¼æœ€å¤ãƒãƒ¼ãƒ‰ã®ç”Ÿå­˜ç¢ºèª
         T head;
         get_front(head);
 		bool alive = ping(head);
 
         if (alive) {
-            //ÅŒÃƒm[ƒh‚ª¶‚«‚Ä‚¢‚éFÅŒÃƒm[ƒh‚ğÅŒã”ö‚Ö
-            //¦‘ÎÛƒm[ƒh‚Í’Ç‰Á‚µ‚È‚¢
+            //æœ€å¤ãƒãƒ¼ãƒ‰ãŒç”Ÿãã¦ã„ã‚‹ï¼šæœ€å¤ãƒãƒ¼ãƒ‰ã‚’æœ€å¾Œå°¾ã¸
+            //â€»å¯¾è±¡ãƒãƒ¼ãƒ‰ã¯è¿½åŠ ã—ãªã„
             pop_front();
 			head.lastlink = time(NULL);
             Lock();
@@ -164,7 +164,7 @@ public:
             Unlock();
         }
         else {
-            //ÅŒÃƒm[ƒh‚ª€‚ñ‚Å‚¢‚éF‘ÎÛƒm[ƒh‚ğÅŒã”ö‚É’Ç‰Á
+            //æœ€å¤ãƒãƒ¼ãƒ‰ãŒæ­»ã‚“ã§ã„ã‚‹ï¼šå¯¾è±¡ãƒãƒ¼ãƒ‰ã‚’æœ€å¾Œå°¾ã«è¿½åŠ 
             pop_front();
 			T newnode(node);
 			newnode.lastlink = time(NULL);

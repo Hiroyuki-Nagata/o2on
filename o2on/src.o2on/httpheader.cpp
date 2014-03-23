@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -15,7 +15,7 @@
 #include <algorithm>
 #include <boost/regex.hpp>
 
-//regex‚ÅŠy‚µ‚Ä‚é‚Ì‚Å’x‚¢
+//regexã§æ¥½ã—ã¦ã‚‹ã®ã§é…ã„
 
 
 
@@ -89,7 +89,7 @@ filename2contenttype(const char *filename)
 	string ext(p+1);
 	std::transform(ext.begin(), ext.end(), ext.begin(), tolower);
 
-	//å—v‚ÈŠg’£q‚Ì‚İ‘Î‰
+	//ä¸»è¦ãªæ‹¡å¼µå­ã®ã¿å¯¾å¿œ
 	switch (ext[0]) {
 	case 'c':
 		if (ext == "css")
@@ -277,7 +277,7 @@ ParseHeaderFields(const char *in)
 	//      <cr><lf>
 	//
 
-	//ƒGƒ“ƒR[ƒh•¶š—ñ‚Í”ñ‘Î‰
+	//ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰æ–‡å­—åˆ—ã¯éå¯¾å¿œ
 	const char *end = strstr(in, "\r\n\r\n");
 	if (!end)
 		return (0);
@@ -291,9 +291,9 @@ ParseHeaderFields(const char *in)
 		char *eol = strstr(p1, "\r\n");
 		size_t valpos = strspn(p1, " \t");
 		if (valpos == 0) {
-			// V‚µ‚¢field-name‚É‚È‚Á‚½
+			// æ–°ã—ã„field-nameã«ãªã£ãŸ
 			if (!name.empty()) {
-				// field‚Ì“à—e‚ğŠi”[
+				// fieldã®å†…å®¹ã‚’æ ¼ç´
 				fields.insert(strmap::value_type(name, value));
 			}
 			name.erase();
@@ -303,10 +303,10 @@ ParseHeaderFields(const char *in)
 			if ((p2 = strchr(p1, ':')) == NULL)
 				return (0);
 			if ( eol < p2 ) {
-				// 1s‚Ì’†‚É:‚ª–³‚©‚Á‚½‚çˆÙí
+				// 1è¡Œã®ä¸­ã«:ãŒç„¡ã‹ã£ãŸã‚‰ç•°å¸¸
 				return (0);
 			}
-			// field-name–¼‚ğæ“¾
+			// field-nameåã‚’å–å¾—
 			name.assign(p1, p2);
 			//std::transform(name.begin(), name.end(), name.begin(), tolower);
 			if (*(p2+1) == ' ')
@@ -316,16 +316,16 @@ ParseHeaderFields(const char *in)
 		}
 		else {
 			if (name.empty()) {
-				// ‚¢‚«‚È‚è‹ó”’‚Ån‚Ü‚é‚Ì‚Í‚¨‚©‚µ‚¢
+				// ã„ããªã‚Šç©ºç™½ã§å§‹ã¾ã‚‹ã®ã¯ãŠã‹ã—ã„
 				return (0);
 			}
-			// ‘Os‚Ì‘±‚«
+			// å‰è¡Œã®ç¶šã
 			p1 += valpos;
 		}
 
-		//field-value‚ğæ“¾i‘Os‚Ì‘±‚«‚©‚à‚µ‚ê‚È‚¢‚Ì‚ÅŒ‹‡j
+		//field-valueã‚’å–å¾—ï¼ˆå‰è¡Œã®ç¶šãã‹ã‚‚ã—ã‚Œãªã„ã®ã§çµåˆï¼‰
 		value.append(p1, eol);
-		p1 = eol + 2; // Ÿs‚Ö
+		p1 = eol + 2; // æ¬¡è¡Œã¸
 	}
 
 	if (!name.empty() && !value.empty()) {
@@ -478,7 +478,7 @@ MakeStatusLine(ushort code, uint ver, string &out)
 {
 	char *reason = NULL;
 
-	//å—vƒR[ƒh‚Ì‚İ‘Î‰
+	//ä¸»è¦ã‚³ãƒ¼ãƒ‰ã®ã¿å¯¾å¿œ
 	switch (code) {
 		case 200: reason = "OK"; break;
 		case 206: reason = "Partial Content"; break;

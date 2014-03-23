@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -30,7 +30,7 @@
 
 /*
  *	O2DatIO()
- *	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+ *	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
  */
 O2DatIO::
 O2DatIO(O2DatDB *db, O2Logger *lgr, O2Profile *prof, O2ProgressInfo *proginfo)
@@ -73,7 +73,7 @@ O2DatIO(O2DatDB *db, O2Logger *lgr, O2Profile *prof, O2ProgressInfo *proginfo)
 
 /*
  *	~O2DatIO()
- *	ƒfƒXƒgƒ‰ƒNƒ^
+ *	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
  */
 O2DatIO::
 ~O2DatIO()
@@ -181,9 +181,9 @@ KakoHantei(const char *dat, uint64 len, bool is_be)
 	if (encoding.empty())
 		encoding = "shift_jis";
 
-	string over1000 = "‚P‚O‚O‚P<><>Over 1000 Thread";
-	string stop = "<>’â~‚µ‚½‚æB";
-	string rula = "<>ˆÚ“]";
+	string over1000 = "ï¼‘ï¼ï¼ï¼‘<><>Over 1000 Thread";
+	string stop = "<>åœæ­¢ã—ãŸã‚ˆã€‚";
+	string rula = "<>ç§»è»¢";
 	if (encoding == "euc-jp"){
 		sjis2euc(over1000);
 		sjis2euc(stop);
@@ -191,22 +191,22 @@ KakoHantei(const char *dat, uint64 len, bool is_be)
 	}
 
 	// -----------------------------------------------------------------------
-	//	1000: “Še“ú‚ªuOver 1000 Threadv
-	//	ex) ‚P‚O‚O‚P<><>Over 1000 Thread<>‚±‚ÌƒXƒŒƒbƒh‚Í‚P‚O‚O‚O‚ğ’´‚¦‚Ü‚µ‚½B <br> ‚à‚¤‘‚¯‚È‚¢‚Ì‚ÅAV‚µ‚¢ƒXƒŒƒbƒh‚ğ—§‚Ä‚Ä‚­‚¾‚³‚¢‚Å‚·BBB <>
+	//	1000: æŠ•ç¨¿æ—¥ãŒã€ŒOver 1000 Threadã€
+	//	ex) ï¼‘ï¼ï¼ï¼‘<><>Over 1000 Thread<>ã“ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã¯ï¼‘ï¼ï¼ï¼ã‚’è¶…ãˆã¾ã—ãŸã€‚ <br> ã‚‚ã†æ›¸ã‘ãªã„ã®ã§ã€æ–°ã—ã„ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ç«‹ã¦ã¦ãã ã•ã„ã§ã™ã€‚ã€‚ã€‚ <>
 	// -----------------------------------------------------------------------
 	if (linelen >= 28 && strncmp(p[1], over1000.c_str(), 28) == 0)
 		return true;
 	
 	// -----------------------------------------------------------------------
-	//	ƒXƒŒƒXƒg: s––‚ªu<>’â~‚µ‚½‚æBv
-	//	ex) ’â~‚µ‚Ü‚µ‚½BBB<>’â~<>’â~<>^EƒXƒŒƒbƒhƒXƒgƒbƒp[BBB(P[P)ÆÔØ¯<>’â~‚µ‚½‚æB
+	//	ã‚¹ãƒ¬ã‚¹ãƒˆ: è¡Œæœ«ãŒã€Œ<>åœæ­¢ã—ãŸã‚ˆã€‚ã€
+	//	ex) åœæ­¢ã—ã¾ã—ãŸã€‚ã€‚ã€‚<>åœæ­¢<>åœæ­¢<>çœŸãƒ»ã‚¹ãƒ¬ãƒƒãƒ‰ã‚¹ãƒˆãƒƒãƒ‘ãƒ¼ã€‚ã€‚ã€‚(â€¾ãƒ¼â€¾)ãƒ‹ãƒ¤ãƒªãƒƒ<>åœæ­¢ã—ãŸã‚ˆã€‚
 	// -----------------------------------------------------------------------
 	if (linelen >= 14 && strncmp(p[0]-14, stop.c_str(), 14) == 0)
 		return true;
 
 	// -----------------------------------------------------------------------
-	//	”ò‚Î‚µ: s––‚ªu<>ˆÚ“]v
-	//	ex) –Ï‘z‘°ƒÕƒÕƒÕ š<>sage<>ˆÚ“]•’â~<> <br> –Ï‘z‘°ƒÕƒÕƒÕ š ‚³‚ñ‚ª”ò‚Î‚µ‚Ü‚µ‚½B(P[P)ÆÔØ¯ <br> <br> BE ƒ|ƒCƒ“ƒg = 4780 ‚©‚ç 20 Á”ï‚µ‚Ü‚µ‚½B<br> <>ˆÚ“]
+	//	é£›ã°ã—: è¡Œæœ«ãŒã€Œ<>ç§»è»¢ã€
+	//	ex) å¦„æƒ³æ—ÏˆÏˆÏˆ â˜…<>sage<>ç§»è»¢ï¼†åœæ­¢<> <br> å¦„æƒ³æ—ÏˆÏˆÏˆ â˜… ã•ã‚“ãŒé£›ã°ã—ã¾ã—ãŸã€‚(â€¾ãƒ¼â€¾)ãƒ‹ãƒ¤ãƒªãƒƒ <br> <br> BE ãƒã‚¤ãƒ³ãƒˆ = 4780 ã‹ã‚‰ 20 æ¶ˆè²»ã—ã¾ã—ãŸã€‚<br> <>ç§»è»¢
 	// -----------------------------------------------------------------------
 	if (linelen >= 6 && strncmp(p[0]-6, rula.c_str(), 6) == 0)
 		return true;
@@ -250,7 +250,7 @@ CheckDat(const char *in, uint64 inlen)
 }
 
 //
-// 2012-06-15 ŠÈˆÕƒ`ƒFƒbƒN—p@by fujisaki
+// 2012-06-15 ç°¡æ˜“ãƒã‚§ãƒƒã‚¯ç”¨ã€€by fujisaki
 //
 bool
 O2DatIO::
@@ -316,7 +316,7 @@ GetTitle(O2DatPath &datpath)
 	if (pos_lf == 0) {
 		if (Logger) {
 			Logger->AddLog(O2LT_WARNING, MODULE, 0, 0,
-				"ƒ^ƒCƒgƒ‹æ“¾¸”s:s“ª‚ÉLF (%s)", path.c_str());
+				"ã‚¿ã‚¤ãƒˆãƒ«å–å¾—å¤±æ•—:è¡Œé ­ã«LF (%s)", path.c_str());
 		}
 		return false;
 	}
@@ -324,7 +324,7 @@ GetTitle(O2DatPath &datpath)
 	if (pos_lf == end || p[pos_lf] != '\n') {
 		if (Logger) {
 			Logger->AddLog(O2LT_WARNING, MODULE, 0, 0,
-				"ƒ^ƒCƒgƒ‹æ“¾¸”s:LF–³ (%s)", path.c_str());
+				"ã‚¿ã‚¤ãƒˆãƒ«å–å¾—å¤±æ•—:LFç„¡ (%s)", path.c_str());
 		}
 		return false;
 	}
@@ -336,7 +336,7 @@ GetTitle(O2DatPath &datpath)
 	if (pos_gt == 0 || p[pos_gt] != '>') {
 		if (Logger) {
 			Logger->AddLog(O2LT_WARNING, MODULE, 0, 0,
-				"ƒ^ƒCƒgƒ‹æ“¾¸”s:ƒZƒpƒŒ[ƒ^–³ (%s)", path.c_str());
+				"ã‚¿ã‚¤ãƒˆãƒ«å–å¾—å¤±æ•—:ã‚»ãƒ‘ãƒ¬ãƒ¼ã‚¿ç„¡ (%s)", path.c_str());
 		}
 		return false;
 	}
@@ -353,7 +353,7 @@ GetTitle(O2DatPath &datpath)
 	wstring title;
 	ToUnicode(encoding.c_str(), tmp, title);
 
-	//ASCIIƒRƒ“ƒgƒ[ƒ‹ƒR[ƒh‚ª“ü‚Á‚Ä‚¢‚½‚ç?‚É’u‚«Š·‚¦‚é
+	//ASCIIã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã‚³ãƒ¼ãƒ‰ãŒå…¥ã£ã¦ã„ãŸã‚‰?ã«ç½®ãæ›ãˆã‚‹
 	//0x00 - 0x1f, 0x7f
 	for (uint i = 0; i < title.size(); i++) {
 		if ((wchar_t)title[i] <= 0x001f || (wchar_t)title[i] == 0x007f)
@@ -362,7 +362,7 @@ GetTitle(O2DatPath &datpath)
 
 	if (title.size() > O2_MAX_KEY_TITLE_LEN) {
 		title.resize(O2_MAX_KEY_TITLE_LEN - 1);
-		title += L"c";
+		title += L"â€¦";
 	}
 
 	datpath.settitle(title.c_str());
@@ -448,7 +448,7 @@ Load(const hashT &hash, uint64 offset, string &out, O2DatPath &datpath)
 		return false;
 
 	datpath.set(rec.url.c_str());
-	return (Load(datpath, 0, out)); //‘S•”“Ç‚Ş
+	return (Load(datpath, 0, out)); //å…¨éƒ¨èª­ã‚€
 }
 
 
@@ -496,7 +496,7 @@ Delete(const hashListT &hashlist)
 
 // ---------------------------------------------------------------------------
 //	RandomGet()
-//	¦‚±‚ÌŠÖ”‚Í«—ˆg‚í‚È‚­‚·‚é
+//	â€»ã“ã®é–¢æ•°ã¯å°†æ¥ä½¿ã‚ãªãã™ã‚‹
 // ---------------------------------------------------------------------------
 
 bool
@@ -557,9 +557,9 @@ Put(O2DatPath &datpath, const char *dat, uint64 len, uint64 startpos)
 
 	//write
 	if (_stat64(path.c_str(), &st) == -1 || st.st_atime == 0) {
-		//dat–³‚µ
+		//datç„¡ã—
 		if (startpos != 0) {
-			//dat–³‚µ&·•ªFƒLƒƒƒbƒVƒ…‚µ‚È‚¢
+			//datç„¡ã—&å·®åˆ†ï¼šã‚­ãƒ£ãƒƒã‚·ãƒ¥ã—ãªã„
 			TRACEA(">error (1)\n");
 			return (0);
 		}
@@ -591,14 +591,14 @@ Put(O2DatPath &datpath, const char *dat, uint64 len, uint64 startpos)
 			SetFileAttributesA(path.c_str(), attr);
 		}
 #endif
-		//dat—L‚è
+		//datæœ‰ã‚Š
 		if (st.st_size < (__int64)startpos) {
-			//dat—L‚è&·•ª&‘«‚è‚È‚¢FƒLƒƒƒbƒVƒ…‚µ‚È‚¢
+			//datæœ‰ã‚Š&å·®åˆ†&è¶³ã‚Šãªã„ï¼šã‚­ãƒ£ãƒƒã‚·ãƒ¥ã—ãªã„
 			TRACEA(">error (2)\n");
 			return (0);
 		}
 		else if (st.st_size == startpos) {
-			//dat—L‚è&·•ª&ƒTƒCƒY‚Ò‚Á‚½‚èF’Ç‰Á‚·‚é
+			//datæœ‰ã‚Š&å·®åˆ†&ã‚µã‚¤ã‚ºã´ã£ãŸã‚Šï¼šè¿½åŠ ã™ã‚‹
 			hokan_byte = len;
 			if (CheckQuarterOverflow(hokan_byte))
 				return (0);
@@ -618,7 +618,7 @@ Put(O2DatPath &datpath, const char *dat, uint64 len, uint64 startpos)
 			TRACEA(">cached (2)\n");
 		}
 		else {
-			//dat—L‚è&d•¡—L‚èFdiff
+			//datæœ‰ã‚Š&é‡è¤‡æœ‰ã‚Šï¼šdiff
 			string cache;
 			if (!Load(datpath, 0, cache)) {
 				TRACEA(">error (3)\n");
@@ -768,8 +768,8 @@ Dat2HTML(const hashT &hash, string &out, string &encoding)
 	if (encoding.empty())
 		encoding = "shift_jis";
 
-	string colon = "F";
-	string broken = "‰ó‚ê‚Ä‚éH";
+	string colon = "ï¼š";
+	string broken = "å£Šã‚Œã¦ã‚‹ï¼Ÿ";
 	if (encoding == "euc-jp"){
 		sjis2euc(colon);
 		sjis2euc(broken);
@@ -926,16 +926,16 @@ StaticRebuildDBThread(void *data)
 	if (me->DatDB->before_rebuild()) {
 		me->RebuildDBThread(me->Profile->GetCacheRootW(), 0, reclist);
 		bool manualstop = !me->LoopRebuildDB;
-		// è“®‚Å’â~‚µ‚½ê‡‚Í·‚µ‘Ö‚¦‚È‚Ç‚ğ‚µ‚È‚¢
+		// æ‰‹å‹•ã§åœæ­¢ã—ãŸå ´åˆã¯å·®ã—æ›¿ãˆãªã©ã‚’ã—ãªã„
 		if (!manualstop) {
 			if (me->DatDB->after_rebuild())
 				me->DatDB->analyze();
 			else
-				me->Logger->AddLog(O2LT_ERROR, L"DBÄ\’z", 0, 0, "Ä\’zÏ‚İDB·‚µ‘Ö‚¦¸”s");
+				me->Logger->AddLog(O2LT_ERROR, L"DBå†æ§‹ç¯‰", 0, 0, "å†æ§‹ç¯‰æ¸ˆã¿DBå·®ã—æ›¿ãˆå¤±æ•—");
 		}
 	}
 	else {
-		me->Logger->AddLog(O2LT_ERROR, L"DBÄ\’z", 0, 0, "Ä\’z—pDBì¬¸”s");
+		me->Logger->AddLog(O2LT_ERROR, L"DBå†æ§‹ç¯‰", 0, 0, "å†æ§‹ç¯‰ç”¨DBä½œæˆå¤±æ•—");
 		me->ProgressInfo->Reset(false, false);
 	}
 	me->DatDB->StartUpdateThread();
@@ -977,8 +977,8 @@ RebuildDBThread(const wchar_t *dir, uint level, O2DatRecList &reclist)
 		if (wfd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
 			if (wfd.cFileName[0] != L'.') {
 				if (level == 3)
-					Logger->AddLog(O2LT_WARNING, L"DBÄ\’z", 0, 0,
-						L"—]Œv‚ÈƒfƒBƒŒƒNƒgƒŠ‚ª‚ ‚é‚æ(%s\\%s)", dir, wfd.cFileName);
+					Logger->AddLog(O2LT_WARNING, L"DBå†æ§‹ç¯‰", 0, 0,
+						L"ä½™è¨ˆãªãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãŒã‚ã‚‹ã‚ˆ(%s\\%s)", dir, wfd.cFileName);
 				else
 					dirs.push_back(wfd.cFileName);
 			}
@@ -990,8 +990,8 @@ RebuildDBThread(const wchar_t *dir, uint level, O2DatRecList &reclist)
 				continue;
 			}
 			else if (level != 3) {
-				Logger->AddLog(O2LT_WARNING, L"DBÄ\’z", 0, 0,
-					L"•Ï‚Èƒtƒ@ƒCƒ‹‚ª‚ ‚é‚æ(%s\\%s)", dir, wfd.cFileName);
+				Logger->AddLog(O2LT_WARNING, L"DBå†æ§‹ç¯‰", 0, 0,
+					L"å¤‰ãªãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚‹ã‚ˆ(%s\\%s)", dir, wfd.cFileName);
 				continue;
 			}
 
@@ -999,8 +999,8 @@ RebuildDBThread(const wchar_t *dir, uint level, O2DatRecList &reclist)
 
 			wsplit(dir+wcslen(Profile->GetCacheRootW()), L"\\", paths);
 			if (!datpath.set(paths[0].c_str(), paths[1].c_str(), wfd.cFileName)) {
-				Logger->AddLog(O2LT_WARNING, L"DBÄ\’z", 0, 0,
-					L"dat‚¶‚á‚È‚¢ƒtƒ@ƒCƒ‹H(%s\\%s)", dir, wfd.cFileName);
+				Logger->AddLog(O2LT_WARNING, L"DBå†æ§‹ç¯‰", 0, 0,
+					L"datã˜ã‚ƒãªã„ãƒ•ã‚¡ã‚¤ãƒ«ï¼Ÿ(%s\\%s)", dir, wfd.cFileName);
 				continue;
 			}
 			if (wfd.dwFileAttributes & FILE_ATTRIBUTE_READONLY) {
@@ -1041,21 +1041,21 @@ RebuildDBThread(const wchar_t *dir, uint level, O2DatRecList &reclist)
 						&& wcscmp(s, _T(DOMAIN_BBSPINK)) != 0
 						&& wcscmp(s, _T(DOMAIN_MACHI)) != 0) {
 							invalid = true;
-TRACEA("‚¨‚©‚µ‚¢(0)\n");
+TRACEA("ãŠã‹ã—ã„(0)\n");
 TRACEW(s);
 TRACEA("\n");
 					}
 					break;
 				case 1:
-					// ”ÂƒtƒHƒ‹ƒ_–¼‚Ìƒ`ƒFƒbƒN
+					// æ¿ãƒ•ã‚©ãƒ«ãƒ€åã®ãƒã‚§ãƒƒã‚¯
 					for (uint j = 0; j < wcslen(s); j++) {
 						if (!(s[j] >= 0x30 && s[j] <= 0x39)
 							&& !(s[j] >= 0x41 && s[j] <= 0x5A) // 2013-09-12 Fujisaki
 							&& !(s[j] >= 0x61 && s[j] <= 0x7a)) {
 								invalid = true;
-								Logger->AddLog(O2LT_WARNING, L"DBÄ\’z", 0, 0,
-									L"•Ï‚ÈƒfƒBƒŒƒNƒgƒŠ‚ª‚ ‚é‚æ(%s\\%s)", dir, wfd.cFileName);
-TRACEA("‚¨‚©‚µ‚¢(1)\n");
+								Logger->AddLog(O2LT_WARNING, L"DBå†æ§‹ç¯‰", 0, 0,
+									L"å¤‰ãªãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãŒã‚ã‚‹ã‚ˆ(%s\\%s)", dir, wfd.cFileName);
+TRACEA("ãŠã‹ã—ã„(1)\n");
 TRACEW(s);
 TRACEA("\n");
 								break;
@@ -1063,16 +1063,16 @@ TRACEA("\n");
 					}
 					break;
 				case 2:
-					// 4Œ…‚Ì”šƒtƒHƒ‹ƒ_–¼‚Ìƒ`ƒFƒbƒN
+					// 4æ¡ã®æ•°å­—ãƒ•ã‚©ãƒ«ãƒ€åã®ãƒã‚§ãƒƒã‚¯
 					if (wcslen(s) != 4
 						|| !(s[0] >= 0x30 && s[0] <= 0x39)
 						|| !(s[1] >= 0x30 && s[1] <= 0x39)
 						|| !(s[2] >= 0x30 && s[2] <= 0x39)
 						|| !(s[3] >= 0x30 && s[3] <= 0x39)) {
-							Logger->AddLog(O2LT_WARNING, L"DBÄ\’z", 0, 0,
-								L"•Ï‚ÈƒfƒBƒŒƒNƒgƒŠ‚ª‚ ‚é‚æ(%s\\%s)", dir, wfd.cFileName);
+							Logger->AddLog(O2LT_WARNING, L"DBå†æ§‹ç¯‰", 0, 0,
+								L"å¤‰ãªãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãŒã‚ã‚‹ã‚ˆ(%s\\%s)", dir, wfd.cFileName);
 							invalid = true;
-TRACEA("‚¨‚©‚µ‚¢(2)\n");
+TRACEA("ãŠã‹ã—ã„(2)\n");
 TRACEW(s);
 TRACEA("\n");
 					}
@@ -1085,7 +1085,7 @@ TRACEA("\n");
 				continue;
 
 			swprintf_s(path, MAX_PATH, L"%s\\%s", dir, s);
-			RebuildDBThread(path, level+1, reclist); //Ä‹A
+			RebuildDBThread(path, level+1, reclist); //å†å¸°
 
 			if (level == 1)
 				ProgressInfo->AddPos(1);

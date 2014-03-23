@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -47,7 +47,7 @@ public:
 	size_t SearchIGDs(UPnPObjectList &objectList)
 	{
 		if (MessageHandler)
-			MessageHandler("Internet Gateway Device‚ğ’T‚µ‚Ä‚¢‚Ü‚·...");
+			MessageHandler("Internet Gateway Deviceã‚’æ¢ã—ã¦ã„ã¾ã™...");
 
 		SSDPSocket ssdp(3000);
 		ssdp.setlogbuffer(LogBuffer);
@@ -57,7 +57,7 @@ public:
 		}
 		if (bind_port == 65535) {
 			if (MessageHandler) {
-				MessageHandler("ERROR: bind¸”s");
+				MessageHandler("ERROR: bindå¤±æ•—");
 			}
 			return (0);
 		}
@@ -74,7 +74,7 @@ public:
 
 			if (MessageHandler) {
 				string msg;
-				msg = "”­Œ©: ";
+				msg = "ç™ºè¦‹: ";
 				msg += locations[i];
 				MessageHandler(msg.c_str());
 			}
@@ -88,11 +88,11 @@ public:
 	size_t GetDeviceDescriptions(UPnPObjectList &objectList)
 	{
 		if (MessageHandler)
-			MessageHandler("ƒfƒoƒCƒX‚ÌÚ×‚ğæ“¾‚µ‚Ä‚¢‚Ü‚·...");
+			MessageHandler("ãƒ‡ãƒã‚¤ã‚¹ã®è©³ç´°ã‚’å–å¾—ã—ã¦ã„ã¾ã™...");
 
 		if (objectList.empty()) {
 			if (MessageHandler) {
-				MessageHandler("ERROR: ‘¶İ‚µ‚Ü‚¹‚ñ");
+				MessageHandler("ERROR: å­˜åœ¨ã—ã¾ã›ã‚“");
 			}
 			return false;
 		}
@@ -105,7 +105,7 @@ public:
 
 		if (done == 0) {
 			if (MessageHandler)
-				MessageHandler("ERROR: ‘S‚Ä¸”s‚µ‚Ü‚µ‚½");
+				MessageHandler("ERROR: å…¨ã¦å¤±æ•—ã—ã¾ã—ãŸ");
 			return (0);
 		}
 
@@ -119,7 +119,7 @@ public:
 	{
 		if (MessageHandler) {
 			string msg;
-			msg = "æ“¾’†: ";
+			msg = "å–å¾—ä¸­: ";
 			msg += object.location;
 			MessageHandler(msg.c_str());
 		}
@@ -128,7 +128,7 @@ public:
 		hsock.setlogbuffer(LogBuffer);
 		if (!hsock.request(object.location.c_str(), NULL, 0, true)) {
 			if (MessageHandler)
-				MessageHandler("ERROR: Ú‘±¸”s");
+				MessageHandler("ERROR: æ¥ç¶šå¤±æ•—");
 			return false;
 		}
 
@@ -148,7 +148,7 @@ public:
 		/*
 		if (hdr.contentlength == 0 || buff.size() - hdr.length < hdr.contentlength) {
 			if (MessageHandler)
-				MessageHandler("ERROR: æ“¾¸”s");
+				MessageHandler("ERROR: å–å¾—å¤±æ•—");
 			return false;
 		}
 		*/
@@ -165,11 +165,11 @@ public:
 	size_t GetServiceDescriptions(UPnPServiceList &serviceList)
 	{
 		if (MessageHandler)
-			MessageHandler("ƒT[ƒrƒX‚ÌÚ×‚ğæ“¾‚µ‚Ä‚¢‚Ü‚·...");
+			MessageHandler("ã‚µãƒ¼ãƒ“ã‚¹ã®è©³ç´°ã‚’å–å¾—ã—ã¦ã„ã¾ã™...");
 
 		if (serviceList.empty()) {
 			if (MessageHandler) {
-				MessageHandler("ERROR: ‘¶İ‚µ‚Ü‚¹‚ñ");
+				MessageHandler("ERROR: å­˜åœ¨ã—ã¾ã›ã‚“");
 			}
 			return false;
 		}
@@ -182,7 +182,7 @@ public:
 
 		if (done == 0) {
 			if (MessageHandler)
-				MessageHandler("ERROR: ‘S‚Ä¸”s‚µ‚Ü‚µ‚½");
+				MessageHandler("ERROR: å…¨ã¦å¤±æ•—ã—ã¾ã—ãŸ");
 			return (0);
 		}
 
@@ -196,7 +196,7 @@ public:
 	{
 		if (MessageHandler) {
 			string msg;
-			msg = "æ“¾’†: ";
+			msg = "å–å¾—ä¸­: ";
 			msg += service.SCPDURL;
 			MessageHandler(msg.c_str());
 		}
@@ -205,7 +205,7 @@ public:
 		hsock.setlogbuffer(LogBuffer);
 		if (!hsock.request(service.SCPDURL.c_str(), NULL, 0, true)) {
 			if (MessageHandler)
-				MessageHandler("ERROR: Ú‘±¸”s");
+				MessageHandler("ERROR: æ¥ç¶šå¤±æ•—");
 			return false;
 		}
 
@@ -225,7 +225,7 @@ public:
 		/*
 		if (hdr.contentlength == 0 || buff.size() - hdr.length < hdr.contentlength) {
 			if (MessageHandler)
-				MessageHandler("ERROR: æ“¾¸”s");
+				MessageHandler("ERROR: å–å¾—å¤±æ•—");
 			return false;
 		}
 		*/
@@ -245,7 +245,7 @@ public:
 
 		if (MessageHandler) {
 			msg = actName;
-			msg += "‚ğÀs‚µ‚Ä‚¢‚Ü‚·";
+			msg += "ã‚’å®Ÿè¡Œã—ã¦ã„ã¾ã™";
 			MessageHandler(msg.c_str());
 		}
 
@@ -263,7 +263,7 @@ public:
 			if (MessageHandler) {
 				msg = "ERROR: ";
 				msg = actName;
-				msg += "‚ğÀs‰Â”\‚ÈƒT[ƒrƒX‚ª‘¶İ‚µ‚Ü‚¹‚ñ";
+				msg += "ã‚’å®Ÿè¡Œå¯èƒ½ãªã‚µãƒ¼ãƒ“ã‚¹ãŒå­˜åœ¨ã—ã¾ã›ã‚“";
 				MessageHandler(msg.c_str());
 			}
 			return (0);
@@ -271,7 +271,7 @@ public:
 
 		if (done == 0) {
 			if (MessageHandler)
-				MessageHandler("ERROR: ‘S‚Ä¸”s‚µ‚Ü‚µ‚½");
+				MessageHandler("ERROR: å…¨ã¦å¤±æ•—ã—ã¾ã—ãŸ");
 			return (0);
 		}
 
@@ -286,16 +286,16 @@ public:
 		string msg;
 
 		if (MessageHandler) {
-			msg = "Às’†: ";
+			msg = "å®Ÿè¡Œä¸­: ";
 			msg += service.serviceId;
 			MessageHandler(msg.c_str());
 		}
 
 		UPnPAction *action;
 		if ((action = service.getAction(actName)) == NULL) {
-			msg = "ERROR: ƒAƒNƒVƒ‡ƒ“";
+			msg = "ERROR: ã‚¢ã‚¯ã‚·ãƒ§ãƒ³";
 			msg += actName;
-			msg += "‚ÍÀs‚Å‚«‚Ü‚¹‚ñ";
+			msg += "ã¯å®Ÿè¡Œã§ãã¾ã›ã‚“";
 			MessageHandler(msg.c_str());
 		}
 
@@ -337,7 +337,7 @@ public:
 
 		if (!hsock.request(service.controlURL.c_str(), hdr, body.c_str(), body.size(), true)) {
 			if (MessageHandler)
-				MessageHandler("ERROR: Ú‘±¸”s");
+				MessageHandler("ERROR: æ¥ç¶šå¤±æ•—");
 			return false;
 		}
 
@@ -356,7 +356,7 @@ public:
 		}
 		if (rhdr.status != 200 /*rhdr.contentlength == 0 || buff.size() - rhdr.length < rhdr.contentlength*/) {
 			if (MessageHandler)
-				MessageHandler("ERROR: æ“¾¸”s");
+				MessageHandler("ERROR: å–å¾—å¤±æ•—");
 			return false;
 		}
 
@@ -365,7 +365,7 @@ public:
 			return false;
 
 		if (MessageHandler)
-			MessageHandler("¬Œ÷");
+			MessageHandler("æˆåŠŸ");
 
 		return true;
 	}

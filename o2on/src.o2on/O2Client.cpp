@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -54,7 +54,7 @@ Start(void)
 	if (Active) {
 		if (Logger) {
 			Logger->AddLog(O2LT_WARNING, ClientName.c_str(), 0, 0,
-				L"‹N“®Ï‚Ì‚½‚ß‹N“®—v‹‚ğ–³‹");
+				L"èµ·å‹•æ¸ˆã®ãŸã‚èµ·å‹•è¦æ±‚ã‚’ç„¡è¦–");
 		}
 		return false;
 	}
@@ -71,7 +71,7 @@ Start(void)
 	OnClientStart();
 
 	if (Logger)
-		Logger->AddLog(O2LT_INFO, ClientName.c_str(), 0, 0, L"‹N“®");
+		Logger->AddLog(O2LT_INFO, ClientName.c_str(), 0, 0, L"èµ·å‹•");
 	return true;
 }
 
@@ -122,7 +122,7 @@ Stop(void)
 	OnClientStop();
 
 	if (Logger)
-		Logger->AddLog(O2LT_INFO, ClientName.c_str(), 0, 0, L"’â~");
+		Logger->AddLog(O2LT_INFO, ClientName.c_str(), 0, 0, L"åœæ­¢");
 	return true;
 }
 
@@ -134,7 +134,7 @@ O2Client::
 Restart(void)
 {
 	if (Logger)
-		Logger->AddLog(O2LT_INFO, ClientName.c_str(), 0, 0, L"Ä‹N“®...");
+		Logger->AddLog(O2LT_INFO, ClientName.c_str(), 0, 0, L"å†èµ·å‹•...");
 	if (!Stop())
 		return false;
 	if (!Start())
@@ -425,7 +425,7 @@ void
 O2Client::
 ConnectionThread(O2SocketSession *ss)
 {
-	// IP•¶š—ñ
+	// IPæ–‡å­—åˆ—
 	wstring ipstr;
 	if (O2DEBUG)
 		ulong2ipstr(ss->ip, ipstr);
@@ -437,7 +437,7 @@ ConnectionThread(O2SocketSession *ss)
 	if (sock == INVALID_SOCKET) {
 		if (Logger) {
 			Logger->AddLog(O2LT_NETERR,
-				ClientName.c_str(), 0, 0, L"ƒ\ƒPƒbƒg¶¬‚É¸”s");
+				ClientName.c_str(), 0, 0, L"ã‚½ã‚±ãƒƒãƒˆç”Ÿæˆã«å¤±æ•—");
 		}
 		ss->error = true;
 		ss->Finish();
@@ -453,7 +453,7 @@ ConnectionThread(O2SocketSession *ss)
 	if (connect2(sock, (struct sockaddr*)&sin, sizeof(sin), (int)(ss->connect_timeout_s*1000)) != 0) {
 		if (Logger) {
 			Logger->AddLog(O2LT_NETERR, ClientName.c_str(),
-				ss->ip, ss->port, L"connect¸”s");
+				ss->ip, ss->port, L"connectå¤±æ•—");
 		}
 		closesocket(sock);
 		TotalConnectError++;
@@ -559,7 +559,7 @@ NetIOThread(void)
 		if (!Active) break;
 
 		//
-		//	Šù‘¶ƒZƒbƒVƒ‡ƒ“‚Æ‚Ì‘—óM
+		//	æ—¢å­˜ã‚»ãƒƒã‚·ãƒ§ãƒ³ã¨ã®é€å—ä¿¡
 		//
 		SessionListLock.Lock();
 		ssit = sss.begin();
@@ -577,7 +577,7 @@ NetIOThread(void)
 
 			O2SocketSession *ss = *ssit;
 
-			// IP•¶š—ñ
+			// IPæ–‡å­—åˆ—
 			wstring ipstr;
 			if (O2DEBUG)
 				ulong2ipstr(ss->ip, ipstr);
@@ -607,7 +607,7 @@ NetIOThread(void)
 					else if ((lasterror = WSAGetLastError()) != WSAEWOULDBLOCK) {
 						if (Logger) {
 							Logger->AddLog(O2LT_NETERR, ClientName.c_str(),
-								ss->ip, ss->port, L"‘—MƒGƒ‰[(%d)", lasterror);
+								ss->ip, ss->port, L"é€ä¿¡ã‚¨ãƒ©ãƒ¼(%d)", lasterror);
 						}
 						ss->error = true;
 						ss->Deactivate();
@@ -633,14 +633,14 @@ NetIOThread(void)
 				else if (n == 0) {
 					/*if (Logger) {
 						Logger->AddLog(O2LT_NETERR, ClientName.c_str(),
-							ss->ip, ss->port, L"óM0");
+							ss->ip, ss->port, L"å—ä¿¡0");
 					}*/
 					ss->Deactivate();
 				}
 				else if ((lasterror = WSAGetLastError()) != WSAEWOULDBLOCK) {
 					if (Logger) {
 						Logger->AddLog(O2LT_NETERR, ClientName.c_str(),
-							ss->ip, ss->port, L"óMƒGƒ‰[(%d)", lasterror);
+							ss->ip, ss->port, L"å—ä¿¡ã‚¨ãƒ©ãƒ¼(%d)", lasterror);
 					}
 					ss->error = true;
 					ss->Deactivate();
@@ -694,7 +694,7 @@ NetIOThread(void)
 
 
 // ---------------------------------------------------------------------------
-//	ƒ^ƒCƒ€ƒAƒEƒg•t‚«connect
+//	ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆä»˜ãconnect
 //
 // ---------------------------------------------------------------------------
 
@@ -714,9 +714,9 @@ connect2(SOCKET s, const struct sockaddr *name, int namelen, int timeout)
 	if (!err && connect(s, name, namelen) == SOCKET_ERROR) {
 		if (WSAGetLastError() != WSAEWOULDBLOCK)
 			err = true;
-		//”ñƒuƒƒbƒLƒ“ƒO‚Åconnect‚µ‚½ê‡A’Êí‚ÍSOCKET_ERROR‚É‚È‚è
-		//WSAGetLastError() == WSAEWOULDBLOCK‚ª•Ô‚Á‚Ä‚­‚éB
-		//‚»‚êˆÈŠO‚ÌƒGƒ‰[‚Í–{“–‚Éconnect¸”s
+		//éãƒ–ãƒ­ãƒƒã‚­ãƒ³ã‚°ã§connectã—ãŸå ´åˆã€é€šå¸¸ã¯SOCKET_ERRORã«ãªã‚Š
+		//WSAGetLastError() == WSAEWOULDBLOCKãŒè¿”ã£ã¦ãã‚‹ã€‚
+		//ãã‚Œä»¥å¤–ã®ã‚¨ãƒ©ãƒ¼ã¯æœ¬å½“ã«connectå¤±æ•—
 	}
 	else
 		err = true;

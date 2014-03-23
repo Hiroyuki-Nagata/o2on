@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+Ôªø/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -108,7 +108,7 @@ protected:
 			for (uint i = 0; i < jobs.size(); i++) {
 				if (jobs[i]->IsActive() && !jobs[i]->IsWorking()) {
 					if (time(NULL) - jobs[i]->GetLastTime() > jobs[i]->GetInterval()) {
-						jobs[i]->SetLastTime(time(NULL)); //ÉZÉbÉg
+						jobs[i]->SetLastTime(time(NULL)); //„Çª„ÉÉ„Éà
 						jobs[i]->SetWorking(true);
 						HANDLE handle = (HANDLE)_beginthreadex(
 							NULL, 0, StaticJobStartThread, (void*)jobs[i], 0, NULL);
@@ -126,7 +126,7 @@ protected:
 		CoInitialize(NULL);
 		job->JobThreadFunc();
 		job->SetWorking(false);
-		job->SetLastTime(time(NULL)); //çƒìxÉZÉbÉg
+		job->SetLastTime(time(NULL)); //ÂÜçÂ∫¶„Çª„ÉÉ„Éà
 		CoUninitialize();
 
 		//_endthreadex(0);

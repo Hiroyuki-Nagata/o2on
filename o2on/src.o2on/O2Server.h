@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -9,8 +9,8 @@
  *
  */
 
-//’
-//‚±‚Ìƒwƒbƒ_‚ğinclude‚·‚éÛ‚ÍAè‘O‚Éwinsock2.h‚Ìinclude‚ğ‹Lq‚·‚é‚±‚Æ
+//æ³¨
+//ã“ã®ãƒ˜ãƒƒãƒ€ã‚’includeã™ã‚‹éš›ã¯ã€æ‰‹å‰ã«winsock2.hã®includeã‚’è¨˜è¿°ã™ã‚‹ã“ã¨
 
 #pragma once
 #include "O2Logger.h"

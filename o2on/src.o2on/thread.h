@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -9,8 +9,8 @@
  *
  */
 
-// ‚±‚êg‚Á‚Ä‚È‚¢
-// ‚±‚±‚ÉWin32/POSIXƒXƒŒƒbƒh‚ÌWrapper‚ğ‘‚­—\’è
+// ã“ã‚Œä½¿ã£ã¦ãªã„
+// ã“ã“ã«Win32/POSIXã‚¹ãƒ¬ãƒƒãƒ‰ã®Wrapperã‚’æ›¸ãäºˆå®š
 
 #pragma once
 

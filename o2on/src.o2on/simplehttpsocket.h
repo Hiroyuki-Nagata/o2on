@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -56,7 +56,7 @@ public:
 
 	// -----------------------------------------------------------------------
 	//	request
-	//	URL‚Ì‚İ‚ğw’è
+	//	URLã®ã¿ã‚’æŒ‡å®š
 	// -----------------------------------------------------------------------
 	bool request(const char *url, const char *body, size_t bodylen, bool relative = false)
 	{
@@ -85,7 +85,7 @@ public:
 
 	// -----------------------------------------------------------------------
 	//	request
-	//	URL‚Æ’Ç‰Á‚Ìƒwƒbƒ_ƒtƒB[ƒ‹ƒh‚ğw’è
+	//	URLã¨è¿½åŠ ã®ãƒ˜ãƒƒãƒ€ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’æŒ‡å®š
 	// -----------------------------------------------------------------------
 	bool request(const char *url, HTTPHeader &hdr, const char *body, size_t bodylen, bool relative = false)
 	{
@@ -115,7 +115,7 @@ public:
 
 	// -----------------------------------------------------------------------
 	//	request
-	//	ƒzƒXƒg–¼Aƒ|[ƒgAƒvƒŒ[ƒ“‚Èƒwƒbƒ_•”‚ğw’è
+	//	ãƒ›ã‚¹ãƒˆåã€ãƒãƒ¼ãƒˆã€ãƒ—ãƒ¬ãƒ¼ãƒ³ãªãƒ˜ãƒƒãƒ€éƒ¨ã‚’æŒ‡å®š
 	// -----------------------------------------------------------------------
 	bool request(const char *hst, ushort pn, const char *header, size_t headerlen, const char *body, size_t bodylen)
 	{

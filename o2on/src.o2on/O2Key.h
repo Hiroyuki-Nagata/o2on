@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -81,7 +81,7 @@ struct O2Key
 
 	bool operator<(const O2Key& key) const
 	{
-		return distance < key.distance; //~‡
+		return distance < key.distance; //é™é †
 	}
 };
 

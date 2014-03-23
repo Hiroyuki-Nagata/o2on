@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -62,7 +62,7 @@ Start(void)
 	if (Active) {
 		if (Logger) {
 			Logger->AddLog(O2LT_WARNING, ServerName.c_str(), 0, 0,
-				L"‹N“®Ï‚Ì‚½‚ß‹N“®—v‹‚ğ–³‹");
+				L"èµ·å‹•æ¸ˆã®ãŸã‚èµ·å‹•è¦æ±‚ã‚’ç„¡è¦–");
 		}
 		return true;
 	}
@@ -83,7 +83,7 @@ Start(void)
 
 	if (Logger) {
 		Logger->AddLog(O2LT_INFO,
-			ServerName.c_str(), 0, 0, L"‹N“® (port:%d)", ServerPort);
+			ServerName.c_str(), 0, 0, L"èµ·å‹• (port:%d)", ServerPort);
 	}
 
 	return true;
@@ -130,7 +130,7 @@ Stop(void)
 
 	if (Logger) {
 		Logger->AddLog(O2LT_INFO,
-			ServerName.c_str(), 0, 0, L"’â~ (port:%d)", ServerPort);
+			ServerName.c_str(), 0, 0, L"åœæ­¢ (port:%d)", ServerPort);
 	}
 	return true;
 }
@@ -143,7 +143,7 @@ O2Server::
 Restart(void)
 {
 	if (Logger)
-		Logger->AddLog(O2LT_INFO, ServerName.c_str(), 0, 0, L"Ä‹N“®...");
+		Logger->AddLog(O2LT_INFO, ServerName.c_str(), 0, 0, L"å†èµ·å‹•...");
 	if (!Stop())
 		return false;
 	if (!Start())
@@ -360,7 +360,7 @@ Bind(void)
 {
 	if (ServerPort == 0) {
 		if (Logger) {
-			Logger->AddLog(O2LT_ERROR, ServerName.c_str(), 0, 0, L"ƒ|[ƒg‚ª0");
+			Logger->AddLog(O2LT_ERROR, ServerName.c_str(), 0, 0, L"ãƒãƒ¼ãƒˆãŒ0");
 		}
 		return false;
 	}
@@ -368,15 +368,15 @@ Bind(void)
 	ServerSocket = socket(AF_INET, SOCK_STREAM, 0);
 	if (ServerSocket == INVALID_SOCKET) {
 		if (Logger) {
-			Logger->AddLog(O2LT_ERROR, ServerName.c_str(), 0, 0, L"socket¶¬¸”s");
+			Logger->AddLog(O2LT_ERROR, ServerName.c_str(), 0, 0, L"socketç”Ÿæˆå¤±æ•—");
 		}
 		return false;
 	}
 
 	int one = 1;
-	// SO_REUSEADDR: socket‚ªTIME_WAIT‚Å‚àbind‚Å‚«‚é‚æ‚¤‚É‚·‚é ©‚¤‚»‚Å‚·
-	// ¦Winsock‚Ìê‡LISTENING‚Å‚àã‘‚«bind‚³‚ê‚Ä‚µ‚Ü‚¤
-	// ¦SO_REUSEADDR‚ğƒZƒbƒg‚µ‚È‚­‚Ä‚àTIME_WAIT‚È‚çbind‚Å‚«‚é
+	// SO_REUSEADDR: socketãŒTIME_WAITã§ã‚‚bindã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹ â†ã†ãã§ã™
+	// â€»Winsockã®å ´åˆLISTENINGã§ã‚‚ä¸Šæ›¸ãbindã•ã‚Œã¦ã—ã¾ã†
+	// â€»SO_REUSEADDRã‚’ã‚»ãƒƒãƒˆã—ãªãã¦ã‚‚TIME_WAITãªã‚‰bindã§ãã‚‹
 //	setsockopt(ServerSocket, SOL_SOCKET, SO_REUSEADDR, (const char*)&one, sizeof(int));
     setsockopt(ServerSocket, SOL_SOCKET, SO_KEEPALIVE, (const char*)&one, sizeof(int));
     setsockopt(ServerSocket, IPPROTO_TCP, TCP_NODELAY, (const char*)&one, sizeof(int));
@@ -389,7 +389,7 @@ Bind(void)
 	if (bind(ServerSocket, (struct sockaddr*)(&sin), sizeof(sockaddr_in)) != 0) {
 		if (Logger) {
 			Logger->AddLog(O2LT_ERROR, ServerName.c_str(), 0, 0, 
-				L"bind¸”s (port:%d)", ServerPort);
+				L"bindå¤±æ•— (port:%d)", ServerPort);
 		}
 		closesocket(ServerSocket);
 		ServerSocket = INVALID_SOCKET;
@@ -399,7 +399,7 @@ Bind(void)
 	if (listen(ServerSocket, (int)SessionLimit) != 0) {
 		if (Logger) {
 			Logger->AddLog(O2LT_ERROR, ServerName.c_str(), 0, 0,
-				L"listen¸”s (port:%d)", ServerPort);
+				L"listenå¤±æ•— (port:%d)", ServerPort);
 		}
 		closesocket(ServerSocket);
 		ServerSocket = INVALID_SOCKET;
@@ -437,7 +437,7 @@ O2Server::
 ListenThread(void)
 {
 	// -----------------------------------------------------------------------
-	//	‘Ò‚¿ó‚¯Loop
+	//	å¾…ã¡å—ã‘Loop
 	// -----------------------------------------------------------------------
 	while (Active) {
 		// FD
@@ -452,7 +452,7 @@ ListenThread(void)
 		select(0, &readfds, NULL, NULL, &tv);
 		if (!Active) break;
 
-		// Ú‘±‚«‚½H
+		// æ¥ç¶šããŸï¼Ÿ
 		if (!FD_ISSET(ServerSocket, &readfds))
 			continue;
 
@@ -495,9 +495,9 @@ ListenThread(void)
 		bool session_exist = sss.find(ip) != sss.end() ? true : false;
 		SessionMapLock.Unlock();
 
-		// ƒZƒbƒVƒ‡ƒ“”Šm”F
+		// ã‚»ãƒƒã‚·ãƒ§ãƒ³æ•°ç¢ºèª
 		if (session_count >= SessionLimit) {
-			// ƒZƒbƒVƒ‡ƒ“”ƒI[ƒo[
+			// ã‚»ãƒƒã‚·ãƒ§ãƒ³æ•°ã‚ªãƒ¼ãƒãƒ¼
 			if (Logger) {
 				Logger->AddLog(O2LT_NETERR, ServerName.c_str(),
 						ip, port, L"Reject(session limit)");
@@ -507,7 +507,7 @@ ListenThread(void)
 			continue;
 		}
 
-		// •¡”Ú‘±Šm”F
+		// è¤‡æ•°æ¥ç¶šç¢ºèª
 		if (RejectMultiLink && session_exist) {
 			if (Logger) {
 				Logger->AddLog(O2LT_NETERR, ServerName.c_str(),
@@ -606,7 +606,7 @@ NetIOThread(void)
 		if (!Active) break;
 
 		//
-		//	Šù‘¶ƒZƒbƒVƒ‡ƒ“‚Æ‚Ì‘—óM
+		//	æ—¢å­˜ã‚»ãƒƒã‚·ãƒ§ãƒ³ã¨ã®é€å—ä¿¡
 		//
 		SessionMapLock.Lock();
 		ssit = sss.begin();
@@ -624,7 +624,7 @@ NetIOThread(void)
 
 			O2SocketSession *ss = ssit->second;
 
-			// IP•¶š—ñ
+			// IPæ–‡å­—åˆ—
 			wstring ipstr;
 			if (O2DEBUG)
 				ulong2ipstr(ss->ip, ipstr);
@@ -649,14 +649,14 @@ NetIOThread(void)
 				else if (n == 0) {
 					if (Logger) {
 						Logger->AddLog(O2LT_NETERR, ServerName.c_str(),
-							ss->ip, ss->port, L"óM0");
+							ss->ip, ss->port, L"å—ä¿¡0");
 					}
 					ss->Deactivate();
 				}
 				else if ((lasterror = WSAGetLastError()) != WSAEWOULDBLOCK) {
 					if (Logger) {
 						Logger->AddLog(O2LT_NETERR, ServerName.c_str(),
-							ss->ip, ss->port, L"óMƒGƒ‰[(%d)", lasterror);
+							ss->ip, ss->port, L"å—ä¿¡ã‚¨ãƒ©ãƒ¼(%d)", lasterror);
 					}
 					ss->error = true;
 					ss->Deactivate();
@@ -686,7 +686,7 @@ NetIOThread(void)
 					else if ((lasterror = WSAGetLastError()) != WSAEWOULDBLOCK) {
 						if (Logger) {
 							Logger->AddLog(O2LT_NETERR, ServerName.c_str(),
-								ss->ip, ss->port, L"‘—MƒGƒ‰[(%d)", lasterror);
+								ss->ip, ss->port, L"é€ä¿¡ã‚¨ãƒ©ãƒ¼(%d)", lasterror);
 						}
 						ss->error = true;
 						ss->Deactivate();
@@ -845,7 +845,7 @@ IPFilteringThread(O2SocketSession *ss)
 	if (!ss) return;
 	SessionExistSignal.On();
 
-	// V‹KƒRƒlƒNƒVƒ‡ƒ“‚ğ‹L˜^
+	// æ–°è¦ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ã‚’è¨˜éŒ²
 	if (htonl(ss->ip) != 0x7f000001) {
 		if (O2DEBUG)
 			ulong2ipstr(ss->ip, ipstr);

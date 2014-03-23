@@ -1,7 +1,7 @@
-#define PROTOCOL_NAME			"O2"	// ƒvƒƒgƒRƒ‹–¼
-#define PROTOCOL_VER			0.2		// ƒvƒƒgƒRƒ‹ƒo[ƒWƒ‡ƒ“
-#define ACCEPT_PROTOCOL_VER_MIN	0.2		// Žó‚¯•t‚¯‚éƒvƒƒgƒRƒ‹ƒo[ƒWƒ‡ƒ“i‰ºŒÀj
-#define ACCEPT_PROTOCOL_VER_MAX	0.2		// Žó‚¯•t‚¯‚éƒvƒƒgƒRƒ‹ƒo[ƒWƒ‡ƒ“iãŒÀj
+ï»¿#define PROTOCOL_NAME			"O2"	// ãƒ—ãƒ­ãƒˆã‚³ãƒ«å
+#define PROTOCOL_VER			0.2		// ãƒ—ãƒ­ãƒˆã‚³ãƒ«ãƒãƒ¼ã‚¸ãƒ§ãƒ³
+#define ACCEPT_PROTOCOL_VER_MIN	0.2		// å—ã‘ä»˜ã‘ã‚‹ãƒ—ãƒ­ãƒˆã‚³ãƒ«ãƒãƒ¼ã‚¸ãƒ§ãƒ³ï¼ˆä¸‹é™ï¼‰
+#define ACCEPT_PROTOCOL_VER_MAX	0.2		// å—ã‘ä»˜ã‘ã‚‹ãƒ—ãƒ­ãƒˆã‚³ãƒ«ãƒãƒ¼ã‚¸ãƒ§ãƒ³ï¼ˆä¸Šé™ï¼‰
 
 #define APP_NAME				"o2on"
 #define APP_VER_MAJOR			0

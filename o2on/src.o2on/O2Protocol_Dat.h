@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -49,8 +49,8 @@ public:
 		string rawdata;
 		string proto_url;
 
-		// ‚¨‚İ‚â‚°‚Ìdatæ“¾
-		// TODO:ƒ‰ƒ“ƒ_ƒ€‚¶‚á‚È‚­‚ÄA“KØ‚È‚Ì‚ğB
+		// ãŠã¿ã‚„ã’ã®datå–å¾—
+		// TODO:ãƒ©ãƒ³ãƒ€ãƒ ã˜ã‚ƒãªãã¦ã€é©åˆ‡ãªã®ã‚’ã€‚
 		if (board) {
 			wstrarray token;
 			wsplit(board, L":", token);
@@ -60,7 +60,7 @@ public:
 //			datio->RandomGet(rawdata, datpath);
 		}
 
-		// ƒŠƒNƒGƒXƒgƒwƒbƒ_¶¬
+		// ãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒ˜ãƒƒãƒ€ç”Ÿæˆ
 		//	GET http://1.2.3.4:1234/dat/ HTTP/1.1
 		//	POST http://1.2.3.4:1234/dat/ HTTP/1.1
 		HTTPHeader header(HTTPHEADERTYPE_REQUEST);
@@ -69,7 +69,7 @@ public:
 		header.SetURL(proto_url.c_str());
 		proto.AddRequestHeaderFields(header, profile);
 
-		// ‘ÎÛ‚ğw’è‚µ‚Ä‚¢‚éê‡
+		// å¯¾è±¡ã‚’æŒ‡å®šã—ã¦ã„ã‚‹å ´åˆ
 		if (hash) {
 			string hashstr;
 			hash->to_string(hashstr);
@@ -81,7 +81,7 @@ public:
 			header.AddFieldString(X_O2_TARGET_BOARD, boardA.c_str());
 		}
 
-		// ‚¨‚İ‚â‚°‚Ìdatî•ñ
+		// ãŠã¿ã‚„ã’ã®datæƒ…å ±
 		if (!rawdata.empty()) {
 			// X-O2-DAT-Path: 2ch.net/news/1234567890
 			string o2_dat_path;
@@ -112,32 +112,32 @@ public:
 		O2DatPath datpath;
 		string rawdata;
 
-		// •Ô‚·datæ“¾
+		// è¿”ã™datå–å¾—
 		if (target) {
-			// ƒnƒbƒVƒ…w’è‚³‚ê‚Ä‚¢‚é
+			// ãƒãƒƒã‚·ãƒ¥æŒ‡å®šã•ã‚Œã¦ã„ã‚‹
 			if (!datio->Load(*target, 0, rawdata, datpath)) {
 				proto.MakeResponse_404(profile, out);
 				return;
 			}
 		}
 		else if (board) {
-			// ”Âw’è‚³‚ê‚Ä‚¢‚é
+			// æ¿æŒ‡å®šã•ã‚Œã¦ã„ã‚‹
 			wstrarray token;
 			wsplit(board, L":", token);
 			datio->RandomGetInBoard(token[0].c_str(), token[1].c_str(), rawdata, datpath);
 		}
 		else {
-			// w’è‚³‚ê‚Ä‚¢‚È‚¢ê‡
-			// TODO:ƒ‰ƒ“ƒ_ƒ€‚¶‚á‚È‚­‚ÄA“KØ‚È‚Ì‚ğB
+			// æŒ‡å®šã•ã‚Œã¦ã„ãªã„å ´åˆ
+			// TODO:ãƒ©ãƒ³ãƒ€ãƒ ã˜ã‚ƒãªãã¦ã€é©åˆ‡ãªã®ã‚’ã€‚
 			datio->RandomGet(rawdata, datpath);
 		}
 
-		// ƒŒƒXƒ|ƒ“ƒXƒwƒbƒ_¶¬
+		// ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒ˜ãƒƒãƒ€ç”Ÿæˆ
 		HTTPHeader header(HTTPHEADERTYPE_RESPONSE);
 		header.status = 200;
 		proto.AddResponseHeaderFields(header, profile);
 
-		// •Ô‚·datæ“¾
+		// è¿”ã™datå–å¾—
 		if (!rawdata.empty()) {
 			// X-O2-DAT-Path: 2ch.net/news/1234567890
 			string o2_dat_path;
@@ -199,26 +199,26 @@ public:
 			datpath.set(token[0].c_str(), token[1].c_str(), string(token[2]+".dat").c_str());
 		}
 
-		// •Û‘¶‚·‚×‚«‚©H
+		// ä¿å­˜ã™ã¹ãã‹ï¼Ÿ
 		if (boards) {
 			wstring domain, bbsname, datname;
 			datpath.element(domain, bbsname, datname);
 			if (!boards->IsEnabledEx(domain.c_str(), bbsname.c_str())) {
 				Logger->AddLog(O2LT_WARNING, L"dat", ip, port,
-					L"(ß‡™ß)²×È (%s/%s/%s)", domain.c_str(), bbsname.c_str(), datname.c_str());
+					L"(ã‚œâŠ¿ã‚œ)ã‚¤ãƒ©ãƒ (%s/%s/%s)", domain.c_str(), bbsname.c_str(), datname.c_str());
 				return false;
 			}
 		}
 
-		// ŒŸØ
+		// æ¤œè¨¼
 		if (!datio->CheckDat(rawdata, size))
 			return false;
 
-		// •Û‘¶
+		// ä¿å­˜
 		uint64 hokan_byte = datio->Put(datpath, rawdata, size, 0);
 
 
-		// •âŠ®‚³‚ê‚½
+		// è£œå®Œã•ã‚ŒãŸ
 		if (hokan_byte) {
 			if (Logger) {
 				wstring url;
@@ -233,7 +233,7 @@ public:
 				datpath.gettitle(title);
 				if (QueryDB->SetNote(hash, title.c_str(), size) && hwndBaloonCallback && profile->IsBaloon_Hokan()) {
 					wchar_t msg[256];
-					swprintf_s(msg, 256, L"%s\n‚ª•âŠ®‚³‚ê‚Ü‚µ‚½", title.c_str());
+					swprintf_s(msg, 256, L"%s\nãŒè£œå®Œã•ã‚Œã¾ã—ãŸ", title.c_str());
 					SendMessage(
 						hwndBaloonCallback, msgBaloonCallback,
 						(WPARAM)L"o2on", (LPARAM)msg);
@@ -254,11 +254,11 @@ public:
 	{
 		string proto_url;
 
-		// ©•ª‚ÌƒRƒŒƒNƒVƒ‡ƒ“î•ñ
+		// è‡ªåˆ†ã®ã‚³ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³æƒ…å ±
 		string xml;
 		boards->ExportToXML(xml);
 
-		// ƒŠƒNƒGƒXƒgƒwƒbƒ_¶¬
+		// ãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒ˜ãƒƒãƒ€ç”Ÿæˆ
 		//	GET http://1.2.3.4:1234/collection/ HTTP/1.1
 		HTTPHeader header(HTTPHEADERTYPE_REQUEST);
 		proto.MakeURL(ss->ip, ss->port, O2PROTOPATH_COLLECTION, proto_url);
@@ -278,11 +278,11 @@ public:
 							   , O2Boards *boards
 							   , string &out)
 	{
-		// •Ô‚·î•ñ
+		// è¿”ã™æƒ…å ±
 		string xml;
 		boards->ExportToXML(xml);
 
-		// ƒŒƒXƒ|ƒ“ƒXƒwƒbƒ_¶¬
+		// ãƒ¬ã‚¹ãƒãƒ³ã‚¹ãƒ˜ãƒƒãƒ€ç”Ÿæˆ
 		HTTPHeader header(HTTPHEADERTYPE_RESPONSE);
 		header.status = 200;
 		proto.AddResponseHeaderFields(header, profile);

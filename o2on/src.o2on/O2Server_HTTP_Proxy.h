@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -165,7 +165,7 @@ private:
 		}
 
 		TRACEA("-------------------------------------------------------\n");
-		TRACEA("¡ƒIƒŠƒWƒiƒ‹ƒŠƒNƒGƒXƒg\n");
+		TRACEA("â– ã‚ªãƒªã‚¸ãƒŠãƒ«ãƒªã‚¯ã‚¨ã‚¹ãƒˆ\n");
 		TRACEA("-------------------------------------------------------\n");
 		TRACEA(ss->rbuff.substr(0, hdr.length).c_str());
 		
@@ -200,7 +200,7 @@ private:
 			while ((n = hsock->response(out, ohdr)) >= 0) {
 				if (n > 0) {
 					if (urltype != URLTYPE_OFFLAW && (ohdr.status == 200 || ohdr.status == 206 || ohdr.status == 304)) {
-						//œˆÈŠO‚Å200/206/304‚Ìê‡‚Í‘¦êƒuƒ‰‚É•Ô‚·
+						//â—ä»¥å¤–ã§200/206/304ã®å ´åˆã¯å³æ™‚å°‚ãƒ–ãƒ©ã«è¿”ã™
 						ss->Lock();
 						ss->sbuff.append(&out[offset], &out[offset+n]);
 						ss->Unlock();
@@ -217,14 +217,14 @@ private:
 		}
 		
 		TRACEA("-------------------------------------------------------\n");
-		TRACEA("¡ƒIƒŠƒWƒiƒ‹ƒŒƒXƒ|ƒ“ƒX\n");
+		TRACEA("â– ã‚ªãƒªã‚¸ãƒŠãƒ«ãƒ¬ã‚¹ãƒãƒ³ã‚¹\n");
 		TRACEA("-------------------------------------------------------\n");
 		TRACEA(out.substr(0, ohdr.length).c_str());
 		//TRACEA(out.c_str());
 
 		// -------------------------------------------------------------------
 		//
-		// œê—p‚Ìˆ—F•Ô“š“à—e‚É–â‘è‚ª‚È‚¯‚ê‚Îêƒuƒ‰‚É•Ô‚·
+		// â—å°‚ç”¨ã®å‡¦ç†ï¼šè¿”ç­”å†…å®¹ã«å•é¡ŒãŒãªã‘ã‚Œã°å°‚ãƒ–ãƒ©ã«è¿”ã™
 		//
 		// -------------------------------------------------------------------
 		if (urltype == URLTYPE_OFFLAW) {
@@ -233,7 +233,7 @@ private:
 					wstring tmp;
 					datpath.get_o2_dat_path(tmp);
 					Logger->AddLog(O2LT_WARNING, MODULE, 0, 0,
-						"œ‚ÅProxy Error‚Á‚Ä•Ô‚Á‚Ä‚«‚½ (%s)", tmp.c_str());
+						"â—ã§Proxy Errorã£ã¦è¿”ã£ã¦ããŸ (%s)", tmp.c_str());
 				}
 			}
 			else if (ohdr.status == 200 && ohdr.contentlength == 55) {
@@ -245,12 +245,12 @@ private:
 					gzu->onetime();
 					delete gzu;
 					if (strncmp(decoded.c_str(), "-ERR", 4) == 0) {
-						//-ERR ‚»‚ñ‚È”ÂorƒXƒŒƒbƒh‚È‚¢‚Å‚·B
+						//-ERR ãã‚“ãªæ¿orã‚¹ãƒ¬ãƒƒãƒ‰ãªã„ã§ã™ã€‚
 						if (Logger) {
 							wstring tmp;
 							datpath.get_o2_dat_path(tmp);
 							Logger->AddLog(O2LT_WARNING, MODULE, 0, 0,
-								"œ‚Åu-ERR ‚»‚ñ‚È”ÂorƒXƒŒƒbƒh‚È‚¢‚Å‚·Bv‚Á‚Ä•Ô‚Á‚Ä‚«‚½ (%s)", tmp.c_str());
+								"â—ã§ã€Œ-ERR ãã‚“ãªæ¿orã‚¹ãƒ¬ãƒƒãƒ‰ãªã„ã§ã™ã€‚ã€ã£ã¦è¿”ã£ã¦ããŸ (%s)", tmp.c_str());
 						}
 						ohdr.status = 404;
 					}
@@ -265,7 +265,7 @@ private:
 		}
 
 		// -------------------------------------------------------------------
-		//	ƒLƒƒƒbƒVƒ…‚©‚ç•Ô‚·‚×‚«‚©”»’è
+		//	ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‹ã‚‰è¿”ã™ã¹ãã‹åˆ¤å®š
 		// -------------------------------------------------------------------
 		bool do_cache_loading = false;
 		if (!return_original_response) {
@@ -277,7 +277,7 @@ private:
 		}
 
 		// -------------------------------------------------------------------
-		//	ƒLƒƒƒbƒVƒ…‚©‚çæ“¾
+		//	ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‹ã‚‰å–å¾—
 		// -------------------------------------------------------------------
 		bool return_from_cache = false;
 		if (do_cache_loading) {
@@ -303,15 +303,15 @@ private:
 					ohdr.AddFieldString("Content-Range", tmp);
 				}
 
-				//offlaw•Ô“š‚Ì1s–Ú‚ğ’Ç‰Á
-				//¦‚±‚Ìƒ^ƒCƒ~ƒ“ƒO‚¶‚á‚È‚¢‚ÆRange‚ª‚¨‚©‚µ‚­‚È‚é‚Ì‚Å’ˆÓ
+				//offlawè¿”ç­”æ™‚ã®1è¡Œç›®ã‚’è¿½åŠ 
+				//â€»ã“ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã˜ã‚ƒãªã„ã¨RangeãŒãŠã‹ã—ããªã‚‹ã®ã§æ³¨æ„
 				if (urltype == URLTYPE_OFFLAW) {
 					char firstline[64];
 					sprintf_s(firstline, 64, "+OK %u/1024K\tLocation:temp/\n", cdat.size());
 					cdat.insert(0, firstline);
 				}
 
-				//gz‚ª—v‹‚³‚ê‚Ä‚¢‚é‚Æ‚«‚Ígzip‚Å•Ô‚·
+				//gzãŒè¦æ±‚ã•ã‚Œã¦ã„ã‚‹ã¨ãã¯gzipã§è¿”ã™
 				bool is_request_gz = false;
 				string gzbody;
 
@@ -347,7 +347,7 @@ private:
 				ohdr.Make(ss->sbuff);
 
 				TRACEA("-------------------------------------------------------\n");
-				TRACEA("¡‘Š·‚¦ŒãƒŒƒXƒ|ƒ“ƒX\n");
+				TRACEA("â– æ›¸æ›ãˆå¾Œãƒ¬ã‚¹ãƒãƒ³ã‚¹\n");
 				TRACEA("-------------------------------------------------------\n");
 				TRACEA(ss->sbuff.c_str());
 				if (is_request_gz)
@@ -368,8 +368,8 @@ private:
 
 		ss->SetCanDelete(true);
 		// -------------------------------------------------------------------
-		//	ªcandelete=true‚ÉƒZƒbƒg‚µ‚½‚Ì‚ÅAã—¬‚ÅŠJ•ú‚ªs‚í‚ê‚é‰Â”\«‚ª‚ ‚é
-		//	ˆÈ~ss‚ÉƒAƒNƒZƒX‚µ‚Ä‚Í‚¢‚¯‚È‚¢
+		//	â†‘candelete=trueã«ã‚»ãƒƒãƒˆã—ãŸã®ã§ã€ä¸Šæµã§é–‹æ”¾ãŒè¡Œã‚ã‚Œã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹
+		//	ä»¥é™ssã«ã‚¢ã‚¯ã‚»ã‚¹ã—ã¦ã¯ã„ã‘ãªã„
 		// -------------------------------------------------------------------
 
 		if (return_from_cache) {
@@ -377,7 +377,7 @@ private:
 		}
 
 		if (ohdr.status != 200 && ohdr.status != 206 && ohdr.status != 304) {
-			//ŒŸõƒNƒGƒŠŒó•â‚Æ‚µ‚Ä“o˜^
+			//æ¤œç´¢ã‚¯ã‚¨ãƒªå€™è£œã¨ã—ã¦ç™»éŒ²
 			if (!DatIO->KakoHantei(datpath)) {
 				DatIO->GetTitle(datpath);
 				LagQueryQueue->add(datpath, DatIO->GetSize(datpath));
@@ -385,14 +385,14 @@ private:
 			return;
 		}
 		else if (ohdr.status != 304) {
-			//ŒŸõƒNƒGƒŠŒó•â‚©‚çíœ
+			//æ¤œç´¢ã‚¯ã‚¨ãƒªå€™è£œã‹ã‚‰å‰Šé™¤
 			LagQueryQueue->remove(datpath);
 		}
 
 		
 		// -------------------------------------------------------------------
 		//
-		// ƒLƒƒƒbƒVƒ…‚É•Û‘¶
+		// ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã«ä¿å­˜
 		//
 		// -------------------------------------------------------------------
 		wstring domain, bbsname, datname;
@@ -462,12 +462,12 @@ private:
 			body.erase(0, pos+1);
 		}
 
-		// 2012-06-15 ŠÈˆÕƒ`ƒFƒbƒN
+		// 2012-06-15 ç°¡æ˜“ãƒã‚§ãƒƒã‚¯
 		if (!DatIO->CheckDat2(&body[0], body.size())) {
 			return;
 		}
 
-		//ƒLƒƒƒbƒVƒ…‚Ö‘‚«‚İ
+		//ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã¸æ›¸ãè¾¼ã¿
 		uint64 hokan_byte = DatIO->Put(
 			datpath, &body[0], body.size(), request_first_byte);
 
@@ -478,7 +478,7 @@ private:
 					L"%s (%d)", tmpurl.c_str(), hokan_byte);
 			}
 
-			// —š—ğ‚É’Ç‰Á
+			// å±¥æ­´ã«è¿½åŠ 
 			hashT hash;
 			datpath.gethash(hash);
 			wstring title;
@@ -529,7 +529,7 @@ private:
 	
 	inline void NormalProxy(O2SocketSession *ss)
 	{
-		TRACEA("¡NormalProxy\n");
+		TRACEA("â– NormalProxy\n");
 		TRACEA(ss->rbuff.c_str());
 		HTTPHeader &hdr = *((HTTPHeader*)ss->data);
 	

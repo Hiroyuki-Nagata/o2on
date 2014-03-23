@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -115,7 +115,7 @@ private:
 	{
 		if (ThreadHandle) {
 			Active = false;
-			//note:SignalObjectAndWaitŠÖ”‚Ì•û‚ªˆ—‚ðatomic‚És‚¦‚é‚½‚ß“KØ
+			//note:SignalObjectAndWaité–¢æ•°ã®æ–¹ãŒå‡¦ç†ã‚’atomicã«è¡Œãˆã‚‹ãŸã‚é©åˆ‡
 			StopSignal.On();
 			//Join
 			WaitForSingleObject(ThreadHandle, INFINITE);
@@ -151,17 +151,17 @@ private:
 					continue;
 				}
 
-				//ƒLƒ…[“o˜^‚©‚ç5•bŒo‰ß‚µ‚Ä‚¢‚½‚ç“o˜^
+				//ã‚­ãƒ¥ãƒ¼ç™»éŒ²ã‹ã‚‰5ç§’çµŒéŽã—ã¦ã„ãŸã‚‰ç™»éŒ²
 				querykey.date = 0;
 				if (QueryDB->AddKey(querykey) == 1) {
 					if (Logger) {
 						Logger->AddLog(O2LT_INFO, L"LagQueryQueue", 0, 0,
-							L"ŒŸõ“o˜^ %s", querykey.url.c_str());
+							L"æ¤œç´¢ç™»éŒ² %s", querykey.url.c_str());
 					}
 
 					if (hwndBaloonCallback && Profile->IsBaloon_Query()) {
 						SendMessage(hwndBaloonCallback, msgBaloonCallback,
-							(WPARAM)L"ŒŸõ“o˜^", (LPARAM)querykey.url.c_str());
+							(WPARAM)L"æ¤œç´¢ç™»éŒ²", (LPARAM)querykey.url.c_str());
 					}
 					QueryDB->Save(Profile->GetQueryFilePath());
 				}

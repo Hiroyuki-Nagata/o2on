@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -101,7 +101,7 @@ public:
 
 		O2NodeDB::NodeListT Nodes;
 
-		// ƒL[‚Åƒ‹[ƒv
+		// ã‚­ãƒ¼ã§ãƒ«ãƒ¼ãƒ—
 		O2KeyListIt it;
 		for (it = keylist.begin(); it != keylist.end() && IsActive(); it++) {
 			O2Key &key = *it;
@@ -115,7 +115,7 @@ public:
 			node.ip = it->ip;
 			node.port = it->port;
 
-			// ƒŠƒNƒGƒXƒg”­s
+			// ãƒªã‚¯ã‚¨ã‚¹ãƒˆç™ºè¡Œ
 			O2SocketSession ss;
 			ss.ip = key.ip;
 			ss.port = key.port;
@@ -126,7 +126,7 @@ public:
 
 			HTTPHeader *header = (HTTPHeader*)ss.data;
 			if (CheckResponse(&ss, header, NodeDB, node)) {
-				// –{•¶‚Ìdatæ‚è‚İ
+				// æœ¬æ–‡ã®datå–ã‚Šè¾¼ã¿
 				const char *rawdata = &ss.rbuff[header->length];
 				uint64 datsize = ss.rbuff.size() - header->length;
 
@@ -143,11 +143,11 @@ public:
 		O2NodeDB::NodeListT::iterator nit;
 		for (nit = Nodes.begin(); nit != Nodes.end() && IsActive(); nit++) {
 			if (nit->lastlink) {
-				// ¬Œ÷‚µ‚½ƒm[ƒh‚ğtouch
+				// æˆåŠŸã—ãŸãƒãƒ¼ãƒ‰ã‚’touch
 				NodeDB->touch(*nit);
 			}
 			else {
-				// ¸”s‚µ‚½ƒm[ƒh‚ğremove
+				// å¤±æ•—ã—ãŸãƒãƒ¼ãƒ‰ã‚’remove
 				NodeDB->remove(*nit);
 				KeyDB->DeleteKeyByNodeID(nit->id);
 			}

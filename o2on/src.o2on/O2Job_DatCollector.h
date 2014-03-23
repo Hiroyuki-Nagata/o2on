@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -79,14 +79,14 @@ public:
 
 	void JobThreadFunc(void)
 	{
-		// æ“¾‚·‚é”Â‚ğŒˆ‚ß‚é
+		// å–å¾—ã™ã‚‹æ¿ã‚’æ±ºã‚ã‚‹
 		wstrarray boards;
 		if (Boards->GetExEnList(boards) == 0)
 			return;
 		CryptoPP::AutoSeededRandomPool rng;
 		wstring &board = boards[rng.GenerateWord32(0, boards.size()-1)];
 
-		// ƒm[ƒhˆê——‚ğæ“¾
+		// ãƒãƒ¼ãƒ‰ä¸€è¦§ã‚’å–å¾—
 		O2NodeDB::NodeListT nodes;
 		if (Boards->GetExNodeList(board.c_str(), nodes) == 0)
 			return;
@@ -98,7 +98,7 @@ public:
 			it->lastlink = 0;
 			it->reset();
 
-			// ƒŠƒNƒGƒXƒg”­s
+			// ãƒªã‚¯ã‚¨ã‚¹ãƒˆç™ºè¡Œ
 			O2SocketSession ss;
 			ss.ip = it->ip;
 			ss.port = it->port;
@@ -109,12 +109,12 @@ public:
 
 			HTTPHeader *header = (HTTPHeader*)ss.data;
 			if (CheckResponse(&ss, header, NodeDB, *it)) {
-				// –{•¶‚Ìdatæ‚è‚İ
+				// æœ¬æ–‡ã®datå–ã‚Šè¾¼ã¿
 				const char *rawdata = &ss.rbuff[header->length];
 				uint64 datsize = ss.rbuff.size() - header->length;
 				imported = ImportDat(DatIO, Profile, Boards, *header, rawdata, datsize,
 					Logger, ss.ip, ss.port, QueryDB, hwndBaloonCallback, msgBaloonCallback);
-				//1ŒÂ¬Œ÷‚µ‚½‚çI‚í‚è
+				//1å€‹æˆåŠŸã—ãŸã‚‰çµ‚ã‚ã‚Š
 			}
 			else if (header && header->status != 200) {
 				Boards->RemoveExNode(board.c_str(), *it);
@@ -128,11 +128,11 @@ public:
 		O2NodeDB::NodeListT::iterator endit = it;
 		for (it = nodes.begin(); it != endit && IsActive(); it++) {
 			if (it->lastlink) {
-				// ¬Œ÷‚µ‚½ƒm[ƒh‚ğtouch
+				// æˆåŠŸã—ãŸãƒãƒ¼ãƒ‰ã‚’touch
 				NodeDB->touch(*it);
 			}
 			else {
-				// ¸”s‚µ‚½ƒm[ƒh‚ğremove
+				// å¤±æ•—ã—ãŸãƒãƒ¼ãƒ‰ã‚’remove
 				NodeDB->remove(*it);
 				KeyDB->DeleteKeyByNodeID(it->id);
 			}

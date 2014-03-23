@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -82,7 +82,7 @@ public:
 			it->lastlink = 0;
 			it->reset();
 
-			// FINDNODE”­s
+			// FINDNODEç™ºè¡Œ
 			O2SocketSession ss;
 			ss.ip = it->ip;
 			ss.port = it->port;
@@ -105,11 +105,11 @@ public:
 
 		for (it = neighbors.begin(); it != neighbors.end() && IsActive(); it++) {
 			if (it->lastlink) {
-				// ¬Œ÷‚µ‚½ƒm[ƒh‚ğtouch
+				// æˆåŠŸã—ãŸãƒãƒ¼ãƒ‰ã‚’touch
 				NodeDB->touch(*it);
 			}
 			else {
-				// ¸”s‚µ‚½ƒm[ƒh‚ğremove
+				// å¤±æ•—ã—ãŸãƒãƒ¼ãƒ‰ã‚’remove
 				NodeDB->remove(*it);
 				KeyDB->DeleteKeyByNodeID(it->id);
 			}

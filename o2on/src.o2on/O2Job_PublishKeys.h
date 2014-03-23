@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -120,7 +120,7 @@ public:
 			node.lastlink = 0;
 			node.reset();
 
-			// STORE”­s
+			// STOREç™ºè¡Œ
 			O2SocketSession ss;
 			ss.ip = node.ip;
 			ss.port = node.port;
@@ -148,17 +148,17 @@ public:
 		O2NodeDB::NodeListT::iterator it;
 		for (it = proceededNodes.begin(); it != proceededNodes.end() && IsActive(); it++) {
 			if (it->lastlink) {
-				// ¬Œ÷‚µ‚½ƒm[ƒh‚ğtouch
+				// æˆåŠŸã—ãŸãƒãƒ¼ãƒ‰ã‚’touch
 				NodeDB->touch(*it);
 			}
 			else {
-				// ¸”s‚µ‚½ƒm[ƒh‚ğremove
+				// å¤±æ•—ã—ãŸãƒãƒ¼ãƒ‰ã‚’remove
 				NodeDB->remove(*it);
 				KeyDB->DeleteKeyByNodeID(it->id);
 			}
 		}
 #if 0
-		// ƒL[‚Åƒ‹[ƒv
+		// ã‚­ãƒ¼ã§ãƒ«ãƒ¼ãƒ—
 		O2KeyListIt it;
 		for (it = keylist.begin(); it != keylist.end() && IsActive(); it++) {
 			string xml;
@@ -175,12 +175,12 @@ public:
 			if (NodeDB->neighbors(it->hash, neighbors, false) == 0)
 				break;
 
-			// ƒL[‚Ì‹ß—×ƒm[ƒh‚Åƒ‹[ƒv
+			// ã‚­ãƒ¼ã®è¿‘éš£ãƒãƒ¼ãƒ‰ã§ãƒ«ãƒ¼ãƒ—
 			for (size_t i = 0; i < neighbors.size() && IsActive(); i++) {
 				neighbors[i].lastlink = 0;
 				neighbors[i].reset();
 
-				// STORE”­s
+				// STOREç™ºè¡Œ
 				O2SocketSession ss;
 				ss.ip = neighbors[i].ip;
 				ss.port = neighbors[i].port;
@@ -202,11 +202,11 @@ public:
 
 			for (size_t i = 0; i < neighbors.size() && IsActive(); i++) {
 				if (neighbors[i].lastlink) {
-					// ¬Œ÷‚µ‚½ƒm[ƒh‚ğtouch
+					// æˆåŠŸã—ãŸãƒãƒ¼ãƒ‰ã‚’touch
 					NodeDB->touch(neighbors[i]);
 				}
 				else {
-					// ¸”s‚µ‚½ƒm[ƒh‚ğremove
+					// å¤±æ•—ã—ãŸãƒãƒ¼ãƒ‰ã‚’remove
 					NodeDB->remove(neighbors[i]);
 					KeyDB->DeleteKeyByNodeID(neighbors[i].id);
 				}

@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+Ôªø/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -130,7 +130,7 @@ GetReport(string &out, bool pub)
 	else
 		wcscpy_s(uptime_str, 32, L"-");
 
-	// uptime (ó›åv)
+	// uptime (Á¥ØË®à)
 	uint64 total_uptime = PerformanceCounter->GetTotalUptime() + uptime;
 	wchar_t total_uptime_str[32];
 	swprintf_s(total_uptime_str, 32, L"%I64dd %02I64d:%02I64d:%02I64d",
@@ -139,7 +139,7 @@ GetReport(string &out, bool pub)
 	wchar_t ptime_str[32];
 	swprintf_s(ptime_str, 32, L"%.1f%% (%.1f%%)", ptime, ptimeavg);
 
-	// ëóéÛêMÉoÉCÉgêî (åªç›ÇÃÉZÉbÉVÉáÉì)
+	// ÈÄÅÂèó‰ø°„Éê„Ç§„ÉàÊï∞ (ÁèæÂú®„ÅÆ„Çª„ÉÉ„Ç∑„Éß„É≥)
 	uint64 total_u = Server_P2P->GetSendByte()
 		+ Client->GetSendByte();
 	uint64 total_d = Server_P2P->GetRecvByte()
@@ -157,7 +157,7 @@ GetReport(string &out, bool pub)
 		(uptime == 0 ? 0 : (double)(total_u+total_d)/1024/uptime),
 		(uptime == 0 ? 0 : (double)(total_u+total_d)/uptime*8));
 
-	// ëóéÛêMÉoÉCÉgêî (ó›åv)
+	// ÈÄÅÂèó‰ø°„Éê„Ç§„ÉàÊï∞ (Á¥ØË®à)
 	uint64 accum_total_u =
 		PerformanceCounter->GetTotalSend() + total_u;
 	uint64 accum_total_d =
@@ -175,13 +175,13 @@ GetReport(string &out, bool pub)
 		(total_uptime == 0 ? 0 : (double)(accum_total_u+accum_total_d)/1024/total_uptime),
 		(total_uptime == 0 ? 0 : (double)(accum_total_u+accum_total_d)/total_uptime*8));
 
-	//datêîÅAÉTÉCÉY
+	//datÊï∞„ÄÅ„Çµ„Ç§„Ç∫
 	uint64 datnum = 0;
 	uint64 datsize = 0;
 	uint64 pubnum = 0;
 	DatDB->select_report(PUBLISH_ORIGINAL_TT, datnum, datsize, pubnum);
 	
-	//publishó¶
+	//publishÁéá
 	wchar_t publishper[32];
 	if (datnum == 0)
 		wcscpy_s(publishper, 32, L"0.0%");
@@ -198,7 +198,7 @@ GetReport(string &out, bool pub)
 	xml += L"<report>"EOL;
 
 	//
-	//	ñºëOÅAÉRÉÅÉìÉgÅAâ{óóóöó
+	//	ÂêçÂâç„ÄÅ„Ç≥„É°„É≥„Éà„ÄÅÈñ≤Ë¶ßÂ±•Ê≠¥
 	//
 	if (pub)
 	{
@@ -219,7 +219,7 @@ GetReport(string &out, bool pub)
 		xml += L"</tr>"EOL;
 		//
 		xml += L"<tr>"EOL;
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ÉRÉÅÉìÉg");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"„Ç≥„É°„É≥„Éà");
 		makeCDATA(Profile->GetComment(), tmpstr);
 		xml += L" <pre>";
 		xml += tmpstr;
@@ -228,7 +228,7 @@ GetReport(string &out, bool pub)
 		//
 		if (Profile->IsPublicRecentDat()) {
 			xml += L"<tr>"EOL;
-			xml_AddElement(xml, L"td", L"type=\"h\"", L"â{óóóöó");
+			xml_AddElement(xml, L"td", L"type=\"h\"", L"Èñ≤Ë¶ßÂ±•Ê≠¥");
 			xml += L"<pre>";
 			O2KeyList recent;
 			Server_Proxy->GetRecentDatList(recent);
@@ -255,27 +255,27 @@ GetReport(string &out, bool pub)
 	}
 
 	//
-	//	äTóv
+	//	Ê¶ÇË¶Å
 	//
 	if (!pub || Profile->IsPublicReport())
 	{
 		xml += L"<category>"EOL;
-		xml_AddElement(xml, L"caption", NULL, L"äTóv");
+		xml_AddElement(xml, L"caption", NULL, L"Ê¶ÇË¶Å");
 		xml += L"<table>"EOL;
 		xml += L"<tr>"EOL;
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"èÛë‘");
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"CPU(ïΩãœ)");
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ÉnÉìÉhÉã");
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ÉXÉåÉbÉh");
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ëçdatêî");
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ëçdatÉTÉCÉY");
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"publishó¶");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"Áä∂ÊÖã");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"CPU(Âπ≥Âùá)");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"„Éè„É≥„Éâ„É´");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"„Çπ„É¨„ÉÉ„Éâ");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"Á∑èdatÊï∞");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"Á∑èdat„Çµ„Ç§„Ç∫");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"publishÁéá");
 		xml += L"</tr>"EOL;
 		xml += L"<tr>"EOL;
 		if (PerformanceCounter->IsActive())
-			xml_AddElement(xml, L"td", L"class=\"active\"", L"â“ìÆíÜ");
+			xml_AddElement(xml, L"td", L"class=\"active\"", L"Á®ºÂãï‰∏≠");
 		else
-			xml_AddElement(xml, L"td", L"class=\"deactive\"", L"í‚é~íÜ");
+			xml_AddElement(xml, L"td", L"class=\"deactive\"", L"ÂÅúÊ≠¢‰∏≠");
 		xml_AddElement(xml, L"td", L"class=\"C\"", ptime_str);
 		xml_AddElement(xml, L"td", L"class=\"N\"", handle_c);
 		xml_AddElement(xml, L"td", L"class=\"N\"", thread_c);
@@ -287,8 +287,8 @@ GetReport(string &out, bool pub)
 		//
 		xml += L"<table>"EOL;
 		xml += L"<tr>"EOL;
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ãNìÆì˙éû");
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ÉOÉçÅ[ÉoÉãIP");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"Ëµ∑ÂãïÊó•ÊôÇ");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"„Ç∞„É≠„Éº„Éê„É´IP");
 		xml_AddElement(xml, L"td", (Server_P2P->IsActive()   ? L"type=\"h\" class=\"active\"" : L"type=\"h\" class=\"deactive\""), L"P2P");
 		xml_AddElement(xml, L"td", (Server_Proxy->IsActive() ? L"type=\"h\" class=\"active\"" : L"type=\"h\" class=\"deactive\""), L"Proxy");
 		xml_AddElement(xml, L"td", (Server_Admin->IsActive() ? L"type=\"h\" class=\"active\"" : L"type=\"h\" class=\"deactive\""), L"Admin");
@@ -309,17 +309,17 @@ GetReport(string &out, bool pub)
 		xml += L"<table>"EOL;
 		xml += L"<tr>"EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"");
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"â“ì≠éûä‘");
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"è„ÇË");
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"â∫ÇË");
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"çáåv");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"Á®ºÂÉçÊôÇÈñì");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"‰∏ä„Çä");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"‰∏ã„Çä");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"ÂêàË®à");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"");
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"è„ÇËKB/s(bps)");
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"â∫ÇËKB/s(bps)");
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"çáåvKB/s(bps)");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"‰∏ä„ÇäKB/s(bps)");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"‰∏ã„ÇäKB/s(bps)");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"ÂêàË®àKB/s(bps)");
 		xml += L"</tr>"EOL;
 		xml += L"<tr>"EOL;
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ç°âÒ");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"‰ªäÂõû");
 		xml_AddElement(xml, L"td", L"class=\"C\"", uptime_str);
 		xml_AddElement(xml, L"td", L"class=\"N\"", total_u);
 		xml_AddElement(xml, L"td", L"class=\"N\"", total_d);
@@ -330,7 +330,7 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"class=\"R\"", traffic_ud);
 		xml += L"</tr>"EOL;
 		xml += L"<tr>"EOL;
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ó›åv");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"Á¥ØË®à");
 		xml_AddElement(xml, L"td", L"class=\"C\"", total_uptime_str);
 		xml_AddElement(xml, L"td", L"class=\"N\"", accum_total_u);
 		xml_AddElement(xml, L"td", L"class=\"N\"", accum_total_d);
@@ -364,7 +364,7 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"DatRequest");
 		xml += L"</tr>"EOL;
 		xml += L"<tr>"EOL;
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ï€éùêî");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"‰øùÊåÅÊï∞");
 		xml_AddElement(xml, L"td", L"class=\"N\"", NodeDB->count());
 		xml_AddElement(xml, L"td", L"class=\"N\"", FriendDB->Count());
 		xml_AddElement(xml, L"td", L"class=\"N\"", KeyDB->Count());
@@ -399,13 +399,13 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"findvalue");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"ERROR");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"?");
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"åv");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"Ë®à");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"Proxy");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"Admin");
 		xml += L"</tr>"EOL;
 		xml += L"<tr>"EOL;
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ê⁄ë±âÒêî");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"Êé•Á∂öÂõûÊï∞");
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_P2P->GetSessionCountByPath("dat"));
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_P2P->GetSessionCountByPath("collection"));
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_P2P->GetSessionCountByPath("im"));
@@ -479,7 +479,7 @@ GetReport(string &out, bool pub)
 		xml += L"</table>"EOL;
 		xml += L"<table>"EOL;
 		xml += L"<tr>"EOL;
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ìØéûê⁄ë±êîÉsÅ[ÉN");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"ÂêåÊôÇÊé•Á∂öÊï∞„Éî„Éº„ÇØ");
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_P2P->GetSessionPeak());
 		xml += L"</tr>"EOL;
 		xml += L"</table>"EOL;
@@ -503,19 +503,19 @@ GetReport(string &out, bool pub)
 		xml += L"</tr>"EOL;
 		//
 		xml += L"<tr>"EOL;
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"é¿çs");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"ÂÆüË°å");
 		for (i = 0; i < Jobs.size(); i++) {
 			if (!Jobs[i]->IsActive())
 				xml_AddElement(xml, L"td", L"class=\"C\"", L"-");
 			else if (Jobs[i]->IsWorking())
-				xml_AddElement(xml, L"td", L"class=\"active\"", L"é¿çsíÜ");
+				xml_AddElement(xml, L"td", L"class=\"active\"", L"ÂÆüË°å‰∏≠");
 			else
-				xml_AddElement(xml, L"td", L"class=\"wait\"", L"ë“ã@");
+				xml_AddElement(xml, L"td", L"class=\"wait\"", L"ÂæÖÊ©ü");
 		}
 		xml += L"</tr>"EOL;
 		//
 		xml += L"<tr>"EOL;
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ä‘äu(s)");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"ÈñìÈöî(s)");
 		for (i = 0; i < Jobs.size(); i++) {
 			if (!Jobs[i]->IsActive())
 				xml_AddElement(xml, L"td", L"class=\"C\"", L"-");
@@ -525,7 +525,7 @@ GetReport(string &out, bool pub)
 		xml += L"</tr>"EOL;
 		//
 		xml += L"<tr>"EOL;
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ãNìÆÇ‹Ç≈");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"Ëµ∑Âãï„Åæ„Åß");
 		for (i = 0; i < Jobs.size(); i++) {
 			if (!Jobs[i]->IsActive() || Jobs[i]->IsWorking())
 				xml_AddElement(xml, L"td", L"class=\"C\"", L"-");
@@ -535,7 +535,7 @@ GetReport(string &out, bool pub)
 		xml += L"</tr>"EOL;
 		//
 		xml += L"<tr>"EOL;
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ê⁄ë±âÒêî");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"Êé•Á∂öÂõûÊï∞");
 		for (i = 0; i < Jobs.size(); i++) {
 			if (!Jobs[i]->IsActive())
 				xml_AddElement(xml, L"td", L"class=\"R\"", L"-");
@@ -576,7 +576,7 @@ GetReport(string &out, bool pub)
 		xml += L"</table>"EOL;
 		xml += L"<table>"EOL;
 		xml += L"<tr>"EOL;
-		xml_AddElement(xml, L"td", L"type=\"h\"", L"ìØéûê⁄ë±êîÉsÅ[ÉN");
+		xml_AddElement(xml, L"td", L"type=\"h\"", L"ÂêåÊôÇÊé•Á∂öÊï∞„Éî„Éº„ÇØ");
 		xml_AddElement(xml, L"td", L"class=\"N\"", Client->GetSessionPeak());
 		xml += L"</tr>"EOL;
 		xml += L"</table>"EOL;
@@ -593,7 +593,7 @@ GetReport(string &out, bool pub)
 			xml_AddElement(xml, L"td", L"type=\"h\"", L"");
 			xml_AddElement(xml, L"td", L"type=\"h\"", L"IP");
 			xml_AddElement(xml, L"td", L"type=\"h\"", L"Port");
-			xml_AddElement(xml, L"td", L"type=\"h\"", L"ê⁄ë±éûä‘(s)");
+			xml_AddElement(xml, L"td", L"type=\"h\"", L"Êé•Á∂öÊôÇÈñì(s)");
 			xml_AddElement(xml, L"td", L"type=\"h\"", L"recv");
 			xml_AddElement(xml, L"td", L"type=\"h\"", L"send");
 			xml_AddElement(xml, L"td", L"type=\"h\"", L"rbuff");

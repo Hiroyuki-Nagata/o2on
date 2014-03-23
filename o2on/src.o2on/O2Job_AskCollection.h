@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -72,7 +72,7 @@ public:
 			it->lastlink = 0;
 			it->reset();
 
-			// ƒŠƒNƒGƒXƒg”­s
+			// ãƒªã‚¯ã‚¨ã‚¹ãƒˆç™ºè¡Œ
 			O2SocketSession ss;
 			ss.ip = it->ip;
 			ss.port = it->port;
@@ -83,7 +83,7 @@ public:
 
 			HTTPHeader *header = (HTTPHeader*)ss.data;
 			if (CheckResponse(&ss, header, NodeDB, *it)) {
-				// æ‚è‚İ
+				// å–ã‚Šè¾¼ã¿
 				const char *xml = &ss.rbuff[header->length];
 				size_t len = ss.rbuff.size() - header->length;
 				Boards->ImportNodeFromXML(*it, xml, len);
@@ -96,11 +96,11 @@ public:
 
 		for (it = neighbors.begin(); it != neighbors.end() && IsActive(); it++) {
 			if (it->lastlink) {
-				// ¬Œ÷‚µ‚½ƒm[ƒh‚ğtouch
+				// æˆåŠŸã—ãŸãƒãƒ¼ãƒ‰ã‚’touch
 				NodeDB->touch(*it);
 			}
 			else {
-				// ¸”s‚µ‚½ƒm[ƒh‚ğremove
+				// å¤±æ•—ã—ãŸãƒãƒ¼ãƒ‰ã‚’remove
 				NodeDB->remove(*it);
 				KeyDB->DeleteKeyByNodeID(it->id);
 			}

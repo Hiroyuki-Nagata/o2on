@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -1246,7 +1246,7 @@ void
 O2DatDB::
 AddUpdateQueue(const hashT &hash)
 {
-	//note:‘O’ñğŒ DB‚ÉXV‘ÎÛ‚ÌƒŒƒR[ƒh‚ª‘¶İ‚·‚é‚±‚Æ
+	//note:å‰ææ¡ä»¶ DBã«æ›´æ–°å¯¾è±¡ã®ãƒ¬ã‚³ãƒ¼ãƒ‰ãŒå­˜åœ¨ã™ã‚‹ã“ã¨
 	UpdateQueueLock.Lock();
 	{
 		O2DatRec rec;
@@ -1264,7 +1264,7 @@ void
 O2DatDB::
 StartUpdateThread(void)
 {
-	Logger->AddLog(O2LT_INFO, L"UpdateThread", 0, 0, L"ŠJn");
+	Logger->AddLog(O2LT_INFO, L"UpdateThread", 0, 0, L"é–‹å§‹");
 	if (UpdateThreadHandle)
 		return;
 
@@ -1277,7 +1277,7 @@ void
 O2DatDB::
 StopUpdateThread(void)
 {
-	Logger->AddLog(O2LT_INFO, L"UpdateThread", 0, 0, L"’â~");
+	Logger->AddLog(O2LT_INFO, L"UpdateThread", 0, 0, L"åœæ­¢");
 	if (!UpdateThreadHandle)
 		return;
 	UpdateThreadLoop = false;

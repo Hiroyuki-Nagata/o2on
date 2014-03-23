@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.s69.xrea.com/
  */
 
@@ -59,7 +59,7 @@ Start(void)
 	if (Active) {
 		if (Logger) {
 			Logger->AddLog(O2LT_WARNING, MODULE, 0, 0,
-				L"‹N“®Ï‚Ì‚½‚ß‹N“®—v‹‚ğ–³‹");
+				L"èµ·å‹•æ¸ˆã®ãŸã‚èµ·å‹•è¦æ±‚ã‚’ç„¡è¦–");
 		}
 		return false;
 	}
@@ -71,14 +71,14 @@ Start(void)
 	if (servicecount == 0 && !Agent_GetGlobalIP) {
 		if (Logger) {
 			Logger->AddLog(O2LT_ERROR, MODULE, 0, 0,
-				L"ƒT[ƒrƒX‚ª–³‚¢‚½‚ß‹N“®‚É¸”s");
+				L"ã‚µãƒ¼ãƒ“ã‚¹ãŒç„¡ã„ãŸã‚èµ·å‹•ã«å¤±æ•—");
 		}
 		return false;
 	}
 	if (!Agent_GetGlobalIP) {
 		if (Logger) {
 			Logger->AddLog(O2LT_ERROR, MODULE, 0, 0,
-				L"Agent_GetGlobalIP‚ª–³‚¢‚½‚ß‹N“®‚É¸”s");
+				L"Agent_GetGlobalIPãŒç„¡ã„ãŸã‚èµ·å‹•ã«å¤±æ•—");
 		}
 		return false;
 	}
@@ -120,7 +120,7 @@ O2Agent::
 Restart(void)
 {
 	if (Logger)
-		Logger->AddLog(O2LT_INFO, MODULE, 0, 0, L"Ä‹N“®...");
+		Logger->AddLog(O2LT_INFO, MODULE, 0, 0, L"å†èµ·å‹•...");
 	if (!Stop())
 		return false;
 	if (!Start())
@@ -151,7 +151,7 @@ AddService(O2AgentService *as)
 
 	if (Logger) {
 		Logger->AddLog(O2LT_INFO, MODULE, 0, 0,
-			L"ƒT[ƒrƒX’Ç‰Á(%s)", as->GetName());
+			L"ã‚µãƒ¼ãƒ“ã‚¹è¿½åŠ (%s)", as->GetName());
 	}
 
 	return true;
@@ -166,7 +166,7 @@ AddService_GetGlobalIP(O2AgentService *as)
 
 	if (Logger) {
 		Logger->AddLog(O2LT_INFO, MODULE, 0, 0,
-			L"ƒT[ƒrƒX’Ç‰Á(%s)", as->GetName());
+			L"ã‚µãƒ¼ãƒ“ã‚¹è¿½åŠ (%s)", as->GetName());
 	}
 
 	return true;
@@ -241,7 +241,7 @@ LaunchThread(void)
 	Agent_GetGlobalIP->OnServiceStart();
 
 	if (Logger)
-		Logger->AddLog(O2LT_INFO, MODULE, L"ƒG[ƒWƒFƒ“ƒg³í‹N“®");
+		Logger->AddLog(O2LT_INFO, MODULE, L"ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆæ­£å¸¸èµ·å‹•");
 
 	time_t prevconnecttime = time(NULL);
 	uint index = 0;
@@ -251,11 +251,11 @@ LaunchThread(void)
 		index %= Services.size();
 
 		/*
-		 *	ƒEƒFƒCƒgˆ—
+		 *	ã‚¦ã‚§ã‚¤ãƒˆå‡¦ç†
 		 */
 		if (NodeDB->Count() == 0) {
 #if DEBUG_THREADLOOP && defined(_DEBUG)
-			TRACEA("¡Node 0\n");
+			TRACEA("â– Node 0\n");
 #endif
 			Sleep(1000);
 			continue;
@@ -269,7 +269,7 @@ LaunchThread(void)
 #endif
 			if (Agent_GetGlobalIP->IsActive()) {
 				;
-				//ƒOƒ[ƒoƒ‹IP–¢Šm’è‚Ì‚Æ‚«‚Í‹}‚®
+				//ã‚°ãƒ­ãƒ¼ãƒãƒ«IPæœªç¢ºå®šã®ã¨ãã¯æ€¥ã
 			}
 			else {
 				if (sleeptime_ms < 1000)
@@ -281,14 +281,14 @@ LaunchThread(void)
 		}
 
 		/*
-		 *	ƒT[ƒrƒX‹N“®
+		 *	ã‚µãƒ¼ãƒ“ã‚¹èµ·å‹•
 		 */
 		O2AgentService *service = Services[index];
-		if (Agent_GetGlobalIP->IsActive())	//ƒOƒ[ƒoƒ‹IP–¢Œˆ’è‚Ì‚Æ‚«
-			service = Agent_GetGlobalIP;	//‹­§“I‚ÉAgent_GetGlobalIP‹N“®
+		if (Agent_GetGlobalIP->IsActive())	//ã‚°ãƒ­ãƒ¼ãƒãƒ«IPæœªæ±ºå®šã®ã¨ã
+			service = Agent_GetGlobalIP;	//å¼·åˆ¶çš„ã«Agent_GetGlobalIPèµ·å‹•
 
 #if DEBUG_SESSION_COUNT && defined(_DEBUG)
-		wchar_t abc[256]; swprintf(abc, L"œ count:%d  limit:%d  %s\n",
+		wchar_t abc[256]; swprintf(abc, L"â— count:%d  limit:%d  %s\n",
 			service->GetSessionCount(), service->GetSessionLimit(), service->GetName());
 		TRACEW(abc);
 #endif
@@ -310,8 +310,8 @@ LaunchThread(void)
 		ushort port;
 		wstring ipstr;
 
-		//Ú‘±æƒm[ƒhŒˆ’è
-		//Ú‘± TODO:ƒNƒ‰ƒXƒ^ƒŠƒ“ƒO
+		//æ¥ç¶šå…ˆãƒãƒ¼ãƒ‰æ±ºå®š
+		//æ¥ç¶š TODO:ã‚¯ãƒ©ã‚¹ã‚¿ãƒªãƒ³ã‚°
 		if (service->HaveNodeDecision()) {
 			service->OnLaunch(ss);
 			if (!ss->IsActive()) {
@@ -325,7 +325,7 @@ LaunchThread(void)
 		else if (!NodeDB->GetNodeByPriority(ip, port)) {
 			if (Logger) {
 				Logger->AddLog(O2LT_WARNING, MODULE,
-					L"—LŒø‚Èƒm[ƒhî•ñ‚ª–³‚¢‚Ì‚ÅÚ‘±•s‰Â(%s)",
+					L"æœ‰åŠ¹ãªãƒãƒ¼ãƒ‰æƒ…å ±ãŒç„¡ã„ã®ã§æ¥ç¶šä¸å¯(%s)",
 					service->GetName());
 			}
 			delete ss;
@@ -340,7 +340,7 @@ LaunchThread(void)
 			addr.S_un.S_addr = ip;
 			if (Logger) {
 				Logger->AddLog(O2LT_WARNING, MODULE,
-					"©ƒm[ƒhî•ñ”jŠü IP: %s Port: %d",
+					"è‡ªãƒãƒ¼ãƒ‰æƒ…å ±ç ´æ£„ IP: %s Port: %d",
 					inet_ntoa(addr), port);
 			}
 #endif
@@ -358,12 +358,12 @@ LaunchThread(void)
 #endif
 		
 		/*
-		 *	Socket¶¬
+		 *	Socketç”Ÿæˆ
 		 */
 		ss->sock = socket(AF_INET, SOCK_STREAM, 0);
 		if (ss->sock == INVALID_SOCKET) {
 			if (Logger)
-				Logger->AddLog(O2LT_ERROR, MODULE, L"ƒ\ƒPƒbƒg¶¬‚É¸”s");
+				Logger->AddLog(O2LT_ERROR, MODULE, L"ã‚½ã‚±ãƒƒãƒˆç”Ÿæˆã«å¤±æ•—");
 			delete ss;
 			index++;
 			continue;
@@ -383,7 +383,7 @@ LaunchThread(void)
 			NodeDB->IncrementErrorCount(ip, 1);
 			if (Logger) {
 				Logger->AddLog(O2LT_NET, MODULE,
-					L"connect¸”s(%s %s:%d)",
+					L"connectå¤±æ•—(%s %s:%d)",
 					service->GetName(), ipstr.c_str(), port);
 			}
 			closesocket(ss->sock);
@@ -418,13 +418,13 @@ LaunchThread(void)
 		index++;
 		
 #if DEBUG_SESSION_COUNT && defined(_DEBUG)
-		swprintf(abc, L"œœ count:%d  limit:%d  %s\n",
+		swprintf(abc, L"â—â— count:%d  limit:%d  %s\n",
 			service->GetSessionCount(), service->GetSessionLimit(), service->GetName());
 		TRACEW(abc);
 #endif
 		if (Logger) {
 			Logger->AddLog(O2LT_NET, MODULE,
-				L"connect¬Œ÷ (%s %s:%d)",
+				L"connectæˆåŠŸ (%s %s:%d)",
 				service->GetName(), ipstr.c_str(), port);
 		}
 	}
@@ -443,7 +443,7 @@ LaunchThread(void)
 	}
 
 	if (Logger)
-		Logger->AddLog(O2LT_INFO, MODULE, L"ƒG[ƒWƒFƒ“ƒg³íI—¹");
+		Logger->AddLog(O2LT_INFO, MODULE, L"ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆæ­£å¸¸çµ‚äº†");
 	return (0);
 }
 
@@ -515,7 +515,7 @@ NetIOThread(void)
 		select(0, &readfds, &writefds, NULL, &tv);
 
 		//
-		//	Šù‘¶ƒZƒbƒVƒ‡ƒ“‚Æ‚Ì‘—óM
+		//	æ—¢å­˜ã‚»ãƒƒã‚·ãƒ§ãƒ³ã¨ã®é€å—ä¿¡
 		//
 		Lock();
 		ssit = sss.begin();
@@ -568,7 +568,7 @@ NetIOThread(void)
 					else if ((lasterror = WSAGetLastError()) != WSAEWOULDBLOCK) {
 						if (Logger) {
 							Logger->AddLog(O2LT_NET, MODULE,
-								L"‘—MƒGƒ‰[(%d) (%s %s:%d %dbyte)",
+								L"é€ä¿¡ã‚¨ãƒ©ãƒ¼(%d) (%s %s:%d %dbyte)",
 								lasterror, service->GetName(), ipstr.c_str(), port, ss->sbuff.size());
 						}
 						ss->SetActive(false);
@@ -597,7 +597,7 @@ NetIOThread(void)
 				else if (n == 0) {
 					if (Logger) {
 						Logger->AddLog(O2LT_NET, MODULE,
-							L"óM0 (%s %s:%d)",
+							L"å—ä¿¡0 (%s %s:%d)",
 								service->GetName(), ipstr.c_str(), port);
 					}
 					ss->SetActive(false);
@@ -606,7 +606,7 @@ NetIOThread(void)
 				else if ((lasterror = WSAGetLastError()) != WSAEWOULDBLOCK) {
 					if (Logger) {
 						Logger->AddLog(O2LT_NET, MODULE,
-						L"óMƒGƒ‰[(%d) (%s %s:%d %dbyte)",
+						L"å—ä¿¡ã‚¨ãƒ©ãƒ¼(%d) (%s %s:%d %dbyte)",
 						lasterror, service->GetName(), ipstr.c_str(), port, ss->rbuff.size());
 					}
 					ss->SetActive(false);
@@ -634,7 +634,7 @@ NetIOThread(void)
 
 					if (Logger) {
 						Logger->AddLog(O2LT_WARNING, MODULE,
-							L"•s³ƒf[ƒ^óM (ƒm[ƒhíœ: %s:%d)",
+							L"ä¸æ­£ãƒ‡ãƒ¼ã‚¿å—ä¿¡ (ãƒãƒ¼ãƒ‰å‰Šé™¤: %s:%d)",
 							ipstr.c_str(), htons(ss->sin.sin_port));
 					}
 
@@ -648,7 +648,7 @@ NetIOThread(void)
 					}
 				}
 #if DEBUG_SESSION_COUNT && defined(_DEBUG)
-				wchar_t abc[256]; swprintf(abc, L"¡¡íœ¡¡ count:%d  limit:%d  %s\n",
+				wchar_t abc[256]; swprintf(abc, L"â– â– å‰Šé™¤â– â–  count:%d  limit:%d  %s\n",
 					service->GetSessionCount(), service->GetSessionLimit(), service->GetName());
 				TRACEW(abc);
 #endif
@@ -698,9 +698,9 @@ connect2(SOCKET s, const struct sockaddr *name, int namelen, int timeout)
 	if (!err && connect(s, name, namelen) == SOCKET_ERROR) {
 		if (WSAGetLastError() != WSAEWOULDBLOCK)
 			err = true;
-		//”ñƒuƒƒbƒLƒ“ƒO‚Åconnect‚µ‚½ê‡A’Êí‚ÍSOCKET_ERROR‚É‚È‚è
-		//WSAGetLastError() == WSAEWOULDBLOCK‚ª•Ô‚Á‚Ä‚­‚éB
-		//‚»‚êˆÈŠO‚ÌƒGƒ‰[‚Í–{“–‚Éconnect¸”s
+		//éãƒ–ãƒ­ãƒƒã‚­ãƒ³ã‚°ã§connectã—ãŸå ´åˆã€é€šå¸¸ã¯SOCKET_ERRORã«ãªã‚Š
+		//WSAGetLastError() == WSAEWOULDBLOCKãŒè¿”ã£ã¦ãã‚‹ã€‚
+		//ãã‚Œä»¥å¤–ã®ã‚¨ãƒ©ãƒ¼ã¯æœ¬å½“ã«connectå¤±æ•—
 	}
 	else
 		err = true;

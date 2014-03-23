@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -27,7 +27,7 @@
 
 /*
  *	O2Boards()
- *	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+ *	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
  */
 O2Boards::
 O2Boards(O2Logger *lgr, O2Profile *profile, O2Client *client, const wchar_t *path, const wchar_t *expath)
@@ -45,7 +45,7 @@ O2Boards(O2Logger *lgr, O2Profile *profile, O2Client *client, const wchar_t *pat
 
 /*
  *	~O2Boards()
- *	ƒfƒXƒgƒ‰ƒNƒ^
+ *	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
  */
 O2Boards::
 ~O2Boards()
@@ -78,7 +78,7 @@ host2domain(const wchar_t *host)
 
 /*
  *	Get()
- *	URL‚©‚çæ“¾
+ *	URLã‹ã‚‰å–å¾—
  */
 uint
 O2Boards::
@@ -210,7 +210,7 @@ Update(const wchar_t *html)
 		regex = L"^<BR><BR><B>([^<]+)</B>";
 		if (boost::regex_search(line, m, regex)) {
 			category = m.str(1);
-			if (category == L"‚¨‚·‚·‚ß" || category == L"“Á•ÊŠé‰æ")
+			if (category == L"ãŠã™ã™ã‚" || category == L"ç‰¹åˆ¥ä¼ç”»")
 				category.erase();
 		}
 	}
@@ -613,7 +613,7 @@ MakeBBSMenuXML(string &out, O2DatDB *db)
 
 	//
 	xml += L"<category>"EOL;
-	xml_AddElement(xml, L"categoryname", NULL, L"•s–¾");
+	xml_AddElement(xml, L"categoryname", NULL, L"ä¸æ˜");
 	for (nmit = nummap.begin(); nmit != nummap.end(); nmit++) {
 		wsplit(nmit->first.c_str(), L":", token);
 		xml += L"<board>"EOL;
@@ -640,7 +640,7 @@ MakeBBSMenuXML(string &out, O2DatDB *db)
 
 // ---------------------------------------------------------------------------
 //	Save()
-//	2channel.brdŒ`®‚Åƒtƒ@ƒCƒ‹‚É•Û‘¶
+//	2channel.brdå½¢å¼ã§ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜
 // ---------------------------------------------------------------------------
 bool
 O2Boards::
@@ -697,7 +697,7 @@ Save(void)
 
 // ---------------------------------------------------------------------------
 //	SaveEx()
-//	“Æ©‚Ìî•ñ‚ğ•Êƒtƒ@ƒCƒ‹‚É•Û‘¶
+//	ç‹¬è‡ªã®æƒ…å ±ã‚’åˆ¥ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜
 // ---------------------------------------------------------------------------
 bool
 O2Boards::
@@ -744,7 +744,7 @@ SaveEx(void)
 
 // ---------------------------------------------------------------------------
 //	Load()
-//	2channel.brdŒ`®‚Ìƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İ‚Ş
+//	2channel.brdå½¢å¼ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿è¾¼ã‚€
 // ---------------------------------------------------------------------------
 bool
 O2Boards::
@@ -827,7 +827,7 @@ Load(const wchar_t *fn)
 
 // ---------------------------------------------------------------------------
 //	LoadEx()
-//	“Æ©‚Ìî•ñ‚ğ•Êƒtƒ@ƒCƒ‹‚©‚ç“Ç‚Ş
+//	ç‹¬è‡ªã®æƒ…å ±ã‚’åˆ¥ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã‚€
 // ---------------------------------------------------------------------------
 bool
 O2Boards::

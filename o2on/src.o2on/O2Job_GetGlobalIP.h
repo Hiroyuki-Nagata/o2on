@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -65,7 +65,7 @@ public:
 			it->lastlink = 0;
 			it->reset();
 
-			// PING”­s
+			// PINGç™ºè¡Œ
 			O2SocketSession ss;
 			ss.ip = it->ip;
 			ss.port = it->port;
@@ -77,7 +77,7 @@ public:
 
 			HTTPHeader *header = (HTTPHeader*)ss.data;
 			if (CheckResponse(&ss, header, NodeDB, *it)) {
-				// ƒOƒ[ƒoƒ‹IPŠm’è
+				// ã‚°ãƒ­ãƒ¼ãƒãƒ«IPç¢ºå®š
 				if (Profile->GetIP() == 0) {
 					ulong globalIP = e2ip(&ss.rbuff[header->length], 8);
 					Profile->SetIP(globalIP);
@@ -86,7 +86,7 @@ public:
 					wstring ipstr;
 					ulong2ipstr(globalIP, ipstr);
 					Logger->AddLog(O2LT_INFO, L"Job", 0, 0,
-						L"ƒOƒ[ƒoƒ‹IPŠm’è (%s)", ipstr.c_str());
+						L"ã‚°ãƒ­ãƒ¼ãƒãƒ«IPç¢ºå®š (%s)", ipstr.c_str());
 
 					NodeDB->touch(*it);
 				}
@@ -98,7 +98,7 @@ public:
 			Sleep(1000);
 		}
 
-		// ¬Œ÷‚µ‚½‚ç‚â‚ß
+		// æˆåŠŸã—ãŸã‚‰ã‚„ã‚
 		if (Profile->GetIP() != 0)
 			SetActive(false);
 	}

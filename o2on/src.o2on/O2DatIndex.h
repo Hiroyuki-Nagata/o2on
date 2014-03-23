@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.s69.xrea.com/
  */
 
@@ -23,13 +23,13 @@
 
 // ---------------------------------------------------------------------------
 //	O2DatIndexRecord
-//	ŠeƒTƒuƒfƒBƒŒƒNƒgƒŠ‚Éì‚é.indexƒtƒ@ƒCƒ‹‚ÌƒŒƒR[ƒh’è‹`
+//	å„ã‚µãƒ–ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«ä½œã‚‹.indexãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ¬ã‚³ãƒ¼ãƒ‰å®šç¾©
 //
-//	—p“rF
-//	EdatŽ©‘Ì‚ÉŠÜ‚Ü‚ê‚È‚¢î•ñ‚ð•Û‘¶‚·‚é
-//	Edat‚ÌƒL[î•ñ‚ð‚‘¬‚É•œŒ³‚·‚é‚½‚ß‚Ìî•ñ‚ð•Û‘¶‚·‚é
+//	ç”¨é€”ï¼š
+//	ãƒ»datè‡ªä½“ã«å«ã¾ã‚Œãªã„æƒ…å ±ã‚’ä¿å­˜ã™ã‚‹
+//	ãƒ»datã®ã‚­ãƒ¼æƒ…å ±ã‚’é«˜é€Ÿã«å¾©å…ƒã™ã‚‹ãŸã‚ã®æƒ…å ±ã‚’ä¿å­˜ã™ã‚‹
 //
-//	¦ƒAƒ‰ƒCƒƒ“ƒg‚ðl—¶‚µ‚ÄÝŒv‚·‚é‚±‚Æ
+//	â€»ã‚¢ãƒ©ã‚¤ãƒ¡ãƒ³ãƒˆã‚’è€ƒæ…®ã—ã¦è¨­è¨ˆã™ã‚‹ã“ã¨
 // ---------------------------------------------------------------------------
 
 struct O2DatIndexRecord {
@@ -54,14 +54,14 @@ typedef O2DatIndexRecordList::iterator O2DatIndexRecordListIt;
 
 // ---------------------------------------------------------------------------
 //	O2RootIndexRecord
-//	ƒLƒƒƒbƒVƒ…ƒ‹[ƒg‚Éì‚é.indexƒtƒ@ƒCƒ‹‚ÌƒŒƒR[ƒh’è‹`
+//	ã‚­ãƒ£ãƒƒã‚·ãƒ¥ãƒ«ãƒ¼ãƒˆã«ä½œã‚‹.indexãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ¬ã‚³ãƒ¼ãƒ‰å®šç¾©
 //
-//	—p“rF
-//	EƒTƒuƒfƒBƒŒƒNƒgƒŠ‚ÌƒpƒX‚ð•Û‘¶‚·‚é
-//	EƒTƒuƒfƒBƒŒƒNƒgƒŠ–ˆ‚Ìdat”AdatƒTƒCƒY‚à•Û‘¶‚·‚éB‹N“®Žž‚‘¬‚É•œŒ³‚·‚é‚½‚ß
-//	EŽÀs’†‚Íƒƒ‚ƒŠ“à‚ÉŽ‚ÂBI—¹Žž‚É•Û‘¶
+//	ç”¨é€”ï¼š
+//	ãƒ»ã‚µãƒ–ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ãƒ‘ã‚¹ã‚’ä¿å­˜ã™ã‚‹
+//	ãƒ»ã‚µãƒ–ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªæ¯Žã®datæ•°ã€datã‚µã‚¤ã‚ºã‚‚ä¿å­˜ã™ã‚‹ã€‚èµ·å‹•æ™‚é«˜é€Ÿã«å¾©å…ƒã™ã‚‹ãŸã‚
+//	ãƒ»å®Ÿè¡Œä¸­ã¯ãƒ¡ãƒ¢ãƒªå†…ã«æŒã¤ã€‚çµ‚äº†æ™‚ã«ä¿å­˜
 //
-//	¦ƒAƒ‰ƒCƒƒ“ƒg‚ðl—¶‚µ‚ÄÝŒv‚·‚é‚±‚Æ
+//	â€»ã‚¢ãƒ©ã‚¤ãƒ¡ãƒ³ãƒˆã‚’è€ƒæ…®ã—ã¦è¨­è¨ˆã™ã‚‹ã“ã¨
 // ---------------------------------------------------------------------------
 
 struct O2RootIndexRecord {
@@ -80,8 +80,8 @@ typedef O2IndexMap::iterator O2IndexMapIt;
 
 // ---------------------------------------------------------------------------
 //	O2OffsetMap
-//	E[ƒL[ƒnƒbƒVƒ…] - [indexƒtƒ@ƒCƒ‹–¼,ƒtƒ@ƒCƒ‹“àƒIƒtƒZƒbƒg] ‚Ìƒ}ƒbƒv
-//	Eƒƒ‚ƒŠ“à‚ÉŽ‚Â
+//	ãƒ»[ã‚­ãƒ¼ãƒãƒƒã‚·ãƒ¥] - [indexãƒ•ã‚¡ã‚¤ãƒ«å,ãƒ•ã‚¡ã‚¤ãƒ«å†…ã‚ªãƒ•ã‚»ãƒƒãƒˆ] ã®ãƒžãƒƒãƒ—
+//	ãƒ»ãƒ¡ãƒ¢ãƒªå†…ã«æŒã¤
 // ---------------------------------------------------------------------------
 
 struct O2IndexFileOffset {

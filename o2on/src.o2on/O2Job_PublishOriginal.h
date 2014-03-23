@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -85,19 +85,19 @@ public:
 		
 		hashListT hashlist;
 		hashListTIt hit;
-		// Š—Ldat‚ÌƒL[‚ğpublish
+		// æ‰€æœ‰datã®ã‚­ãƒ¼ã‚’publish
 		if (DatIO->GetLocalFileKeys(keylist, PUBLISH_ORIGINAL_TT, PUBLISHNUM_PER_THREAD) > 0) {
 			Publish(keylist, "dat", hashlist);
-			//PublishŠÖ”‚©‚ç•Ô‹p‚³‚ê‚éƒŠƒXƒg‚ÌƒnƒbƒVƒ…‚Íd•¡‚µ‚Ä‚¢‚é‚Ì‚Åˆê‚Â‚É‚Ü‚Æ‚ß‚éB
+			//Publishé–¢æ•°ã‹ã‚‰è¿”å´ã•ã‚Œã‚‹ãƒªã‚¹ãƒˆã®ãƒãƒƒã‚·ãƒ¥ã¯é‡è¤‡ã—ã¦ã„ã‚‹ã®ã§ä¸€ã¤ã«ã¾ã¨ã‚ã‚‹ã€‚
 			hashlist.sort();
 			hashlist.unique();
 			for (hit = hashlist.begin(); hit != hashlist.end(); hit++) {
-				DatDB->AddUpdateQueue(*hit); //lastpublishXV
+				DatDB->AddUpdateQueue(*hit); //lastpublishæ›´æ–°
 			}
 			hashlist.clear();
 		}
 
-		// íœˆË—Š‚ÌƒL[‚ğpublish
+		// å‰Šé™¤ä¾é ¼ã®ã‚­ãƒ¼ã‚’publish
 		if (SakuDB->GetKeyList(keylist, time(NULL)-PUBLISH_ORIGINAL_TT) > 0) {
 			for (kit = keylist.begin(); kit != keylist.end(); kit++) {
 				Profile->GetID(kit->nodeid);
@@ -106,7 +106,7 @@ public:
 			}
 			Publish(keylist, "saku", hashlist);
 			for (hit = hashlist.begin(); hit != hashlist.end(); hit++) {
-				SakuDB->SetDate(*hit, time(NULL)); //dateXV
+				SakuDB->SetDate(*hit, time(NULL)); //dateæ›´æ–°
 			}
 			hashlist.clear();
 		}
@@ -154,7 +154,7 @@ delete sw;
 			node.lastlink = 0;
 			node.reset();
 
-			// STORE”­s
+			// STOREç™ºè¡Œ
 			O2SocketSession ss;
 			ss.ip = node.ip;
 			ss.port = node.port;
@@ -182,17 +182,17 @@ delete sw;
 		O2NodeDB::NodeListT::iterator it;
 		for (it = proceededNodes.begin(); it != proceededNodes.end() && IsActive(); it++) {
 			if (it->lastlink) {
-				// ¬Œ÷‚µ‚½ƒm[ƒh‚ğtouch
+				// æˆåŠŸã—ãŸãƒãƒ¼ãƒ‰ã‚’touch
 				NodeDB->touch(*it);
 			}
 			else {
-				// ¸”s‚µ‚½ƒm[ƒh‚ğremove
+				// å¤±æ•—ã—ãŸãƒãƒ¼ãƒ‰ã‚’remove
 				NodeDB->remove(*it);
 				KeyDB->DeleteKeyByNodeID(it->id);
 			}
 		}
 #if 0
-		// Š—Ldat‚ÌƒL[‚Åƒ‹[ƒv
+		// æ‰€æœ‰datã®ã‚­ãƒ¼ã§ãƒ«ãƒ¼ãƒ—
 		O2KeyListIt it;
 		for (it = keylist.begin(); it != keylist.end() && IsActive(); it++) {
 			string xml;
@@ -209,14 +209,14 @@ delete sw;
 			if (NodeDB->neighbors(it->hash, neighbors, false) == 0)
 				break;
 
-			// ƒL[‚Ì‹ß—×ƒm[ƒh‚Åƒ‹[ƒv
+			// ã‚­ãƒ¼ã®è¿‘éš£ãƒãƒ¼ãƒ‰ã§ãƒ«ãƒ¼ãƒ—
 			uint publishcount = 0;
 			size_t i;
 			for (i = 0; i < neighbors.size() && publishcount < 2 && IsActive(); i++) {
 				neighbors[i].lastlink = 0;
 				neighbors[i].reset();
 
-				// STORE”­s
+				// STOREç™ºè¡Œ
 				O2SocketSession ss;
 				ss.ip = neighbors[i].ip;
 				ss.port = neighbors[i].port;
@@ -240,11 +240,11 @@ delete sw;
 
 			for (i = 0; i < n && IsActive(); i++) {
 				if (neighbors[i].lastlink) {
-					// ¬Œ÷‚µ‚½ƒm[ƒh‚ğtouch
+					// æˆåŠŸã—ãŸãƒãƒ¼ãƒ‰ã‚’touch
 					NodeDB->touch(neighbors[i]);
 				}
 				else {
-					// ¸”s‚µ‚½ƒm[ƒh‚ğremove
+					// å¤±æ•—ã—ãŸãƒãƒ¼ãƒ‰ã‚’remove
 					NodeDB->remove(neighbors[i]);
 					KeyDB->DeleteKeyByNodeID(neighbors[i].id);
 				}

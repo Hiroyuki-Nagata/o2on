@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -374,7 +374,7 @@ Save(const wchar_t *filename)
 	File f;
 	if (!f.open(filename, MODE_W)) {
 		if (Logger)
-			Logger->AddLog(O2LT_ERROR, MODULE, 0, 0, L"ƒtƒ@ƒCƒ‹‚ğŠJ‚¯‚Ü‚¹‚ñ(%s)", filename);
+			Logger->AddLog(O2LT_ERROR, MODULE, 0, 0, L"ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã‘ã¾ã›ã‚“(%s)", filename);
 		return false;
 	}
 	f.write((void*)&out[0], out.size());

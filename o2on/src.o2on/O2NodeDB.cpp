@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -54,7 +54,7 @@ O2NodeDB::
 touch_preprocessor(O2Node &node)
 {
  	if (wcscmp(node.app_name.c_str(), _T(APP_NAME)) == 0) {
-		// “¯‚¶ƒAƒvƒŠ‚È‚çƒo[ƒWƒ‡ƒ“”Ô†‚ğ”äŠr
+		// åŒã˜ã‚¢ãƒ—ãƒªãªã‚‰ãƒãƒ¼ã‚¸ãƒ§ãƒ³ç•ªå·ã‚’æ¯”è¼ƒ
 		wchar_t tmpW[64];
 		swprintf_s(tmpW, 64, L"%1d.%02d.%04d", APP_VER_MAJOR, APP_VER_MINOR, APP_BUILDNO);
 
@@ -90,7 +90,7 @@ AddEncodedNode(const char *in, size_t len)
 	size_t totaladd = 0;
 	string str(in, len);
 
-	// 1s–ˆ‚Éˆ—
+	// 1è¡Œæ¯ã«å‡¦ç†
 	size_t pos = 0;
 	while (pos < str.size()) {
 		size_t lf = str.find_first_of(" \t\r\n", pos);
@@ -183,7 +183,7 @@ Save(const wchar_t *filename)
 	File f;
 	if (!f.open(filename, MODE_W)) {
 		if (Logger)
-			Logger->AddLog(O2LT_ERROR, MODULE, 0, 0, L"ƒtƒ@ƒCƒ‹‚ğŠJ‚¯‚Ü‚¹‚ñ(%s)", filename);
+			Logger->AddLog(O2LT_ERROR, MODULE, 0, 0, L"ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã‘ã¾ã›ã‚“(%s)", filename);
 		return false;
 	}
 	f.write((void*)&out[0], out.size());

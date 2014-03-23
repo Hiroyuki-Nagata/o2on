@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -300,7 +300,7 @@ public:
 	bool ExportToXML(const O2ProfileSelectCondition cond, string &out);
 	bool ImportFromXML(const wchar_t *filename, const char *in, uint len);
 
-	// ƒƒ“ƒo‚ª‘½‚·‚¬‚é‚Ì‚Åfriend‚É‚µ‚Ä‚µ‚Ü‚¨‚¤
+	// ãƒ¡ãƒ³ãƒãŒå¤šã™ãã‚‹ã®ã§friendã«ã—ã¦ã—ã¾ãŠã†
 	friend O2Profile_SAX2Handler;
 };
 

@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -214,7 +214,7 @@ time_t datetime2time_t(const wchar_t *in, int len)
 	//1994-11-05T08:15:30-05:00
 	//1994-11-05T13:15:30Z
 	//
-	//YYYY-MM-DDThh:mm:ssTZD ‚Ì‚İ‘Î‰
+	//YYYY-MM-DDThh:mm:ssTZD ã®ã¿å¯¾å¿œ
 	//
 	static wchar_t delim[] = {L"+-:.TZ"};
 	struct tm tms = {0};
@@ -287,7 +287,7 @@ void time_t2datetime(time_t in, long tzoffset, wstring &out)
 	//1994-11-05T08:15:30-05:00
 	//1994-11-05T13:15:30Z
 	//
-	//YYYY-MM-DDThh:mm:ssTZD ‚Ì‚İ‘Î‰
+	//YYYY-MM-DDThh:mm:ssTZD ã®ã¿å¯¾å¿œ
 	//
 	time_t t = in + tzoffset;
 
@@ -316,8 +316,8 @@ time_t filetime2time_t(const FILETIME &ft)
 	time_t t64 = ((_int64)ft.dwHighDateTime << 32) | (_int64)ft.dwLowDateTime;
 	t64 = (t64 - 116444736000000000)/10000000;
 	return (t64);
-	//	VC8‚Ítime_tŒ^‚Í64bit‚È‚Ì‚Åã‹L•û–@‚ÅOK
-	//	time_t=32bit‚ÈƒRƒ“ƒpƒCƒ‰‚Ìê‡‚Í’ˆÓ
+	//	VC8ã¯time_tå‹ã¯64bitãªã®ã§ä¸Šè¨˜æ–¹æ³•ã§OK
+	//	time_t=32bitãªã‚³ãƒ³ãƒ‘ã‚¤ãƒ©ã®å ´åˆã¯æ³¨æ„
 }
 
 void time_t2filetime(time_t t, FILETIME &ft)
@@ -603,32 +603,32 @@ bool is_globalIP(ulong ip)
 {
 	ulong ipL = htonl(ip);
 	if ((ipL & 0xff000000) == 0x7f000000) { //loopback
-		TRACEA("–––––– 127.xxx.xxx.xxx ––––––\n");
+		TRACEA("ï¼Šï¼Šï¼Šï¼Šï¼Šï¼Š 127.xxx.xxx.xxx ï¼Šï¼Šï¼Šï¼Šï¼Šï¼Š\n");
 		return false;
 	}
 	if ((ipL & 0x000000ff) == 0x00000000) { //network
-		TRACEA("–––––– xxx.xxx.xxx.0 ––––––\n");
+		TRACEA("ï¼Šï¼Šï¼Šï¼Šï¼Šï¼Š xxx.xxx.xxx.0 ï¼Šï¼Šï¼Šï¼Šï¼Šï¼Š\n");
 		return false;
 	}
 	if ((ipL & 0x000000ff) == 0x000000ff) { //broadcast
-		TRACEA("–––––– xxx.xxx.xxx.255 ––––––\n");
+		TRACEA("ï¼Šï¼Šï¼Šï¼Šï¼Šï¼Š xxx.xxx.xxx.255 ï¼Šï¼Šï¼Šï¼Šï¼Šï¼Š\n");
 		return false;
 	}
 #if !defined(_DEBUG)
 	if ((ipL & 0xffff0000) == 0xc0a80000) { //class C
-		TRACEA("–––––– class C ––––––\n");
+		TRACEA("ï¼Šï¼Šï¼Šï¼Šï¼Šï¼Š class C ï¼Šï¼Šï¼Šï¼Šï¼Šï¼Š\n");
 		return false;
 	}
 	if ((ipL & 0xfff00000) == 0xac100000) { //class B
-		TRACEA("–––––– class B ––––––\n");
+		TRACEA("ï¼Šï¼Šï¼Šï¼Šï¼Šï¼Š class B ï¼Šï¼Šï¼Šï¼Šï¼Šï¼Š\n");
 		return false;
 	}
 	if ((ipL & 0xff000000) == 0x0a000000) { //class A
-		TRACEA("–––––– class A ––––––\n");
+		TRACEA("ï¼Šï¼Šï¼Šï¼Šï¼Šï¼Š class A ï¼Šï¼Šï¼Šï¼Šï¼Šï¼Š\n");
 		return false;
 	}
 #else
-#pragma message("””””” IPƒ`ƒFƒbƒN‚ªƒIƒt‚É‚È‚Á‚Ä‚é‚æIII ”””””")
+#pragma message("ï¼ƒï¼ƒï¼ƒï¼ƒï¼ƒ IPãƒã‚§ãƒƒã‚¯ãŒã‚ªãƒ•ã«ãªã£ã¦ã‚‹ã‚ˆï¼ï¼ï¼ ï¼ƒï¼ƒï¼ƒï¼ƒï¼ƒ")
 #endif
 	return true;
 }
@@ -643,18 +643,18 @@ bool is_globalIP(ulong ip)
 
 bool ToUnicode(const wchar_t *charset, const char *in, const uint len, wstring &out)
 {
-	//IMultiLanguage¶¬
+	//IMultiLanguageç”Ÿæˆ
 	IMultiLanguage2 *lang = NULL;
 	HRESULT hr = CoCreateInstance(CLSID_CMultiLanguage, NULL,
 		CLSCTX_ALL, IID_IMultiLanguage2, (LPVOID*)&lang);
 
 	assert(SUCCEEDED(hr));
-	//Charsetî•ñæ“¾
+	//Charsetæƒ…å ±å–å¾—
 	MIMECSETINFO csetinfo;
 	if (SUCCEEDED(hr))
 		hr = lang->GetCharsetInfo(const_cast<wchar_t*>(charset), &csetinfo);
 
-	//•ÏŠ·Œã‚Ì•¶š’·‚ğæ“¾
+	//å¤‰æ›å¾Œã®æ–‡å­—é•·ã‚’å–å¾—
 	DWORD pdwMode = 0;
 	UINT inlen = len;
 	UINT outlen = 0;
@@ -683,18 +683,18 @@ bool ToUnicode(const wchar_t *charset, const char *in, const uint len, wstring &
 
 bool FromUnicode(const wchar_t *charset, const wchar_t *in, uint len, string &out)
 {
-	//IMultiLanguage¶¬
+	//IMultiLanguageç”Ÿæˆ
 	IMultiLanguage2 *lang = NULL;
 	HRESULT hr = CoCreateInstance(CLSID_CMultiLanguage, NULL,
 		CLSCTX_ALL, IID_IMultiLanguage2, (LPVOID*)&lang);
 
 	assert(SUCCEEDED(hr));
-	//Charsetî•ñæ“¾
+	//Charsetæƒ…å ±å–å¾—
 	MIMECSETINFO csetinfo;
 	if (SUCCEEDED(hr))
 		hr = lang->GetCharsetInfo(const_cast<wchar_t*>(charset), &csetinfo);
 
-	//•ÏŠ·Œã‚Ì•¶š’·‚ğæ“¾
+	//å¤‰æ›å¾Œã®æ–‡å­—é•·ã‚’å–å¾—
 	DWORD pdwMode = 0;
 	UINT inlen = len;
 	UINT outlen = 0;

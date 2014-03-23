@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -246,7 +246,7 @@ GetModuleDirectory(TCHAR *module_dir);
 
 // ---------------------------------------------------------------------------
 //	_tWinMain
-//	Win32ƒGƒ“ƒgƒŠŠÖ”
+//	Win32ã‚¨ãƒ³ãƒˆãƒªé–¢æ•°
 // ---------------------------------------------------------------------------
 int APIENTRY
 _tWinMain(HINSTANCE inst, HINSTANCE previnst, TCHAR *cmdline, int cmdshow)
@@ -288,7 +288,7 @@ _tWinMain(HINSTANCE inst, HINSTANCE previnst, TCHAR *cmdline, int cmdshow)
 
 // ---------------------------------------------------------------------------
 //	InitializeApp
-//	ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ì‰Šú‰»ˆ—
+//	ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®åˆæœŸåŒ–å‡¦ç†
 // ---------------------------------------------------------------------------
 static bool
 InitializeApp(TCHAR *cmdline, int cmdshow)
@@ -324,28 +324,28 @@ InitializeApp(TCHAR *cmdline, int cmdshow)
 	Profile = new O2Profile(Logger, true);
 	if (!Profile->MakeConfDir()) {
 		swprintf_s(msg, 1024,
-			L"ƒfƒBƒŒƒNƒgƒŠu%sv‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½\n‹N“®‚ğ’†~‚µ‚Ü‚·",
+			L"ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã€Œ%sã€ã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ\nèµ·å‹•ã‚’ä¸­æ­¢ã—ã¾ã™",
 			Profile->GetConfDirW());
 		MessageBoxW(NULL, msg, NULL, MB_ICONERROR | MB_OK);
 		return false;
 	}
 	if (!Profile->MakeDBDir()) {
 		swprintf_s(msg, 1024,
-			L"ƒfƒBƒŒƒNƒgƒŠu%sv‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½\n‹N“®‚ğ’†~‚µ‚Ü‚·",
+			L"ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã€Œ%sã€ã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ\nèµ·å‹•ã‚’ä¸­æ­¢ã—ã¾ã™",
 			Profile->GetDBDirW());
 		MessageBoxW(NULL, msg, NULL, MB_ICONERROR | MB_OK);
 		return false;
 	}
 	if (!Profile->MakeCacheRoot()) {
 		swprintf_s(msg, 1024,
-			L"ƒfƒBƒŒƒNƒgƒŠu%sv‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½\n‹N“®‚ğ’†~‚µ‚Ü‚·",
+			L"ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã€Œ%sã€ã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ\nèµ·å‹•ã‚’ä¸­æ­¢ã—ã¾ã™",
 			Profile->GetCacheRootW());
 		MessageBoxW(NULL, msg, NULL, MB_ICONERROR | MB_OK);
 		return false;
 	}
 	if (!Profile->CheckAdminRoot()) {
 		swprintf_s(msg, 1024,
-			L"ƒfƒBƒŒƒNƒgƒŠu%sv‚ª‘¶İ‚µ‚Ü‚¹‚ñ\n‹N“®‚ğ’†~‚µ‚Ü‚·",
+			L"ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã€Œ%sã€ãŒå­˜åœ¨ã—ã¾ã›ã‚“\nèµ·å‹•ã‚’ä¸­æ­¢ã—ã¾ã™",
 			Profile->GetAdminRootW());
 		MessageBox(NULL, msg, NULL, MB_ICONERROR | MB_OK);
 		return false;
@@ -393,7 +393,7 @@ InitializeApp(TCHAR *cmdline, int cmdshow)
 	DatDB = new O2DatDB(Logger, dbfilename.c_str());
 	if (!DatDB->create_table(false)) {
 		MessageBox(NULL,
-			L"DBƒI[ƒvƒ“‚É¸”s‚µ‚Ü‚µ‚½\n‹N“®‚ğ’†~‚µ‚Ü‚·",
+			L"DBã‚ªãƒ¼ãƒ—ãƒ³ã«å¤±æ•—ã—ã¾ã—ãŸ\nèµ·å‹•ã‚’ä¸­æ­¢ã—ã¾ã™",
 			NULL, MB_ICONERROR | MB_OK);
 		return false;
 	}
@@ -692,7 +692,7 @@ InitializeApp(TCHAR *cmdline, int cmdshow)
 	Server_P2P->SetReportMaker(ReportMaker);
 	Server_Admin->SetReportMaker(ReportMaker);
 
-	// ƒƒCƒ“ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX“o˜^
+	// ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹ç™»éŒ²
 	WNDCLASSEX wc;
 	wc.cbSize			= sizeof(WNDCLASSEX);
 	wc.style			= CS_HREDRAW | CS_VREDRAW;
@@ -710,7 +710,7 @@ InitializeApp(TCHAR *cmdline, int cmdshow)
 	if (!RegisterClassEx(&wc))
 		return false;
 
-	// ƒƒCƒ“ƒEƒBƒ“ƒhƒEì¬
+	// ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ä½œæˆ
 	hwndMain = CreateWindowEx(
 		WS_EX_TOOLWINDOW | WS_EX_TOPMOST,
 		_T(CLASS_NAME),
@@ -725,7 +725,7 @@ InitializeApp(TCHAR *cmdline, int cmdshow)
 	if (!hwndMain)
 		return false;
 
-	// ƒR[ƒ‹ƒoƒbƒNƒƒbƒZ[ƒW“o˜^
+	// ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ç™»éŒ²
 	LagQueryQueue->SetBaloonCallbackMsg(hwndMain, UM_SHOWBALOON);
 	Server_P2P->SetIconCallbackMsg(hwndMain, UM_SETICON);
 	Server_P2P->SetBaloonCallbackMsg(hwndMain, UM_SHOWBALOON);
@@ -736,22 +736,22 @@ InitializeApp(TCHAR *cmdline, int cmdshow)
 	Job_DatCollector->SetBaloonCallbackMsg(hwndMain, UM_SHOWBALOON);
 	Job_QueryDat->SetBaloonCallbackMsg(hwndMain, UM_SHOWBALOON);
 
-	// Proxy‚ÆAdmin‚ğ‹N“®
-	if (!StartProxy(L"\n\no2on‚Ì‹N“®‚ğ’†~‚µ‚Ü‚·"))
+	// Proxyã¨Adminã‚’èµ·å‹•
+	if (!StartProxy(L"\n\no2onã®èµ·å‹•ã‚’ä¸­æ­¢ã—ã¾ã™"))
 		return false;
-	if (!StartAdmin(L"\n\no2on‚Ì‹N“®‚ğ’†~‚µ‚Ü‚·"))
+	if (!StartAdmin(L"\n\no2onã®èµ·å‹•ã‚’ä¸­æ­¢ã—ã¾ã™"))
 		return false;
 
-	// ƒgƒŒƒCƒAƒCƒRƒ“’Ç‰Á
+	// ãƒˆãƒ¬ã‚¤ã‚¢ã‚¤ã‚³ãƒ³è¿½åŠ 
 	AddTrayIcon(IDI_DISABLE);
 
 	if (!CheckPort()) {
 		ShowTrayBaloon(_T("o2on"),
-			_T("ƒIƒvƒVƒ‡ƒ“‚Åƒ|[ƒg”Ô†‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢"),
+			_T("ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã§ãƒãƒ¼ãƒˆç•ªå·ã‚’è¨­å®šã—ã¦ãã ã•ã„"),
 			5*1000, NIIF_INFO);
 	}
 	else {
-		// ©“®‹N“®
+		// è‡ªå‹•èµ·å‹•
 		if (Profile->IsP2PAutoStart())
 			StartP2P(true);
 	}
@@ -765,12 +765,12 @@ InitializeApp(TCHAR *cmdline, int cmdshow)
 
 // ---------------------------------------------------------------------------
 //	FinalizeApp
-//	ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ÌI—¹ˆ—
+//	ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®çµ‚äº†å‡¦ç†
 // ---------------------------------------------------------------------------
 static void
 FinalizeApp(void)
 {
-	CreateProgressDialog(_T("o2onI—¹..."));
+	CreateProgressDialog(_T("o2onçµ‚äº†..."));
 
 	ThreadHandle =
 		(HANDLE)_beginthreadex(NULL, 0, FinalizeAppThread, NULL, 0, NULL);
@@ -801,25 +801,25 @@ FinalizeAppThread(void *param)
 	ProgressInfo.AddMax(7);
 
 	if (Profile->IsBaloon_P2P())
-		ShowTrayBaloon(L"o2on", L"o2on‚ğI—¹‚µ‚Ä‚¢‚Ü‚·c", 5*1000, NIIF_INFO);
+		ShowTrayBaloon(L"o2on", L"o2onã‚’çµ‚äº†ã—ã¦ã„ã¾ã™â€¦", 5*1000, NIIF_INFO);
 
-	ProgressInfo.SetMessage(L"P2P‚ğI—¹‚µ‚Ä‚¢‚Ü‚·");
+	ProgressInfo.SetMessage(L"P2Pã‚’çµ‚äº†ã—ã¦ã„ã¾ã™");
 	StopP2P(false);
 	ProgressInfo.AddPos(1);
 
-	ProgressInfo.SetMessage(L"Agent‚ğI—¹‚µ‚Ä‚¢‚Ü‚·");
+	ProgressInfo.SetMessage(L"Agentã‚’çµ‚äº†ã—ã¦ã„ã¾ã™");
 	Agent->ClientStop();
 	ProgressInfo.AddPos(1);
 
-	ProgressInfo.SetMessage(L"Proxy‚ğI—¹‚µ‚Ä‚¢‚Ü‚·");
+	ProgressInfo.SetMessage(L"Proxyã‚’çµ‚äº†ã—ã¦ã„ã¾ã™");
 	Server_Proxy->Stop();
 	ProgressInfo.AddPos(1);
 
-	ProgressInfo.SetMessage(L"Admin‚ğI—¹‚µ‚Ä‚¢‚Ü‚·");
+	ProgressInfo.SetMessage(L"Adminã‚’çµ‚äº†ã—ã¦ã„ã¾ã™");
 	Server_Admin->Stop();
 	ProgressInfo.AddPos(1);
 
-	ProgressInfo.SetMessage(L"İ’è‚ğ•Û‘¶‚µ‚Ä‚¢‚Ü‚·");
+	ProgressInfo.SetMessage(L"è¨­å®šã‚’ä¿å­˜ã—ã¦ã„ã¾ã™");
 
 	Profile->Save();
 	NodeDB->Save(Profile->GetNodeFilePath());
@@ -933,7 +933,7 @@ FinalizeAppThread(void *param)
 
 // ---------------------------------------------------------------------------
 //	MainWindowProc
-//	ƒƒCƒ“ƒEƒBƒ“ƒhƒE‚ÌƒvƒƒV[ƒWƒƒ
+//	ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£
 // ---------------------------------------------------------------------------
 static LRESULT CALLBACK
 MainWindowProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -970,7 +970,7 @@ MainWindowProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 		}
 
 		case UM_EMERGENCYHALT: {
-			//•K‚¸POST‚Å
+			//å¿…ãšPOSTã§
 			if (Active)
 				StopP2P(false);
 			if (InIconTimer) {
@@ -986,7 +986,7 @@ MainWindowProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 			TCHAR *reason;
 			switch (wp) {
 				case 0:
-					reason = _T("dat—e—Ê’´‰ß");
+					reason = _T("datå®¹é‡è¶…é");
 					break;
 				default:
 					reason = _T("");
@@ -994,14 +994,14 @@ MainWindowProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 			}
 			if (Logger) {
 				Logger->AddLog(O2LT_FATAL, L"o2on", 0, 0,
-					L"o2on‚ğ‹Ù‹}’â~‚µ‚Ü‚µ‚½i%sj", reason);
+					L"o2onã‚’ç·Šæ€¥åœæ­¢ã—ã¾ã—ãŸï¼ˆ%sï¼‰", reason);
 			}
-			ShowTrayBaloon(_T("‹Ù‹}’â~"), reason, 60*1000, NIIF_ERROR);
+			ShowTrayBaloon(_T("ç·Šæ€¥åœæ­¢"), reason, 60*1000, NIIF_ERROR);
 			return (0);
 		}
 
 		case UM_SHOWBALOON:
-			//•K‚¸SEND‚Å
+			//å¿…ãšSENDã§
 			ShowTrayBaloon((TCHAR*)wp, (TCHAR*)lp, 5*1000, NIIF_INFO);
 			return (0);
 
@@ -1047,7 +1047,7 @@ MainWindowProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 				KillTimer(hwnd, ResumeTimer);
 				ResumeTimer = 0;
 				StartP2P(true);
-				Logger->AddLog(O2LT_INFO, L"General", 0, 0, L"OSƒŒƒWƒ…[ƒ€‚É‚æ‚è‹N“®");
+				Logger->AddLog(O2LT_INFO, L"General", 0, 0, L"OSãƒ¬ã‚¸ãƒ¥ãƒ¼ãƒ ã«ã‚ˆã‚Šèµ·å‹•");
 				break;
 			}
 			if (Active && icon_id)
@@ -1074,10 +1074,10 @@ MainWindowProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 				case ID_REBUILDDB:
 					if (!Active && !hwndProgressDlg) {
 						if (MessageBox(hwnd,
-								_T("ƒf[ƒ^ƒx[ƒX‚ğÄ\’z‚µ‚Ü‚·"),
-								_T("DBÄ\’z"),	MB_OKCANCEL|MB_ICONINFORMATION) == IDCANCEL)
+								_T("ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚’å†æ§‹ç¯‰ã—ã¾ã™"),
+								_T("DBå†æ§‹ç¯‰"),	MB_OKCANCEL|MB_ICONINFORMATION) == IDCANCEL)
 							break;
-						CreateProgressDialog(_T("DBÄ\’z..."));
+						CreateProgressDialog(_T("DBå†æ§‹ç¯‰..."));
 						DatIO->RebuildDB();
 					}
 					break;
@@ -1126,7 +1126,7 @@ MainWindowProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 		case WM_POWERBROADCAST:
 			if (wp == PBT_APMQUERYSUSPEND) {
 				if (Active && Profile->IsAutoResume()) {
-					Logger->AddLog(O2LT_INFO, L"General", 0, 0, L"OSƒTƒXƒyƒ“ƒh‚É‚æ‚è’â~");
+					Logger->AddLog(O2LT_INFO, L"General", 0, 0, L"OSã‚µã‚¹ãƒšãƒ³ãƒ‰ã«ã‚ˆã‚Šåœæ­¢");
 					StopP2P(false);
 					P2PStopBySuspend = true;
 				}
@@ -1170,7 +1170,7 @@ MainWindowProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 // ---------------------------------------------------------------------------
 //	OptionDialog
-//	ƒIƒvƒVƒ‡ƒ“ƒ_ƒCƒAƒƒO•\¦
+//	ã‚ªãƒ—ã‚·ãƒ§ãƒ³ãƒ€ã‚¤ã‚¢ãƒ­ã‚°è¡¨ç¤º
 // ---------------------------------------------------------------------------
 static void
 OptionDialog(void)
@@ -1187,38 +1187,38 @@ OptionDialog(void)
 	psp.pszTemplate = MAKEINTRESOURCE(IDD_OPT_GENERAL);
 	psp.pszIcon = NULL;
 	psp.pfnDlgProc = GeneralDlgProc;
-	psp.pszTitle = L"Šî–{İ’è";
+	psp.pszTitle = L"åŸºæœ¬è¨­å®š";
 	psp.lParam = psps.size();
 	psp.pfnCallback = NULL;
 	psps.push_back(psp);
 
 	psp.pszTemplate = MAKEINTRESOURCE(IDD_OPT_PROFILE);
 	psp.pfnDlgProc = ProfileDlgProc;
-	psp.pszTitle = L"ƒvƒƒtƒB[ƒ‹";
+	psp.pszTitle = L"ãƒ—ãƒ­ãƒ•ã‚£ãƒ¼ãƒ«";
 	psp.lParam = psps.size();
 	psps.push_back(psp);
 
 	psp.pszTemplate = MAKEINTRESOURCE(IDD_OPT_P2P);
 	psp.pfnDlgProc = P2PDlgProc;
-	psp.pszTitle = L"’ÊM‚Æƒoƒbƒtƒ@";
+	psp.pszTitle = L"é€šä¿¡ã¨ãƒãƒƒãƒ•ã‚¡";
 	psp.lParam = psps.size();
 	psps.push_back(psp);
 
 	psp.pszTemplate = MAKEINTRESOURCE(IDD_OPT_BROWSER);
 	psp.pfnDlgProc = BrowserDlgProc;
-	psp.pszTitle = L"ƒuƒ‰ƒEƒU";
+	psp.pszTitle = L"ãƒ–ãƒ©ã‚¦ã‚¶";
 	psp.lParam = psps.size();
 	psps.push_back(psp);
 
 	psp.pszTemplate = MAKEINTRESOURCE(IDD_OPT_BALOON);
 	psp.pfnDlgProc = BaloonDlgProc;
-	psp.pszTitle = L"ƒoƒ‹[ƒ“’Ê’m";
+	psp.pszTitle = L"ãƒãƒ«ãƒ¼ãƒ³é€šçŸ¥";
 	psp.lParam = psps.size();
 	psps.push_back(psp);
 
 	psp.pszTemplate = MAKEINTRESOURCE(IDD_OPT_QUARTER);
 	psp.pfnDlgProc = QuarterDlgProc;
-	psp.pszTitle = L"ƒNƒH[ƒ^";
+	psp.pszTitle = L"ã‚¯ã‚©ãƒ¼ã‚¿";
 	psp.lParam = psps.size();
 	psps.push_back(psp);
 
@@ -1228,7 +1228,7 @@ OptionDialog(void)
 	psh.hwndParent = hwndMain;
 	psh.hInstance = instance;
 	psh.pszIcon = NULL;
-	psh.pszCaption = L"ƒIƒvƒVƒ‡ƒ“";
+	psh.pszCaption = L"ã‚ªãƒ—ã‚·ãƒ§ãƒ³";
 	psh.nPages = psps.size();
 	psh.nStartPage = CurrentProperyPage;
 	psh.ppsp = (LPCPROPSHEETPAGE)&psps[0];
@@ -1263,20 +1263,20 @@ OptionDialog(void)
 	ProfBuff = NULL;
 	Profile->Save();
 
-	// Proxy‚Ìƒ|[ƒg‚ª•Ï‚í‚Á‚Ä‚¢‚½‚çÄ‹N“®
+	// Proxyã®ãƒãƒ¼ãƒˆãŒå¤‰ã‚ã£ã¦ã„ãŸã‚‰å†èµ·å‹•
 	if (proxy_port_changed || !Server_Proxy->IsActive()) {
 		Server_Proxy->Stop();
 		Server_Proxy->SetPort(Profile->GetProxyPort());
 		StartProxy(NULL);
 	}
-	// Admin‚Ìƒ|[ƒg‚ª•Ï‚í‚Á‚Ä‚¢‚½‚çÄ‹N“®
+	// Adminã®ãƒãƒ¼ãƒˆãŒå¤‰ã‚ã£ã¦ã„ãŸã‚‰å†èµ·å‹•
 	if (admin_port_changed || !Server_Admin->IsActive()) {
 		Server_Admin->Stop();
 		Server_Admin->SetPort(Profile->GetAdminPort());
 		StartAdmin(NULL);
 	}
 
-	// Šeíƒpƒ‰ƒ[ƒ^ƒZƒbƒg
+	// å„ç¨®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚»ãƒƒãƒˆ
 	NodeDB->SetSelfNodePort(Profile->GetP2PPort());
 	KeyDB->SetLimit(Profile->GetKeyLimit());
 	QueryDB->SetLimit(Profile->GetQueryLimit());
@@ -1289,7 +1289,7 @@ OptionDialog(void)
 		Server_P2P->SetPort(Profile->GetP2PPort());
 		if (Active) {
 			if (Profile->IsBaloon_P2P())
-				ShowTrayBaloon(L"o2on", L"P2P‚ğÄ‹N“®‚µ‚Ä‚¢‚Ü‚·c", 5*1000, NIIF_INFO);
+				ShowTrayBaloon(L"o2on", L"P2Pã‚’å†èµ·å‹•ã—ã¦ã„ã¾ã™â€¦", 5*1000, NIIF_INFO);
 			StopP2P(false);
 			StartP2P(true);
 		}
@@ -1303,7 +1303,7 @@ OptionDialog(void)
 
 // ---------------------------------------------------------------------------
 //	GeneralDlgProc
-//	Šî–{İ’èƒ_ƒCƒAƒƒO
+//	åŸºæœ¬è¨­å®šãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 // ---------------------------------------------------------------------------
 static INT_PTR CALLBACK
 GeneralDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -1368,7 +1368,7 @@ GeneralDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 					ulong port = _tcstoul(portstr, NULL, 10);
 					if (port == 0UL || port > 65535UL) {
 						MessageBox(hwnd,
-							L"İ’è‚É‚ÍP2Pƒ|[ƒg”Ô†‚ª•K—v‚Å‚·",
+							L"è¨­å®šã«ã¯P2Pãƒãƒ¼ãƒˆç•ªå·ãŒå¿…è¦ã§ã™",
 							NULL, MB_OK);
 						return TRUE;
 					}
@@ -1393,29 +1393,29 @@ GeneralDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 			ProfBuff->SetMaruUser(IsChecked(GD(hwnd, IDC_MARUUSER)));
 
 			if (!ProfBuff->IsPort0()) {
-				if (!DlgNumCheck(hwnd, IDC_P2P_PORT, pageNo, L"ƒ|[ƒg”Ô†", 1024, 65535, n))
+				if (!DlgNumCheck(hwnd, IDC_P2P_PORT, pageNo, L"ãƒãƒ¼ãƒˆç•ªå·", 1024, 65535, n))
 					return TRUE;
 			}
 			if (!ProfBuff->SetP2PPort((ushort)n)) {
-				MessageBox(hwnd, L"“¯‚¶ƒ|[ƒg”Ô†‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚·", NULL, MB_OK|MB_ICONERROR);
+				MessageBox(hwnd, L"åŒã˜ãƒãƒ¼ãƒˆç•ªå·ãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã™", NULL, MB_OK|MB_ICONERROR);
 				return TRUE;
 			}
 
-			if (!DlgNumCheck(hwnd, IDC_PROXY_PORT, pageNo, L"ƒ|[ƒg”Ô†", 1024, 65535, n))
+			if (!DlgNumCheck(hwnd, IDC_PROXY_PORT, pageNo, L"ãƒãƒ¼ãƒˆç•ªå·", 1024, 65535, n))
 				return TRUE;
 			if (!ProfBuff->SetProxyPort((ushort)n)) {
-				MessageBox(hwnd, L"“¯‚¶ƒ|[ƒg”Ô†‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚·", NULL, MB_OK|MB_ICONERROR);
+				MessageBox(hwnd, L"åŒã˜ãƒãƒ¼ãƒˆç•ªå·ãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã™", NULL, MB_OK|MB_ICONERROR);
 				return TRUE;
 			}
 
-			if (!DlgNumCheck(hwnd, IDC_ADMIN_PORT, pageNo, L"ƒ|[ƒg”Ô†", 1024, 65535, n))
+			if (!DlgNumCheck(hwnd, IDC_ADMIN_PORT, pageNo, L"ãƒãƒ¼ãƒˆç•ªå·", 1024, 65535, n))
 				return TRUE;
 			if (!ProfBuff->SetAdminPort((ushort)n)) {
-				MessageBox(hwnd, L"“¯‚¶ƒ|[ƒg”Ô†‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚·", NULL, MB_OK|MB_ICONERROR);
+				MessageBox(hwnd, L"åŒã˜ãƒãƒ¼ãƒˆç•ªå·ãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã™", NULL, MB_OK|MB_ICONERROR);
 				return TRUE;
 			}
 
-			if (!DlgNumCheck(hwnd, IDC_RESUMEDELAY, pageNo, L"ŠJnƒfƒBƒŒƒC", 0, 9999, n))
+			if (!DlgNumCheck(hwnd, IDC_RESUMEDELAY, pageNo, L"é–‹å§‹æ™‚ãƒ‡ã‚£ãƒ¬ã‚¤", 0, 9999, n))
 				return TRUE;
 			ProfBuff->SetResumeDelayMs((uint)n*1000);
 
@@ -1435,7 +1435,7 @@ GeneralDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 // ---------------------------------------------------------------------------
 //	ProfileDlgProc
-//	ƒvƒƒtƒB[ƒ‹ƒ_ƒCƒAƒƒO
+//	ãƒ—ãƒ­ãƒ•ã‚£ãƒ¼ãƒ«ãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 // ---------------------------------------------------------------------------
 static INT_PTR CALLBACK
 ProfileDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -1468,7 +1468,7 @@ ProfileDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 		case PSN_APPLY: {
 			HWND h = GD(hwnd, IDC_NAME);
 			if (Edit_GetTextLength(h) > O2_MAX_NAME_LEN) {
-				MessageBox(hwnd, L"–¼‘O‚ª’·‚·‚¬‚Ü‚·", NULL, MB_OK|MB_ICONERROR);
+				MessageBox(hwnd, L"åå‰ãŒé•·ã™ãã¾ã™", NULL, MB_OK|MB_ICONERROR);
 				SetFocus(h);
 			}
 			wchar_t name[O2_MAX_NAME_LEN+1];
@@ -1476,7 +1476,7 @@ ProfileDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 			//
 			h = GD(hwnd, IDC_COMMENT);
 			if (Edit_GetTextLength(h) > O2_MAX_COMMENT_LEN) {
-				MessageBox(hwnd, L"ƒRƒƒ“ƒg‚ª’·‚·‚¬‚Ü‚·", NULL, MB_OK|MB_ICONERROR);
+				MessageBox(hwnd, L"ã‚³ãƒ¡ãƒ³ãƒˆãŒé•·ã™ãã¾ã™", NULL, MB_OK|MB_ICONERROR);
 				SetFocus(h);
 			}
 			wchar_t comment[O2_MAX_COMMENT_LEN+1];
@@ -1504,7 +1504,7 @@ ProfileDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 // ---------------------------------------------------------------------------
 //	P2PDlgProc
-//	’ÊM‚Æƒoƒbƒtƒ@İ’èƒ_ƒCƒAƒƒO
+//	é€šä¿¡ã¨ãƒãƒƒãƒ•ã‚¡è¨­å®šãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 // ---------------------------------------------------------------------------
 static INT_PTR CALLBACK
 P2PDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -1537,27 +1537,27 @@ P2PDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 			CurrentProperyPage = pageNo;
 			return TRUE;
 		case PSN_APPLY:
-			if (!DlgNumCheck(hwnd, IDC_P2P_LIMIT, pageNo, L"Ú‘±”ƒŠƒ~ƒbƒg", 5, 99, n))
+			if (!DlgNumCheck(hwnd, IDC_P2P_LIMIT, pageNo, L"æ¥ç¶šæ•°ãƒªãƒŸãƒƒãƒˆ", 5, 99, n))
 				return TRUE;
 			ProfBuff->SetP2PSessionLimit((uint)n);
 
-			if (!DlgNumCheck(hwnd, IDC_KEYLIMIT, pageNo, L"ƒL[”", KeyDB->Min(), KeyDB->Max() ,n))
+			if (!DlgNumCheck(hwnd, IDC_KEYLIMIT, pageNo, L"ã‚­ãƒ¼æ•°", KeyDB->Min(), KeyDB->Max() ,n))
 				return TRUE;
 			ProfBuff->SetKeyLimit((uint)n);
 
-			if (!DlgNumCheck(hwnd, IDC_LOGLIMIT, pageNo, L"ƒƒO”", Logger->Min(), Logger->Max() ,n))
+			if (!DlgNumCheck(hwnd, IDC_LOGLIMIT, pageNo, L"ãƒ­ã‚°æ•°", Logger->Min(), Logger->Max() ,n))
 				return TRUE;
 			ProfBuff->SetLogLimit((uint)n);
 
-			if (!DlgNumCheck(hwnd, IDC_NETLOGLIMIT, pageNo, L"ƒƒO”", Logger->Min(), Logger->Max() ,n))
+			if (!DlgNumCheck(hwnd, IDC_NETLOGLIMIT, pageNo, L"ãƒ­ã‚°æ•°", Logger->Min(), Logger->Max() ,n))
 				return TRUE;
 			ProfBuff->SetNetLogLimit((uint)n);
 
-			if (!DlgNumCheck(hwnd, IDC_HOKANLOGLIMIT, pageNo, L"ƒƒO”", Logger->Min(), Logger->Max() ,n))
+			if (!DlgNumCheck(hwnd, IDC_HOKANLOGLIMIT, pageNo, L"ãƒ­ã‚°æ•°", Logger->Min(), Logger->Max() ,n))
 				return TRUE;
 			ProfBuff->SetHokanLogLimit((uint)n);
 
-			if (!DlgNumCheck(hwnd, IDC_IPFLOGLIMIT, pageNo, L"ƒƒO”", Logger->Min(), Logger->Max() ,n))
+			if (!DlgNumCheck(hwnd, IDC_IPFLOGLIMIT, pageNo, L"ãƒ­ã‚°æ•°", Logger->Min(), Logger->Max() ,n))
 				return TRUE;
 			ProfBuff->SetIPFLogLimit((uint)n);
 
@@ -1577,7 +1577,7 @@ P2PDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 // ---------------------------------------------------------------------------
 //	BrowserDlgProc
-//	ƒuƒ‰ƒEƒUİ’èƒ_ƒCƒAƒƒO
+//	ãƒ–ãƒ©ã‚¦ã‚¶è¨­å®šãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 // ---------------------------------------------------------------------------
 static INT_PTR CALLBACK
 BrowserDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -1621,14 +1621,14 @@ BrowserDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 				ZeroMemory(&ofn, sizeof(OPENFILENAME));
 				ofn.lStructSize = sizeof(OPENFILENAME);
 				ofn.hwndOwner = hwnd;
-				ofn.lpstrFilter = TEXT("ƒvƒƒOƒ‰ƒ€ (*.exe)\0*.exe\0‚·‚×‚Ä‚Ìƒtƒ@ƒCƒ‹ (*.*)\0*.*\0\0");
+				ofn.lpstrFilter = TEXT("ãƒ—ãƒ­ã‚°ãƒ©ãƒ  (*.exe)\0*.exe\0ã™ã¹ã¦ã®ãƒ•ã‚¡ã‚¤ãƒ« (*.*)\0*.*\0\0");
 				ofn.lpstrFile = filename;
 				ofn.nMaxFile = MAX_PATH;
 				ofn.Flags = OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
 				ofn.lpstrDefExt = TEXT("exe");
 				ofn.nMaxFileTitle = MAX_PATH;
 				ofn.lpstrFileTitle = filetitle;
-				ofn.lpstrTitle = TEXT("ƒuƒ‰ƒEƒU‘I‘ğ");
+				ofn.lpstrTitle = TEXT("ãƒ–ãƒ©ã‚¦ã‚¶é¸æŠ");
 				if (GetOpenFileName(&ofn)) {
 					SetWindowText(GD(hwnd, IDC_BROWSER_PATH), filename);
 				}
@@ -1657,7 +1657,7 @@ BrowserDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 			GetWindowText(GD(hwnd, IDC_BROWSER_PATH), &path[0], path.size());
 
 			if (type == L"custom" && _waccess(path.c_str(), 0) != 0) {
-				MessageBox(hwnd, L"ƒtƒ@ƒCƒ‹‚ª‘¶İ‚µ‚Ü‚¹‚ñ", NULL, MB_ICONERROR|MB_OK);
+				MessageBox(hwnd, L"ãƒ•ã‚¡ã‚¤ãƒ«ãŒå­˜åœ¨ã—ã¾ã›ã‚“", NULL, MB_ICONERROR|MB_OK);
 				SetFocus(GD(hwnd, IDC_BROWSER_PATH));
 				SetWindowLongPtr(hwnd, DWLP_MSGRESULT, PSNRET_INVALID_NOCHANGEPAGE);
 				PostMessage(GetParent(hwnd), PSM_SETCURSEL, pageNo, (LPARAM)hwnd);
@@ -1683,7 +1683,7 @@ BrowserDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 // ---------------------------------------------------------------------------
 //	BaloonDlgProc
-//	ƒoƒ‹[ƒ“İ’èƒ_ƒCƒAƒƒO
+//	ãƒãƒ«ãƒ¼ãƒ³è¨­å®šãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 // ---------------------------------------------------------------------------
 static INT_PTR CALLBACK
 BaloonDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -1730,7 +1730,7 @@ BaloonDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 // ---------------------------------------------------------------------------
 //	QuarterDlgProc
-//	ƒNƒH[ƒ^İ’èƒ_ƒCƒAƒƒO
+//	ã‚¯ã‚©ãƒ¼ã‚¿è¨­å®šãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 // ---------------------------------------------------------------------------
 static INT_PTR CALLBACK
 QuarterDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -1745,7 +1745,7 @@ QuarterDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 	};
 
 	static TCHAR *Operation[] = {
-		_T("o2on‚ğ’â~‚·‚é")
+		_T("o2onã‚’åœæ­¢ã™ã‚‹")
 	};
 
 	static int current_unit_index = 2;
@@ -1840,7 +1840,7 @@ QuarterDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 // ---------------------------------------------------------------------------
 //	OpenSelectBrowserDialog
-//	ƒuƒ‰ƒEƒU‘I‘ğƒ_ƒCƒAƒƒO‚ğŠJ‚­
+//	ãƒ–ãƒ©ã‚¦ã‚¶é¸æŠãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’é–‹ã
 // ---------------------------------------------------------------------------
 void
 OpenSelectBrowserDialog(void)
@@ -1857,7 +1857,7 @@ OpenSelectBrowserDialog(void)
 
 // ---------------------------------------------------------------------------
 //	SelectBrowserDlgProc
-//	ƒuƒ‰ƒEƒU‘I‘ğƒ_ƒCƒAƒƒO
+//	ãƒ–ãƒ©ã‚¦ã‚¶é¸æŠãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 // ---------------------------------------------------------------------------
 static INT_PTR CALLBACK
 SelectBrowserDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -1903,14 +1903,14 @@ SelectBrowserDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 				ZeroMemory(&ofn, sizeof(OPENFILENAME));
 				ofn.lStructSize = sizeof(OPENFILENAME);
 				ofn.hwndOwner = hwnd;
-				ofn.lpstrFilter = TEXT("ƒvƒƒOƒ‰ƒ€ (*.exe)\0*.exe\0‚·‚×‚Ä‚Ìƒtƒ@ƒCƒ‹ (*.*)\0*.*\0\0");
+				ofn.lpstrFilter = TEXT("ãƒ—ãƒ­ã‚°ãƒ©ãƒ  (*.exe)\0*.exe\0ã™ã¹ã¦ã®ãƒ•ã‚¡ã‚¤ãƒ« (*.*)\0*.*\0\0");
 				ofn.lpstrFile = filename;
 				ofn.nMaxFile = MAX_PATH;
 				ofn.Flags = OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
 				ofn.lpstrDefExt = TEXT("exe");
 				ofn.nMaxFileTitle = MAX_PATH;
 				ofn.lpstrFileTitle = filetitle;
-				ofn.lpstrTitle = TEXT("ƒuƒ‰ƒEƒU‘I‘ğ");
+				ofn.lpstrTitle = TEXT("ãƒ–ãƒ©ã‚¦ã‚¶é¸æŠ");
 				if (GetOpenFileName(&ofn)) {
 					SetWindowText(GD(hwnd, IDC_BROWSER_PATH), filename);
 				}
@@ -1930,7 +1930,7 @@ SelectBrowserDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 				GetWindowText(GD(hwnd, IDC_BROWSER_PATH), &path[0], path.size());
 
 				if (type == L"custom" && _waccess(path.c_str(), 0) != 0) {
-					MessageBox(hwnd, L"ƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ", NULL, MB_ICONERROR|MB_OK);
+					MessageBox(hwnd, L"ãƒ•ã‚¡ã‚¤ãƒ«ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“", NULL, MB_ICONERROR|MB_OK);
 					SetFocus(GD(hwnd, IDC_BROWSER_PATH));
 					return TRUE;
 				}
@@ -1955,7 +1955,7 @@ SelectBrowserDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 // ---------------------------------------------------------------------------
 //	OpenUPnPDialog
-//	UPnPƒ_ƒCƒAƒƒO‚ğŠJ‚­
+//	UPnPãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’é–‹ã
 // ---------------------------------------------------------------------------
 void
 OpenUPnPDialog(HWND hwnd, ushort port)
@@ -1973,7 +1973,7 @@ OpenUPnPDialog(HWND hwnd, ushort port)
 
 // ---------------------------------------------------------------------------
 //	UPnPDlgProc
-//	UPnPƒ_ƒCƒAƒƒO
+//	UPnPãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 // ---------------------------------------------------------------------------
 struct UPnPTestParam {
 	ulong ip;
@@ -2050,7 +2050,7 @@ UPnPDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 					PostMessage(hwnd, UM_UPNP_START_TEST, 0, 0);
 					return TRUE;
 				case IDOK: {
-						//–‘OğŒ
+						//äº‹å‰æ¡ä»¶
 						//1,ListBox_GetCurSel(GD(hwnd, IDC_NICLIST)) != LB_ERR
 						//2,ListBox_GetCurSel(GD(hwnd, IDC_SERVICELIST)) != LB_ERR
 
@@ -2065,7 +2065,7 @@ UPnPDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 						ProfBuff->SetUPnPLocation(svc->rootObject->location.c_str());
 						ProfBuff->SetUPnPServiceId(svc->serviceId.c_str());
 					}
-					//«ƒXƒ‹[
+					//â†“ã‚¹ãƒ«ãƒ¼
 				case IDCANCEL:
 					EndDialog(hwnd, wp);
 					hwndUPnPDlg = NULL;
@@ -2106,7 +2106,7 @@ UPnPDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 							ipstr = arg->value;
 					}
 					if (ipstr.empty())
-						ipstr = "(ƒOƒ[ƒoƒ‹IP•s–¾)";
+						ipstr = "(ã‚°ãƒ­ãƒ¼ãƒãƒ«IPä¸æ˜)";
 					string tmp;
 					tmp = testparam.validServices[i].rootObject->device.modelName + " / " + ipstr;
 					wstring str;
@@ -2117,7 +2117,7 @@ UPnPDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 			}
 			else {
 				UPnPErrorDlgParam param;
-				param.caption = L"—˜—p‰Â”\‚ÈUPnPƒT[ƒrƒX‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½";
+				param.caption = L"åˆ©ç”¨å¯èƒ½ãªUPnPã‚µãƒ¼ãƒ“ã‚¹ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ";
 				param.log = &testparam.log;
 				DialogBoxParam(
 					instance,
@@ -2175,14 +2175,14 @@ UPnPErrorDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 					ZeroMemory(&ofn, sizeof(OPENFILENAME));
 					ofn.lStructSize = sizeof(OPENFILENAME);
 					ofn.hwndOwner = hwnd;
-					ofn.lpstrFilter = TEXT("ƒeƒLƒXƒg•¶‘(*.txt)\0*.txt\0‚·‚×‚Ä‚Ìƒtƒ@ƒCƒ‹ (*.*)\0*.*\0\0");
+					ofn.lpstrFilter = TEXT("ãƒ†ã‚­ã‚¹ãƒˆæ–‡æ›¸(*.txt)\0*.txt\0ã™ã¹ã¦ã®ãƒ•ã‚¡ã‚¤ãƒ« (*.*)\0*.*\0\0");
 					ofn.lpstrFile = filename;
 					ofn.nMaxFile = MAX_PATH;
 					ofn.Flags = OFN_OVERWRITEPROMPT;
 					ofn.lpstrDefExt = TEXT("txt");
 					ofn.nMaxFileTitle = MAX_PATH;
 					ofn.lpstrFileTitle = filetitle;
-					ofn.lpstrTitle = TEXT("ƒƒO‚Ì•Û‘¶");
+					ofn.lpstrTitle = TEXT("ãƒ­ã‚°ã®ä¿å­˜");
 					if (GetSaveFileName(&ofn)) {
 						File f;
 						f.open(filename, MODE_W);
@@ -2280,7 +2280,7 @@ UPnP_PortMappingTest(void* data)
 	for (size_t i = 0; i < objects.size(); i++)
 		objects[i].GetServicesByType("urn:schemas-upnp-org:service:WANIPConnection:1", WANConnSvcs);
 	if (WANConnSvcs.empty()) {
-		AddUPnPInfoMessage("ERROR: —LŒø‚ÈƒT[ƒrƒX‚ª‘¶İ‚µ‚Ü‚¹‚ñ");
+		AddUPnPInfoMessage("ERROR: æœ‰åŠ¹ãªã‚µãƒ¼ãƒ“ã‚¹ãŒå­˜åœ¨ã—ã¾ã›ã‚“");
 		return;
 	}
 
@@ -2294,7 +2294,7 @@ UPnP_PortMappingTest(void* data)
 			count++;
 	}
 	if (count == 0) {
-		AddUPnPInfoMessage("ERROR: —LŒø‚ÈAction‚ª‘¶İ‚µ‚Ü‚¹‚ñ");
+		AddUPnPInfoMessage("ERROR: æœ‰åŠ¹ãªActionãŒå­˜åœ¨ã—ã¾ã›ã‚“");
 		return;
 	}
 */
@@ -2304,7 +2304,7 @@ UPnP_PortMappingTest(void* data)
 	UPnPServiceList &validServices = testparam->validServices;
 	validServices.clear();
 	for (size_t i = 0; i < WANConnSvcs.size() && UPnPLoop; i++) {
-		string ipstr = "(ƒOƒ[ƒoƒ‹IP•s–¾)";
+		string ipstr = "(ã‚°ãƒ­ãƒ¼ãƒãƒ«IPä¸æ˜)";
 		UPnPAction *action = WANConnSvcs[i].getAction("GetExternalIPAddress");
 		if (action) {
 			UPnPArgument *NewExternalIPAddress = action->getArgument("NewExternalIPAddress");
@@ -2313,7 +2313,7 @@ UPnP_PortMappingTest(void* data)
 			}
 		}
 		string msg;
-		msg = "ƒeƒXƒg => ";
+		msg = "ãƒ†ã‚¹ãƒˆ => ";
 		msg += ipstr;
 		AddUPnPInfoMessage(msg.c_str());
 
@@ -2333,7 +2333,7 @@ UPnP_PortMappingTest(void* data)
 			action->setArgumentValue("NewPortMappingDescription", "o2on UPnP");
 			action->setArgumentValue("NewLeaseDuration", "0");
 			if (upnp.DoServiceAction(WANConnSvcs[i], "AddPortMapping"))
-				AddUPnPInfoMessage("‚â‚è‚Ü‚µ‚½Iƒ|[ƒgŠJ•ú‚É¬Œ÷‚µ‚Ü‚µ‚½I");
+				AddUPnPInfoMessage("ã‚„ã‚Šã¾ã—ãŸï¼ãƒãƒ¼ãƒˆé–‹æ”¾ã«æˆåŠŸã—ã¾ã—ãŸï¼");
 			else
 				continue;
 		}
@@ -2344,7 +2344,7 @@ UPnP_PortMappingTest(void* data)
 			action->setArgumentValue("NewExternalPort", portstr);
 			action->setArgumentValue("NewProtocol", "TCP");
 			if (upnp.DoServiceAction(WANConnSvcs[i], "DeletePortMapping"))
-				AddUPnPInfoMessage("‚â‚è‚Ü‚µ‚½Iƒ|[ƒg•Â‚¶‚é‚Ì‚É¬Œ÷‚µ‚Ü‚µ‚½I");
+				AddUPnPInfoMessage("ã‚„ã‚Šã¾ã—ãŸï¼ãƒãƒ¼ãƒˆé–‰ã˜ã‚‹ã®ã«æˆåŠŸã—ã¾ã—ãŸï¼");
 			else
 				continue;
 		}
@@ -2352,11 +2352,11 @@ UPnP_PortMappingTest(void* data)
 	}
 
 	if (validServices.empty()) {
-		AddUPnPInfoMessage("\r\n-- —˜—p‰Â”\‚ÈUPnPƒT[ƒrƒX‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½");
+		AddUPnPInfoMessage("\r\n-- åˆ©ç”¨å¯èƒ½ãªUPnPã‚µãƒ¼ãƒ“ã‚¹ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ");
 	}
 	else {
 		char tmp[64];
-		sprintf_s(tmp, 64, "\r\n-- —˜—p‰Â”\‚ÈUPnPƒT[ƒrƒX‚ª%dŒŒ©‚Â‚©‚è‚Ü‚µ‚½", validServices.size());
+		sprintf_s(tmp, 64, "\r\n-- åˆ©ç”¨å¯èƒ½ãªUPnPã‚µãƒ¼ãƒ“ã‚¹ãŒ%dä»¶è¦‹ã¤ã‹ã‚Šã¾ã—ãŸ", validServices.size());
 		AddUPnPInfoMessage(tmp);
 	}
 }
@@ -2373,17 +2373,17 @@ UPnP_AddPortMapping(ushort port, const char *adapterName, const char *location, 
 {
 	if (!adapterName || strlen(adapterName) == 0) {
 		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0,
-			"adapterName‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
+			"adapterNameãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã›ã‚“");
 		return false;
 	}
 	if (!location || strlen(location) == 0) {
 		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0,
-			"location‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
+			"locationãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã›ã‚“");
 		return false;
 	}
 	if (!serviceId || strlen(serviceId) == 0) {
 		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0,
-			"serviceId‚ªw’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
+			"serviceIdãŒæŒ‡å®šã•ã‚Œã¦ã„ã¾ã›ã‚“");
 		return false;
 	}
 
@@ -2395,7 +2395,7 @@ UPnP_AddPortMapping(ushort port, const char *adapterName, const char *location, 
 	}
 	if (GetAdaptersInfo(info, &buffsize) != ERROR_SUCCESS) {
 		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0,
-			"ƒlƒbƒgƒ[ƒNƒAƒ_ƒvƒ^‚Ìî•ñæ“¾‚É¸”s‚µ‚Ü‚µ‚½");
+			"ãƒãƒƒãƒˆãƒ¯ãƒ¼ã‚¯ã‚¢ãƒ€ãƒ—ã‚¿ã®æƒ…å ±å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸ");
 		free(info);
 		return false;
 	}
@@ -2406,7 +2406,7 @@ UPnP_AddPortMapping(ushort port, const char *adapterName, const char *location, 
 	}
 	if (p == NULL) {
 		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0,
-			"w’è‚³‚ê‚½ƒlƒbƒgƒ[ƒNƒAƒ_ƒvƒ^‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ(%s)", adapterName);
+			"æŒ‡å®šã•ã‚ŒãŸãƒãƒƒãƒˆãƒ¯ãƒ¼ã‚¯ã‚¢ãƒ€ãƒ—ã‚¿ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“(%s)", adapterName);
 		free(info);
 		return false;
 	}
@@ -2414,7 +2414,7 @@ UPnP_AddPortMapping(ushort port, const char *adapterName, const char *location, 
 	free(info);
 	if (inet_addr(ipstr.c_str()) == 0) {
 		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0,
-			"w’è‚³‚ê‚½ƒlƒbƒgƒ[ƒNƒAƒ_ƒvƒ^‚ÌIPƒAƒhƒŒƒX‚ª0‚Å‚·");
+			"æŒ‡å®šã•ã‚ŒãŸãƒãƒƒãƒˆãƒ¯ãƒ¼ã‚¯ã‚¢ãƒ€ãƒ—ã‚¿ã®IPã‚¢ãƒ‰ãƒ¬ã‚¹ãŒ0ã§ã™");
 		return false;
 	}
 
@@ -2426,27 +2426,27 @@ UPnP_AddPortMapping(ushort port, const char *adapterName, const char *location, 
 	object.location = location;
 	if (!upnp.GetDeviceDescription(object)) {
 		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0,
-			"ƒfƒoƒCƒXî•ñæ“¾¸”s(%s)", location);
+			"ãƒ‡ãƒã‚¤ã‚¹æƒ…å ±å–å¾—å¤±æ•—(%s)", location);
 		return false;
 	}
 
 	UPnPService service;
 	if (!object.GetServicesById(serviceId, service)) {
 		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0,
-			"ƒT[ƒrƒX‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ(%s)", serviceId);
+			"ã‚µãƒ¼ãƒ“ã‚¹ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“(%s)", serviceId);
 		return false;
 	}
 
 	if (!upnp.GetServiceDescription(service)) {
 		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0,
-			"ƒT[ƒrƒXî•ñæ“¾¸”s(%s)", service.SCPDURL.c_str());
+			"ã‚µãƒ¼ãƒ“ã‚¹æƒ…å ±å–å¾—å¤±æ•—(%s)", service.SCPDURL.c_str());
 		return false;
 	}
 
 	UPnPAction *action = service.getAction("AddPortMapping");
 	if (!action) {
 		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0,
-			"ƒAƒNƒVƒ‡ƒ“AddPortMapping‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ(%s)", service.serviceId.c_str());
+			"ã‚¢ã‚¯ã‚·ãƒ§ãƒ³AddPortMappingãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“(%s)", service.serviceId.c_str());
 		return false;
 	}
 
@@ -2463,11 +2463,11 @@ UPnP_AddPortMapping(ushort port, const char *adapterName, const char *location, 
 	action->setArgumentValue("NewPortMappingDescription", "o2on UPnP");
 	action->setArgumentValue("NewLeaseDuration", "0");
 	if (!upnp.DoServiceAction(service, "AddPortMapping")) {
-		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0, "AddPortMapping¸”s(%s)",portstr);
+		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0, "AddPortMappingå¤±æ•—(%s)",portstr);
 		return false;
 	}
 
-	Logger->AddLog(O2LT_INFO, L"UPnP", 0, 0, "ƒ|[ƒg‚ğŠJ•ú‚µ‚Ü‚µ‚½(%s)",portstr);
+	Logger->AddLog(O2LT_INFO, L"UPnP", 0, 0, "ãƒãƒ¼ãƒˆã‚’é–‹æ”¾ã—ã¾ã—ãŸ(%s)",portstr);
 	if (!UPnPServiceUsingForPortMapping)
 		delete UPnPServiceUsingForPortMapping;
 	UPnPServiceUsingForPortMapping = new UPnPService(service);
@@ -2500,7 +2500,7 @@ UPnP_DeletePortMapping(string &log)
 
 	if (port == 0) {
 		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0,
-			"‘O‰ñ‚ÌAddPortMappingî•ñ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½(%s)",
+			"å‰å›ã®AddPortMappingæƒ…å ±ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ(%s)",
 			service->serviceId.c_str());
 		delete UPnPServiceUsingForPortMapping;
 		UPnPServiceUsingForPortMapping = NULL;
@@ -2510,7 +2510,7 @@ UPnP_DeletePortMapping(string &log)
 	action = service->getAction("DeletePortMapping");
 	if (!action) {
 		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0,
-			"DeletePortMapping‚ğ—˜—p‚Å‚«‚Ü‚¹‚ñ(%s)",
+			"DeletePortMappingã‚’åˆ©ç”¨ã§ãã¾ã›ã‚“(%s)",
 			service->serviceId.c_str());
 		delete UPnPServiceUsingForPortMapping;
 		UPnPServiceUsingForPortMapping = NULL;
@@ -2529,13 +2529,13 @@ UPnP_DeletePortMapping(string &log)
 	action->setArgumentValue("NewExternalPort", portstr);
 	action->setArgumentValue("NewProtocol", "TCP");
 	if (!upnp.DoServiceAction(*service, "DeletePortMapping")) {
-		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0, "DeletePortMapping¸”s(%s)",portstr);
+		Logger->AddLog(O2LT_ERROR, L"UPnP", 0, 0, "DeletePortMappingå¤±æ•—(%s)",portstr);
 		delete UPnPServiceUsingForPortMapping;
 		UPnPServiceUsingForPortMapping = NULL;
 		return false;
 	}
 
-	Logger->AddLog(O2LT_INFO, L"UPnP", 0, 0, "ƒ|[ƒg‚ğ•Â‚¶‚Ü‚µ‚½(%s)",portstr);
+	Logger->AddLog(O2LT_INFO, L"UPnP", 0, 0, "ãƒãƒ¼ãƒˆã‚’é–‰ã˜ã¾ã—ãŸ(%s)",portstr);
 	delete UPnPServiceUsingForPortMapping;
 	UPnPServiceUsingForPortMapping = NULL;
 	return true;
@@ -2546,7 +2546,7 @@ UPnP_DeletePortMapping(string &log)
 
 // ---------------------------------------------------------------------------
 //	CreateProgressDialog
-//	ƒvƒƒOƒŒƒXƒo[ƒ_ƒCƒAƒƒOì¬iƒ‚[ƒhƒŒƒXj
+//	ãƒ—ãƒ­ã‚°ãƒ¬ã‚¹ãƒãƒ¼ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ä½œæˆï¼ˆãƒ¢ãƒ¼ãƒ‰ãƒ¬ã‚¹ï¼‰
 // ---------------------------------------------------------------------------
 void
 CreateProgressDialog(TCHAR *title)
@@ -2565,7 +2565,7 @@ CreateProgressDialog(TCHAR *title)
 
 // ---------------------------------------------------------------------------
 //	ProgressDlgProc
-//	ƒvƒƒOƒŒƒXƒo[ƒ_ƒCƒAƒƒO‚ÌƒvƒƒV[ƒWƒƒ
+//	ãƒ—ãƒ­ã‚°ãƒ¬ã‚¹ãƒãƒ¼ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£
 // ---------------------------------------------------------------------------
 static INT_PTR CALLBACK
 ProgressDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
@@ -2633,7 +2633,7 @@ ProgressDlgProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)
 
 // ---------------------------------------------------------------------------
 //	DlgNumSet
-//	”š“ü—Í—“‚É”’l‚ğƒZƒbƒg
+//	æ•°å­—å…¥åŠ›æ¬„ã«æ•°å€¤ã‚’ã‚»ãƒƒãƒˆ
 // ---------------------------------------------------------------------------
 static void
 DlgNumSet(HWND hwnd, uint id, uint64 n, uint64 max)
@@ -2653,7 +2653,7 @@ DlgNumSet(HWND hwnd, uint id, uint64 n, uint64 max)
 
 // ---------------------------------------------------------------------------
 //	DlgNumCheck
-//	”š“ü—Í—“‚Ì”’l‚ğƒ`ƒFƒbƒN
+//	æ•°å­—å…¥åŠ›æ¬„ã®æ•°å€¤ã‚’ãƒã‚§ãƒƒã‚¯
 // ---------------------------------------------------------------------------
 static bool
 DlgNumCheck(HWND hwnd, uint id, uint pageNo, TCHAR *name, uint64 min, uint64 max, uint64 &n)
@@ -2665,7 +2665,7 @@ DlgNumCheck(HWND hwnd, uint id, uint pageNo, TCHAR *name, uint64 min, uint64 max
 
 	n = _tcstoul(tmp, NULL, 10);
 	if (n < min || n > max) {
-		_stprintf_s(tmp, 64, _T("%s‚Í%I64u`%I64u‚Ì”ÍˆÍ‚Å“ü—Í‚µ‚Ä‚­‚¾‚³‚¢"), name, min, max);
+		_stprintf_s(tmp, 64, _T("%sã¯%I64uã€œ%I64uã®ç¯„å›²ã§å…¥åŠ›ã—ã¦ãã ã•ã„"), name, min, max);
 		MessageBox(hwnd, tmp, NULL, MB_OK|MB_ICONERROR);
 		SetFocus(hItem);
 		SetWindowLongPtr(hwnd, DWLP_MSGRESULT, PSNRET_INVALID_NOCHANGEPAGE);
@@ -2680,7 +2680,7 @@ DlgNumCheck(HWND hwnd, uint id, uint pageNo, TCHAR *name, uint64 min, uint64 max
 
 // ---------------------------------------------------------------------------
 //	IsChecked
-//	ƒ`ƒFƒbƒNƒ{ƒbƒNƒX‚Ìó‘Ô‚ğ•Ô‚·
+//	ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹ã®çŠ¶æ…‹ã‚’è¿”ã™
 // ---------------------------------------------------------------------------
 static bool
 IsChecked(HWND hwnd)
@@ -2692,7 +2692,7 @@ IsChecked(HWND hwnd)
 
 // ---------------------------------------------------------------------------
 //	AddTrayIcon
-//	ƒgƒŒƒCƒAƒCƒRƒ“‚ğ’Ç‰Á
+//	ãƒˆãƒ¬ã‚¤ã‚¢ã‚¤ã‚³ãƒ³ã‚’è¿½åŠ 
 // ---------------------------------------------------------------------------
 static void
 AddTrayIcon(UINT id)
@@ -2722,13 +2722,13 @@ AddTrayIcon(UINT id)
 
 // ---------------------------------------------------------------------------
 //	ChangeTrayIcon
-//	ƒgƒŒƒCƒAƒCƒRƒ“‚ğ•ÏX
+//	ãƒˆãƒ¬ã‚¤ã‚¢ã‚¤ã‚³ãƒ³ã‚’å¤‰æ›´
 // ---------------------------------------------------------------------------
 static void
 ChangeTrayIcon(UINT id)
 {
 	if (time(NULL) - Server_P2P->GetLastAcceptTime() < (5*60)) {
-		// ‚T•ªˆÈ“à‚ÉóMo—ˆ‚Ä‚¢‚ê‚ÎAƒgƒŒƒCƒAƒCƒRƒ“‚Ì O ‚ğƒOƒŒ[‚©‚çƒOƒŠ[ƒ“‚É‚·‚éB
+		// ï¼•åˆ†ä»¥å†…ã«å—ä¿¡å‡ºæ¥ã¦ã„ã‚Œã°ã€ãƒˆãƒ¬ã‚¤ã‚¢ã‚¤ã‚³ãƒ³ã® O ã‚’ã‚°ãƒ¬ãƒ¼ã‹ã‚‰ã‚°ãƒªãƒ¼ãƒ³ã«ã™ã‚‹ã€‚
 		switch (id) {
 			case IDI_A:			id = IDI_B;			break;
 			case IDI_A_IN:		id = IDI_B_IN;		break;
@@ -2737,15 +2737,15 @@ ChangeTrayIcon(UINT id)
 		}
 	}
 	else {
-		// I—¹ˆ—’†ˆÈŠO‚ÅAPort0‚Å‚Í‚È‚¢‚Ì‚É‚T•ªˆÈ“à‚ÉóMo—ˆ‚Ä‚¢‚È‚¯‚ê‚ÎA
-		// IPƒAƒhƒŒƒX‚ª•Ï‚í‚Á‚½‰Â”\«‚ª‚ ‚éB
-		// ‚½‚¾‚µA‚P‚O•ªˆÈ“à‚ÉÄ‹N“®‚µ‚Ä‚¢‚ê‚ÎA–³‹
+		// çµ‚äº†å‡¦ç†ä¸­ä»¥å¤–ã§ã€Port0ã§ã¯ãªã„ã®ã«ï¼•åˆ†ä»¥å†…ã«å—ä¿¡å‡ºæ¥ã¦ã„ãªã‘ã‚Œã°ã€
+		// IPã‚¢ãƒ‰ãƒ¬ã‚¹ãŒå¤‰ã‚ã£ãŸå¯èƒ½æ€§ãŒã‚ã‚‹ã€‚
+		// ãŸã ã—ã€ï¼‘ï¼åˆ†ä»¥å†…ã«å†èµ·å‹•ã—ã¦ã„ã‚Œã°ã€ç„¡è¦–
 		static time_t LastRestartP2P = 0;
 		if ((ThreadHandle == NULL) &&
 			(Profile->IsPort0() == false) &&
 			(Job_GetGlobalIP->IsActive() == false) &&
 			(time(NULL) - LastRestartP2P > (10*60) )) {
-			// GetGlobalIP‚ğÄ“x—§‚¿ã‚°AP2P‚ª~‚Ü‚Á‚Ä‚¢‚é‚Í‚¸‚È‚Ì‚ÅP2P‚àÄ‹N“®B
+			// GetGlobalIPã‚’å†åº¦ç«‹ã¡ä¸Šã’ã€P2PãŒæ­¢ã¾ã£ã¦ã„ã‚‹ã¯ãšãªã®ã§P2Pã‚‚å†èµ·å‹•ã€‚
 			LastRestartP2P = time(NULL);
 
 			Profile->SetIP(0);
@@ -2781,7 +2781,7 @@ ChangeTrayIcon(UINT id)
 
 // ---------------------------------------------------------------------------
 //	DeleteTrayIcon
-//	ƒgƒŒƒCƒAƒCƒRƒ“‚ğíœ
+//	ãƒˆãƒ¬ã‚¤ã‚¢ã‚¤ã‚³ãƒ³ã‚’å‰Šé™¤
 // ---------------------------------------------------------------------------
 static void
 DeleteTrayIcon(void)
@@ -2798,7 +2798,7 @@ DeleteTrayIcon(void)
 
 // ---------------------------------------------------------------------------
 //	ShowTrayBaloon
-//	ƒgƒŒƒCƒAƒCƒRƒ“‚Ìƒoƒ‹[ƒ“•\¦
+//	ãƒˆãƒ¬ã‚¤ã‚¢ã‚¤ã‚³ãƒ³ã®ãƒãƒ«ãƒ¼ãƒ³è¡¨ç¤º
 // ---------------------------------------------------------------------------
 static void
 ShowTrayBaloon(const TCHAR *title, const TCHAR *msg, UINT timeout, DWORD infoflag)
@@ -2823,7 +2823,7 @@ ShowTrayBaloon(const TCHAR *title, const TCHAR *msg, UINT timeout, DWORD infofla
 
 // ---------------------------------------------------------------------------
 //	MakeTrayIconTipString
-//	ƒgƒŒƒCƒAƒCƒRƒ“‚Ìƒc[ƒ‹ƒ`ƒbƒv•¶š—ñ
+//	ãƒˆãƒ¬ã‚¤ã‚¢ã‚¤ã‚³ãƒ³ã®ãƒ„ãƒ¼ãƒ«ãƒãƒƒãƒ—æ–‡å­—åˆ—
 // ---------------------------------------------------------------------------
 static void
 MakeTrayIconTipString(NOTIFYICONDATA *nid)
@@ -2862,7 +2862,7 @@ MakeTrayIconTipString(NOTIFYICONDATA *nid)
 
 // ---------------------------------------------------------------------------
 //	StartProxy
-//	ProxyŠJn
+//	Proxyé–‹å§‹
 // ---------------------------------------------------------------------------
 static bool
 StartProxy(wchar_t *addmsg)
@@ -2872,7 +2872,7 @@ StartProxy(wchar_t *addmsg)
 		Logger->GetLogMessage(LOGGER_LOG, L"ProxyServer", reason);
 
 		wchar_t msg[256];
-		swprintf_s(msg, 256, L"Proxy‹N“®¸”s:\n%s%s",
+		swprintf_s(msg, 256, L"Proxyèµ·å‹•å¤±æ•—:\n%s%s",
 			reason.c_str(), addmsg ? addmsg : L"");
 
 		MessageBoxW(hwndMain, msg, NULL, MB_OK | MB_ICONERROR);
@@ -2886,7 +2886,7 @@ StartProxy(wchar_t *addmsg)
 
 // ---------------------------------------------------------------------------
 //	StartAdmin
-//	AdminŠJn
+//	Adminé–‹å§‹
 // ---------------------------------------------------------------------------
 static bool
 StartAdmin(wchar_t *addmsg)
@@ -2896,7 +2896,7 @@ StartAdmin(wchar_t *addmsg)
 		Logger->GetLogMessage(LOGGER_LOG, L"AdminServer", reason);
 
 		wchar_t msg[256];
-		swprintf_s(msg, 256, L"Admin‹N“®¸”s:\n%s%s",
+		swprintf_s(msg, 256, L"Adminèµ·å‹•å¤±æ•—:\n%s%s",
 			reason.c_str(), addmsg ? addmsg : L"");
 
 		MessageBoxW(hwndMain, msg, NULL, MB_OK | MB_ICONERROR);
@@ -2910,13 +2910,13 @@ StartAdmin(wchar_t *addmsg)
 
 // ---------------------------------------------------------------------------
 //	StartP2P
-//	P2PŠJn
+//	P2Pé–‹å§‹
 // ---------------------------------------------------------------------------
 static bool
 StartP2P(bool baloon)
 {
 	if (!CheckPort()) {
-		MessageBoxW(hwndMain, L"ƒ|[ƒg‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ",
+		MessageBoxW(hwndMain, L"ãƒãƒ¼ãƒˆãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“",
 							L"Error", MB_OK | MB_ICONERROR);
 		return false;
 	}
@@ -2930,19 +2930,19 @@ StartP2P(bool baloon)
 		string serviceId = Profile->GetUPnPServiceId();
 		if (adapter.empty()) {
 			MessageBoxW(hwndMain,
-				L"UPnP‚É•K—v‚Èİ’è‚ª•s‘«‚µ‚Ä‚¢‚Ü‚·(UPnPAdapterName)",
+				L"UPnPã«å¿…è¦ãªè¨­å®šãŒä¸è¶³ã—ã¦ã„ã¾ã™(UPnPAdapterName)",
 				NULL, MB_OK | MB_ICONERROR);
 			return false;
 		}
 		if (location.empty()) {
 			MessageBoxW(hwndMain,
-				L"UPnP‚É•K—v‚Èİ’è‚ª•s‘«‚µ‚Ä‚¢‚Ü‚·(UPnPLocation)",
+				L"UPnPã«å¿…è¦ãªè¨­å®šãŒä¸è¶³ã—ã¦ã„ã¾ã™(UPnPLocation)",
 				NULL, MB_OK | MB_ICONERROR);
 			return false;
 		}
 		if (serviceId.empty()) {
 			MessageBoxW(hwndMain,
-				L"UPnP‚É•K—v‚Èİ’è‚ª•s‘«‚µ‚Ä‚¢‚Ü‚·(UPnPServiceId)",
+				L"UPnPã«å¿…è¦ãªè¨­å®šãŒä¸è¶³ã—ã¦ã„ã¾ã™(UPnPServiceId)",
 				NULL, MB_OK | MB_ICONERROR);
 			return false;
 		}
@@ -2963,7 +2963,7 @@ StartP2P(bool baloon)
 
 	DatIO->SetEmergencyHaltCallbackMsg(hwndMain, UM_EMERGENCYHALT);
 	//
-	//	P2PŠJn
+	//	P2Pé–‹å§‹
 	//
 	Server_P2P->SetPort(Profile->IsPort0() ? 0 : Profile->GetP2PPort());
 	Server_P2P->SetSessionLimit(Profile->GetP2PSessionLimit());
@@ -2974,7 +2974,7 @@ StartP2P(bool baloon)
 
 			wchar_t msg[256];
 			swprintf_s(msg, 256,
-				L"P2P‹N“®¸”s:\n%s",
+				L"P2Pèµ·å‹•å¤±æ•—:\n%s",
 				reason.c_str());
 
 			MessageBoxW(hwndMain, msg, NULL, MB_OK | MB_ICONERROR);
@@ -2987,7 +2987,7 @@ StartP2P(bool baloon)
 
 	ChangeTrayIcon(IDI_A);
 	if (baloon && Profile->IsBaloon_P2P())
-		ShowTrayBaloon(L"o2on", L"P2P‚ª‹N“®‚µ‚Ü‚µ‚½", 3*1000, NIIF_INFO);
+		ShowTrayBaloon(L"o2on", L"P2PãŒèµ·å‹•ã—ã¾ã—ãŸ", 3*1000, NIIF_INFO);
 
 	Active = true;
 
@@ -3000,7 +3000,7 @@ StartP2P(bool baloon)
 
 // ---------------------------------------------------------------------------
 //	StopP2P
-//	P2P’â~
+//	P2Påœæ­¢
 // ---------------------------------------------------------------------------
 static bool
 StopP2P(bool baloon)
@@ -3022,7 +3022,7 @@ StopP2P(bool baloon)
 
 	ChangeTrayIcon(IDI_DISABLE);
 	if (baloon && Profile->IsBaloon_P2P())
-		ShowTrayBaloon(L"o2on", L"o2on‚ª’â~‚µ‚Ü‚µ‚½", 3*1000, NIIF_INFO);
+		ShowTrayBaloon(L"o2on", L"o2onãŒåœæ­¢ã—ã¾ã—ãŸ", 3*1000, NIIF_INFO);
 
 	DatIO->SetEmergencyHaltCallbackMsg(NULL, NULL);
 
@@ -3058,7 +3058,7 @@ StopP2P(bool baloon)
 
 // ---------------------------------------------------------------------------
 //	CheckPort
-//	ƒ|[ƒgİ’è‚Ì‘Ã“–«ƒ`ƒFƒbƒN
+//	ãƒãƒ¼ãƒˆè¨­å®šã®å¦¥å½“æ€§ãƒã‚§ãƒƒã‚¯
 // ---------------------------------------------------------------------------
 static bool
 CheckPort(void)
@@ -3076,7 +3076,7 @@ CheckPort(void)
 
 // ---------------------------------------------------------------------------
 //	OpenBrowser
-//	ƒuƒ‰ƒEƒU‚ğŠJ‚­
+//	ãƒ–ãƒ©ã‚¦ã‚¶ã‚’é–‹ã
 // ---------------------------------------------------------------------------
 static void
 OpenBrowser(const wstring &type, const wstring &path)
@@ -3096,7 +3096,7 @@ OpenBrowser(const wstring &type, const wstring &path)
 		if (_waccess(path.c_str(), 0) == 0)
 			ShellExecuteW(NULL, NULL, path.c_str(), url, NULL, SW_SHOWNORMAL);
 		else
-			MessageBox(NULL, L"ƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ", NULL, MB_ICONERROR|MB_OK);
+			MessageBox(NULL, L"ãƒ•ã‚¡ã‚¤ãƒ«ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“", NULL, MB_ICONERROR|MB_OK);
 	}
 }
 
@@ -3105,7 +3105,7 @@ OpenBrowser(const wstring &type, const wstring &path)
 
 // ---------------------------------------------------------------------------
 //	GetInternalBrowserPath
-//	“à‘ ƒuƒ‰ƒEƒU‚ÌƒpƒX‚ğæ“¾
+//	å†…è”µãƒ–ãƒ©ã‚¦ã‚¶ã®ãƒ‘ã‚¹ã‚’å–å¾—
 // ---------------------------------------------------------------------------
 #define BROWSER_FILENAME "browser.exe"
 static void
@@ -3123,7 +3123,7 @@ GetInternalBrowserPath(tstring &path)
 
 // ---------------------------------------------------------------------------
 //	SetWindowPosAuto
-//	ƒEƒBƒ“ƒhƒEˆÊ’uÅ“K‰»
+//	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ä½ç½®æœ€é©åŒ–
 // ---------------------------------------------------------------------------
 static void
 SetWindowPosAuto(HWND hwnd)
@@ -3160,7 +3160,7 @@ SetWindowPosAuto(HWND hwnd)
 
 // ---------------------------------------------------------------------------
 //	SetWindowPosToCorner
-//	ƒEƒBƒ“ƒhƒEˆÊ’u‚ğƒgƒŒƒCƒEƒBƒ“ƒhƒE‹ß‚­‚Ì‰æ–Ê‹÷‚É
+//	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ä½ç½®ã‚’ãƒˆãƒ¬ã‚¤ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦è¿‘ãã®ç”»é¢éš…ã«
 // ---------------------------------------------------------------------------
 static void
 SetWindowPosToCorner(HWND hwnd)
@@ -3207,7 +3207,7 @@ SetWindowPosToCorner(HWND hwnd)
 
 // ---------------------------------------------------------------------------
 //	ChangeToModuleDir
-//	ƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚ğexe‚ª’u‚©‚ê‚Ä‚¢‚éƒfƒBƒŒƒNƒgƒŠ‚É•ÏX
+//	ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’exeãŒç½®ã‹ã‚Œã¦ã„ã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«å¤‰æ›´
 // ---------------------------------------------------------------------------
 static void
 ChangeToModuleDir(void)
@@ -3222,7 +3222,7 @@ ChangeToModuleDir(void)
 
 // ---------------------------------------------------------------------------
 //	GetModuleDirectory
-//	exe‚ª’u‚©‚ê‚Ä‚¢‚éƒfƒBƒŒƒNƒgƒŠ‚ğæ“¾
+//	exeãŒç½®ã‹ã‚Œã¦ã„ã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’å–å¾—
 // ---------------------------------------------------------------------------
 static void
 GetModuleDirectory(TCHAR *module_dir)

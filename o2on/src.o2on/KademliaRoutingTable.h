@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -29,7 +29,7 @@ public:
     // NodeListT
 	typedef std::list<T> NodeListT;
 
-    // ƒ\[ƒg—pŠÖ”ƒIƒuƒWƒFƒNƒg
+    // ã‚½ãƒ¼ãƒˆç”¨é–¢æ•°ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	struct SortByDistancePred {
 		const hashT &sourceID;
 		SortByDistancePred(const hashT &id) : sourceID(id) {}
@@ -42,7 +42,7 @@ public:
 	};
 
 	// -----------------------------------------------------------------------
-    //  ƒRƒ“ƒXƒgƒ‰ƒNƒ^EƒfƒXƒgƒ‰ƒNƒ^
+    //  ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ»ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     // -----------------------------------------------------------------------
 	KademliaRoutingTable(void)
     {
@@ -56,7 +56,7 @@ public:
 
     // -----------------------------------------------------------------------
     //  SetSelfID, SetSelfIP, SetSelfPort
-    //  ©g‚Ìƒm[ƒhî•ñ‚ğƒZƒbƒg
+    //  è‡ªèº«ã®ãƒãƒ¼ãƒ‰æƒ…å ±ã‚’ã‚»ãƒƒãƒˆ
     // -----------------------------------------------------------------------
 	bool SetSelfNodeID(const hashT &id)
     {
@@ -76,7 +76,7 @@ public:
 
     // -----------------------------------------------------------------------
     //  touch
-    //  —^‚¦‚ç‚ê‚½ƒm[ƒhî•ñ‚ğ“KØ‚Èk-bucket‚Ö’Ç‰Á
+    //  ä¸ãˆã‚‰ã‚ŒãŸãƒãƒ¼ãƒ‰æƒ…å ±ã‚’é©åˆ‡ãªk-bucketã¸è¿½åŠ 
     // -----------------------------------------------------------------------
 	bool touch(T &node)
     {
@@ -95,7 +95,7 @@ public:
 	
 	// -----------------------------------------------------------------------
     //  remove
-    //  ƒm[ƒh‚ğíœ
+    //  ãƒãƒ¼ãƒ‰ã‚’å‰Šé™¤
     // -----------------------------------------------------------------------
     void remove(const T &node)
     {
@@ -111,7 +111,7 @@ public:
 
     // -----------------------------------------------------------------------
     //  neighbors
-    //  target‚É‹ß‚¢ƒm[ƒh‚ğƒŠƒXƒgƒAƒbƒv
+    //  targetã«è¿‘ã„ãƒãƒ¼ãƒ‰ã‚’ãƒªã‚¹ãƒˆã‚¢ãƒƒãƒ—
     // -----------------------------------------------------------------------
 	size_t neighbors(hashT target, NodeListT &out, bool include_myself, uint limit = NEIGHBORS_LIMIT)
     {
@@ -134,7 +134,7 @@ public:
 					return (out.size());
 			}
 
-			//target-©•ªŠÔ‚ÅXORƒrƒbƒg‚Ì“™‚µ‚¢ƒm[ƒh’Ç‰Á
+			//target-è‡ªåˆ†é–“ã§XORãƒ“ãƒƒãƒˆã®ç­‰ã—ã„ãƒãƒ¼ãƒ‰è¿½åŠ 
 			for (int i = bitlen - 1; i >= 0; i--) {
 				if (hash_bittest(d,i) && KBuckets[i].count()) {
 					//index = pick(out, limit, KBuckets[i], comparetor);
@@ -145,7 +145,7 @@ public:
 			}
 		}
 
-		//©g‚ğ’Ç‰Á
+		//è‡ªèº«ã‚’è¿½åŠ 
 		if (include_myself && SelfKademliaNode.valid()) {
 			out.push_back(SelfKademliaNode);
 			index++;
@@ -154,7 +154,7 @@ public:
 		}
 
 		if (bitlen >= 0) {
-			//©•ª-targetŠÔ‚ÅXORƒrƒbƒg‚ÌˆÙ‚È‚éƒm[ƒh’Ç‰Á
+			//è‡ªåˆ†-targeté–“ã§XORãƒ“ãƒƒãƒˆã®ç•°ãªã‚‹ãƒãƒ¼ãƒ‰è¿½åŠ 
 			for (int i = 0; i < bitlen; i++) {
 				if (!hash_bittest(d,i) && KBuckets[i].count()) {
 					//index = pick(out, limit, KBuckets[i], comparetor);
@@ -165,7 +165,7 @@ public:
 			}
 		}
 
-		//target-Å’·‹——£ŠÔ‚Ìƒm[ƒh’Ç‰Á
+		//target-æœ€é•·è·é›¢é–“ã®ãƒãƒ¼ãƒ‰è¿½åŠ 
 		for (int i = bitlen + 1; i < HASH_BITLEN; i++) {
 			if (KBuckets[i].count()) {
 				//index = pick(out, limit, KBuckets[i], comparetor);
@@ -195,7 +195,7 @@ public:
 private:
     // -----------------------------------------------------------------------
     //  pick
-    //  kb‚Ìƒm[ƒhƒŠƒXƒg‚ğdest‚É’Ç‰Á
+    //  kbã®ãƒãƒ¼ãƒ‰ãƒªã‚¹ãƒˆã‚’destã«è¿½åŠ 
     // -----------------------------------------------------------------------
 	size_t pick(NodeListT &dest, size_t limit, KB &kb
 		      , const SortByDistancePred &comparator)

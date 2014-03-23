@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -231,50 +231,49 @@ public:
 			return false;
 		ascii2unicode(it->second, node.ua);
 
-		// ƒm[ƒh‚Ìƒ†[ƒU[ƒG[ƒWƒFƒ“ƒg‚©‚çî•ñ‚ğæ“¾
+		// ãƒãƒ¼ãƒ‰ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‹ã‚‰æƒ…å ±ã‚’å–å¾—
 		// O2/0.2 (o2on/0.02.0027; Win32)
 		// O2/0.2 (opy2on/0.00.0001; Linux x86_64)
-		//‚È‚ÇuO2/ƒvƒƒgƒRƒ‹ƒo[ƒWƒ‡ƒ“ (ƒAƒvƒŠ–¼/ƒAƒvƒŠƒo[ƒWƒ‡ƒ“; ŠÂ‹«“™)vŒ`®‚Å‚ ‚é‚±‚Æ
+		//ãªã©ã€ŒO2/ãƒ—ãƒ­ãƒˆã‚³ãƒ«ãƒãƒ¼ã‚¸ãƒ§ãƒ³ (ã‚¢ãƒ—ãƒªå/ã‚¢ãƒ—ãƒªãƒãƒ¼ã‚¸ãƒ§ãƒ³; ç’°å¢ƒç­‰)ã€å½¢å¼ã§ã‚ã‚‹ã“ã¨
 		size_t ProtoNamePos = node.ua.find(L"O2/", 0);
 		if (ProtoNamePos != 0) {
-			// ƒvƒƒgƒRƒ‹–¼‚ªŒ©‚Â‚©‚ç‚È‚¢
+			// ãƒ—ãƒ­ãƒˆã‚³ãƒ«åãŒè¦‹ã¤ã‹ã‚‰ãªã„
 			return false;
 		}
 		size_t AppNamePeriodPos = node.ua.find(L" ", ProtoNamePos);
 		if ( AppNamePeriodPos == wstring::npos ) {
-			// ƒvƒƒgƒRƒ‹EƒAƒvƒŠ–¼‚Ì‹æØ‚è‚ªŒ©‚Â‚©‚ç‚È‚¢
+			// ãƒ—ãƒ­ãƒˆã‚³ãƒ«ãƒ»ã‚¢ãƒ—ãƒªåã®åŒºåˆ‡ã‚ŠãŒè¦‹ã¤ã‹ã‚‰ãªã„
 			return false;
 		}
 		node.proto_ver = node.ua.substr( 3, AppNamePeriodPos - 3 );
 		size_t AppNameStartPos = node.ua.find(L"(", AppNamePeriodPos);
 		if (( AppNameStartPos == wstring::npos ) || ((AppNameStartPos + 1) == node.ua.size() )) {
-			// ƒAƒvƒŠ–¼‚ÌŠJnˆÊ’u‚ªŒ©‚Â‚©‚ç‚È‚¢
+			// ã‚¢ãƒ—ãƒªåã®é–‹å§‹ä½ç½®ãŒè¦‹ã¤ã‹ã‚‰ãªã„
 			return false;
 		}
 		AppNameStartPos++;
 		size_t AppNameEndPos = node.ua.find(L"/", AppNameStartPos);
 		if ( AppNameEndPos == wstring::npos ) {
-			// ƒAƒvƒŠ–¼‚ÌI—¹ˆÊ’u‚ªŒ©‚Â‚©‚ç‚È‚¢
+			// ã‚¢ãƒ—ãƒªåã®çµ‚äº†ä½ç½®ãŒè¦‹ã¤ã‹ã‚‰ãªã„
 			return false;
 		}
 		node.app_name = node.ua.substr( AppNameStartPos, AppNameEndPos - AppNameStartPos );
  		if ((wcscmp(node.app_name.c_str(), _T(APP_NAME)) == 0) && ((AppNameEndPos + 1) < node.ua.size() )) {
-			// “¯‚¶ƒAƒvƒŠ‚È‚çƒo[ƒWƒ‡ƒ“”Ô†‚ğæ“¾
+			// åŒã˜ã‚¢ãƒ—ãƒªãªã‚‰ãƒãƒ¼ã‚¸ãƒ§ãƒ³ç•ªå·ã‚’å–å¾—
 			AppNameEndPos++;
 			size_t VerEndPos = node.ua.find(L";", AppNameEndPos);
 			if ( VerEndPos == wstring::npos ) {
-				// ƒo[ƒWƒ‡ƒ“”Ô†‚ÌI—¹ˆÊ’u‚ªŒ©‚Â‚©‚ç‚È‚¢
+				// ãƒãƒ¼ã‚¸ãƒ§ãƒ³ç•ªå·ã®çµ‚äº†ä½ç½®ãŒè¦‹ã¤ã‹ã‚‰ãªã„
 				return false;
 			}
 			node.app_ver = node.ua.substr(AppNameEndPos, VerEndPos - AppNameEndPos);
 		}
-#ifdef O2DEBUG
-		else {
+		else 
+		{
 			wchar_t tmpW[128];
-			swprintf_s(tmpW, 128, L"ˆÙ‚È‚éƒAƒvƒŠ:%s\n", node.app_name.c_str());
+			swprintf_s(tmpW, 128, L"ç•°ãªã‚‹ã‚¢ãƒ—ãƒª:%s\n", node.app_name.c_str());
 			TRACEW(tmpW);
 		}
-#endif
 
 		return true;
 	}

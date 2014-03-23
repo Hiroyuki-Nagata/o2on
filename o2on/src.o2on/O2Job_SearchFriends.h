@@ -1,4 +1,4 @@
-/* Copyright (C) 2006 o2on project. All rights reserved.
+ï»¿/* Copyright (C) 2006 o2on project. All rights reserved.
  * http://o2on.net/
  */
 
@@ -68,7 +68,7 @@ public:
 		hashT myID;
 		Profile->GetID(myID);
 
-		// friend‚Åƒ‹[ƒv
+		// friendã§ãƒ«ãƒ¼ãƒ—
 		O2NodeDB::NodeListT::iterator fit;
 		for (fit = friends.begin(); fit != friends.end() && IsActive(); fit++) {
 			if (time(NULL) - fit->lastlink < O2_FRIEND_LIVING_TT)
@@ -91,7 +91,7 @@ public:
 			while (!found && IsActive()) {
 				Sleep(SEARCH_REFINE_INTERVAL_MS);
 
-				// ƒ¿ŒÂ‚ğ‘I‚ÑFIND_VALUE‚ğ‘—‚é
+				// Î±å€‹ã‚’é¸ã³FIND_VALUEã‚’é€ã‚‹
 				size_t i = 0;
 				for (nit = neighbors.begin(); nit != neighbors.end() && i < REFINE_BORDER && IsActive(); nit++, i++) {
 					if (SessionList.size() >= MAX_SESSION_FOR_REFINE)
@@ -99,7 +99,7 @@ public:
 					if (nit->lastlink != 0)
 						continue;
 
-					// FIND_NODE”­s
+					// FIND_NODEç™ºè¡Œ
 					O2SocketSession *ss = new O2SocketSession();
 					ss->ip = nit->ip;
 					ss->port = nit->port;
@@ -107,8 +107,8 @@ public:
 					O2Protocol_Kademlia pk;
 					MakeRequest_Kademlia_FINDNODE(ss, Profile, fit->id, ss->sbuff);
 
-					//æ‚ÉlastlinkƒZƒbƒg‚µ‚Ä‚¨‚­
-					//‚»‚¤‚µ‚È‚¢‚ÆŸ‰ñRefine‚ÅSessionList‚É’Ç‰Á‚³‚ê‚Ä‚µ‚Ü‚¤
+					//å…ˆã«lastlinkã‚»ãƒƒãƒˆã—ã¦ãŠã
+					//ãã†ã—ãªã„ã¨æ¬¡å›Refineã§SessionListã«è¿½åŠ ã•ã‚Œã¦ã—ã¾ã†
 					nit->lastlink = time(NULL);
 
 					SessionList.push_back(ss);
@@ -118,7 +118,7 @@ public:
 				if (SessionList.empty())
 					break;
 
-				// •Ô“š‚ğ‘Ò‚Â
+				// è¿”ç­”ã‚’å¾…ã¤
 				std::vector<HANDLE> handles;
 				O2SocketSessionPListIt sit;
 				for (sit = SessionList.begin(); sit != SessionList.end(); sit++) {
@@ -157,14 +157,14 @@ public:
 					neighbors.erase(nit);
 				}
 				else {
-					// •Ô“š‚ğæ‚è‚Ş
+					// è¿”ç­”ã‚’å–ã‚Šè¾¼ã‚€
 					char *body = &ss->rbuff[header->length];
 					uint len = header->contentlength;
 
 					O2NodeDB::NodeListT ReceiveNodes;
 					NodeDB->ImportFromXML(NULL, body, len, &ReceiveNodes);
 
-					// neighbors‚Ö’Ç‰Á
+					// neighborsã¸è¿½åŠ 
 					for (nit = ReceiveNodes.begin(); nit != ReceiveNodes.end(); nit++) {
 						if (nit->id == myID)
 							continue;
@@ -176,7 +176,7 @@ public:
 							neighbors.push_back(*nit);
 						}
 					}
-					// target‚É‹ß‚¢‡‚Éƒ\[ƒg
+					// targetã«è¿‘ã„é †ã«ã‚½ãƒ¼ãƒˆ
 					O2NodeDB::SortByDistancePred comparetor(fit->id);
 					neighbors.sort(comparetor);
 
@@ -187,7 +187,7 @@ public:
 					for (nit = neighbors.begin(); nit != neighbors.end(); nit++)
 						printnode(fit->id, *nit);
 #endif
-					// ”­Œ©H
+					// ç™ºè¦‹ï¼Ÿ
 					nit = std::find(neighbors.begin(), neighbors.end(), *fit);
 					if (nit != neighbors.end() && nit->lastlink) {
 						FriendDB->Update(*nit);
@@ -199,7 +199,7 @@ public:
 				delete ss;
 			}
 
-			// ’â~‚µ‚½ê‡‚Íss‚ªc‚Á‚Ä‚é‰Â”\«‚ª‚ ‚é‚Ì‚Ådelete
+			// åœæ­¢ã—ãŸå ´åˆã¯ssãŒæ®‹ã£ã¦ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ã®ã§delete
 			O2SocketSessionPListIt sit;
 			for (sit = SessionList.begin(); sit != SessionList.end(); sit++) {
 				O2SocketSession *ss = *sit;
@@ -209,7 +209,7 @@ public:
 				delete (ss);
 			}
 
-			// ¬Œ÷‚µ‚½ƒm[ƒh‚ğtouch
+			// æˆåŠŸã—ãŸãƒãƒ¼ãƒ‰ã‚’touch
 			for (nit = neighbors.begin(); nit != neighbors.end() && IsActive(); nit++) {
 				if (nit->lastlink) {
 					NodeDB->touch(*nit);
