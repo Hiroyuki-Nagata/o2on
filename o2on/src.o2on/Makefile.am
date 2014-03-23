@@ -97,7 +97,6 @@ simplessdpsocket.h	  \
 simpletcpsocket.h	  \
 simpleudpsocket.h	  \
 stopwatch.h		  \
-thread.h		  \
 typedef.h		  \
 upnp.h			  \
 upnp_description.h    

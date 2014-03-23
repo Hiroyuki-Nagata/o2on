@@ -10,7 +10,6 @@
  */
 
 #pragma once
-#include "thread.h"
 #include "mutex.h"
 #include "O2Job.h"
 
