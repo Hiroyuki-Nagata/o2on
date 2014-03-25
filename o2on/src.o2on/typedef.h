@@ -94,3 +94,7 @@ typedef std::map<wstring,uint64>		wstrnummap;
    typedef uint		SOCKET;
    #define INVALID_SOCKET -1
 #endif
+
+/** macro expansion */
+#define XSTR(x) #x
+#define STR(x)  XSTR(x)

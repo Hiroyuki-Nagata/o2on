@@ -13,7 +13,9 @@
 #include "mutex.h"
 #include "O2Job.h"
 
-
+#ifndef _WIN32
+   #include "event.h"
+#endif
 
 
 class O2Scheduler

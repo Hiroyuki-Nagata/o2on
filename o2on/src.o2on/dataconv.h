@@ -24,10 +24,6 @@ extern uint split(const char *in, const char *delim, strarray &token);
 extern uint wsplit(const wchar_t *in, const wchar_t *delim, wstrarray &token);
 extern uint splitstr(const char *in, const char *delim, strarray &token);
 extern uint wsplitstr(const wchar_t *in, const wchar_t *delim, wstrarray &token);
-extern void byte2hex(const byte *in, uint len, string &out);
-extern void byte2whex(const byte *in, uint len, wstring &out);
-extern void hex2byte(const char *in, uint len, byte *out);
-extern void whex2byte(const wchar_t *in, uint len, byte *out);
 extern void random_hex(uint len, string &out);
 extern void random_whex(uint len, wstring &out);
 extern time_t datetime2time_t(const wchar_t *in, int len);
@@ -42,13 +38,11 @@ extern ulong ipstr2ulong(const wchar_t *in, int len);
 extern void ulong2ipstr(ulong ip, string &out);
 extern void ulong2ipstr(ulong ip, wstring &out);
 extern void simple_aes_ctr(byte *in, uint inlen, byte *out);
-/** TODO hashT
 extern void hash_xor(hashT &out, const hashT &h1, const hashT &h2);
 extern size_t hash_bitlength(const hashT &hash);
 extern bool hash_bittest(const hashT &hash, size_t pos);
 extern size_t hash_xor_bitlength(const hashT &h1, const hashT &h2);
 extern bool less_xor_bitlength(const hashT &target, const hashT &h1, const hashT &h2);
-*/
 extern void bench(void);
 
 extern void ip2e(ulong ip, string &out);

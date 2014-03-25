@@ -24,13 +24,9 @@ private:
 
 public:
 	O2Agent(const wchar_t *name, O2Logger *lgr)
-		: O2Client_HTTP(name, lgr)
-	{
-	}
+	  : O2Client_HTTP(name, lgr){};
 
-	~O2Agent()
-	{
-	}
+	~O2Agent();
 
 	void ClientStart(void)
 	{

@@ -11,17 +11,17 @@
 
 #pragma once
 #include "typedef.h"
-#include "dataconv.h"
+#include "common.h"
 
 #ifdef _WIN32
+   #include "dataconv.h"
    #include "../cryptopp/osrng.h"
 #else
    #include <cryptopp/osrng.h>
 #endif
 
-
-
 #if 1
+
 template<size_t N, typename T = byte>
 class barrayT
 {

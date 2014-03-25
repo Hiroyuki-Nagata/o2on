@@ -92,6 +92,8 @@ resource.h		  \
 resource.rc		  \
 rsa.h			  \
 sha.h			  \
+common.cpp		  \
+common.h		  \
 simplehttpsocket.h	  \
 simplessdpsocket.h	  \
 simpletcpsocket.h	  \
