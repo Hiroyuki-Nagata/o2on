@@ -10,6 +10,7 @@
  */
 
 #pragma once
+
 #include "KademliaNode.h"
 #include "mutex.h"
 #include <list>
@@ -190,26 +191,26 @@ public:
 	
 	size_t pick(const hashT &target, NodeListT &dest, size_t limit)
 	{
-	//stopwatch sw("pick");
-	  typedef std::map<hashT,T*> SortedNodePListT; 
-	  SortedNodePListT sorted_list;
-	
-	  Lock();
-	  {
-	    typename NodeListT::iterator it = InternalList.begin();
-	    for ( ; it != InternalList.end(); it++) 
-     {
-	      hashT xor;
-	      hash_xor(xor, target, it->id);
-	      sorted_list.insert(SortedNodePListT::value_type(xor, &(*it)));
-	    }
-				size_t i = 0;
-				typename SortedNodePListT::iterator sit = sorted_list.begin();
-				for ( ; sit != sorted_list.end() && i < limit; sit++, i++) {
-					dest.push_back(*(sit->second));
-				}
+		//stopwatch sw("pick");
+		typedef std::map<hashT,T*> SortedNodePListT; 
+		SortedNodePListT sorted_list;
+
+		Lock();
+		{
+			typename NodeListT::iterator it = InternalList.begin();/
+			for ( ; it != InternalList.end(); it++) 
+			{
+				hashT _xor;
+				hash_xor(_xor, target, it->id);
+				sorted_list.insert(SortedNodePListT::value_type(_xor, &(*it)));
+			}
+			size_t i = 0;
+			typename SortedNodePListT::iterator sit = sorted_list.begin();
+			for ( ; sit != sorted_list.end() && i < limit; sit++, i++) {
+				dest.push_back(*(sit->second));
+			}
 		}
-        Unlock();
+        	Unlock();
 
 		return (dest.size());
 	};
