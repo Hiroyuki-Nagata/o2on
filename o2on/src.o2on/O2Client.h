@@ -46,8 +46,14 @@ protected:
 	Mutex		QueueLock;
 	Mutex		ConnectSessionLock;
 	Mutex		SessionListLock;
+
+#ifdef _WIN32
 	EventObject	QueueExistSignal;
 	EventObject	SessionExistSignal;
+#else
+	DosMocking::EventObject	QueueExistSignal;
+	DosMocking::EventObject	SessionExistSignal;
+#endif
 
 	struct ConnectThreadParam {
 		O2Client *client;

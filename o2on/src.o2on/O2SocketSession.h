@@ -28,7 +28,11 @@
 //
 struct O2SocketSession
 	: public Mutex
+#ifdef _WIN32
 	, public EventObject
+#else
+	, public DosMocking::EventObject
+#endif
 {
 	SOCKET		sock;
 	time_t		connect_timeout_s;

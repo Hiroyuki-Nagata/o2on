@@ -62,83 +62,87 @@ private:
 #include <boost/thread.hpp>
 #include <boost/thread/condition.hpp>
 
-class EventObject;
-typedef EventObject* EventHandle;
-static const unsigned INFINITE = 0xFFFFFFFF;
-
-class EventObject
+namespace DosMocking
 {
+	class EventObject;
+	typedef EventObject* EventHandle;
+	static const DWORD INFINITE = 0xFFFFFFFF;
+	 
+	class EventObject
+	{
+	 
+	protected:
+	 	EventHandle evt;
+	 
+	public:
+	 	EventObject(void) : m_bool(false)
+	 	{
+	 		CreateEvent();
+	 	};
+	 	~EventObject(void)
+	 	{
+	 		CloseHandle(evt);
+	 	};
+	 	EventHandle CreateEvent( void )
+	 	{
+	 		return new EventObject;
+	 	};
+	 	void CloseHandle( EventHandle evt )
+	 	{
+	 		delete evt;
+	 	};
+	 	EventHandle GetHandle(void)
+	 	{
+	 		return evt;
+	 	};
+	 	void On(void)
+	 	{
+	 		SetEvent(evt);
+	 	};
+	 	void Off(void)
+	 	{
+	 		ResetEvent(evt);
+	 	};
+	 	void Wait(DWORD timeout_ms = INFINITE)
+	 	{
+	 		WaitForSingleObject(evt, timeout_ms);
+	 	};
+		template <class T>
+	 	void WaitForSingleObject(EventHandle evt, T& timeout_ms)
+	 	{
+	 		boost::mutex::scoped_lock lock( evt->m_mutex );
+	 		if( timeout_ms == INFINITE )
+	 		{
+	 			while( !evt->m_bool )
+	 			{
+	 				evt->m_cond.wait( lock );
+	 			}
+	 		}
+	 		else
+	 		{
+	   			//slightly more complex code for timeouts
+	 		}
+	 	};	 
+	 
+	private:
+	 	EventObject(const EventObject& rhs);
+	 	EventObject& operator=(const EventObject& rhs);
+	 
+	 	void SetEvent(EventHandle evt)
+	 	{
+	 		// シグナル状態へ
+	 		evt->m_bool = true;
+	 		evt->m_cond.notify_all();
+	 	};
+	 	void ResetEvent(EventHandle evt)
+	 	{
+	 		// 非シグナル状態へ
+	 		evt->m_bool = false;
+	 	};
 
-protected:
-	EventHandle evt;
-
-public:
-	EventObject(void) : m_bool(false)
-	{
-		CreateEvent();
-	};
-	~EventObject(void)
-	{
-		CloseHandle(evt);
-	};
-	EventHandle CreateEvent( void )
-	{
-		return new EventObject;
-	};
-	void CloseHandle( EventHandle evt )
-	{
-		delete evt;
-	};
-	EventHandle GetHandle(void)
-	{
-		return evt;
-	};
-	void On(void)
-	{
-		SetEvent(evt);
-	};
-	void Off(void)
-	{
-		ResetEvent(evt);
-	};
-	void Wait(DWORD timeout_ms = INFINITE)
-	{
-		WaitForSingleObject(evt, timeout_ms);
-	};
-
-	bool m_bool;
-	boost::mutex m_mutex;
-	boost::condition m_cond;
-
-private:
-	EventObject(const EventObject& rhs);
-	EventObject& operator=(const EventObject& rhs);
-
-	void SetEvent(EventHandle evt)
-	{
-		// シグナル状態へ
-		evt->m_bool = true;
-		evt->m_cond.notify_all();
-	};
-	void ResetEvent(EventHandle evt)
-	{
-		// 非シグナル状態へ
-		evt->m_bool = false;
-	};
-	void WaitForSingleObject(EventHandle evt, DWORD timeout_ms)
-	{
-		boost::mutex::scoped_lock lock( evt->m_mutex );
-		if( timeout_ms == INFINITE )
-		{
-			while( !evt->m_bool )
-			{
-				evt->m_cond.wait( lock );
-			}
-		}
-		else
-		{
-   			//slightly more complex code for timeouts
-		}
+	 	bool m_bool;
+	 	boost::mutex m_mutex;
+	 	boost::condition m_cond;
 	};
 };
 #endif

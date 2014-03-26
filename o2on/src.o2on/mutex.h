@@ -61,7 +61,7 @@ public:
 
 	Mutex(void)
 	{
-	  pthread_mutex_init(&mutex_handle, NULL);
+		pthread_mutex_init(&mutex_handle, NULL);
 	};
 
 	~Mutex(void)

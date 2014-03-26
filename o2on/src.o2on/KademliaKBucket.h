@@ -197,7 +197,7 @@ public:
 
 		Lock();
 		{
-			typename NodeListT::iterator it = InternalList.begin();/
+			typename NodeListT::iterator it = InternalList.begin();
 			for ( ; it != InternalList.end(); it++) 
 			{
 				hashT _xor;

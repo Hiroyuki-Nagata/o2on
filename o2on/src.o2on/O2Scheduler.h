@@ -5,7 +5,7 @@
 /*
  * project		: o2on
  * filename		: O2Scheduler.h
- * description	: 
+ * description		: o2on internal scheduler
  *
  */
 
@@ -18,14 +18,18 @@
 #endif
 
 
-class O2Scheduler
-	: public Mutex
+class O2Scheduler : public Mutex
 {
+
 protected:
 	typedef std::vector<O2Job*> Jobs;
 
 	Jobs	jobs;
+#ifdef _WIN32
 	HANDLE	ThreadHandle;
+#else
+	pthread_t* ThreadHandle;
+#endif
 	bool	Active;
 
 public:
@@ -33,18 +37,19 @@ public:
 		: ThreadHandle(NULL)
 		, Active(false)
 	{
-	}
+	};
 	~O2Scheduler()
 	{
 		if (Active)
 			Stop();
-	}
-
+	};
 	void Start(void)
 	{
-		if (!ThreadHandle) {
+		if (!ThreadHandle) 
+		{
 			Lock();
-			for (uint i = 0; i < jobs.size(); i++) {
+			for (uint i = 0; i < jobs.size(); i++) 
+			{
 				jobs[i]->SetActive(true);
 				if (jobs[i]->IsRunStartup())
 					jobs[i]->SetLastTime(0);
@@ -54,17 +59,30 @@ public:
 			Unlock();
 
 			Active = true;
+#ifdef _WIN32
 			ThreadHandle = (HANDLE)_beginthreadex(
 				NULL, 0, StaticSchedulerThread, (void*)this, 0, NULL);
+#else
+			pthread_create(ThreadHandle,
+					NULL,
+					StaticSchedulerThread,
+					NULL);
+#endif
 		}
-	}
+	};
 	void Stop(void)
 	{
 		if (ThreadHandle) {
 			Active = false;
+#ifdef _WIN32
 			WaitForSingleObject(ThreadHandle, INFINITE);
 			CloseHandle(ThreadHandle);
 			ThreadHandle = NULL;
+#else                   /** TODO: ここは多分後で改修する  */
+			DosMocking::EventObject evt;
+			evt.WaitForSingleObject( &evt, DosMocking::INFINITE );
+			evt.CloseHandle( &evt );
+#endif
 		}
 		for (uint i = 0; i < jobs.size(); i++) {
 			jobs[i]->SetActive(false);
@@ -77,8 +95,7 @@ public:
 			}
 			jobs[i]->ResetCounter();
 		}
-	}
-
+	};
 	void Add(O2Job *job)
 	{
 		job->SetLastTime(time(NULL));
@@ -86,9 +103,11 @@ public:
 		Lock();
 		jobs.push_back(job);
 		Unlock();
-	}
+	};
 
 protected:
+
+#ifdef _WIN32
 	static uint WINAPI StaticSchedulerThread(void *data)
 	{
 		O2Scheduler *me = (O2Scheduler*)data;
@@ -97,9 +116,16 @@ protected:
 		me->Scheduler();
 		CoUninitialize();
 
-		//_endthreadex(0);
 		return (0);
-	}
+	};
+#else
+	static void* StaticSchedulerThread(void *data)
+	{
+		// 多分pthreadだとCoInitializeはいらない気がする
+		O2Scheduler *me = (O2Scheduler*)data;
+		me->Scheduler();
+	};
+#endif
 	void Scheduler(void)
 	{
 		while (Active) {
@@ -111,15 +137,25 @@ protected:
 					if (time(NULL) - jobs[i]->GetLastTime() > jobs[i]->GetInterval()) {
 						jobs[i]->SetLastTime(time(NULL)); //セット
 						jobs[i]->SetWorking(true);
+
+#ifdef _WIN32
 						HANDLE handle = (HANDLE)_beginthreadex(
 							NULL, 0, StaticJobStartThread, (void*)jobs[i], 0, NULL);
 						CloseHandle(handle);
+#else
+			 			pthread_create(ThreadHandle,
+			 					NULL,
+			 					StaticJobStartThread,
+							       (void*)jobs[i]);
+#endif
 					}
 				}
 			}
 			Unlock();
 		}
 	}
+
+#ifdef _WIN32
 	static uint WINAPI StaticJobStartThread(void *data)
 	{
 		O2Job *job = (O2Job*)data;
@@ -132,5 +168,16 @@ protected:
 
 		//_endthreadex(0);
 		return (0);
-	}
+	};
+#else
+	static void* StaticJobStartThread(void *data)
+	{
+		O2Job *job = (O2Job*)data;
+
+		// 多分pthreadだとCoInitializeはいらない気がする
+		job->JobThreadFunc();
+		job->SetWorking(false);
+		job->SetLastTime(time(NULL)); //再度セット
+	};
+#endif
 };
