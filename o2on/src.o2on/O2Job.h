@@ -13,6 +13,7 @@
 #include "O2Define.h"
 #include "O2JobSchedule.h"
 #include "O2Protocol.h"
+#include "O2NodeDB.h"
 #include "mutex.h"
 #include <time.h>
 

@@ -5,7 +5,7 @@
 /*
  * project		: o2on
  * filename		: O2NodeDB.h
- * description	: Node Routing Table
+ * description		: Node Routing Table
  *
  */
 
@@ -15,9 +15,10 @@
 #include "O2Logger.h"
 #include "O2NodeKBucket.h"
 #include "KademliaRoutingTable.h"
-#include <tchar.h>
 
-
+#ifdef _WIN32
+   #include <tchar.h>
+#endif
 
 
 // XML Element bit
@@ -29,14 +30,14 @@
 #define NODE_XMLELM_PUBKEY				0x00000010
 #define NODE_XMLELM_UA					0x00010000
 #define NODE_XMLELM_STATUS				0x00020000
-#define NODE_XMLELM_LASTLINK			0x00040000
-#define NODE_XMLELM_CONNECTION_ME2N		0x00080000
-#define NODE_XMLELM_SENDBYTE_ME2N		0x00100000
-#define NODE_XMLELM_RECVBYTE_ME2N		0x00200000
-#define NODE_XMLELM_CONNECTION_N2ME		0x00400000
-#define NODE_XMLELM_SENDBYTE_N2ME		0x00800000
-#define NODE_XMLELM_RECVBYTE_N2ME		0x01000000
-#define NODE_XMLELM_DISTANCE			0x02000000
+#define NODE_XMLELM_LASTLINK				0x00040000
+#define NODE_XMLELM_CONNECTION_ME2N			0x00080000
+#define NODE_XMLELM_SENDBYTE_ME2N			0x00100000
+#define NODE_XMLELM_RECVBYTE_ME2N			0x00200000
+#define NODE_XMLELM_CONNECTION_N2ME			0x00400000
+#define NODE_XMLELM_SENDBYTE_N2ME			0x00800000
+#define NODE_XMLELM_RECVBYTE_N2ME			0x01000000
+#define NODE_XMLELM_DISTANCE				0x02000000
 #define NODE_XMLELM_FLAGS				0x04000000
 #define NODE_XMLELM_STR					0x40000000
 #define NODE_XMLELM_INFO				0x80000000
