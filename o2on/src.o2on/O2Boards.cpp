@@ -9,6 +9,7 @@
  *
  */
 
+#include "O2Define.h"
 #include "O2Boards.h"
 #include "simplehttpsocket.h"
 #include "file.h"

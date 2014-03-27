@@ -50,7 +50,11 @@ public:
 	}
 	bool setproxy(const wchar_t *name, ushort port)
 	{
-		unicode2ascii(name, _tcslen(name), proxy);
+#ifdef _WIN32   /** 汎用関数でchar/wchar_tを区別 */
+		unicode2ascii(name, _tcslen(name), s);
+#else           /** wchar_tで決め打ち */
+		unicode2ascii(name, wcslen(name), proxy);
+#endif
 		proxyport = port;
 	}
 

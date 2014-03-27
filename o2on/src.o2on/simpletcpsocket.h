@@ -15,6 +15,14 @@
 
 #ifdef _WIN32
    #include <tchar.h>
+#else
+   #include <sys/types.h>
+   #include <sys/socket.h>
+   #include <netinet/in.h>
+   #include <arpa/inet.h>
+   #include <netdb.h>
+   #include <sys/ioctl.h>
+   #include <errno.h>
 #endif
 
 #define BUFFSIZE	5120
@@ -34,18 +42,18 @@ public:
 	{
 		tv.tv_sec  = t_ms/1000;
 		tv.tv_usec = t_ms%1000;
-	}
+	};
 
 	~TCPSocket()
 	{
 		close();
-	}
+	};
 
 public:
 	SOCKET getsock(void)
 	{
 		return (sock);
-	}
+	};
 	
 	bool connect(const char *name, ushort port)
 	{
@@ -58,14 +66,18 @@ public:
 			ip = *((ulong*)host->h_addr_list[0]);
 		}
 		return (connect(ip, port));
-	}
+	};
 
 	bool connect(const wchar_t *name, ushort port)
 	{
 		string s;
+#ifdef _WIN32   /** 汎用関数でchar/wchar_tを区別 */
 		unicode2ascii(name, _tcslen(name), s);
+#else           /** wchar_tで決め打ち */
+		unicode2ascii(name, wcslen(name), s);
+#endif
 		return (connect(s.c_str(), port));
-	}
+	};
 	
 	bool connect(ulong ip, ushort port)
 	{
@@ -76,9 +88,36 @@ public:
 		if (sock == INVALID_SOCKET)
 			return false;
 
+/* Windows and Unix sockaddr_in difference... */
+/* @see http://stackoverflow.com/questions/13979150/why-is-sin-addr-inside-the-structure-in-addr */
+
+/* Linux side...  */
+/* typedef uint32_t in_addr_t; */
+/* struct in_addr */
+/*   { */
+/*     in_addr_t s_addr; */
+/*   }; */
+
+/* Windows side... */
+/* typedef struct in_addr { */
+/*   union { */
+/*     struct { */
+/*       u_char s_b1,s_b2,s_b3,s_b4; */
+/*     } S_un_b; */
+/*     struct { */
+/*       u_short s_w1,s_w2; */
+/*     } S_un_w; */
+/*     u_long S_addr; */
+/*   } S_un; */
+/* } IN_ADDR, *PIN_ADDR, FAR *LPIN_ADDR; */
+
 		struct sockaddr_in sin;
 		sin.sin_family = AF_INET;
+#ifdef _WIN32
 		sin.sin_addr.S_un.S_addr = ip;
+#else
+		sin.sin_addr.s_addr = ip;
+#endif
 		sin.sin_port = htons(port);
 		
 		if (::connect(sock, (struct sockaddr*)&sin, sizeof(sin)) != 0) {
@@ -87,18 +126,26 @@ public:
 		}
 		//non blocking mode
 		unsigned long argp = 1;
+#ifdef _WIN32
 		ioctlsocket(sock, FIONBIO, &argp);
+#else
+		ioctl(sock, FIONBIO, &argp);
+#endif
 
 		return true;
-	}
+	};
 
 	void close(void)
 	{
 		if (sock) {
+#ifdef _WIN32
 			closesocket(sock);
+#else
+			::close(sock);
+#endif
 			sock = INVALID_SOCKET;
 		}
-	}
+	};
 
 	int recv(string &out)
 	{
@@ -122,17 +169,30 @@ public:
 #endif
 
 		if (n > 0)
+		{
 			out.append(buff, buff+n);
+		}
 		else if (n == 0)
+		{
 			return (-1);
-		else if (n < 0) {
+		}
+		else if (n < 0) 
+		{
+#ifdef _WIN32
 			if (WSAGetLastError() == WSAEWOULDBLOCK)
+#else
+			if (errno == EAGAIN)
+#endif
+			{
 				return (0);
+			}
 			else
+			{
 				return (-1);
+			}
 		}
 		return (n);
-	}
+	};
 
 	int recv_fixed(char *buff, uint buffsize)
 	{
@@ -155,15 +215,26 @@ public:
 #endif
 
 		if (n == 0)
+		{
 			return (-1);
-		else if (n < 0) {
+		}
+		else if (n < 0) 
+		{
+#ifdef _WIN32
 			if (WSAGetLastError() == WSAEWOULDBLOCK)
+#else
+			if (errno == EAGAIN)
+#endif
+			{
 				return (0);
+			}
 			else
+			{
 				return (-1);
+			}
 		}
 		return (n);
-	}
+	};
 
 	int send(const char *in, int len)
 	{
@@ -185,12 +256,21 @@ public:
 		TRACEA(tmp);
 #endif
 
-		if (n < 0) {
+		if (n < 0) 
+		{
+#ifdef _WIN32
 			if (WSAGetLastError() == WSAEWOULDBLOCK)
+#else
+			if (errno == EAGAIN)
+#endif
+			{
 				return (0);
+			}
 			else
+			{
 				return (-1);
+			}
 		}
 		return (n);
-	}
+	};
 };

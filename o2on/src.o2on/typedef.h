@@ -16,7 +16,9 @@
 #include <set>
 #include <map>
 
-#ifndef _WIN32 /** UNIX only typedef for MSW dirty typedefs... */
+/** UNIX only typedef for MSW dirty typedefs...               */
+/** @see http://www.jbox.dk/sanos/source/include/win32.h.html */
+#ifndef _WIN32
    #include <cstring>
    typedef void*	 HANDLE;
    typedef HANDLE	 HWND;
@@ -25,6 +27,23 @@
    #define FALSE	false
    #define TRUE		true
    #define WINAPI
+   #define INVALID_HANDLE_VALUE ((HANDLE) -1)
+
+   /* #define GENERIC_READ                     0x80000000 */
+   /* #define GENERIC_WRITE                    0x40000000 */
+   /* #define GENERIC_EXECUTE                  0x20000000 */
+   /* #define GENERIC_ALL                      0x10000000 */
+
+   /* #define FILE_SHARE_READ                  0x00000001 */
+   /* #define FILE_SHARE_WRITE                 0x00000002 */
+   /* #define FILE_SHARE_DELETE                0x00000004 */
+
+   /* #define CREATE_NEW                       1 */
+   /* #define CREATE_ALWAYS                    2 */
+   /* #define OPEN_EXISTING                    3 */
+   /* #define OPEN_ALWAYS                      4 */
+   /* #define TRUNCATE_EXISTING                5 */
+
    /** Linux or other don't call WINAPI... */
    #define _stricmp(x, y)	strcasecmp(x, y)
    #define Sleep(x)		usleep((x)*1000)

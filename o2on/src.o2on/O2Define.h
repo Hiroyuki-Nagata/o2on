@@ -15,17 +15,26 @@
 #include "debug.h"
 
 
-
-
-#if defined(_M_IX86)
-#define O2_PLATFORM 			"Win32"
-#elif defined(_M_X64)
-#define O2_PLATFORM 			"x64"
+#if defined(TARGET_CPU) && defined(TARGET_OS)
+   #define O2_PLATFORM		STR(TARGET_CPU) "-" STR(TARGET_OS)
 #else
-#define O2_PLATFORM 			""
+   #if defined(_M_IX86) || (defined(__MINGW32__) && !defined(__MINGW64__))
+      #define O2_PLATFORM 			"x86"
+   #elif defined(_M_X64) || (defined(__LP64__) || defined(_LP64))
+      #define O2_PLATFORM 			"x64"
+   #endif
 #endif
 
-#define EOL						L"\r\n"
+#ifdef PLATFORM_WIN32
+   #define EOL				L"\r\n"
+#elif PLATFORM_LINUX
+   #define EOL				L"\n"
+#elif PLATFORM_APPLE
+   #define EOL				L"\r"
+#else
+   #define EOL				L"\r\n"
+#endif
+
 #define DEFAULT_XML_CHARSET		"utf-8"
 
 #define RECVBUFFSIZE			5120
@@ -34,16 +43,16 @@
 #define SELECT_TIMEOUT_MS		3000
 #define RECV_SIZE_LIMIT			(3*1024*1024)
 
-#define THREAD_ALIVE_WAIT_MS	300
+#define THREAD_ALIVE_WAIT_MS		300
 #define TIMESTR_BUFF_SIZE		32
 
 #define O2_MAX_NAME_LEN			8
 #define O2_MAX_COMMENT_LEN		512
 #define O2_MAX_KEY_URL_LEN		96
-#define O2_MAX_KEY_TITLE_LEN	32
+#define O2_MAX_KEY_TITLE_LEN		32
 #define O2_MAX_KEY_NOTE_LEN		32
 #define O2_SAKUKEY_LIMIT		10
-#define O2_BROADCAST_PATH_LIMIT	4
+#define O2_BROADCAST_PATH_LIMIT		4
 
 
 
@@ -54,14 +63,14 @@
 
 /* debug flag */
 #if defined(_DEBUG) || defined(DEBUG)
-#define O2DEBUG 	1
+   #define O2DEBUG 	1
 #else
-#define O2DEBUG 	0
+   #define O2DEBUG 	0
 #endif
 
 /* */
 #if 1 //O2DEBUG
-#define CLEAR_WORKSET NULL
+   #define CLEAR_WORKSET NULL
 #else
-#define CLEAR_WORKSET (SetProcessWorkingSetSize(GetCurrentProcess(), 0xffffffff, 0xffffffff))
+   #define CLEAR_WORKSET (SetProcessWorkingSetSize(GetCurrentProcess(), 0xffffffff, 0xffffffff))
 #endif

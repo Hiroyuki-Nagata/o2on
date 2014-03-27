@@ -52,12 +52,12 @@ public:
 	bool open(const char *filename, uint mode)
 	{
 		return (open_(filename, NULL, mode));
-	}
+	};
 
 	bool open(const wchar_t *filename, uint mode)
 	{
 		return (open_(NULL, filename, mode));
-	}
+	};
 
 	bool open_(const char *filenameA, const wchar_t *filenameW, uint mode)
 	{
@@ -111,7 +111,7 @@ public:
 			seek(0, FILE_END);
 
 		return true;
-	}
+	};
 
 	uint64 read(void *buffer, uint siz)
 	{
@@ -128,7 +128,7 @@ public:
 		UnlockFileEx(hFile, 0, siz, 0, &ov);
 
 		return (ret);
-	}
+	};
 
 	uint64 write(void *buffer, uint siz)
 	{
@@ -145,7 +145,7 @@ public:
 		UnlockFileEx(hFile, 0, siz, 0, &ov);
 
 		return (ret);
-	}
+	};
 
 	uint64 seek(uint64 offset, DWORD origin)
 	{
@@ -157,7 +157,7 @@ public:
 		if (!SetFilePointerEx(hFile, curpos, &newpos, origin))
 			return (0);
 		return (newpos.QuadPart);
-	}
+	};
 
 	uint64 ftell(void)
 	{
@@ -169,7 +169,7 @@ public:
 		if (!SetFilePointerEx(hFile, curpos, &newpos, FILE_CURRENT))
 			return (0);
 		return (newpos.QuadPart);
-	}
+	};
 
 	void close(void)
 	{
@@ -177,14 +177,14 @@ public:
 			CloseHandle(hFile);
 			hFile = INVALID_HANDLE_VALUE;
 		}
-	}
+	};
 
 	uint64 size(void)
 	{
 		ULARGE_INTEGER fsize;
 		GetFileSizeEx(hFile, (LARGE_INTEGER*)&fsize);
 		return (fsize.QuadPart);
-	}
+	};
 
 private:
 	File(const File& rhs);
@@ -224,28 +224,28 @@ public:
 
 		if (!MappedFile::AllocationGranularity)
 			GetAllocationGranularity();
-	}
+	};
 
 	~MappedFile()
 	{
 		close();
-	}
+	};
 
 	static void GetAllocationGranularity(void)
 	{
 		SYSTEM_INFO si;
 		GetSystemInfo(&si);
 		MappedFile::AllocationGranularity = si.dwAllocationGranularity;
-	}
+	};
 
 	void *open(const char *filename, DWORD mapbyte_, bool writemode)
 	{
 		return (open_(filename, NULL, mapbyte_, writemode));
-	}
+	};
 	void *open(const wchar_t *filename, DWORD mapbyte_, bool writemode)
 	{
 		return (open_(NULL, filename, mapbyte_, writemode));
-	}
+	};
 
 	void *open_(const char *filenameA, const wchar_t *filenameW, DWORD mapbyte_, bool writemode)
 	{
@@ -303,7 +303,7 @@ public:
 		}
 
 		return (addrP);
-	}
+	};
 
 	void close(void)
 	{
@@ -324,17 +324,17 @@ public:
 			CloseHandle(hFile);
 			hFile = INVALID_HANDLE_VALUE;
 		}
-	}
+	};
 
 	uint64 size(void)
 	{
 		return (fsize.QuadPart);
-	}
+	};
 
 	DWORD allocG(void)
 	{
 		return (MappedFile::AllocationGranularity);
-	}
+	};
 
 private:
 	MappedFile(const MappedFile& rhs);
