@@ -1,5 +1,6 @@
 # o2on is not GPL
 AUTOMAKE_OPTIONS 	= foreign
+ACLOCAL_AMFLAGS		= -I m4
 
 # For Boost compile option
 AM_CPPFLAGS		= $(BOOST_CPPFLAGS)
@@ -12,8 +13,6 @@ o2on_SOURCES		= \
 KademliaKBucket.h	  \
 KademliaNode.h		  \
 KademliaRoutingTable.h	  \
-O2Agent.cpp		  \
-O2Agent.h		  \
 O2Boards.cpp		  \
 O2Boards.h		  \
 O2Client.cpp		  \

@@ -12,13 +12,19 @@
 #include "O2Boards.h"
 #include "simplehttpsocket.h"
 #include "file.h"
-#include <sys/utime.h>
+
+#ifdef _WIN32
+   #include <sys/utime.h>
+#else
+   #include <sys/time.h>
+#endif
+
 #include <boost/regex.hpp>
 
-#define MODULE				L"Boards"
-#define DEFAULT_BBSMENU_URL "http://menu.2ch.net/bbsmenu.html"
+#define MODULE			L"Boards"
+#define DEFAULT_BBSMENU_URL	"http://menu.2ch.net/bbsmenu.html"
 
-#define DOMAIN_2CH			"2ch.net"
+#define DOMAIN_2CH		"2ch.net"
 #define DOMAIN_BBSPINK		"bbspink.com"
 #define DOMAIN_MACHI		"machi.to"
 

@@ -1,4 +1,5 @@
-SUBDIRS = o2on
+SUBDIRS		= o2on
+ACLOCAL_AMFLAGS = -I m4
 
 dist-hook: changelog
 

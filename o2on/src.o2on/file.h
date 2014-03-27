@@ -10,7 +10,10 @@
  */
 
 #pragma once
-#include <windows.h>
+
+#ifdef _WIN32
+   #include <windows.h>
+#endif
 #include "dataconv.h"
 
 #define MODE_R	0x00000001

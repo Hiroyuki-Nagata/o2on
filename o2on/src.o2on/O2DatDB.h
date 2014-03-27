@@ -5,7 +5,7 @@
 /*
  * project		: o2on
  * filename		: O2DatDB.h
- * description	: 
+ * description	: DataBase accessor code for o2on
  *
  */
 
@@ -43,13 +43,9 @@ struct O2DatRec
 	}
 };
 
-typedef std::list<O2DatRec> O2DatRecList;
-typedef O2DatRecList::iterator O2DatRecListIt;
-
-typedef std::vector<wstrarray> SQLResultList;
-
-
-
+typedef std::list<O2DatRec> 	O2DatRecList;
+typedef O2DatRecList::iterator	O2DatRecListIt;
+typedef std::vector<wstrarray>	SQLResultList;
 
 class O2DatDB
 {
@@ -57,12 +53,17 @@ protected:
 	O2Logger		*Logger;
 	wstring			dbfilename;
 	wstring			dbfilename_to_rebuild;
-
-	O2DatRecList	UpdateQueue;
+	O2DatRecList		UpdateQueue;
 	Mutex			UpdateQueueLock;
 	HANDLE			UpdateThreadHandle;
 	bool			UpdateThreadLoop;
+
+#ifdef _WIN32
 	EventObject		StopSignal;
+#else
+	DosMocking::EventObject StopSignal;
+#endif
+
 
 protected:
 	void log(sqlite3 *db);
@@ -79,14 +80,11 @@ public:
 	~O2DatDB();
 
 	bool check_queue_size(O2DatRecList &reclist);
-
 	bool before_rebuild(void);
 	bool after_rebuild(void);
-
 	bool create_table(bool to_rebuild);
 	bool reindex(const char *target);
 	bool analyze(void);
-
 	size_t select(const wchar_t *sql, SQLResultList &out);
 	bool select(O2DatRec &out);
 	bool select(O2DatRec &out, const hashT hash);
@@ -98,18 +96,13 @@ public:
 	uint64 select_datcount(wstrnummap &out);
 	uint64 select_totaldisksize(void);
 	void select_report(time_t publish_tt, uint64 &count, uint64 &disksize, uint64 &publish);
-
 	void insert(O2DatRecList &in, bool to_rebuild);
-
 	void update(O2DatRecList &in);
-
 	bool remove(const hashT &hash);
-
 	void AddUpdateQueue(O2DatRec &in);
 	void AddUpdateQueue(const hashT &hash);
 	void StartUpdateThread(void);
 	void StopUpdateThread(void);
-
 	static uint WINAPI StaticUpdateThread(void *data);
 	void UpdateThread(void);
 };

@@ -12,9 +12,12 @@
 #pragma once
 #include "dataconv.h"
 #include "debug.h"
-#include <tchar.h>
 
-#define BUFFSIZE		5120
+#ifdef _WIN32
+   #include <tchar.h>
+#endif
+
+#define BUFFSIZE	5120
 #define SOCKET_TRACE	0
 
 
