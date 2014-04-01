@@ -540,8 +540,8 @@ ExportToXML(string &out)
 	wstring xml;
 	xml += L"<?xml version=\"1.0\" encoding=\"";
 	xml += _T(DEFAULT_XML_CHARSET);
-	xml += L"\"?>"EOL;
-	xml += L"<boards>"EOL;
+	xml += L"\"?>" EOL;
+	xml += L"<boards>" EOL;
 	ExLock.Lock();
 	{
 		for (O2BoardExMapIt it = exmap.begin(); it != exmap.end(); it++) {
@@ -549,7 +549,7 @@ ExportToXML(string &out)
 		}
 	}
 	ExLock.Unlock();
-	xml += L"</boards>"EOL;
+	xml += L"</boards>" EOL;
 	unicode2ascii(xml, out);
 }
 
@@ -589,11 +589,11 @@ MakeBBSMenuXML(string &out, O2DatDB *db)
 		if (category != boards[i].category) {
 			category = boards[i].category;
 			if (i != 0)
-				xml += L"</category>"EOL;
-			xml += L"<category>"EOL;
+				xml += L"</category>" EOL;
+			xml += L"<category>" EOL;
 			xml_AddElement(xml, L"categoryname", NULL, category.c_str());
 		}
-		xml += L"<board>"EOL;
+		xml += L"<board>" EOL;
 
 		xml_AddElement(xml, L"bbsname",	NULL, boards[i].bbsname.c_str());
 		xml_AddElement(xml, L"title",	NULL, boards[i].title.c_str(), true);
@@ -614,16 +614,16 @@ MakeBBSMenuXML(string &out, O2DatDB *db)
 		xml_AddElement(xml, L"enable",	NULL, exit != exmap.end() && exit->second->enable ? L"1" : L"0");
 		ExLock.Unlock();
 
-		xml += L"</board>"EOL;
+		xml += L"</board>" EOL;
 	}
-	xml += L"</category>"EOL;
+	xml += L"</category>" EOL;
 
 	//
-	xml += L"<category>"EOL;
+	xml += L"<category>" EOL;
 	xml_AddElement(xml, L"categoryname", NULL, L"不明");
 	for (nmit = nummap.begin(); nmit != nummap.end(); nmit++) {
 		wsplit(nmit->first.c_str(), L":", token);
-		xml += L"<board>"EOL;
+		xml += L"<board>" EOL;
 		xml_AddElement(xml, L"bbsname",	NULL, token[1].c_str());
 		xml_AddElement(xml, L"title",	NULL, token[1].c_str(), true);
 		xml_AddElement(xml, L"host",	NULL, L"");
@@ -634,9 +634,9 @@ MakeBBSMenuXML(string &out, O2DatDB *db)
 		exit = exmap.find(nmit->first);
 		xml_AddElement(xml, L"enable",	NULL, exit != exmap.end() ? L"1" : L"0");
 		ExLock.Unlock();
-		xml += L"</board>"EOL;
+		xml += L"</board>" EOL;
 	}
-	xml += L"</category>"EOL;
+	xml += L"</category>" EOL;
 
 	FromUnicode(_T(DEFAULT_XML_CHARSET), xml, out);
 	return true;
@@ -713,20 +713,20 @@ SaveEx(void)
 	wstring xml;
 	xml += L"<?xml version=\"1.0\" encoding=\"";
 	xml += _T(DEFAULT_XML_CHARSET);
-	xml += L"\"?>"EOL;
-	xml += L"<boards>"EOL;
+	xml += L"\"?>" EOL;
+	xml += L"<boards>" EOL;
 
 	ExLock.Lock();
 	{
 		for (O2BoardExMapIt it = exmap.begin(); it != exmap.end(); it++) {
-			xml += L"<board>"EOL;
+			xml += L"<board>" EOL;
 			xml_AddElement(xml, L"name",	NULL, it->first.c_str());
 			xml_AddElement(xml, L"enable",	NULL, it->second->enable ? L"1" : L"0");
-			xml += L"</board>"EOL;
+			xml += L"</board>" EOL;
 		}
 	}
 	ExLock.Unlock();
-	xml += L"</boards>"EOL;
+	xml += L"</boards>" EOL;
 
 	string out;
 	FromUnicode(_T(DEFAULT_XML_CHARSET), xml, out);
