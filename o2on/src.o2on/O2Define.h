@@ -58,8 +58,14 @@
 
 
 /* for XML Parse Handler */
-#define MATCHLNAME(n)	(_wcsicmp(localname, (n)) == 0)
-#define MATCHSTR(n)		(_wcsicmp(str, (n)) == 0)
+#ifdef _WIN32
+   #define MATCHLNAME(n)	(_wcsicmp(localname, (n)) == 0)
+   #define MATCHSTR(n)		(_wcsicmp(str, (n)) == 0)
+#else
+   #include <string.h>
+   #define MATCHLNAME(n)	wcscasecmp(reinterpret_cast<const wchar_t*>(localname), n) == 0
+   #define MATCHSTR(n)		wcscasecmp(reinterpret_cast<const wchar_t*>(str), n) == 0
+#endif
 
 /* debug flag */
 #if defined(_DEBUG) || defined(DEBUG)

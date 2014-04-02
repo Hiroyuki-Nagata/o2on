@@ -853,7 +853,11 @@ LoadEx(void)
 	parser->setErrorHandler(this);
 
 	try {
+#ifdef _MSC_VER
 		LocalFileInputSource source(exfilepath.c_str());
+#else
+		LocalFileInputSource source(reinterpret_cast<const XMLCh*>(exfilepath.c_str()));
+#endif
 		parser->parse(source);
 		ret = true;
 	}
@@ -945,6 +949,11 @@ O2Boards::
 characters(const XMLCh* const chars
 		 , const unsigned int length)
 {
+#ifdef _MSC_VER
 	if (parse_elm != 0)
 		buf.append(chars, length);
+#else
+	if (parse_elm != 0)
+		buf.append(reinterpret_cast<const wchar_t*>(chars), length);
+#endif
 }
