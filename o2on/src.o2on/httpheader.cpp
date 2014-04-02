@@ -11,7 +11,11 @@
 
 #include "httpheader.h"
 #include "dataconv.h"
-#include <windows.h>
+
+#ifdef _WIN32
+   #include <windows.h>
+#endif
+
 #include <algorithm>
 #include <boost/regex.hpp>
 

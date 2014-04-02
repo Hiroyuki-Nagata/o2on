@@ -29,20 +29,24 @@
    #define WINAPI
    #define INVALID_HANDLE_VALUE ((HANDLE) -1)
 
-   /* #define GENERIC_READ                     0x80000000 */
-   /* #define GENERIC_WRITE                    0x40000000 */
-   /* #define GENERIC_EXECUTE                  0x20000000 */
-   /* #define GENERIC_ALL                      0x10000000 */
+   #define GENERIC_READ                     0x80000000
+   #define GENERIC_WRITE                    0x40000000
+   #define GENERIC_EXECUTE                  0x20000000
+   #define GENERIC_ALL                      0x10000000
 
-   /* #define FILE_SHARE_READ                  0x00000001 */
-   /* #define FILE_SHARE_WRITE                 0x00000002 */
-   /* #define FILE_SHARE_DELETE                0x00000004 */
+   #define FILE_SHARE_READ                  0x00000001
+   #define FILE_SHARE_WRITE                 0x00000002
+   #define FILE_SHARE_DELETE                0x00000004
 
-   /* #define CREATE_NEW                       1 */
-   /* #define CREATE_ALWAYS                    2 */
-   /* #define OPEN_EXISTING                    3 */
-   /* #define OPEN_ALWAYS                      4 */
-   /* #define TRUNCATE_EXISTING                5 */
+   #define FILE_ATTRIBUTE_READONLY     	    0x00000001
+   #define FILE_ATTRIBUTE_NORMAL	    0x00000080
+   #define FILE_ATTRIBUTE_TEMPORARY	    0x00000100
+
+   #define CREATE_NEW                       1
+   #define CREATE_ALWAYS                    2
+   #define OPEN_EXISTING                    3
+   #define OPEN_ALWAYS                      4
+   #define TRUNCATE_EXISTING                5
 
    /** Linux or other don't call WINAPI... */
    #define _stricmp(x, y)	strcasecmp(x, y)
@@ -113,6 +117,18 @@ typedef std::map<wstring,uint64>		wstrnummap;
    typedef uint		SOCKET;
    #define INVALID_SOCKET -1
 #endif
+
+/** MAX_PATH defination */
+#ifdef _WIN32
+   #if defined(WIN32) && !defined(__MINGW32__) && !defined(__MINGW64__)
+      #define MAX_PATH _MAX_PATH
+   #else  // MSVC
+      #define MAX_PATH FILENAME_MAX
+   #endif // MinGW32,64
+#else
+   #define _MAX_PATH _POSIX_PATH_MAX
+   #define MAX_PATH _POSIX_PATH_MAX
+#endif 
 
 /** macro expansion */
 #define XSTR(x) #x

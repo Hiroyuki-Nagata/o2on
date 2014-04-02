@@ -9,10 +9,12 @@
  *
  */
 
-#include <winsock2.h>
+#ifdef _WIN32
+   #include <winsock2.h>
+#endif
+
 #include "O2Client.h"
 #include "dataconv.h"
-#include "thread.h"
 
 
 

@@ -16,6 +16,7 @@
 #ifdef _WIN32
    #include "../cryptopp/aes.h"
    #include "../cryptopp/modes.h"
+   #include <mlang.h>
 #else
    #include <cryptopp/aes.h>
    #include <cryptopp/modes.h>
@@ -23,7 +24,6 @@
 
 #include <cstdio>
 #include <time.h>
-#include <mlang.h>
 #include <sstream>
 #include <boost/regex.hpp>
 #include <cassert>

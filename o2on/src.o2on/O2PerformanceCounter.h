@@ -16,7 +16,9 @@
 #include "O2SAX2Parser.h"
 #include "file.h"
 #include "dataconv.h"
-#include <tchar.h>
+#ifdef _WIN32
+   #include <tchar.h>
+#endif
 #include <time.h>
 #include <pdh.h>
 

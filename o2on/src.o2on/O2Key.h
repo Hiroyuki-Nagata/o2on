@@ -13,7 +13,9 @@
 #include "O2Define.h"
 #include "sha.h"
 #include <time.h>
-#include <tchar.h>
+#ifdef _WIN32
+   #include <tchar.h>
+#endif
 #include <list>
 
 

@@ -15,12 +15,23 @@
 #include "httpheader.h"
 #include "file.h"
 #include "dataconv.h"
-#include "thread.h"
-#include "../cryptopp/osrng.h"
+
+#ifdef _MSC_VER
+   #include "../cryptopp/osrng.h"
+#else
+   #include <cryptopp/osrng.h>
+#endif
+
 #include "StopWatch.h"
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <sys/utime.h>
+
+#ifdef _WIN32
+   #include <sys/utime.h>
+#else
+   #include <sys/time.h>
+#endif
+
 #include <fstream>
 
 #define MODULE			L"DatIO"

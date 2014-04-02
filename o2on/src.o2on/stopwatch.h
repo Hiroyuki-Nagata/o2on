@@ -1,10 +1,14 @@
-﻿#include <windows.h>
-#include <mmsystem.h>
+﻿#ifdef _WIN32
+   #include <windows.h>
+   #include <mmsystem.h>
+#endif
+
 #include <string>
-
 #pragma once
-#pragma comment(lib, "winmm.lib")
 
+#ifdef _WIN32
+   #pragma comment(lib, "winmm.lib")
+#endif
 
 class stopwatch
 {

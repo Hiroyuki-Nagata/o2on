@@ -14,7 +14,10 @@
 #include "O2NodeDB.h"
 #include "O2JobSchedule.h"
 #include "file.h"
-#include <tchar.h>
+
+#ifdef _WIN32
+   #include <tchar.h>
+#endif
 
 
 

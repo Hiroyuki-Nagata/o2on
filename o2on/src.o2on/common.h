@@ -8,6 +8,7 @@
  * description		: base utility code
  *
  */
+#include "typedef.h"
 
 extern void byte2hex(const byte *in, uint len, string &out);
 extern void byte2whex(const byte *in, uint len, wstring &out);

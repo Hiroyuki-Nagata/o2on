@@ -15,7 +15,9 @@
 #include "O2Profile.h"
 #include "mutex.h"
 #include "O2SAX2Parser.h"
-#include <tchar.h>
+#ifdef _WIN32
+   #include <tchar.h>
+#endif
 
 
 

@@ -9,13 +9,21 @@
  *
  */
 
-#include <tchar.h>
+#ifdef _WIN32
+   #include <tchar.h>
+#endif
 #include "O2Profile.h"
 #include "O2Version.h"
 #include "file.h"
 #include "dataconv.h"
-#include "../cryptopp/rsa.h"
-#include "../cryptopp/randpool.h"
+
+#ifdef _MSC_VER
+   #include "../cryptopp/rsa.h"
+   #include "../cryptopp/randpool.h"
+#else
+   #include <cryptopp/rsa.h>
+   #include <cryptopp/randpool.h>
+#endif
 
 #define MODULE						L"Profile"
 #define	DEFAULT_CONF_DIR			L".\\conf"

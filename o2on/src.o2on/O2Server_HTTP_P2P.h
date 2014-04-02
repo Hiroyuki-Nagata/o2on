@@ -21,7 +21,6 @@
 #include "O2Job_Broadcast.h"
 #include "O2ReportMaker.h"
 #include "O2Version.h"
-#include "thread.h"
 
 #if defined(MODULE)
 #undef MODULE

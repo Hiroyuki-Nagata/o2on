@@ -14,7 +14,6 @@
 #include "O2Profile.h"
 #include "mutex.h"
 #include "dataconv.h"
-#include "thread.h"
 
 
 

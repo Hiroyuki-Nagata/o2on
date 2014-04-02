@@ -13,7 +13,9 @@
 #include "O2SAX2Parser.h"
 #include "O2Logger.h"
 #include "mutex.h"
-#include <windows.h>
+#ifdef _WIN32
+   #include <windows.h>
+#endif
 #include <map>
 #include <vector>
 

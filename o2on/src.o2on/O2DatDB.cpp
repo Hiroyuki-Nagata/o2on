@@ -10,8 +10,12 @@
  */
 
 #include "O2DatDB.h"
-#include <windows.h>
-#include <process.h>
+
+#ifdef _WIN32
+   #include <windows.h>
+   #include <process.h>
+#endif
+
 #include "dataconv.h"
 #include "stopwatch.h"
 #include <time.h>

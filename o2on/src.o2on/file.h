@@ -93,17 +93,34 @@ public:
 				return false;
 		}
 
-		// open
-		if (filenameA) {
+		// open(Windows)
+
+#ifdef _WIN32
+		if (filenameA) 
+	        {
 			hFile = CreateFileA(
 				filenameA, aflag, sflag, NULL, cflag, FILE_ATTRIBUTE_NORMAL, NULL);
 		}
-		else {
+		else 
+		{
 			hFile = CreateFileW(
 				filenameW, aflag, sflag, NULL, cflag, FILE_ATTRIBUTE_NORMAL, NULL);
 		}
+#else
+		if (filenameA)
+		{
+		  ::open();
+		}
+		else
+		{
+		  ::open();
+		}
+#endif
 
-		if (hFile == INVALID_HANDLE_VALUE) {
+
+
+		if (hFile == INVALID_HANDLE_VALUE) 
+		{
 			return false;
 		}
 

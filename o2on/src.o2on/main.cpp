@@ -10,7 +10,7 @@
  */
 
 #define WINVER			0x0500
-#define _WIN32_WINNT	0x0500
+#define _WIN32_WINNT		0x0500
 #define _WIN32_IE		0x0500
 
 //Visual Leak Detector
@@ -19,11 +19,14 @@
 #include <vld.h>
 #endif
 
-#include <winsock2.h>
-#include <windows.h>
-#include <windowsx.h>
-#include <commctrl.h>
-#include <iphlpapi.h>
+#ifdef _WIN32
+   #include <winsock2.h>
+   #include <windows.h>
+   #include <windowsx.h>
+   #include <commctrl.h>
+   #include <iphlpapi.h>
+#endif
+
 #include <math.h>
 #include "O2DatDB.h"
 #include "O2Server_HTTP_P2P.h"
