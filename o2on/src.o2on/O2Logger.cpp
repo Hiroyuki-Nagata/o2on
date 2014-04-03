@@ -232,47 +232,47 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 	wstring xml;
 	xml += L"<?xml version=\"1.0\" encoding=\"";
 	xml += cond.charset;
-	xml += L"\"?>"EOL;
+	xml += L"\"?>" EOL;
 	if (!cond.xsl.empty()) {
 		xml += L"<?xml-stylesheet type=\"text/xsl\" href=\"";
 		xml += cond.xsl;
-		xml += L"\"?>"EOL;
+		xml += L"\"?>" EOL;
 	}
 
-	xml += L"<logs>"EOL;
+	xml += L"<logs>" EOL;
 
 	//<info>
 	if (cond.mask & LOG_XMLELM_INFO) {
-		xml += L"<info>"EOL;
+		xml += L"<info>" EOL;
 		{
 			xml += L" <count>";
 			swprintf_s(tmp, 16, L"%d", records->size());
 			xml += tmp;
-			xml += L"</count>"EOL;
+			xml += L"</count>" EOL;
 
 			xml += L" <limit>";
 			swprintf_s(tmp, 16, L"%d", *limit);
 			xml += tmp;
-			xml += L"</limit>"EOL;
+			xml += L"</limit>" EOL;
 
 			xml += L" <message>";
 			xml += cond.message;
-			xml += L"</message>"EOL;
+			xml += L"</message>" EOL;
 
 			xml += L" <message_type>";
 			xml += cond.message_type;
-			xml += L"</message_type>"EOL;
+			xml += L"</message_type>" EOL;
 
 			xml += L" <filename>";
 			xml += cond.filename;
-			xml += L"</filename>"EOL;
+			xml += L"</filename>" EOL;
 		}
-		xml += L"</info>"EOL;
+		xml += L"</info>" EOL;
 	}
 
 	//<files>
 	if (!logdir.empty() && cond.includefilelist) {
-		xml += L"<files>"EOL;
+		xml += L"<files>" EOL;
 
 		std::set<wstring> files;
 
@@ -292,10 +292,10 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 		for (it = files.begin(); it != files.end(); it++) {
 			xml += L" <file>";
 			xml += *it;
-			xml += L"</file>"EOL;
+			xml += L"</file>" EOL;
 		}
 
-		xml += L"</files>"EOL;
+		xml += L"</files>" EOL;
 	}
 
 	//<log>
@@ -303,43 +303,43 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 	for (O2LogRecordsRit it = records->rbegin(); it != records->rend(); it++) {
 		O2LogRecord &rec = *it;
 
-		xml += L"<log>"EOL;
+		xml += L"<log>" EOL;
 
 		if (cond.mask & LOG_XMLELM_TYPE) {
 			switch (rec.type) {
 				case O2LT_INFO:
-					xml += L" <type>info</type>"EOL;
+					xml += L" <type>info</type>" EOL;
 					break;
 				case O2LT_WARNING:
-					xml += L" <type>warning</type>"EOL;
+					xml += L" <type>warning</type>" EOL;
 					break;
 				case O2LT_ERROR:
-					xml += L" <type>error</type>"EOL;
+					xml += L" <type>error</type>" EOL;
 					break;
 				case O2LT_FATAL:
-					xml += L" <type>fatal</type>"EOL;
+					xml += L" <type>fatal</type>" EOL;
 					break;
 				case O2LT_IM:
-					xml += L" <type>im</type>"EOL;
+					xml += L" <type>im</type>" EOL;
 					break;
 				case O2LT_NET:
-					xml += L" <type>net</type>"EOL;
+					xml += L" <type>net</type>" EOL;
 					break;
 				case O2LT_NETERR:
-					xml += L" <type>neterr</type>"EOL;
+					xml += L" <type>neterr</type>" EOL;
 					break;
 				case O2LT_HOKAN:
-					xml += L" <type>hokan</type>"EOL;
+					xml += L" <type>hokan</type>" EOL;
 					break;
 				case O2LT_IPF:
-					xml += L" <type>ipf</type>"EOL;
+					xml += L" <type>ipf</type>" EOL;
 					break;
 			}
 		}
 
 		if (cond.mask & LOG_XMLELM_DATETIME) {
 			if (rec.date == 0)
-				xml += L" <date></date>"EOL;
+				xml += L" <date></date>" EOL;
 			else {
 				long tzoffset;
 				_get_timezone(&tzoffset);
@@ -353,13 +353,13 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 					wcsftime(timestr, TIMESTR_BUFF_SIZE, cond.timeformat.c_str(), &tm);
 					xml += L" <date>";
 					xml += timestr;
-					xml += L"</date>"EOL;
+					xml += L"</date>" EOL;
 				}
 				else {
 					time_t2datetime(rec.date, - tzoffset, tmpstr);
 					xml += L" <date>";
 					xml += tmpstr;
-					xml += L"</date>"EOL;
+					xml += L"</date>" EOL;
 				}
 			}
 		}
@@ -368,7 +368,7 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 			makeCDATA(rec.module, tmpstr);
 			xml += L" <module>";
 			xml += tmpstr;
-			xml += L"</module>"EOL;
+			xml += L"</module>" EOL;
 		}
 
 		if (cond.mask & LOG_XMLELM_IP) {
@@ -382,7 +382,7 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 				ulong2ipstr(rec.ip, tmpstr);
 			xml += L" <ip>";
 			xml += tmpstr;
-			xml += L"</ip>"EOL;
+			xml += L"</ip>" EOL;
 		}
 
 		if (cond.mask & LOG_XMLELM_PORT) {
@@ -392,21 +392,21 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 				swprintf_s(tmp, 16, L"%u", rec.port);
 			xml += L" <port>";
 			xml += tmp;
-			xml += L"</port>"EOL;
+			xml += L"</port>" EOL;
 		}
 
 		if (cond.mask & LOG_XMLELM_MSG) {
 			makeCDATA(rec.msg, tmpstr);
 			xml += L" <msg>";
 			xml += tmpstr;
-			xml += L"</msg>"EOL;
+			xml += L"</msg>" EOL;
 		}
 
-		xml += L"</log>"EOL;
+		xml += L"</log>" EOL;
 		i++;
 	}
 
-	xml += L"</logs>"EOL;
+	xml += L"</logs>" EOL;
 
 	if (!FromUnicode(cond.charset.c_str(), xml, out))
 		return (0);

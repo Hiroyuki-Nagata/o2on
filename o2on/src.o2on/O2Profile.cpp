@@ -1163,16 +1163,16 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 	wstring xml;
 	xml += L"<?xml version=\"1.0\" encoding=\"";
 	xml += cond.charset;
-	xml += L"\"?>"EOL;
+	xml += L"\"?>" EOL;
 	if (!cond.xsl.empty()) {
 		xml += L"<?xml-stylesheet type=\"text/xsl\" href=\"";
 		xml += cond.xsl;
-		xml += L"\"?>"EOL;
+		xml += L"\"?>" EOL;
 	}
 
 	xml += L"<";
 	xml += cond.rootelement;
-	xml += L">"EOL;
+	xml += L">" EOL;
 
 	Lock();
 
@@ -1181,7 +1181,7 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		ID.to_string(tmpstr);
 		xml += L" <ID>";
 		xml += tmpstr;
-		xml += L"</ID>"EOL;
+		xml += L"</ID>" EOL;
 	}
 
 	//IP
@@ -1189,7 +1189,7 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		ip2e(IP, tmpstr);
 		xml += L" <IP>";
 		xml += tmpstr;
-		xml += L"</IP>"EOL;
+		xml += L"</IP>" EOL;
 	}
 
 	//NodeName
@@ -1197,7 +1197,7 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		makeCDATA(NodeNameW, tmpstr);
 		xml += L" <nodename>";
 		xml += tmpstr;
-		xml += L"</nodename>"EOL;
+		xml += L"</nodename>" EOL;
 	}
 
 	//Comment
@@ -1205,7 +1205,7 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		makeCDATA(Comment, tmpstr);
 		xml += L" <comment>";
 		xml += tmpstr;
-		xml += L"</comment>"EOL;
+		xml += L"</comment>" EOL;
 	}
 
 	//P2PPort
@@ -1213,7 +1213,7 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		xml += L" <port>";
 		swprintf_s(tmp, 16, L"%d", P2PPort);
 		xml += tmp;
-		xml += L"</port>"EOL;
+		xml += L"</port>" EOL;
 	}
 
 	//ProxyPort
@@ -1221,7 +1221,7 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		xml += L" <ProxyPort>";
 		swprintf_s(tmp, 16, L"%d", ProxyPort);
 		xml += tmp;
-		xml += L"</ProxyPort>"EOL;
+		xml += L"</ProxyPort>" EOL;
 	}
 
 	//AdminPort
@@ -1229,7 +1229,7 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		xml += L" <AdminPort>";
 		swprintf_s(tmp, 16, L"%d", AdminPort);
 		xml += tmp;
-		xml += L"</AdminPort>"EOL;
+		xml += L"</AdminPort>" EOL;
 	}
 	
 	//PrivKey
@@ -1237,7 +1237,7 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		PrivKey.to_string(tmpstr);
 		xml += L" <PrivKey>";
 		xml += tmpstr;
-		xml += L"</PrivKey>"EOL;
+		xml += L"</PrivKey>" EOL;
 	}
 
 	//PubKey
@@ -1245,7 +1245,7 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		PubKey.to_string(tmpstr);
 		xml += L" <PubKey>";
 		xml += tmpstr;
-		xml += L"</PubKey>"EOL;
+		xml += L"</PubKey>" EOL;
 	}
 
 	//DBDir
@@ -1253,7 +1253,7 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		makeCDATA(DBDirW, tmpstr);
 		xml += L" <DBDir>";
 		xml += tmpstr;
-		xml += L"</DBDir>"EOL;
+		xml += L"</DBDir>" EOL;
 	}
 
 	//CacheRoot
@@ -1261,7 +1261,7 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		makeCDATA(CacheRootW, tmpstr);
 		xml += L" <CacheRoot>";
 		xml += tmpstr;
-		xml += L"</CacheRoot>"EOL;
+		xml += L"</CacheRoot>" EOL;
 	}
 
 	//AdminRoot
@@ -1269,14 +1269,14 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		makeCDATA(AdminRootW, tmpstr);
 		xml += L" <AdminRoot>";
 		xml += tmpstr;
-		xml += L"</AdminRoot>"EOL;
+		xml += L"</AdminRoot>" EOL;
 	}
 
 	//AdminBrowserType
 	if (cond.mask & PROF_XMLELM_ADMIN_BROWSER_TYPE) {
 		xml += L" <AdminBrowserType>";
 		xml += AdminBrowserType;
-		xml += L"</AdminBrowserType>"EOL;
+		xml += L"</AdminBrowserType>" EOL;
 	}
 
 	//AdminBrowserPath
@@ -1284,7 +1284,7 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		makeCDATA(AdminBrowserPath, tmpstr);
 		xml += L" <AdminBrowserPath>";
 		xml += tmpstr;
-		xml += L"</AdminBrowserPath>"EOL;
+		xml += L"</AdminBrowserPath>" EOL;
 	}
 
 	//UPnPAdapterName
@@ -1293,7 +1293,7 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		makeCDATA(tmpstr, tmpstr);
 		xml += L" <UPnPAdapterName>";
 		xml += tmpstr;
-		xml += L"</UPnPAdapterName>"EOL;
+		xml += L"</UPnPAdapterName>" EOL;
 	}
 
 	//UPnPLocation
@@ -1302,7 +1302,7 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		makeCDATA(tmpstr, tmpstr);
 		xml += L" <UPnPLocation>";
 		xml += tmpstr;
-		xml += L"</UPnPLocation>"EOL;
+		xml += L"</UPnPLocation>" EOL;
 	}
 
 	//UPnPServiceId
@@ -1311,7 +1311,7 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		makeCDATA(tmpstr, tmpstr);
 		xml += L" <UPnPServiceId>";
 		xml += tmpstr;
-		xml += L"</UPnPServiceId>"EOL;
+		xml += L"</UPnPServiceId>" EOL;
 	}
 
 	//limits
@@ -1319,115 +1319,115 @@ ExportToXML(const O2ProfileSelectCondition cond, string &out)
 		swprintf_s(tmp, 16, L"%u", P2PSessionLimit);
 		xml += L" <p2psessionlimit>";
 		xml += tmp;
-		xml += L"</p2psessionlimit>"EOL;
+		xml += L"</p2psessionlimit>" EOL;
 
 /*
 		swprintf_s(tmp, 16, L"%u", NodeLimit);
 		xml += L" <nodelimit>";
 		xml += tmp;
-		xml += L"</nodelimit>"EOL;
+		xml += L"</nodelimit>" EOL;
 */
 		swprintf_s(tmp, 16, L"%u", KeyLimit);
 		xml += L" <keylimit>";
 		xml += tmp;
-		xml += L"</keylimit>"EOL;
+		xml += L"</keylimit>" EOL;
 
 		swprintf_s(tmp, 16, L"%u", QueryLimit);
 		xml += L" <querylimit>";
 		xml += tmp;
-		xml += L"</querylimit>"EOL;
+		xml += L"</querylimit>" EOL;
 
 		swprintf_s(tmp, 16, L"%u", LogLimit);
 		xml += L" <loglimit>";
 		xml += tmp;
-		xml += L"</loglimit>"EOL;
+		xml += L"</loglimit>" EOL;
 
 		swprintf_s(tmp, 16, L"%u", NetLogLimit);
 		xml += L" <netloglimit>";
 		xml += tmp;
-		xml += L"</netloglimit>"EOL;
+		xml += L"</netloglimit>" EOL;
 
 		swprintf_s(tmp, 16, L"%u", HokanLogLimit);
 		xml += L" <hokanloglimit>";
 		xml += tmp;
-		xml += L"</hokanloglimit>"EOL;
+		xml += L"</hokanloglimit>" EOL;
 
 		swprintf_s(tmp, 16, L"%u", IPFLogLimit);
 		xml += L" <ipfloglimit>";
 		xml += tmp;
-		xml += L"</ipfloglimit>"EOL;
+		xml += L"</ipfloglimit>" EOL;
 
 		swprintf_s(tmp, 32, L"%I64u", QuarterSize);
 		xml += L" <quartersize>";
 		xml += tmp;
-		xml += L"</quartersize>"EOL;
+		xml += L"</quartersize>" EOL;
 
 		swprintf_s(tmp, 16, L"%u", QuarterFullOperation);
 		xml += L" <quarterfulloperation>";
 		xml += tmp;
-		xml += L"</quarterfulloperation>"EOL;
+		xml += L"</quarterfulloperation>" EOL;
 
 		swprintf_s(tmp, 16, L"%u", ResumeDelayMs);
 		xml += L" <ResumeDelayMs>";
 		xml += tmp;
-		xml += L"</ResumeDelayMs>"EOL;
+		xml += L"</ResumeDelayMs>" EOL;
 	}
 
 	if (cond.mask & PROF_XMLELM_BOOL) {
 		xml += L" <port0>";
 		xml += (Port0 ? L"1" : L"0");
-		xml += L"</port0>"EOL;
+		xml += L"</port0>" EOL;
 
 		xml += L" <p2pautostart>";
 		xml += (P2PAutoStart ? L"1" : L"0");
-		xml += L"</p2pautostart>"EOL;
+		xml += L"</p2pautostart>" EOL;
 
 		xml += L" <loadsubdirindex>";
 		xml += (LoadSubdirIndex ? L"1" : L"0");
-		xml += L"</loadsubdirindex>"EOL;
+		xml += L"</loadsubdirindex>" EOL;
 
 		xml += L" <maruuser>";
 		xml += (MaruUser ? L"1" : L"0");
-		xml += L"</maruuser>"EOL;
+		xml += L"</maruuser>" EOL;
 
 		xml += L" <publicprofile>";
 		xml += (PublicReport ? L"1" : L"0");
-		xml += L"</publicprofile>"EOL;
+		xml += L"</publicprofile>" EOL;
 
 		xml += L" <publicrecentdat>";
 		xml += (PublicRecentDat ? L"1" : L"0");
-		xml += L"</publicrecentdat>"EOL;
+		xml += L"</publicrecentdat>" EOL;
 
 		xml += L" <baloon_p2p>";
 		xml += (Baloon_P2P ? L"1" : L"0");
-		xml += L"</baloon_p2p>"EOL;
+		xml += L"</baloon_p2p>" EOL;
 
 		xml += L" <baloon_query>";
 		xml += (Baloon_Query ? L"1" : L"0");
-		xml += L"</baloon_query>"EOL;
+		xml += L"</baloon_query>" EOL;
 
 		xml += L" <baloon_hokan>";
 		xml += (Baloon_Hokan ? L"1" : L"0");
-		xml += L"</baloon_hokan>"EOL;
+		xml += L"</baloon_hokan>" EOL;
 
 		xml += L" <baloon_im>";
 		xml += (Baloon_IM ? L"1" : L"0");
-		xml += L"</baloon_im>"EOL;
+		xml += L"</baloon_im>" EOL;
 
 		xml += L" <AutoResume>";
 		xml += (AutoResume ? L"1" : L"0");
-		xml += L"</AutoResume>"EOL;
+		xml += L"</AutoResume>" EOL;
 
 		xml += L" <UseUPnP>";
 		xml += (UseUPnP ? L"1" : L"0");
-		xml += L"</UseUPnP>"EOL;
+		xml += L"</UseUPnP>" EOL;
 	}
 
 	Unlock();
 
 	xml += L"</";
 	xml += cond.rootelement;
-	xml += L">"EOL;
+	xml += L">" EOL;
 
 	return (FromUnicode(cond.charset.c_str(), xml, out));
 }

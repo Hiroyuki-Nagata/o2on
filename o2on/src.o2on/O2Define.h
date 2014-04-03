@@ -65,6 +65,7 @@
    #include <string.h>
    #define MATCHLNAME(n)	wcscasecmp(reinterpret_cast<const wchar_t*>(localname), n) == 0
    #define MATCHSTR(n)		wcscasecmp(reinterpret_cast<const wchar_t*>(str), n) == 0
+   #define _wcsnicmp(x, y, z)	wcscasecmp(x, y)
 #endif
 
 /* debug flag */

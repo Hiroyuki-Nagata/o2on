@@ -20,13 +20,16 @@
 /** @see http://www.jbox.dk/sanos/source/include/win32.h.html */
 #ifndef _WIN32
    #include <cstring>
+   #include <boost/filesystem.hpp>
+
    typedef void*	 HANDLE;
    typedef HANDLE	 HWND;
    typedef unsigned long DWORD;
    typedef unsigned int  UINT;
    #define FALSE	false
    #define TRUE		true
-   #define WINAPI
+   #define WINAPI       /** Linux or other don't call WINAPI... */
+
    #define INVALID_HANDLE_VALUE ((HANDLE) -1)
 
    #define GENERIC_READ                     0x80000000
@@ -48,9 +51,10 @@
    #define OPEN_ALWAYS                      4
    #define TRUNCATE_EXISTING                5
 
-   /** Linux or other don't call WINAPI... */
    #define _stricmp(x, y)	strcasecmp(x, y)
    #define Sleep(x)		usleep((x)*1000)
+   #define _mkdir(x)		mkdir(x)
+   #define _wmkdir(x)		boost::filesystem::create_directory(x)
 
    /** MSW's many many ~_s function series... */
    #define sprintf_s(buffer, buffer_size, stringbuffer, ...) sprintf(buffer, stringbuffer, __VA_ARGS__)

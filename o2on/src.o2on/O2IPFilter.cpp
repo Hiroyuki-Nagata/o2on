@@ -416,8 +416,8 @@ ExportToXML(string &out)
 	wstring xml;
 	xml += L"<?xml version=\"1.0\" encoding=\"";
 	xml += _T(DEFAULT_XML_CHARSET);
-	xml += L"\"?>"EOL;
-	xml += L"<ipf>"EOL;
+	xml += L"\"?>" EOL;
+	xml += L"<ipf>" EOL;
 
 	wstring message;
 	wstring message_type;
@@ -425,42 +425,42 @@ ExportToXML(string &out)
 
 	xml += L" <message>";
 	xml += message;
-	xml += L"</message>"EOL;
+	xml += L"</message>" EOL;
 
 	xml += L" <message_type>";
 	xml += message_type;
-	xml += L"</message_type>"EOL;
+	xml += L"</message_type>" EOL;
 
 	xml += L"<type>";
 	xml += name.c_str();
-	xml += L"</type>"EOL;
+	xml += L"</type>" EOL;
 	xml += L"<default>";
 	xml += DefaultFlag == O2_ALLOW ? L"allow" : L"deny";
-	xml += L"</default>"EOL;
+	xml += L"</default>" EOL;
 
 	Lock();
 	for (uint i = 0; i < records.size(); i++) {
-		xml += L"<filter>"EOL;
+		xml += L"<filter>" EOL;
 		xml += L" <enable>";
 		xml += records[i].enable ? L"true" : L"false";
-		xml += L"</enable>"EOL;
+		xml += L"</enable>" EOL;
 		xml += L" <flag>";
 		xml += records[i].flag == O2_ALLOW ? L"allow" : L"deny";
-		xml += L"</flag>"EOL;
+		xml += L"</flag>" EOL;
 		xml += L" <cond>";
 		xml += records[i].cond;
-		xml += L"</cond>"EOL;
-		xml += L"</filter>"EOL;
+		xml += L"</cond>" EOL;
+		xml += L"</filter>" EOL;
 	}
 	for (uint i = 0; i < 10; i++) {
 		//dummy
-		xml += L"<filter>"EOL;
+		xml += L"<filter>" EOL;
 		xml += L" <enable/>";
 		xml += L" <flag/>";
 		xml += L" <cond/>";
-		xml += L"</filter>"EOL;
+		xml += L"</filter>" EOL;
 	}
-	xml += L"</ipf>"EOL;
+	xml += L"</ipf>" EOL;
 	Unlock();
 	
 	if (!FromUnicode(_T(DEFAULT_XML_CHARSET), xml, out))

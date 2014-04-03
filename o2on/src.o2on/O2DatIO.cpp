@@ -712,39 +712,39 @@ ExportToXML(const wchar_t *domain, const wchar_t *bbsname, string &out)
 	O2DatRecList reclist;
 	DatDB->select(reclist, domain, bbsname);
 	for (O2DatRecListIt it = reclist.begin(); it != reclist.end(); it++) {
-		xml += L"<thread>"EOL;
+		xml += L"<thread>" EOL;
 		xml += L"<domain>";
 		xml += domain;
-		xml += L"</domain>"EOL;
+		xml += L"</domain>" EOL;
 		xml += L"<bbsname>";
 		xml += bbsname;
-		xml += L"</bbsname>"EOL;
+		xml += L"</bbsname>" EOL;
 		xml += L"<datname>";
 		xml += it->datname;
-		xml += L"</datname>"EOL;
+		xml += L"</datname>" EOL;
 		xml += L"<url>";
 		xml += it->url;
-		xml += L"</url>"EOL;
+		xml += L"</url>" EOL;
 		makeCDATA(it->title, tmpstr);
 		xml += L"<title>";
 		xml += tmpstr;
-		xml += L"</title>"EOL;
+		xml += L"</title>" EOL;
 		swprintf_s(tmp, 32, L"%I64u", it->size);
 		xml += L"<size>";
 		xml += tmp;
-		xml += L"</size>"EOL;
+		xml += L"</size>" EOL;
 		it->hash.to_string(tmpstr);
 		xml += L"<hash>";
 		xml += tmpstr;
-		xml += L"</hash>"EOL;
+		xml += L"</hash>" EOL;
 		t = _wcstoui64(it->datname.c_str(), NULL, 10);
 		localtime_s(&tm, &t);
 		wcsftime(tmp, 32, L"%Y/%m/%d %H:%M:%S ", &tm);
 		xml += L"<date>";
 		xml += tmp;
-		xml += L"</date>"EOL;
+		xml += L"</date>" EOL;
 
-		xml += L"</thread>"EOL;
+		xml += L"</thread>" EOL;
 		totaldisksize += it->disksize;
 	}
 

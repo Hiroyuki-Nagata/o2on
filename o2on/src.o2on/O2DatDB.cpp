@@ -919,10 +919,12 @@ select_report(time_t publish_tt, uint64 &count, uint64 &disksize, uint64 &publis
 
 	sqlite3_busy_timeout(db, 5000);
 
-	wchar_t *sql = L"select count(*),"
+	{
+	wchar_t *sql  = L"select count(*),"
 			L"sum(disksize),"
 			L"sum(case when lastpublish > ? then 1 else 0 end)"
 			L"from dat;";
+	}
 
 	err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
 	if (err != SQLITE_OK)

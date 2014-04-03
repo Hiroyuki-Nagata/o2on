@@ -462,29 +462,29 @@ ExportToXML(O2KeySelectCondition &cond, string &out)
 	wstring xml;
 	xml += L"<?xml version=\"1.0\" encoding=\"";
 	xml += cond.charset;
-	xml += L"\"?>"EOL;
+	xml += L"\"?>" EOL;
 
-	xml	+= L"<keys>"EOL;
+	xml	+= L"<keys>" EOL;
 
 	if (cond.mask & KEY_XMLELM_INFO) {
-		xml += L"<info>"EOL;
+		xml += L"<info>" EOL;
 		{
 			wchar_t tmp[16];
 			swprintf_s(tmp, 16, L"%d", Keys.size());
 			xml += L" <count>";
 			xml += tmp;
-			xml += L"</count>"EOL;
+			xml += L"</count>" EOL;
 
 			swprintf_s(tmp, 16, L"%d", Limit);
 			xml += L" <limit>";
 			xml += tmp;
-			xml += L"</limit>"EOL;
+			xml += L"</limit>" EOL;
 
 			xml += L" <id>";
 			wstring idstr;
 			SelfNodeID.to_string(idstr);
 			xml += idstr;
-			xml += L"</id>"EOL;
+			xml += L"</id>" EOL;
 
 			wstring message;
 			wstring message_type;
@@ -492,13 +492,13 @@ ExportToXML(O2KeySelectCondition &cond, string &out)
 
 			xml += L" <message>";
 			xml += message;
-			xml += L"</message>"EOL;
+			xml += L"</message>" EOL;
 
 			xml += L" <message_type>";
 			xml += message_type;
-			xml += L"</message_type>"EOL;
+			xml += L"</message_type>" EOL;
 		}
-		xml += L"</info>"EOL;
+		xml += L"</info>" EOL;
 	}
 
 	uint64 out_count = 0;
@@ -529,7 +529,7 @@ ExportToXML(O2KeySelectCondition &cond, string &out)
 	}
 	Unlock();
 
-	xml	+= L"</keys>"EOL;
+	xml	+= L"</keys>" EOL;
 
 	if (!FromUnicode(cond.charset.c_str(), xml, out))
 		return (0);
@@ -545,8 +545,8 @@ ExportToXML(const O2KeyList &keys, string &out)
 	wstring xml;
 	xml += L"<?xml version=\"1.0\" encoding=\"";
 	xml += cond.charset;
-	xml += L"\"?>"EOL;
-	xml	+= L"<keys>"EOL;
+	xml += L"\"?>" EOL;
+	xml	+= L"<keys>" EOL;
 
 	uint64 out_count = 0;
 	O2KeyList::const_iterator it;
@@ -555,7 +555,7 @@ ExportToXML(const O2KeyList &keys, string &out)
 		out_count++;
 	}
 
-	xml	+= L"</keys>"EOL;
+	xml	+= L"</keys>" EOL;
 
 	if (!FromUnicode(cond.charset.c_str(), xml, out))
 		return (0);
@@ -571,12 +571,12 @@ ExportToXML(const O2Key &key, string &out)
 	wstring xml;
 	xml += L"<?xml version=\"1.0\" encoding=\"";
 	xml += cond.charset;
-	xml += L"\"?>"EOL;
-	xml	+= L"<keys>"EOL;
+	xml += L"\"?>" EOL;
+	xml	+= L"<keys>" EOL;
 
 	MakeKeyElement(key, cond, xml);
 
-	xml	+= L"</keys>"EOL;
+	xml	+= L"</keys>" EOL;
 
 	if (!FromUnicode(cond.charset.c_str(), xml, out))
 		return (0);
@@ -590,80 +590,80 @@ MakeKeyElement(const O2Key &key, O2KeySelectCondition &cond, wstring &xml)
 	wstring tmpstr;
 	wchar_t tmp[32];
 
-	xml += L"<key>"EOL;
+	xml += L"<key>" EOL;
 
 	if (cond.mask & KEY_XMLELM_HASH) {
 		key.hash.to_string(tmpstr);
 		xml += L" <hash>";
 		xml += tmpstr;
-		xml += L"</hash>"EOL;
+		xml += L"</hash>" EOL;
 	}
 
 	if (cond.mask & KEY_XMLELM_NODEID) {
 		key.nodeid.to_string(tmpstr);
 		xml += L" <nodeid>";
 		xml += tmpstr;
-		xml += L"</nodeid>"EOL;
+		xml += L"</nodeid>" EOL;
 	}
 
 	if (cond.mask & KEY_XMLELM_IP) {
 		ip2e(key.ip, tmpstr);
 		xml += L" <ip>";
 		xml += tmpstr;
-		xml += L"</ip>"EOL;
+		xml += L"</ip>" EOL;
 	}
 
 	if (cond.mask & KEY_XMLELM_PORT) {
 		swprintf_s(tmp, 16, L"%d", key.port);
 		xml += L" <port>";
 		xml += tmp;
-		xml += L"</port>"EOL;
+		xml += L"</port>" EOL;
 	}
 
 	if (cond.mask & KEY_XMLELM_SIZE) {
 		xml += L" <size>";
 		swprintf_s(tmp, 32, L"%I64u", key.size);
 		xml += tmp;
-		xml += L"</size>"EOL;
+		xml += L"</size>" EOL;
 	}
 
 	if (cond.mask & KEY_XMLELM_URL) {
 		xml += L" <url>";
 		xml += key.url;
-		xml += L"</url>"EOL;
+		xml += L"</url>" EOL;
 	}
 
 	if (cond.mask & KEY_XMLELM_TITLE) {
 		makeCDATA(key.title, tmpstr);
 		xml += L" <title>";
 		xml += tmpstr;
-		xml += L"</title>"EOL;
+		xml += L"</title>" EOL;
 	}
 
 	if (cond.mask & KEY_XMLELM_NOTE) {
 		makeCDATA(key.note, tmpstr);
 		xml += L" <note>";
 		xml += tmpstr;
-		xml += L"</note>"EOL;
+		xml += L"</note>" EOL;
 	}
 
 	if (cond.mask & KEY_XMLELM_IDKEYHASH) {
 		key.idkeyhash.to_string(tmpstr);
 		xml += L" <idkeyhash>";
 		xml += tmpstr;
-		xml += L"</idkeyhash>"EOL;
+		xml += L"</idkeyhash>" EOL;
 	}
 
 	if (cond.mask & KEY_XMLELM_DISTANCE) {
 		swprintf_s(tmp, 16, L"%u", key.distance);
 		xml += L" <distance>";
 		xml += tmp;
-		xml += L"</distance>"EOL;
+		xml += L"</distance>" EOL;
 	}
 
 	if (cond.mask & KEY_XMLELM_DATE) {
 		if (key.date == 0)
-			xml += L" <date></date>"EOL;
+			xml += L" <date></date>" EOL;
 		else {
 			long tzoffset;
 			_get_timezone(&tzoffset);
@@ -676,13 +676,13 @@ MakeKeyElement(const O2Key &key, O2KeySelectCondition &cond, wstring &xml)
 				wcsftime(timestr, TIMESTR_BUFF_SIZE, cond.timeformat.c_str(), &tm);
 				xml += L" <date>";
 				xml += timestr;
-				xml += L"</date>"EOL;
+				xml += L"</date>" EOL;
 			}
 			else {
 				time_t2datetime(key.date, -tzoffset, tmpstr);
 				xml += L" <date>";
 				xml += tmpstr;
-				xml += L"</date>"EOL;
+				xml += L"</date>" EOL;
 			}
 		}
 	}
@@ -690,10 +690,10 @@ MakeKeyElement(const O2Key &key, O2KeySelectCondition &cond, wstring &xml)
 	if (cond.mask & KEY_XMLELM_ENABLE) {
 		xml += L" <enable>";
 		xml += key.enable ? L"enable" : L"disable";
-		xml += L"</enable>"EOL;
+		xml += L"</enable>" EOL;
 	}
 
-	xml += L"</key>"EOL;
+	xml += L"</key>" EOL;
 }
 
 

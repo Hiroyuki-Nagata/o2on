@@ -223,23 +223,23 @@ ExportToXML(const O2NodeSelectCondition &cond, string &out)
 
 	xml += L"<?xml version=\"1.0\" encoding=\"";
 	xml += cond.charset;
-	xml += L"\"?>"EOL;
-	xml	+= L"<nodes>"EOL;
+	xml += L"\"?>" EOL;
+	xml	+= L"<nodes>" EOL;
 
 	if (cond.mask & NODE_XMLELM_INFO) {
-		xml += L"<info>"EOL;
+		xml += L"<info>" EOL;
 		{
 			xml += L" <count>";
 			wchar_t tmp[16];
 			swprintf_s(tmp, 16, L"%d", count());
 			xml += tmp;
-			xml += L"</count>"EOL;
+			xml += L"</count>" EOL;
 
 			xml += L" <id>";
 			wstring idstr;
 			SelfKademliaNode.id.to_string(idstr);
 			xml += idstr;
-			xml += L"</id>"EOL;
+			xml += L"</id>" EOL;
 
 			for (uint i = 0; i < HASH_BITLEN; i++) {
 				wchar_t str[256];
@@ -255,13 +255,13 @@ ExportToXML(const O2NodeSelectCondition &cond, string &out)
 
 			xml += L" <message>";
 			xml += message;
-			xml += L"</message>"EOL;
+			xml += L"</message>" EOL;
 
 			xml += L" <message_type>";
 			xml += message_type;
-			xml += L"</message_type>"EOL;
+			xml += L"</message_type>" EOL;
 		}
-		xml += L"</info>"EOL;
+		xml += L"</info>" EOL;
 	}
 
 	size_t out_count = 0;
@@ -289,7 +289,7 @@ ExportToXML(const O2NodeSelectCondition &cond, string &out)
 		}
 	}
 
-	xml	+= L"</nodes>"EOL;
+	xml	+= L"</nodes>" EOL;
 
 	if (!FromUnicode(cond.charset.c_str(), xml, out))
 		return (0);
@@ -306,8 +306,8 @@ ExportToXML(const NodeListT &nodelist, const O2NodeSelectCondition &cond, string
 	wstring xml;
 	xml += L"<?xml version=\"1.0\" encoding=\"";
 	xml += cond.charset;
-	xml += L"\"?>"EOL;
-	xml	+= L"<nodes>"EOL;
+	xml += L"\"?>" EOL;
+	xml	+= L"<nodes>" EOL;
 
 	size_t out_count = 0;
 	NodeListT::const_iterator it;
@@ -316,7 +316,7 @@ ExportToXML(const NodeListT &nodelist, const O2NodeSelectCondition &cond, string
 		out_count++;
 	}
 
-	xml	+= L"</nodes>"EOL;
+	xml	+= L"</nodes>" EOL;
 
 	if (!FromUnicode(cond.charset.c_str(), xml, out))
 		return (0);
@@ -333,43 +333,43 @@ MakeNodeElement(const O2Node &node, const O2NodeSelectCondition &cond, wstring &
 	wchar_t tmp[32];
 	wstring tmpstr;
 
-	xml += L"<node>"EOL;
+	xml += L"<node>" EOL;
 
 	if (cond.mask & NODE_XMLELM_ID) {
 		node.id.to_string(tmpstr);
 		xml += L" <id>";
 		xml += tmpstr;
-		xml += L"</id>"EOL;
+		xml += L"</id>" EOL;
 	}
 	if (cond.mask & NODE_XMLELM_IP) {
 		ip2e(node.ip, tmpstr);
 		xml += L" <ip>";
 		xml += tmpstr;
-		xml += L"</ip>"EOL;
+		xml += L"</ip>" EOL;
 	}
 	if (cond.mask & NODE_XMLELM_PORT) {
 		swprintf_s(tmp, 32, L"%d", node.port);
 		xml += L" <port>";
 		xml += tmp;
-		xml += L"</port>"EOL;
+		xml += L"</port>" EOL;
 	}
 	if (cond.mask & NODE_XMLELM_NAME) {
 		makeCDATA(node.name, tmpstr);
 		xml += L" <name>";
 		xml += tmpstr;
-		xml += L"</name>"EOL;
+		xml += L"</name>" EOL;
 	}
 	if (cond.mask & NODE_XMLELM_PUBKEY) {
 		node.pubkey.to_string(tmpstr);
 		xml += L" <pubkey>";
 		xml += tmpstr;
-		xml += L"</pubkey>"EOL;
+		xml += L"</pubkey>" EOL;
 	}
 
 	if (cond.mask & NODE_XMLELM_UA) {
 		xml += L" <ua>";
 		xml += node.ua;
-		xml += L"</ua>"EOL;
+		xml += L"</ua>" EOL;
 	}
 	if (cond.mask & NODE_XMLELM_STATUS) {
 		xml += L" <status";
@@ -381,11 +381,11 @@ MakeNodeElement(const O2Node &node, const O2NodeSelectCondition &cond, wstring &
 			xml += L" pastlinkedfrom=\"1\"";
 		if (node.status & O2_NODESTATUS_PASTLINKEDTO)
 			xml += L" pastlinkedto=\"1\"";
-		xml += L"/>"EOL;
+		xml += L"/>" EOL;
 	}
 	if (cond.mask & NODE_XMLELM_LASTLINK) {
 		if (node.lastlink == 0)
-			xml += L" <lastlink>-</lastlink>"EOL;
+			xml += L" <lastlink>-</lastlink>" EOL;
 		else {
 			long tzoffset;
 			_get_timezone(&tzoffset);
@@ -399,13 +399,13 @@ MakeNodeElement(const O2Node &node, const O2NodeSelectCondition &cond, wstring &
 				wcsftime(timestr, TIMESTR_BUFF_SIZE, cond.timeformat.c_str(), &tm);
 				xml += L" <lastlink>";
 				xml += timestr;
-				xml += L"</lastlink>"EOL;
+				xml += L"</lastlink>" EOL;
 			}
 			else {
 				time_t2datetime(node.lastlink, - tzoffset, tmpstr);
 				xml += L" <lastlink>";
 				xml += tmpstr;
-				xml += L"</lastlink>"EOL;
+				xml += L"</lastlink>" EOL;
 			}
 		}
 	}
@@ -413,29 +413,29 @@ MakeNodeElement(const O2Node &node, const O2NodeSelectCondition &cond, wstring &
 		swprintf_s(tmp, 32, L"%I64u", node.sendbyte_me2n);
 		xml += L" <sendbyte_me2n>";
 		xml += tmp;
-		xml += L"</sendbyte_me2n>"EOL;
+		xml += L"</sendbyte_me2n>" EOL;
 	}
 	if (cond.mask & NODE_XMLELM_RECVBYTE_ME2N) {
 		swprintf_s(tmp, 32, L"%I64u", node.recvbyte_me2n);
 		xml += L" <recvbyte_me2n>";
 		xml += tmp;
-		xml += L"</recvbyte_me2n>"EOL;
+		xml += L"</recvbyte_me2n>" EOL;
 	}
 	if (cond.mask & NODE_XMLELM_SENDBYTE_N2ME) {
 		swprintf_s(tmp, 32, L"%I64u", node.sendbyte_n2me);
 		xml += L" <sendbyte_n2me>";
 		xml += tmp;
-		xml += L"</sendbyte_n2me>"EOL;
+		xml += L"</sendbyte_n2me>" EOL;
 	}
 	if (cond.mask & NODE_XMLELM_RECVBYTE_N2ME) {
 		swprintf_s(tmp, 32, L"%I64u", node.recvbyte_n2me);
 		xml += L" <recvbyte_n2me>";
 		xml += tmp;
-		xml += L"</recvbyte_n2me>"EOL;
+		xml += L"</recvbyte_n2me>" EOL;
 	}
 	if (cond.mask & NODE_XMLELM_DISTANCE) {
 		if (node.port == 0) {
-			xml += L" <distance>999</distance>"EOL;
+			xml += L" <distance>999</distance>" EOL;
 		}
 		else {
 //			hashBitsetT d = node.id.bits ^ SelfKademliaNode.id.bits;
@@ -443,15 +443,15 @@ MakeNodeElement(const O2Node &node, const O2NodeSelectCondition &cond, wstring &
 			swprintf_s(tmp, 32, L"%u", hash_xor_bitlength(node.id, SelfKademliaNode.id));
 			xml += L" <distance>";
 			xml += tmp;
-			xml += L"</distance>"EOL;
+			xml += L"</distance>" EOL;
 		}
 	}
 	if (cond.mask & NODE_XMLELM_FLAGS) {
 		xml += L" <flags>";
 		xml += node.flags;
-		xml += L"</flags>"EOL;
+		xml += L"</flags>" EOL;
 	}
-	xml += L"</node>"EOL;
+	xml += L"</node>" EOL;
 }
 
 

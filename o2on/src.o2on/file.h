@@ -109,11 +109,9 @@ public:
 #else
 		if (filenameA)
 		{
-		  ::open();
 		}
 		else
 		{
-		  ::open();
 		}
 #endif
 

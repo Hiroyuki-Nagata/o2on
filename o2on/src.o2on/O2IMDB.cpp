@@ -244,45 +244,45 @@ MakeSendXML(O2Profile *profile, const wchar_t *charset, const wchar_t *msg, stri
 
 	xml += L"<?xml version=\"1.0\" encoding=\"";
 	xml += charset;
-	xml += L"\"?>"EOL;
+	xml += L"\"?>" EOL;
 
-	xml	+= L"<messages>"EOL;
-	xml	+= L"<message>"EOL;
+	xml	+= L"<messages>" EOL;
+	xml	+= L"<message>" EOL;
 
 	ip2e(profile->GetIP(), tmpstr);
 	xml += L" <ip>";
 	xml += tmpstr;
-	xml += L"</ip>"EOL;
+	xml += L"</ip>" EOL;
 
 	swprintf_s(tmp, 16, L"%d", profile->GetP2PPort());
 	xml += L" <port>";
 	xml += tmp;
-	xml += L"</port>"EOL;
+	xml += L"</port>" EOL;
 	
 	hashT id;
 	profile->GetID(id);
 	id.to_string(tmpstr);
 	xml += L" <id>";
 	xml += tmpstr;
-	xml += L"</id>"EOL;
+	xml += L"</id>" EOL;
 
 	wstring pubkey;
 	profile->GetPubkeyW(pubkey);
 	xml += L" <pubkey>";
 	xml += pubkey;
-	xml += L"</pubkey>"EOL;
+	xml += L"</pubkey>" EOL;
 
 	xml += L" <name>";
 	xml += profile->GetNodeNameW();
-	xml += L"</name>"EOL;
+	xml += L"</name>" EOL;
 
 	makeCDATA(msg, tmpstr);
 	xml += L" <msg>";
 	xml += tmpstr;
-	xml += L"</msg>"EOL;
+	xml += L"</msg>" EOL;
 
-	xml	+= L"</message>"EOL;
-	xml	+= L"</messages>"EOL;
+	xml	+= L"</message>" EOL;
+	xml	+= L"</messages>" EOL;
 
 	FromUnicode(charset, xml, out);
 	return true;
@@ -301,54 +301,54 @@ MakeSendXML(const O2IMessage &im, string &out)
 
 	xml += L"<?xml version=\"1.0\" encoding=\"";
 	xml += _T(DEFAULT_XML_CHARSET);
-	xml += L"\"?>"EOL;
+	xml += L"\"?>" EOL;
 
-	xml	+= L"<messages>"EOL;
-	xml	+= L"<message>"EOL;
+	xml	+= L"<messages>" EOL;
+	xml	+= L"<message>" EOL;
 
 	ip2e(im.ip, tmpstr);
 	xml += L" <ip>";
 	xml += tmpstr;
-	xml += L"</ip>"EOL;
+	xml += L"</ip>" EOL;
 
 	swprintf_s(tmp, 16, L"%d", im.port);
 	xml += L" <port>";
 	xml += tmp;
-	xml += L"</port>"EOL;
+	xml += L"</port>" EOL;
 	
 	im.id.to_string(tmpstr);
 	xml += L" <id>";
 	xml += tmpstr;
-	xml += L"</id>"EOL;
+	xml += L"</id>" EOL;
 
 	im.pubkey.to_string(tmpstr);
 	xml += L" <pubkey>";
 	xml += tmpstr;
-	xml += L"</pubkey>"EOL;
+	xml += L"</pubkey>" EOL;
 
 	xml += L" <name>";
 	xml += im.name;
-	xml += L"</name>"EOL;
+	xml += L"</name>" EOL;
 
 	makeCDATA(im.msg, tmpstr);
 	xml += L" <msg>";
 	xml += tmpstr;
-	xml += L"</msg>"EOL;
+	xml += L"</msg>" EOL;
 
 	im.key.to_string(tmpstr);
 	xml += L" <key>";
 	xml += tmpstr;
-	xml += L"</key>"EOL;
+	xml += L"</key>" EOL;
 
 	for (hashListT::const_iterator it = im.paths.begin(); it != im.paths.end(); it++) {
 		it->to_string(tmpstr);
 		xml += L" <path>";
 		xml += tmpstr;
-		xml += L"</path>"EOL;
+		xml += L"</path>" EOL;
 	}
 
-	xml	+= L"</message>"EOL;
-	xml	+= L"</messages>"EOL;
+	xml	+= L"</message>" EOL;
+	xml	+= L"</messages>" EOL;
 
 	FromUnicode(_T(DEFAULT_XML_CHARSET), xml, out);
 	return true;
@@ -431,25 +431,25 @@ ExportToXML(O2IMSelectCondition &cond, string &out)
 
 	xml += L"<?xml version=\"1.0\" encoding=\"";
 	xml += cond.charset;
-	xml += L"\"?>"EOL;
+	xml += L"\"?>" EOL;
 	if (!cond.xsl.empty()) {
 		xml += L"<?xml-stylesheet type=\"text/xsl\" href=\"";
 		xml += cond.xsl;
-		xml += L"\"?>"EOL;
+		xml += L"\"?>" EOL;
 	}
-	xml	+= L"<messages>"EOL;
+	xml	+= L"<messages>" EOL;
 
 	if (cond.mask & IM_XMLELM_INFO) {
-		xml += L"<info>"EOL;
+		xml += L"<info>" EOL;
 		{
 			xml += L" <count>";
 			swprintf_s(tmp, 16, L"%d", Messages.size());
 			xml += tmp;
-			xml += L"</count>"EOL;
+			xml += L"</count>" EOL;
 
 			xml += L" <sort>";
 			xml += cond.sort;
-			xml += L"</sort>"EOL;
+			xml += L"</sort>" EOL;
 
 			wstring message;
 			wstring message_type;
@@ -457,13 +457,13 @@ ExportToXML(O2IMSelectCondition &cond, string &out)
 
 			xml += L" <message>";
 			xml += message;
-			xml += L"</message>"EOL;
+			xml += L"</message>" EOL;
 
 			xml += L" <message_type>";
 			xml += message_type;
-			xml += L"</message_type>"EOL;
+			xml += L"</message_type>" EOL;
 		}
-		xml += L"</info>"EOL;
+		xml += L"</info>" EOL;
 	}
 
 	size_t out_count = 0;
@@ -489,7 +489,7 @@ ExportToXML(O2IMSelectCondition &cond, string &out)
 	}
 	Unlock();
 
-	xml	+= L"</messages>"EOL;
+	xml	+= L"</messages>" EOL;
 
 	if (!FromUnicode(cond.charset.c_str(), xml, out))
 		return (0);
@@ -504,45 +504,45 @@ MakeIMElement(O2IMessage &im, O2IMSelectCondition &cond, wstring &xml)
 	wchar_t tmp[16];
 	wstring tmpstr;
 
-	xml += L"<message>"EOL;
+	xml += L"<message>" EOL;
 
 	if (cond.mask & IM_XMLELM_IP) {
 		ip2e(im.ip, tmpstr);
 		xml += L" <ip>";
 		xml += tmpstr;
-		xml += L"</ip>"EOL;
+		xml += L"</ip>" EOL;
 	}
 
 	if (cond.mask & IM_XMLELM_PORT) {
 		swprintf_s(tmp, 16, L"%d", im.port);
 		xml += L" <port>";
 		xml += tmp;
-		xml += L"</port>"EOL;
+		xml += L"</port>" EOL;
 	}
 
 	if (cond.mask & IM_XMLELM_ID) {
 		im.id.to_string(tmpstr);
 		xml += L" <id>";
 		xml += tmpstr;
-		xml += L"</id>"EOL;
+		xml += L"</id>" EOL;
 	}
 
 	if (cond.mask & IM_XMLELM_PUBKEY) {
 		im.pubkey.to_string(tmpstr);
 		xml += L" <pubkey>";
 		xml += tmpstr;
-		xml += L"</pubkey>"EOL;
+		xml += L"</pubkey>" EOL;
 	}
 
 	if (cond.mask & IM_XMLELM_NAME) {
 		xml += L" <name>";
 		xml += im.name;
-		xml += L"</name>"EOL;
+		xml += L"</name>" EOL;
 	}
 
 	if (cond.mask & IM_XMLELM_DATE) {
 		if (im.date == 0)
-			xml += L" <date></date>"EOL;
+			xml += L" <date></date>" EOL;
 		else {
 			long tzoffset;
 			_get_timezone(&tzoffset);
@@ -555,13 +555,13 @@ MakeIMElement(O2IMessage &im, O2IMSelectCondition &cond, wstring &xml)
 				wcsftime(timestr, TIMESTR_BUFF_SIZE, cond.timeformat.c_str(), &tm);
 				xml += L" <date>";
 				xml += timestr;
-				xml += L"</date>"EOL;
+				xml += L"</date>" EOL;
 			}
 			else {
 				time_t2datetime(im.date, - tzoffset, tmpstr);
 				xml += L" <date>";
 				xml += tmpstr;
-				xml += L"</date>"EOL;
+				xml += L"</date>" EOL;
 			}
 		}
 	}
@@ -570,23 +570,23 @@ MakeIMElement(O2IMessage &im, O2IMSelectCondition &cond, wstring &xml)
 		makeCDATA(im.msg, tmpstr);
 		xml += L" <msg>";
 		xml += tmpstr;
-		xml += L"</msg>"EOL;
+		xml += L"</msg>" EOL;
 	}
 
 	if (cond.mask & IM_XMLELM_KEY) {
 		im.key.to_string(tmpstr);
 		xml += L" <key>";
 		xml += tmpstr;
-		xml += L"</key>"EOL;
+		xml += L"</key>" EOL;
 	}
 
 	if (cond.mask & IM_XMLELM_MINE) {
 		xml += L" <mine>";
 		xml += im.mine ? L"1" : L"0";
-		xml += L"</mine>"EOL;
+		xml += L"</mine>" EOL;
 	}
 
-	xml += L"</message>"EOL;
+	xml += L"</message>" EOL;
 }
 
 
