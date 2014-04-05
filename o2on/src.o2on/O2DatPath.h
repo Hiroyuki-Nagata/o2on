@@ -14,6 +14,7 @@
 #include "dataconv.h"
 #include "sha.h"
 #include "httpheader.h"
+#include "O2Define.h"
 
 #ifdef _WIN32
    #include <tchar.h>
@@ -21,10 +22,6 @@
    #include <direct.h>
 #endif
 
-#define DOMAIN_2CH		"2ch.net"
-#define DOMAIN_BBSPINK		"bbspink.com"
-#define DOMAIN_MACHI		"machi.to"
-#define FAKE_HOST_STR		"xxx"
 
 enum DOMAINTYPE : uint
 {

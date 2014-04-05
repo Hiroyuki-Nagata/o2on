@@ -91,7 +91,7 @@ private:
 	bool			parse_enable;
 	wstring			buf;
 
-	wchar_t *host2domain(const wchar_t *host);
+	const wchar_t *host2domain(const wchar_t *host);
 
 public:
 	O2Boards(O2Logger *lgr, O2Profile *profile, O2Client *client, const wchar_t *path, const wchar_t *expath);

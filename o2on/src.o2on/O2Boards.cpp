@@ -22,16 +22,6 @@
 
 #include <boost/regex.hpp>
 
-#define MODULE			L"Boards"
-#define DEFAULT_BBSMENU_URL	"http://menu.2ch.net/bbsmenu.html"
-
-#define DOMAIN_2CH		"2ch.net"
-#define DOMAIN_BBSPINK		"bbspink.com"
-#define DOMAIN_MACHI		"machi.to"
-
-
-
-
 /*
  *	O2Boards()
  *	コンストラクタ
@@ -67,16 +57,21 @@ O2Boards::
  *	CheckDomain()
  *	
  */
-wchar_t *
+const wchar_t *
 O2Boards::
 host2domain(const wchar_t *host)
 {
 	if (wcsstr(host, _T(DOMAIN_2CH)))
-		return (_T(DOMAIN_2CH));
+	{
+		const wchar_t* r = _T(DOMAIN_2CH);
+		return r;
+	}
 	else if (wcsstr(host, _T(DOMAIN_BBSPINK)))
-		return (_T(DOMAIN_BBSPINK));
-//	else if (wcsstr(host, T(DOMAIN_MACHI)))
-//		return (_T(DOMAIN_MACHI));
+	{
+		const wchar_t* r = _T(DOMAIN_BBSPINK);
+		return r;
+	}
+	
 	return (NULL);
 }
 

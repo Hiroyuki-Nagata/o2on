@@ -14,7 +14,15 @@
 #include "typedef.h"
 #include "debug.h"
 
+// o2on cpp string define
+#define MODULE			L"Boards"
+#define DEFAULT_BBSMENU_URL	"http://menu.2ch.net/bbsmenu.html"
+#define DOMAIN_2CH		"2ch.net"
+#define DOMAIN_BBSPINK		"bbspink.com"
+#define DOMAIN_MACHI		"machi.to"
+#define FAKE_HOST_STR		"xxx"
 
+// o2on target cpu & os define
 #if defined(TARGET_CPU) && defined(TARGET_OS)
    #define O2_PLATFORM		STR(TARGET_CPU) "-" STR(TARGET_OS)
 #else
