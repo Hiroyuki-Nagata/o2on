@@ -32,7 +32,6 @@
 #include "O2Server_HTTP_P2P.h"
 #include "O2Server_HTTP_Proxy.h"
 #include "O2Server_HTTP_Admin.h"
-#include "O2Agent.h"
 #include "O2Job_GetGlobalIP.h"
 #include "O2Job_QueryDat.h"
 #include "O2Job_DatCollector.h"

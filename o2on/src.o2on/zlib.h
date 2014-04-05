@@ -11,7 +11,6 @@
 
 #pragma once
 #include <zlib.h>
-#include <zutil.h>
 #include <string>
 #include "typedef.h"
 

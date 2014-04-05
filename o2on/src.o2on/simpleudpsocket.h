@@ -10,11 +10,15 @@
  */
 
 #pragma once
-#include <winsock2.h>
-#include <ws2tcpip.h>
+
+#ifdef _WIN32
+   #include <winsock2.h>
+   #include <ws2tcpip.h>
+   #include <tchar.h>
+#endif
+
 #include "dataconv.h"
 #include "debug.h"
-#include <tchar.h>
 
 #define BUFFSIZE		5120
 

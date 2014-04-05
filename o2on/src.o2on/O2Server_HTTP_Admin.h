@@ -23,7 +23,6 @@
 #include "O2Client.h"
 #include "O2ReportMaker.h"
 #include "O2Boards.h"
-#include "thread.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 

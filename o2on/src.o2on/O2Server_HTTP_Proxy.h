@@ -16,12 +16,12 @@
 #include "O2LagQueryQueue.h"
 #include "simplehttpsocket.h"
 #include "zlib.h"
-#include "thread.h"
 
 #if defined(MODULE)
 #undef MODULE
 #endif
-#define MODULE				L"ProxyServer"
+
+#define MODULE			L"ProxyServer"
 #define RECENT_DAT_LIMIT	20
 
 

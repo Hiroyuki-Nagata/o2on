@@ -18,9 +18,9 @@
 #include "dataconv.h"
 #ifdef _WIN32
    #include <tchar.h>
+   #include <pdh.h> /** パフォーマンス データ ヘルパー (PDH) Api */
 #endif
 #include <time.h>
-#include <pdh.h>
 
 
 
