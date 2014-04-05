@@ -9,6 +9,7 @@ LIBS			= $(BOOST_REGEX_LIBS) $(BOOST_THREAD_LIBS)
 
 # For o2on sources
 bin_PROGRAMS		= o2on
+o2on_CXXFLAGS		= @CXXFLAGS@ -I$(top_builddir)/o2on/babel
 o2on_SOURCES		= \
 KademliaKBucket.h	  \
 KademliaNode.h		  \
