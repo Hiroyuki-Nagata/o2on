@@ -13,6 +13,10 @@
 
 #include "dataconv.h"
 
+#define MODE_R	0x00000001
+#define MODE_W	0x00000002
+#define MODE_A	0x00000003
+
 // ---------------------------------------------------------------------------
 //
 //	class File

@@ -371,7 +371,7 @@ AddEx(const char *url)
 	wstring hostname;
 	ascii2unicode(h.hostname, hostname);
 
-	wchar_t *domain = host2domain(hostname.c_str());
+	const wchar_t *domain = host2domain(hostname.c_str());
 	if (!domain)
 		return false;
 
@@ -676,13 +676,6 @@ Save(void)
 	string sjis;
 	FromUnicode(L"shift_jis", s, sjis);
 
-/*
-	FILE *fp;
-	if (_tfopen_s(&fp, filepath.c_str(), _T("wb")) != 0)
-		return false;
-	fwrite(&sjis[0], sjis.size(), 1, fp);
-	fclose(fp);
-*/
 	File f;
 	if (!f.open(filepath.c_str(), MODE_W))
 		return false;
