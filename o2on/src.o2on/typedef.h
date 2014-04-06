@@ -19,6 +19,8 @@
 /** UNIX only typedef for MSW dirty typedefs...               */
 /** @see http://www.jbox.dk/sanos/source/include/win32.h.html */
 #ifndef _WIN32
+   #include <utime.h>
+   #include <sys/stat.h>
    #include <cstring>
    #include <boost/filesystem.hpp>
 
@@ -26,9 +28,11 @@
    typedef HANDLE	 HWND;
    typedef unsigned long DWORD;
    typedef unsigned int  UINT;
-   #define FALSE	false
-   #define TRUE		true
+   #define FALSE	 false
+   #define TRUE		 true
    #define WINAPI       /** Linux or other don't call WINAPI... */
+   #define _utimbuf	 utimbuf
+   #define _stat         stat
 
    #define INVALID_HANDLE_VALUE ((HANDLE) -1)
 
@@ -55,6 +59,10 @@
    #define Sleep(x)		usleep((x)*1000)
    #define _mkdir(x)		mkdir(x)
    #define _wmkdir(x)		boost::filesystem::create_directory(x)
+   #define _wutime(x, y)	utime(x, y)
+   #define _tstat(x, y)		stat(x, y)
+   #define _wstat(x, y)		stat(x, y)
+   #define _tfopen_s(x, y, z)   fopen(x, y, z)
 
    /** MSW's many many ~_s function series... */
    #define sprintf_s(buffer, buffer_size, stringbuffer, ...) sprintf(buffer, stringbuffer, __VA_ARGS__)

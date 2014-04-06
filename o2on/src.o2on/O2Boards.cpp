@@ -685,7 +685,14 @@ Save(void)
 	struct _utimbuf times;
 	times.actime  = LastModified;
 	times.modtime = LastModified;
+
+#ifdef _WIN32
 	_wutime(filepath.c_str(), &times);
+#else
+	string tmp;
+	FromUnicode(_T(DEFAULT_XML_CHARSET), filepath, tmp);
+	utime(tmp.c_str(), &times);
+#endif
 
 	return true;
 }
@@ -747,9 +754,18 @@ Load(const wchar_t *fn)
 {
 	const wchar_t *filename = fn ? fn : filepath.c_str();
 
+#ifdef _WIN32
 	struct _stat st;
 	if (_tstat(filename, &st) == -1)
 		return false;
+#else
+	struct stat st;
+	string tmp;
+	FromUnicode(_T(DEFAULT_XML_CHARSET), filename, tmp);
+	if (_tstat(tmp.c_str(), &st) == -1)
+		return false;
+#endif
+
 
 	if (st.st_size == 0)
 		return false;
