@@ -26,14 +26,17 @@ Linux
 * babel
 * MiniZip
 * UPX
+* 
 
 build
 -----
-
+  
+$ git submodule init  
+$ git submodule update  
 $ ./bootstrap  
 $ ./configure  
 $ make  
-
+  
 license
 -------
 

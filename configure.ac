@@ -4,7 +4,7 @@
 AC_PREREQ([2.69])
 AC_INIT([o2on], [2.4.5], [newserver002@gmail.com])
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([subdir-objects])
 AC_CONFIG_SRCDIR([o2on/src.browser/resource.h])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
@@ -23,21 +23,25 @@ case "$host" in
                 AC_DEFINE(PLATFORM_WIN32, 1, [Platform is Win32])
                 PLATFORM_STRING="Win32"
                 AC_SUBST(PLATFORM_STRING)
+		AM_CONDITIONAL(USE_PTHREAD, false)
                 ;;
         *-*-linux*)
                 AC_DEFINE(PLATFORM_LINUX, 1, [Platform is Linux])
                 PLATFORM_STRING="Linux"
                 AC_SUBST(PLATFORM_STRING)
+		AM_CONDITIONAL(USE_PTHREAD, true)
                 ;;
         *-*-darwin*)
                 AC_DEFINE(PLATFORM_APPLE, 1, [Platform is Apple])
                 PLATFORM_STRING="Apple"
                 AC_SUBST(PLATFORM_STRING)
+		AM_CONDITIONAL(USE_PTHREAD, true)
                 ;;
         *-*-*bsd*)
                 AC_DEFINE(PLATFORM_BSD, 1, [Platform is BSD])
                 PLATFORM_STRING="BSD"
                 AC_SUBST(PLATFORM_STRING)
+		AM_CONDITIONAL(USE_PTHREAD, true)
                 ;;
         *)
                 AC_MSG_WARN([*** Please add $host to configure.ac checks!])

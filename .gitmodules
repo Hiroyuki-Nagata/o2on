@@ -1,0 +1,3 @@
+[submodule "o2on/pevents"]
+	path = o2on/pevents
+	url = https://github.com/neosmart/pevents.git

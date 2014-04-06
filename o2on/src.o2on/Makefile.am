@@ -1,5 +1,5 @@
 # o2on is not GPL
-AUTOMAKE_OPTIONS 	= foreign
+AUTOMAKE_OPTIONS 	= foreign subdir-objects
 ACLOCAL_AMFLAGS		= -I m4
 
 # For Boost compile option
@@ -102,3 +102,10 @@ stopwatch.h		  \
 typedef.h		  \
 upnp.h			  \
 upnp_description.h    
+
+# if target can use win32 thread, use win32 thread
+if USE_PTHREAD
+o2on_SOURCES		+= \
+../pevents/pevents.cpp	   \
+../pevents/pevents.h
+endif
