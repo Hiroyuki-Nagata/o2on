@@ -34,23 +34,28 @@ protected:
 	uint64		SendByte;
 	bool		Active;
 
+#ifdef _WIN32 /** HANDLE for win32 thread */
 	HANDLE		LaunchThreadHandle;
 	HANDLE		NetIOThreadHandle;
+#else /** For POSIX thread processing */
+	pthread_t	LaunchThreadHandle;
+	pthread_t	NetIOThreadHandle;
+#endif
 	HWND		hwndSetIconCallback;
 	UINT		msgSetIconCallback;
 
 	O2SocketSessionPList	queue;
-	O2SocketSessionPSet		connectss;
+	O2SocketSessionPSet	connectss;
 	O2SocketSessionPList	sss;
 
 	Mutex		QueueLock;
 	Mutex		ConnectSessionLock;
 	Mutex		SessionListLock;
 
-#ifdef _WIN32
+#ifdef _WIN32 /** EventObject class for win32 thread */
 	EventObject	QueueExistSignal;
 	EventObject	SessionExistSignal;
-#else
+#else /** For Boost threads processing */
 	DosMocking::EventObject	QueueExistSignal;
 	DosMocking::EventObject	SessionExistSignal;
 #endif
@@ -92,9 +97,17 @@ protected:
 	virtual void OnClose(O2SocketSession *ss) = 0;
 
 private:
+
+
+#ifdef _WIN32 /** for win32 thread */
 	static uint WINAPI StaticLaunchThread(void *data);
 	static uint WINAPI StaticConnectionThread(void *data);
 	static uint WINAPI StaticNetIOThread(void *data);
+#else /** for POSIX thread */
+	static void* StaticLaunchThread(void *data);
+	static void* StaticConnectionThread(void *data);
+	static void* StaticNetIOThread(void *data);
+#endif
 	void LaunchThread(void);
 	void ConnectionThread(O2SocketSession *ss);
 	void NetIOThread(void);

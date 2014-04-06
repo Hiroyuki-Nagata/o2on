@@ -25,14 +25,22 @@ O2Client(const wchar_t *name, O2Logger *lgr)
 	, ClientName(name)
 	, SessionLimit(0x7fffffff)
 	, SessionPeak(0)
-	, RecvSizeLimit(_UI64_MAX)
+	, RecvSizeLimit(
+#ifdef _WIN32 /** Windows 64bit変数の最大値の定義 */ 
+	_UI64_MAX 
+#else /** UNIX 64bit変数の最大値の定義 */ 
+	UINT_LEAST64_MAX 
+#endif  
+	)
 	, TotalSessionCount(0)
 	, TotalConnectError(0)
 	, RecvByte(0)
 	, SendByte(0)
 	, Active(false)
+#ifdef _WIN32 /** pthread_tは初期化しない */
 	, LaunchThreadHandle(NULL)
 	, NetIOThreadHandle(NULL)
+#endif
 	, hwndSetIconCallback(NULL)
 	, msgSetIconCallback(0)
 {
@@ -56,7 +64,7 @@ Start(void)
 	if (Active) {
 		if (Logger) {
 			Logger->AddLog(O2LT_WARNING, ClientName.c_str(), 0, 0,
-				L"起動済のため起動要求を無視");
+				       L"起動済のため起動要求を無視");
 		}
 		return false;
 	}
@@ -65,10 +73,20 @@ Start(void)
 	QueueExistSignal.Off();
 	SessionExistSignal.Off();
 
+#ifdef _WIN32 /** win32 thread */
 	NetIOThreadHandle =
 		(HANDLE)_beginthreadex(NULL, 0, StaticNetIOThread, this, 0, NULL);
 	LaunchThreadHandle =
 		(HANDLE)_beginthreadex(NULL, 0, StaticLaunchThread, this, 0, NULL);
+#else /** POSIX thread */
+	pthread_attr_t attr1;
+	if (pthread_attr_init(&attr1)) return false;
+	pthread_create(&NetIOThreadHandle, &attr1, StaticNetIOThread, this);
+
+	pthread_attr_t attr2;
+	if (pthread_attr_init(&attr2)) return false;
+	pthread_create(&NetIOThreadHandle, &attr2, StaticLaunchThread, this);
+#endif
 
 	OnClientStart();
 
@@ -499,6 +517,8 @@ ConnectionThread(O2SocketSession *ss)
 //
 // ---------------------------------------------------------------------------
 
+#ifdef _WIN32 /** for win32 thread */
+
 uint WINAPI
 O2Client::
 StaticNetIOThread(void *data)
@@ -510,9 +530,18 @@ StaticNetIOThread(void *data)
 
 	CoUninitialize();
 
-	//_endthreadex(0);
 	return (0);
 }
+#else /** for POSIX thread processing */
+void*
+O2Client::
+StaticNetIOThread(void *data)
+{
+	O2Client *me = (O2Client*)data;
+	me->NetIOThread();
+}
+
+#endif
 
 void
 O2Client::
