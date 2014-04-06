@@ -62,11 +62,11 @@
    #define _wutime(x, y)	utime(x, y)
    #define _tstat(x, y)		stat(x, y)
    #define _wstat(x, y)		stat(x, y)
-   #define _tfopen_s(x, y, z)   fopen(x, y, z)
 
    /** MSW's many many ~_s function series... */
-   #define sprintf_s(buffer, buffer_size, stringbuffer, ...) sprintf(buffer, stringbuffer, __VA_ARGS__)
-   #define swprintf_s(buffer, buffer_size, stringbuffer, ...) swprintf(buffer, buffer_size, stringbuffer, __VA_ARGS__)
+   #define sprintf_s(buffer, buffer_size, stringbuffer, ...)	sprintf(buffer, stringbuffer, __VA_ARGS__)
+   #define swprintf_s(buffer, buffer_size, stringbuffer, ...)	swprintf(buffer, buffer_size, stringbuffer, __VA_ARGS__)
+   #define fopen_s(pFile,filename,mode)				((*(pFile))=fopen((filename),(mode)))==NULL
 #endif
 
 /* unsigned */

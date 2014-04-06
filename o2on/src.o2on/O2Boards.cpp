@@ -758,11 +758,11 @@ Load(const wchar_t *fn)
 	struct _stat st;
 	if (_tstat(filename, &st) == -1)
 		return false;
-#else
+#else /** VC++ function equivalent */
 	struct stat st;
-	string tmp;
-	FromUnicode(_T(DEFAULT_XML_CHARSET), filename, tmp);
-	if (_tstat(tmp.c_str(), &st) == -1)
+	string unixFilename;
+	FromUnicode(_T(DEFAULT_XML_CHARSET), filename, unixFilename);
+	if (_tstat(unixFilename.c_str(), &st) == -1)
 		return false;
 #endif
 
@@ -771,8 +771,13 @@ Load(const wchar_t *fn)
 		return false;
 
 	FILE *fp;
+#ifdef _WIN32
 	if (_tfopen_s(&fp, filename, _T("rb")) != 0)
 		return false;
+#else /** VC++ _s function equivalent */
+	if (fopen_s(&fp, unixFilename.c_str(), "rb") != 0)
+		return false;
+#endif
 
 	string buff;
 	buff.resize(st.st_size);
@@ -847,8 +852,15 @@ LoadEx(void)
 	bool ret = false;
 
 	struct _stat st;
+#ifdef _WIN32
 	if (_wstat(exfilepath.c_str(), &st) == -1)
 		return false;
+#else
+	string unixFilepath;
+	FromUnicode(_T(DEFAULT_XML_CHARSET), exfilepath, unixFilepath);
+	if (_wstat(unixFilepath.c_str(), &st) == -1)
+		return false;
+#endif
 	if (st.st_size == 0)
 		return false;
 
