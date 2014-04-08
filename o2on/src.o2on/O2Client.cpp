@@ -78,7 +78,11 @@ Start(void)
 		(HANDLE)_beginthreadex(NULL, 0, StaticNetIOThread, this, 0, NULL);
 	LaunchThreadHandle =
 		(HANDLE)_beginthreadex(NULL, 0, StaticLaunchThread, this, 0, NULL);
-#else /** POSIX thread */
+
+#else   /** POSIX thread */
+	handles[0] = neosmart::CreateEvent();
+	handles[1] = neosmart::CreateEvent();
+
 	pthread_attr_t attr1;
 	if (pthread_attr_init(&attr1)) return false;
 	pthread_create(&NetIOThreadHandle, &attr1, StaticNetIOThread, this);
@@ -110,26 +114,46 @@ Stop(void)
 	ConnectSessionLock.Lock();
 	{
 		for (O2SocketSessionPSetIt ssit = connectss.begin(); ssit != connectss.end(); ssit++)
+		{
+#ifdef _WIN32           /** winsock */
 			closesocket((*ssit)->sock);
+#else                   /** bsd socket */
+			close((*ssit)->sock);
+#endif
+		}		
 	}
 	ConnectSessionLock.Unlock();
 
 	SessionListLock.Lock();
 	{
 		for (O2SocketSessionPListIt ssit = sss.begin(); ssit != sss.end(); ssit++)
+		{
+#ifdef _WIN32		/** winsock */
 			closesocket((*ssit)->sock);
+#else         		/** bsd socket */
+			close((*ssit)->sock);
+#endif
+		}
 	}
 	SessionListLock.Unlock();
 
 	QueueExistSignal.On();
 	SessionExistSignal.On();
 
+#ifdef _WIN32 /** win32 thread */
 	HANDLE handles[2] = { LaunchThreadHandle, NetIOThreadHandle };
 	WaitForMultipleObjects(2, handles, TRUE, INFINITE);
 	CloseHandle(LaunchThreadHandle);
 	CloseHandle(NetIOThreadHandle);
 	LaunchThreadHandle = 0;
 	NetIOThreadHandle = 0;
+#else   /** POSIX thrad */
+	neosmart::WaitForMultipleEvents(handles, 2, TRUE, DosMocking::INFINITE);
+	neosmart::DestroyEvent(handles[0]);
+	neosmart::DestroyEvent(handles[1]);
+	LaunchThreadHandle = 0;
+	NetIOThreadHandle = 0;
+#endif
 
 	while (1) {
 		ConnectSessionLock.Lock();
@@ -338,6 +362,8 @@ AddRequest(O2SocketSession *ss, bool high_priority)
 //
 // ---------------------------------------------------------------------------
 
+#ifdef _WIN32 /** for win32 thread */
+
 uint WINAPI
 O2Client::
 StaticLaunchThread(void *data)
@@ -349,9 +375,19 @@ StaticLaunchThread(void *data)
 
 	CoUninitialize();
 
-	//_endthreadex(0);
 	return (0);
 }
+
+#else /** for POSIX thread processing */
+void*
+O2Client::
+StaticLaunchThread(void *data)
+{
+	O2Client *me = (O2Client*)data;
+	me->LaunchThread();
+}
+
+#endif
 
 void
 O2Client::
@@ -390,9 +426,15 @@ LaunchThread(void)
 			param->client = this;
 			param->ss = ss;
 
+#ifdef _WIN32		/** win32 thread */
 			HANDLE handle =
 				(HANDLE)_beginthreadex(NULL, 0, StaticConnectionThread, param, 0, NULL);
 			CloseHandle(handle);
+
+#else			/** POSIX thread */
+			pthread_t handle;
+			pthread_create(&handle, NULL, StaticConnectionThread, param);
+#endif
 		}
 	}
 
@@ -413,6 +455,8 @@ LaunchThread(void)
 //	ConnectionThread
 //
 // ---------------------------------------------------------------------------
+
+#ifdef _WIN32 /** for win32 thread */
 
 uint WINAPI
 O2Client::
@@ -437,9 +481,32 @@ StaticConnectionThread(void *data)
 
 	CoUninitialize();
 
-	//_endthreadex(0);
 	return (0);
 }
+
+#else  /** for POSIX thread processing */
+
+void*
+O2Client::
+StaticConnectionThread(void *data)
+{
+	ConnectThreadParam *param = (ConnectThreadParam*)data;
+	O2Client *client = param->client;
+	O2SocketSession *ss = param->ss;
+	delete param;
+
+	client->ConnectSessionLock.Lock();
+	client->connectss.insert(ss);
+	client->ConnectSessionLock.Unlock();
+
+	client->ConnectionThread(ss);
+
+	client->ConnectSessionLock.Lock();
+	client->connectss.erase(ss);
+	client->ConnectSessionLock.Unlock();
+}
+
+#endif
 
 void
 O2Client::
@@ -467,7 +534,12 @@ ConnectionThread(O2SocketSession *ss)
 	sockaddr_in sin;
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(ss->port);
+
+#ifdef _WIN32
 	sin.sin_addr.S_un.S_addr = ss->ip;
+#else
+	sin.sin_addr.s_addr = ss->ip;
+#endif
 
 	// Connect
 	if (connect2(sock, (struct sockaddr*)&sin, sizeof(sin), (int)(ss->connect_timeout_s*1000)) != 0) {
@@ -475,14 +547,23 @@ ConnectionThread(O2SocketSession *ss)
 			Logger->AddLog(O2LT_NETERR, ClientName.c_str(),
 				ss->ip, ss->port, L"connect失敗");
 		}
+#ifdef _WIN32   /** winsock */
 		closesocket(sock);
+#else           /** bsd socket */
+		close(sock);
+#endif
+
 		TotalConnectError++;
 		ss->error = true;
 		ss->Finish();
 		return;
 	}
 	if (hwndSetIconCallback) {
+#if defined(_WIN32) && !defined(__WXWINDOWS__)
 		PostMessage(hwndSetIconCallback, msgSetIconCallback, 1, 0);
+#else
+		#warning "TODO: implement wxWidgets event method here"
+#endif
 	}
 	ss->sock = sock;
 	ss->SetConnectTime();
@@ -621,24 +702,37 @@ NetIOThread(void)
 				const char *buff = ss->GetNextSend(len);
 				if (len > 0) {
 					int n = send(ss->sock, buff, len, 0);
-					if (n > 0) {
+					if (n > 0) 
+					{
 						ss->UpdateSend(n);
 						ss->UpdateTimer();
 
 						SendByte += n;
 						OnSend(ss);
 
-						if (hwndSetIconCallback) {
+						if (hwndSetIconCallback) 
+						{
+#if defined(_WIN32) && !defined(__WXWINDOWS__) /** Use ordinary windows api */
 							PostMessage(hwndSetIconCallback, msgSetIconCallback, 1, 0);
+#else                                          /** Platform is not windows */
+		                                        #warning "TODO: implement wxWidgets event method here"
+#endif
 						}
 					}
-					else if (n == 0) {
-						;
+					else if (n == 0) 
+					{
+						// do nothing
 					}
-					else if ((lasterror = WSAGetLastError()) != WSAEWOULDBLOCK) {
-						if (Logger) {
+#ifdef _WIN32                           /** Windows */
+					else if ((lasterror = WSAGetLastError()) != WSAEWOULDBLOCK) 
+#else                                   /** Unix */
+					else if (errno == EAGAIN)
+#endif
+					{
+						if (Logger) 
+						{
 							Logger->AddLog(O2LT_NETERR, ClientName.c_str(),
-								ss->ip, ss->port, L"送信エラー(%d)", lasterror);
+								       ss->ip, ss->port, L"送信エラー(%d)", lasterror);
 						}
 						ss->error = true;
 						ss->Deactivate();
@@ -647,31 +741,45 @@ NetIOThread(void)
 			}
 
 			// Recv
-			if (FD_ISSET(ss->sock, &readfds)) {
+			if (FD_ISSET(ss->sock, &readfds)) 
+			{
 				char buff[RECVBUFFSIZE];
 				int n = recv(ss->sock, buff, RECVBUFFSIZE, 0);
-				if (n > 0) {
+				if (n > 0) 
+				{
 					ss->AppendRecv(buff, n);
 					ss->UpdateTimer();
 
 					RecvByte += n;
 					OnRecv(ss);
 
-					if (hwndSetIconCallback) {
+					if (hwndSetIconCallback) 
+					{
+#if defined(_WIN32) && !defined(__WXWINDOWS__)  /** Use ordinary windows api */
 						PostMessage(hwndSetIconCallback, msgSetIconCallback, 0, 0);
+#else                                           /** Platform is not windows */
+		                                #warning "TODO: implement wxWidgets event method here"
+#endif
 					}
 				}
-				else if (n == 0) {
+				else if (n == 0) 
+				{
 					/*if (Logger) {
 						Logger->AddLog(O2LT_NETERR, ClientName.c_str(),
 							ss->ip, ss->port, L"受信0");
 					}*/
 					ss->Deactivate();
 				}
-				else if ((lasterror = WSAGetLastError()) != WSAEWOULDBLOCK) {
-					if (Logger) {
+#ifdef _WIN32                   /** Windows */
+				else if ((lasterror = WSAGetLastError()) != WSAEWOULDBLOCK) 
+#else                           /** Unix */
+				else if (errno == EAGAIN)
+#endif
+				{
+					if (Logger) 
+					{
 						Logger->AddLog(O2LT_NETERR, ClientName.c_str(),
-							ss->ip, ss->port, L"受信エラー(%d)", lasterror);
+							       ss->ip, ss->port, L"受信エラー(%d)", lasterror);
 					}
 					ss->error = true;
 					ss->Deactivate();
@@ -679,17 +787,25 @@ NetIOThread(void)
 			}
 
 			// Delete
-			if (ss->CanDelete()) {
+			if (ss->CanDelete()) 
+			{
 				bool timeout = ss->GetPastTime() >= ss->timeout_s ? true : false;
-				if (!ss->IsActive() || timeout) {
-					if (timeout) {
-						if (Logger) {
+				if (!ss->IsActive() || timeout) 
+				{
+					if (timeout) 
+					{
+						if (Logger) 
+						{
 							Logger->AddLog(O2LT_NETERR, ClientName.c_str(),
-								ss->ip, ss->port, L"timeout");
+								       ss->ip, ss->port, L"timeout");
 						}
 					}
 
+#ifdef _WIN32                           /** winsock */
 					closesocket(ss->sock);
+#else                                   /** bsd socket */
+					close(ss->sock);
+#endif
 					ss->sock = 0;
 
 					SessionListLock.Lock();
@@ -713,7 +829,12 @@ NetIOThread(void)
 	SessionListLock.Lock();
 	for (ssit = sss.begin(); ssit != sss.end(); ssit++) {
 		O2SocketSession *ss = *ssit;
+
+#ifdef _WIN32   /** winsock */
 		closesocket(ss->sock);
+#else           /** bsd socket */
+		close(ss->sock);
+#endif
 		ss->sock = 0;
 		OnClose(ss);
 	}
@@ -742,15 +863,27 @@ connect2(SOCKET s, const struct sockaddr *name, int namelen, int timeout)
 	if (!err && WSAEventSelect(s, event, FD_CONNECT) == SOCKET_ERROR)
 		err = true;
 
-	if (!err && connect(s, name, namelen) == SOCKET_ERROR) {
-		if (WSAGetLastError() != WSAEWOULDBLOCK)
+	if (!err && connect(s, name, namelen) == SOCKET_ERROR) 
+	{
+#ifdef _WIN32   /** Windows */
+		if (WSAGetLastError() != WSAEWOULDBLOCK) 
+		{
 			err = true;
+		}
+#else           /** Unix */
+		if (errno == EAGAIN)
+		{
+			err = true;
+		}
+#endif
 		//非ブロッキングでconnectした場合、通常はSOCKET_ERRORになり
 		//WSAGetLastError() == WSAEWOULDBLOCKが返ってくる。
 		//それ以外のエラーは本当にconnect失敗
 	}
 	else
+	{
 		err = true;
+	}
 
 	if (!err && WSAWaitForMultipleEvents(1, &event, FALSE, timeout, FALSE) != WSA_WAIT_EVENT_0)
 		err = true;

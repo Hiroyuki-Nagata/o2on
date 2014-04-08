@@ -105,7 +105,11 @@ upnp_description.h
 
 # if target can use win32 thread, use win32 thread
 if USE_PTHREAD
+
+o2on_CXXFLAGS		+= -I../pevents
 o2on_SOURCES		+= \
 ../pevents/pevents.cpp	   \
 ../pevents/pevents.h
+
+AM_CPPFLAGS		+= -DWFMO
 endif

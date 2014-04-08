@@ -13,8 +13,10 @@
 #include "O2Logger.h"
 #include "O2SocketSession.h"
 
-
-
+#ifndef _WIN32
+   #include <pevents.h>
+   #include <netinet/ip.h>
+#endif
 
 /*
  *	O2Client
@@ -38,8 +40,9 @@ protected:
 	HANDLE		LaunchThreadHandle;
 	HANDLE		NetIOThreadHandle;
 #else /** For POSIX thread processing */
-	pthread_t	LaunchThreadHandle;
-	pthread_t	NetIOThreadHandle;
+	pthread_t	 LaunchThreadHandle;
+	pthread_t	 NetIOThreadHandle;
+	neosmart::neosmart_event_t handles[2];
 #endif
 	HWND		hwndSetIconCallback;
 	UINT		msgSetIconCallback;
