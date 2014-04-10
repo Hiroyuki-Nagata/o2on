@@ -322,7 +322,7 @@ disable(uint index)
 
 
 
-#include "StopWatch.h"
+#include "stopwatch.h"
 uint
 O2IPFilter::
 filtering(ulong ip, const wstrarray &hostnames)

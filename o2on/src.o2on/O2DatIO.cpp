@@ -22,7 +22,7 @@
    #include <cryptopp/osrng.h>
 #endif
 
-#include "StopWatch.h"
+#include "stopwatch.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 
@@ -493,7 +493,7 @@ Delete(const hashListT &hashlist)
 			SetFileAttributesW(path.c_str(), attr);
 		}
 #endif
-		if (!DeleteFile(path.c_str()))
+		if (!boost::filesystem::remove(path.c_str()))
 			continue;
 
 		DatDB->remove(*it);
@@ -997,7 +997,7 @@ RebuildDBThread(const wchar_t *dir, uint level, O2DatRecList &reclist)
 		else {
 			if (wcscmp(wfd.cFileName, L".index") == 0) {
 				swprintf_s(path, MAX_PATH, L"%s\\%s", dir, wfd.cFileName);
-				DeleteFile(path);
+				boost::filesystem::remove(path);
 				continue;
 			}
 			else if (level != 3) {

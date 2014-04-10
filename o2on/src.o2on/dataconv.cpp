@@ -879,7 +879,7 @@ void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, uint 
 	xml += L">\r\n";
 }
 
-void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, __int64 val)
+void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, uint64 val)
 {
 	wstring s;
 	wchar_t tmp[32];

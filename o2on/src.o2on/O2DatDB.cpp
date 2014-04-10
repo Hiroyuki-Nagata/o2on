@@ -130,7 +130,7 @@ void
 O2DatDB::
 get_columns(sqlite3_stmt* stmt, wstrarray &cols)
 {
-	__int64 t_int;
+	uint64  t_int;
 	double	t_float;
 	wstring	t_text;
 	byte	*t_byte;
@@ -192,7 +192,7 @@ bool
 O2DatDB::
 before_rebuild(void)
 {
-	if (!DeleteFile(dbfilename_to_rebuild.c_str()) && GetLastError() != ERROR_FILE_NOT_FOUND)
+	if (!boost::filesystem::remove(dbfilename_to_rebuild.c_str()) && GetLastError() != ERROR_FILE_NOT_FOUND)
 		return false;
 	if (!create_table(true))
 		return false;

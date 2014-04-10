@@ -10,9 +10,13 @@
  */
 
 #pragma once
+
+#include <boost/filesystem/path.hpp>
+#include <boost/filesystem/operations.hpp>
 #include "sqlite3.h"
 #include "sha.h"
 #include "O2Logger.h"
+#include "typedef.h"
 #include "event.h"
 
 
