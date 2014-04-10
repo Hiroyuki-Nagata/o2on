@@ -19,6 +19,9 @@
 #include "typedef.h"
 #include "event.h"
 
+#ifndef _WIN32
+   #include <pevents.h>
+#endif
 
 
 struct O2DatRec
@@ -59,15 +62,16 @@ protected:
 	wstring			dbfilename_to_rebuild;
 	O2DatRecList		UpdateQueue;
 	Mutex			UpdateQueueLock;
-	HANDLE			UpdateThreadHandle;
 	bool			UpdateThreadLoop;
 
-#ifdef _WIN32
+#ifdef _WIN32 /** HANDLE for win32 thread */
+	HANDLE			UpdateThreadHandle;
 	EventObject		StopSignal;
-#else
+#else /** For POSIX thread processing */
+	pthread_t		UpdateThreadHandle;
+	neosmart::neosmart_event_t handles[1];
 	DosMocking::EventObject StopSignal;
 #endif
-
 
 protected:
 	void log(sqlite3 *db);
@@ -107,6 +111,10 @@ public:
 	void AddUpdateQueue(const hashT &hash);
 	void StartUpdateThread(void);
 	void StopUpdateThread(void);
+#ifdef _WIN32
 	static uint WINAPI StaticUpdateThread(void *data);
+#else
+	static void* StaticUpdateThread(void *data);
+#endif
 	void UpdateThread(void);
 };

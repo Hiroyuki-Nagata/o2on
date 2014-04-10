@@ -48,7 +48,9 @@ O2DatDB::
 O2DatDB(O2Logger *lgr, const wchar_t *filename)
 	: Logger(lgr)
 	, dbfilename(filename)
+#ifdef _WIN32 /** HANDLEはWindowsの場合のみ初期化する */
 	, UpdateThreadHandle(NULL)
+#endif
 	, UpdateThreadLoop(false)
 {
 	dbfilename_to_rebuild = dbfilename + L".rebuild";
@@ -213,10 +215,25 @@ bool
 O2DatDB::
 after_rebuild(void)
 {
-	if (!MoveFileEx(dbfilename.c_str(), (dbfilename + L".old").c_str(), MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH))
+	boost::filesystem::path src1(dbfilename.c_str());
+	boost::filesystem::path dst1((dbfilename + L".old").c_str());
+
+	try{
+		boost::filesystem::rename(src1, dst1);
+	} catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
 		return false;
-	if (!MoveFileEx(dbfilename_to_rebuild.c_str(), dbfilename.c_str(), MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH))
+	}
+
+	boost::filesystem::path src2(dbfilename_to_rebuild.c_str());
+	boost::filesystem::path dst2(dbfilename.c_str());
+
+	try{
+		boost::filesystem::rename(src2, dst2);
+	} catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
 		return false;
+	}
 
 	return true;
 }
@@ -1397,9 +1414,17 @@ StartUpdateThread(void)
 
 	UpdateThreadLoop = true;
 	StopSignal.Off();
+
+#ifdef _WIN32 /** win32 thread */
 	UpdateThreadHandle = (HANDLE)_beginthreadex(
 		NULL, 0, StaticUpdateThread, (void*)this, 0, NULL);
+#else   /** POSIX thread */
+	handles[0] = neosmart::CreateEvent();
+	pthread_attr_t attr1;
+	pthread_create(&UpdateThreadHandle, &attr1, StaticUpdateThread, this);
+#endif
 }
+
 void
 O2DatDB::
 StopUpdateThread(void)
@@ -1410,9 +1435,14 @@ StopUpdateThread(void)
 	UpdateThreadLoop = false;
 	StopSignal.On();
 
+#ifdef _WIN32 /** win32 thread */
 	//Join
 	WaitForSingleObject(UpdateThreadHandle, INFINITE);
 	CloseHandle(UpdateThreadHandle);
+#else   /** POSIX thrad */
+	neosmart::WaitForEvent(handles[0], DosMocking::INFINITE);
+	neosmart::DestroyEvent(handles[0]);
+#endif
 
 	UpdateQueueLock.Lock();
 	if (!UpdateQueue.empty()) {
@@ -1421,8 +1451,15 @@ StopUpdateThread(void)
 	}
 	UpdateQueueLock.Unlock();
 
+#ifdef _WIN32 /** win32 thread */
 	UpdateThreadHandle = NULL;
+#else   /** POSIX thrad */
+	UpdateThreadHandle = 0;
+#endif
 }
+
+#ifdef _WIN32 /** for win32 thread */
+
 uint WINAPI
 O2DatDB::
 StaticUpdateThread(void *data)
@@ -1433,9 +1470,21 @@ StaticUpdateThread(void *data)
 	me->UpdateThread();
 	CoUninitialize();
 
-	//_endthreadex(0);
 	return (0);
 }
+
+#else  /** for POSIX thread processing */
+
+void*
+O2DatDB::
+StaticUpdateThread(void *data)
+{
+	O2DatDB *me = (O2DatDB*)data;
+	me->UpdateThread();
+}
+
+#endif
+
 void
 O2DatDB::
 UpdateThread(void)
