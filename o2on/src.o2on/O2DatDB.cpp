@@ -192,8 +192,17 @@ bool
 O2DatDB::
 before_rebuild(void)
 {
-	if (!boost::filesystem::remove(dbfilename_to_rebuild.c_str()) && GetLastError() != ERROR_FILE_NOT_FOUND)
+	if (!boost::filesystem::remove(dbfilename_to_rebuild.c_str()) &&
+#ifdef _WIN32
+	    GetLastError() != ERROR_FILE_NOT_FOUND
+#else
+	    errno != ENOENT
+#endif
+		)
+	{
 		return false;
+	}
+	
 	if (!create_table(true))
 		return false;
 
@@ -224,11 +233,17 @@ create_table(bool to_rebuild)
 #endif
 
 	sqlite3 *db = NULL;
-	int err = sqlite3_open16(to_rebuild ? dbfilename_to_rebuild.c_str() : dbfilename.c_str(), &db);
+	int err     = 0;
+
+	{ // prevent error for using "goto" programming
+		err = sqlite3_open16(to_rebuild ? dbfilename_to_rebuild.c_str() : dbfilename.c_str(), &db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 
-	char *sql =
+	{ // prevent error for using "goto" programming
+		const char *sql =
 		"create table if not exists dat ("
 		"    hash        BLOB,"
 		"    domain      TEXT,"
@@ -241,35 +256,23 @@ create_table(bool to_rebuild)
 		"    res         INTEGER,"
 		"    lastupdate  INTEGER,"
 		"    lastpublish INTEGER,"
-//		"    flags       INTEGER,"
-//		"    matchbytes  INTEGER,"
-//		"    matchbytes1 INTEGER,"
-//		"    matchbytes2 INTEGER,"
 		"    PRIMARY KEY (hash)"
 		");"
 		"drop index if exists idx_dat_domain;"
 		"drop index if exists idx_dat_bbsname;"
-//		"drop index if exists idx_dat_datname;"
 		"create index if not exists idx_dat_domain_bbsname_datname on dat (domain, bbsname, datname);"
 		"create index if not exists idx_dat_lastpublish on dat (lastpublish);"
 		"create index if not exists idx_dat_datname on dat (datname);";
-//		"analyze;";
-	err = sqlite3_exec(db, sql, NULL, 0, 0);
+
+		err = sqlite3_exec(db, sql, NULL, 0, 0);
+	}
 	if (err != SQLITE_OK)
 		goto error;
-/*
-	sql =
-		"alter table dat add column flags INTEGER;"
-		"alter table dat add column matchbytes INTEGER;"
-		"alter table dat add column matchbytes1 INTEGER;"
-		"alter table dat add column matchbytes2 INTEGER;";
-	err = sqlite3_exec(db, sql, NULL, 0, 0);
-	//if (err != SQLITE_OK)
-	//	goto error;
-*/
+
 	err = sqlite3_close(db);
 	if (err != SQLITE_OK)
 		goto error;
+
 	return true;
 
 error:
@@ -324,19 +327,26 @@ analyze(void)
 #endif
 
 	sqlite3 *db = NULL;
-	int err = sqlite3_open16(dbfilename.c_str(), &db);
+	int err     = 0;
+	{ // prevent error for using "goto" programming
+		err = sqlite3_open16(dbfilename.c_str(), &db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 
-	char sql[] = "analyze; vacuum dat;";
-
-	err = sqlite3_exec(db, sql, NULL, 0, 0);
+	{ // prevent error for using "goto" programming
+		char sql[] = "analyze; vacuum dat;";
+		err = sqlite3_exec(db, sql, NULL, 0, 0);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 
 	err = sqlite3_close(db);
 	if (err != SQLITE_OK)
 		goto error;
+
 	return true;
 
 error:
@@ -414,18 +424,26 @@ select(O2DatRec &out)
 	sqlite3 *db = NULL;
 	sqlite3_stmt *stmt = NULL;
 
-	int err = sqlite3_open16(dbfilename.c_str(), &db);
+	int err = 0;
+	{ // prevent error for using "goto" programming
+		err = sqlite3_open16(dbfilename.c_str(), &db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
+
 	sqlite3_busy_timeout(db, 5000);
 
-	wchar_t *sql =
-		L"select"
-		COLUMNS
-		L" from dat"
-		L" order by random() limit 1;";
+	{ // prevent error for using "goto" programming
+		const wchar_t *sql =
+			L"select"
+			COLUMNS
+			L" from dat"
+			L" order by random() limit 1;";
 
-	err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+		err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 	sqlite3_reset(stmt);
@@ -469,18 +487,27 @@ select(O2DatRec &out, hashT hash)
 	sqlite3 *db = NULL;
 	sqlite3_stmt *stmt = NULL;
 
-	int err = sqlite3_open16(dbfilename.c_str(), &db);
+	int err = 0;
+
+	{ // prevent error for using "goto" programming
+		err = sqlite3_open16(dbfilename.c_str(), &db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
+
 	sqlite3_busy_timeout(db, 5000);
 
-	wchar_t *sql =
-		L"select"
-		COLUMNS
-		L" from dat"
-		L" where hash = ?;";
+	{ // prevent error for using "goto" programming
+		const wchar_t *sql =
+			L"select"
+			COLUMNS
+			L" from dat"
+			L" where hash = ?;";
 
-	err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+		err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 
@@ -523,23 +550,30 @@ select(O2DatRec &out, const wchar_t *domain, const wchar_t *bbsname)
 	sqlite3 *db = NULL;
 	sqlite3_stmt *stmt = NULL;
 
-	int err = sqlite3_open16(dbfilename.c_str(), &db);
+	int err = 0;
+	{ // prevent error for using "goto" programming
+		err = sqlite3_open16(dbfilename.c_str(), &db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
+
 	sqlite3_busy_timeout(db, 5000);
 
-	wchar_t *sql =
-		L"select"
-		COLUMNS
-		L" from dat"
-		L" where domain = ?"
-		L"   and bbsname = ?"
-		L" order by random() limit 1;";
+	{ // prevent error for using "goto" programming		
+		const wchar_t *sql =
+			L"select"
+			COLUMNS
+			L" from dat"
+			L" where domain = ?"
+			L"   and bbsname = ?"
+			L" order by random() limit 1;";
 
-	err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+		err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
-
 	if (!bind(db, stmt, 1, domain))
 		goto error;
 	if (!bind(db, stmt, 2, bbsname))
@@ -585,23 +619,29 @@ select(O2DatRec &out, const wchar_t *domain, const wchar_t *bbsname, const wchar
 	sqlite3 *db = NULL;
 	sqlite3_stmt *stmt = NULL;
 
-	int err = sqlite3_open16(dbfilename.c_str(), &db);
+	int err = 0;
+	{ // prevent error for using "goto" programming
+		err = sqlite3_open16(dbfilename.c_str(), &db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 	sqlite3_busy_timeout(db, 5000);
 
-	wchar_t *sql =
-		L"select"
-		COLUMNS
-		L" from dat"
-		L" where domain = ?"
-		L"   and bbsname = ?"
-		L"   and datname = ?;";
+	{ // prevent error for using "goto" programming
+		const wchar_t *sql =
+			L"select"
+			COLUMNS
+			L" from dat"
+			L" where domain = ?"
+			L"   and bbsname = ?"
+			L"   and datname = ?;";
 
-	err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+		err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+	}	
+
 	if (err != SQLITE_OK)
 		goto error;
-
 	if (!bind(db, stmt, 1, domain))
 		goto error;
 	if (!bind(db, stmt, 2, bbsname))
@@ -621,7 +661,10 @@ select(O2DatRec &out, const wchar_t *domain, const wchar_t *bbsname, const wchar
 	sqlite3_finalize(stmt);
 	stmt = NULL;
 
-	err = sqlite3_close(db);
+	{ // prevent error for using "goto" programming
+		err = sqlite3_close(db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 
@@ -649,21 +692,29 @@ select(O2DatRecList &out)
 	sqlite3_stmt *stmt = NULL;
 	O2DatRec rec;
 
-	int err = sqlite3_open16(dbfilename.c_str(), &db);
+	int err = 0;
+	{ // prevent error for using "goto" programming
+		err = sqlite3_open16(dbfilename.c_str(), &db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 	sqlite3_busy_timeout(db, 5000);
 
-	wchar_t *sql =
-		L"select"
-		COLUMNS
-		L" from dat;";
+	{ // prevent error for using "goto" programming
+		const wchar_t *sql =
+			L"select"
+			COLUMNS
+			L" from dat;";
 
-	err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+		err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 
-	while (sqlite3_step(stmt) == SQLITE_ROW) {
+	while (sqlite3_step(stmt) == SQLITE_ROW) 
+	{
 		get_columns(stmt, rec);
 		out.push_back(rec);
 	}
@@ -698,23 +749,30 @@ select(O2DatRecList &out, const wchar_t *domain, const wchar_t *bbsname)
 	sqlite3_stmt *stmt = NULL;
 	O2DatRec rec;
 
-	int err = sqlite3_open16(dbfilename.c_str(), &db);
+	int err = 0;
+
+	{ // prevent error for using "goto" programming
+		err = sqlite3_open16(dbfilename.c_str(), &db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 	sqlite3_busy_timeout(db, 5000);
 
-	wchar_t *sql =
-		L"select"
-		COLUMNS
-		L" from dat"
-		L" where domain = ?"
-		L"   and bbsname = ?"
-		L" order by datname;";
+	{ // prevent error for using "goto" programming
+		const wchar_t *sql =
+			L"select"
+			COLUMNS
+			L" from dat"
+			L" where domain = ?"
+			L"   and bbsname = ?"
+			L" order by datname;";
 
-	err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+		err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
-
 	if (!bind(db, stmt, 1, domain))
 		goto error;
 	if (!bind(db, stmt, 2, bbsname))
@@ -755,29 +813,37 @@ select(O2DatRecList &out, time_t publish_tt, size_t limit)
 	sqlite3_stmt *stmt = NULL;
 	O2DatRec rec;
 
-	int err = sqlite3_open16(dbfilename.c_str(), &db);
+	int err = 0;
+
+	{ // prevent error for using "goto" programming
+		err = sqlite3_open16(dbfilename.c_str(), &db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 	sqlite3_busy_timeout(db, 5000);
 
-	wchar_t *sql =
-		L"select"
-		COLUMNS
-		L" from dat"
-		L" where lastpublish < ?"
-		L" order by lastpublish"
-		L" limit ?;";
+	{ // prevent error for using "goto" programming
+		const wchar_t *sql =
+			L"select"
+			COLUMNS
+			L" from dat"
+			L" where lastpublish < ?"
+			L" order by lastpublish"
+			L" limit ?;";
 
-	err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+		err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
-
 	if (!bind(db, stmt, 1, time(NULL)-publish_tt))
 		goto error;
 	if (!bind(db, stmt, 2, limit))
 		goto error;
 
-	while (sqlite3_step(stmt) == SQLITE_ROW) {
+	while (sqlite3_step(stmt) == SQLITE_ROW) 
+	{
 		get_columns(stmt, rec);
 		out.push_back(rec);
 	}
@@ -815,19 +881,27 @@ select_datcount(wstrnummap &out)
 	uint64 total = 0;
 	uint64 num;
 
-	int err = sqlite3_open16(dbfilename.c_str(), &db);
+	int err = 0;
+
+	{ // prevent error for using "goto" programming
+		err = sqlite3_open16(dbfilename.c_str(), &db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 	sqlite3_busy_timeout(db, 5000);
 
-	wchar_t *sql =
-		L"select domain, bbsname, count(*) from dat group by domain, bbsname;";
-
-	err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+	{ // prevent error for using "goto" programming
+		const wchar_t *sql =
+			L"select domain, bbsname, count(*) from dat group by domain, bbsname;";
+		err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 
-	while (sqlite3_step(stmt) == SQLITE_ROW) {
+	while (sqlite3_step(stmt) == SQLITE_ROW) 
+	{
 		domain_bbsname = (wchar_t*)sqlite3_column_text16(stmt, 0);
 		domain_bbsname += L":";
 		domain_bbsname += (wchar_t*)sqlite3_column_text16(stmt, 1);
@@ -866,23 +940,36 @@ select_totaldisksize(void)
 	sqlite3 *db = NULL;
 	sqlite3_stmt *stmt = NULL;
 
-	int err = sqlite3_open16(dbfilename.c_str(), &db);
+	int err = 0;
+	uint64 totalsize = 0;
+
+	{ // prevent error for using "goto" programming
+		err = sqlite3_open16(dbfilename.c_str(), &db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
-	sqlite3_busy_timeout(db, 5000);
 
-	wchar_t *sql = L"select sum(disksize) from dat;";
-
-	err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+	{ // prevent error for using "goto" programming
+		sqlite3_busy_timeout(db, 5000);
+		const wchar_t *sql = L"select sum(disksize) from dat;";
+		err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 
-	err = sqlite3_step(stmt);
+	{ // prevent error for using "goto" programming
+		err = sqlite3_step(stmt);
+	}
+	
 	if (err != SQLITE_ROW && err != SQLITE_DONE)
 		goto error;
 
-	uint64 totalsize = sqlite3_column_int64(stmt,0);
-
+	{ // prevent error for using "goto" programming
+		totalsize = sqlite3_column_int64(stmt,0);
+	}
+	
 	sqlite3_finalize(stmt);
 	stmt = NULL;
 
@@ -912,21 +999,26 @@ select_report(time_t publish_tt, uint64 &count, uint64 &disksize, uint64 &publis
 
 	sqlite3 *db = NULL;
 	sqlite3_stmt *stmt = NULL;
-
-	int err = sqlite3_open16(dbfilename.c_str(), &db);
+	int err = 0;
+	
+	{ // prevent error for using "goto" programming
+		err = sqlite3_open16(dbfilename.c_str(), &db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 
 	sqlite3_busy_timeout(db, 5000);
 
-	{
-	wchar_t *sql  = L"select count(*),"
+	{ // prevent error for using "goto" programming	
+		const wchar_t *sql  = L"select count(*),"
 			L"sum(disksize),"
 			L"sum(case when lastpublish > ? then 1 else 0 end)"
 			L"from dat;";
+		err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
 	}
 
-	err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+
 	if (err != SQLITE_OK)
 		goto error;
 
@@ -972,20 +1064,28 @@ insert(O2DatRecList &in, bool to_rebuild)
 	sqlite3_stmt *stmt_insert = NULL;
 	O2DatRec org;
 
-	int err = sqlite3_open16(to_rebuild ? dbfilename_to_rebuild.c_str() : dbfilename.c_str(), &db);
+	int err = 0;
+
+	{ // prevent error for using "goto" programming
+		err = sqlite3_open16(to_rebuild ? dbfilename_to_rebuild.c_str() : dbfilename.c_str(), &db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 	sqlite3_busy_timeout(db, 5000);
-
 	sqlite3_exec(db, "pragma synchronous = OFF;", NULL, NULL, NULL);
 
-	wchar_t *sql_insert =
-		L"insert or replace into dat ("
-		COLUMNS
-		L") values ("
-		L"?,?,?,?,?,?,?,?,?,?,?"
-		L");";
-	err = sqlite3_prepare16_v2(db, sql_insert, wcslen(sql_insert)*2, &stmt_insert, NULL);
+
+	{ // prevent error for using "goto" programming
+		const wchar_t *sql_insert =
+			L"insert or replace into dat ("
+			COLUMNS
+			L") values ("
+			L"?,?,?,?,?,?,?,?,?,?,?"
+			L");";
+		err = sqlite3_prepare16_v2(db, sql_insert, wcslen(sql_insert)*2, &stmt_insert, NULL);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 
@@ -1058,41 +1158,55 @@ update(O2DatRecList &in)
 	sqlite3_stmt *stmt_updatepublish = NULL;
 	O2DatRec org;
 
-	int err = sqlite3_open16(dbfilename.c_str(), &db);
+	int err = 0;
+
+	{ // prevent error for using "goto" programming
+		err = sqlite3_open16(dbfilename.c_str(), &db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 	sqlite3_busy_timeout(db, 5000);
 
-	wchar_t *sql_insert =
-		L"insert or replace into dat ("
-		COLUMNS
-		L") values ("
-		L"?,?,?,?,?,?,?,?,?,?,?"
-		L");";
-	err = sqlite3_prepare16_v2(db, sql_insert, wcslen(sql_insert)*2, &stmt_insert, NULL);
+	{ // prevent error for using "goto" programming
+		const wchar_t *sql_insert =
+			L"insert or replace into dat ("
+			COLUMNS
+			L") values ("
+			L"?,?,?,?,?,?,?,?,?,?,?"
+			L");";
+
+		err = sqlite3_prepare16_v2(db, sql_insert, wcslen(sql_insert)*2, &stmt_insert, NULL);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 
-	wchar_t *sql_update =
-		L"update or replace dat"
-		L"   set size        = ?"
-		L"     , disksize    = ?"
-		L"     , url         = ?"
-		L"     , res	     = ?"
-		L"     , lastupdate  = ?"
-//		L"     , lastpublish = 0"
-		L" where hash = ?;";
+	{ // prevent error for using "goto" programming
+		const wchar_t *sql_update =
+			L"update or replace dat"
+			L"   set size        = ?"
+			L"     , disksize    = ?"
+			L"     , url         = ?"
+			L"     , res	     = ?"
+			L"     , lastupdate  = ?"
+			L" where hash = ?;";
 
-	err = sqlite3_prepare16_v2(db, sql_update, wcslen(sql_update)*2, &stmt_update, NULL);
+		err = sqlite3_prepare16_v2(db, sql_update, wcslen(sql_update)*2, &stmt_update, NULL);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 
-	wchar_t *sql_updatepublish =
-		L"update or replace dat"
-		L"   set lastpublish = ?"
-		L" where hash = ?;";
+	{ // prevent error for using "goto" programming
+		const wchar_t *sql_updatepublish =
+			L"update or replace dat"
+			L"   set lastpublish = ?"
+			L" where hash = ?;";
 
-	err = sqlite3_prepare16_v2(db, sql_updatepublish, wcslen(sql_updatepublish)*2, &stmt_updatepublish, NULL);
+		err = sqlite3_prepare16_v2(db, sql_updatepublish, wcslen(sql_updatepublish)*2, &stmt_updatepublish, NULL);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 
@@ -1200,15 +1314,22 @@ remove(const hashT &hash)
 	sqlite3 *db = NULL;
 	sqlite3_stmt *stmt = NULL;
 
-	int err = sqlite3_open16(dbfilename.c_str(), &db);
+	int err = 0;
+
+	{ // prevent error for using "goto" programming
+		err = sqlite3_open16(dbfilename.c_str(), &db);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 	sqlite3_busy_timeout(db, 5000);
 
-	wchar_t *sql =
-		L"delete from dat where hash = ?;";
-
-	err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+	{ // prevent error for using "goto" programming
+		const wchar_t *sql =
+			L"delete from dat where hash = ?;";
+		err = sqlite3_prepare16_v2(db, sql, wcslen(sql)*2, &stmt, NULL);
+	}
+	
 	if (err != SQLITE_OK)
 		goto error;
 
@@ -1288,6 +1409,7 @@ StopUpdateThread(void)
 		return;
 	UpdateThreadLoop = false;
 	StopSignal.On();
+
 	//Join
 	WaitForSingleObject(UpdateThreadHandle, INFINITE);
 	CloseHandle(UpdateThreadHandle);
