@@ -13,20 +13,39 @@
 //
 #define ONESECONNANOSEC		1000000000ll
 
-unsigned long long timespecto64bitval(struct timespec *tp)
+unsigned long long timespecto64bitval(timespec* tp)
 {
 	if(tp == NULL) return 0;
 	return (unsigned long long)((long long)(tp->tv_sec) * ONESECONNANOSEC + (long long)(tp->tv_nsec));
 }
 
-unsigned long long getdifftimespec(struct timespec *tpd,struct timespec *tpb)
+unsigned long long getdifftimespec(timespec* tpd,timespec* tpb)
 {
 	time_t tds; long tdn;
 	if(tpd == NULL || tpb == NULL) return 0;
 	tds = tpd->tv_sec - tpb->tv_sec; tdn = tpd->tv_nsec - tpb->tv_nsec;
 	return (unsigned long long)((long long)tds * ONESECONNANOSEC + (long long)tdn);
 }
-#endif /** end */
+
+#endif /** Unix(Linux) end */
+
+#ifdef __MACH__ /** Mac OS */
+   #include <mach/clock.h>
+   #include <mach/mach.h>
+
+unsigned long long getdifftimespec(mach_timespec_t* mtpd,mach_timespec_t* mtpb)
+{
+	struct timespec tpd,tpb;
+
+	tpd.tv_sec  = mtpd->tv_sec;
+	tpd.tv_nsec = mtpd->tv_nsec;
+	tpb.tv_sec  = mtpb->tv_sec;
+	tpb.tv_nsec = mtpb->tv_nsec;
+
+	return getdifftimespec(&tpd, &tpb);
+}
+
+#endif
 
 /**
  * 時間計測用クラス
@@ -39,9 +58,13 @@ private:
 	DWORD start;
 	DWORD d;
 
-#ifndef _WIN32 /** for Unix */
+#if !defined(_WIN32) && !defined(__MACH__) /** for Linux */
 	struct timespec t1,t2;
-	unsigned long long tb,td;
+	unsigned long long td;
+#elif !defined(_WIN32) && defined(__MACH__) /** for Mac OS */
+	mach_timespec_t t1,t2;
+	unsigned long long td;
+	clock_serv_t cclock;
 #endif
 
 public:
@@ -51,13 +74,19 @@ public:
 		, start(0)
 		, d(0)
 	{
-#ifdef _WIN32
+#ifdef _WIN32 /** Windows */
 		timeBeginPeriod(1);
 		start = timeGetTime();
-#else
+#elif __MACH__ /** Mac OS */
+		host_get_clock_service(mach_host_self(), CALENDAR_CLOCK, &cclock);
+		clock_get_time(cclock, &t1);
+		mach_port_deallocate(mach_task_self(), cclock);
+		td = ONESECONNANOSEC;
+#else /** Linux or other */
 	      	td = ONESECONNANOSEC;
 		clock_gettime(CLOCK_REALTIME,&t1);
 #endif
+
 		OutputDebugStringA(title.c_str());
 		OutputDebugStringA(" ==>\n");
 	}
@@ -70,9 +99,14 @@ public:
 	void end(void)
 	{
 		if (start) {
-#ifdef _WIN32
+#ifdef _WIN32 /** Windows */
 			d = timeGetTime() - start;
-#else
+#elif __MACH__ /** Mac OS */
+			host_get_clock_service(mach_host_self(), CALENDAR_CLOCK, &cclock);
+			clock_get_time(cclock, &t2);
+			mach_port_deallocate(mach_task_self(), cclock);
+			d = getdifftimespec(&t2,&t1);
+#else /** Linux or other */
 			clock_gettime(CLOCK_REALTIME,&t2);
 			d = getdifftimespec(&t2,&t1);
 #endif
