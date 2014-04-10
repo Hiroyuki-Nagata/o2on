@@ -850,6 +850,8 @@ NetIOThread(void)
 //
 // ---------------------------------------------------------------------------
 
+#ifdef _WIN32 /** Windows */
+
 int
 O2Client::
 connect2(SOCKET s, const struct sockaddr *name, int namelen, int timeout)
@@ -865,17 +867,10 @@ connect2(SOCKET s, const struct sockaddr *name, int namelen, int timeout)
 
 	if (!err && connect(s, name, namelen) == SOCKET_ERROR) 
 	{
-#ifdef _WIN32   /** Windows */
 		if (WSAGetLastError() != WSAEWOULDBLOCK) 
 		{
 			err = true;
 		}
-#else           /** Unix */
-		if (errno == EAGAIN)
-		{
-			err = true;
-		}
-#endif
 		//非ブロッキングでconnectした場合、通常はSOCKET_ERRORになり
 		//WSAGetLastError() == WSAEWOULDBLOCKが返ってくる。
 		//それ以外のエラーは本当にconnect失敗
@@ -897,11 +892,11 @@ connect2(SOCKET s, const struct sockaddr *name, int namelen, int timeout)
 	WSAEventSelect(s, NULL, 0);
 	WSACloseEvent(event);
 
-	/* back to blocking mode
-	ulong argp = 0;
-	ioctlsocket(s, FIONBIO, &argp);
-	*/
-
 	return (err ? SOCKET_ERROR : 0);
 }
 
+#else  /** Unix */
+
+#warning "TODO: implement socket connection with event here"
+
+#endif

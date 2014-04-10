@@ -22,6 +22,7 @@
    #include <utime.h>
    #include <sys/stat.h>
    #include <cstring>
+   #include <iostream>
    #include <boost/filesystem.hpp>
 
    typedef void*	 HANDLE;
@@ -145,3 +146,9 @@ typedef std::map<wstring,uint64>		wstrnummap;
 /** macro expansion */
 #define XSTR(x) #x
 #define STR(x)  XSTR(x)
+
+/** windows OutputDebugString is std::cerr */
+#ifndef _WIN32
+   #define OutputDebugStringA(x) std::cerr << x
+   #define OutputDebugStringW(x) std::cerr << x
+#endif
