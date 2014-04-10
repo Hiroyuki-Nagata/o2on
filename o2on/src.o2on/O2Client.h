@@ -18,6 +18,10 @@
    #include <netinet/ip.h>
 #endif
 
+#ifndef _MSC_VER /** VC++以外はwxWidgetsを使用 */
+   #include <wx/version.h>
+#endif
+
 /*
  *	O2Client
  */

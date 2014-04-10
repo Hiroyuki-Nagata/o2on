@@ -850,7 +850,11 @@ NetIOThread(void)
 //
 // ---------------------------------------------------------------------------
 
-#ifdef _WIN32 /** Windows */
+#if wxCHECK_VERSION(2, 8, 0) /** wxWidgetsが使用できる場合 */
+
+#warning "TODO: implement socket connection with event here"
+
+#else /** wxWidgetsが使用できない場合 ... MFC */
 
 int
 O2Client::
@@ -894,9 +898,5 @@ connect2(SOCKET s, const struct sockaddr *name, int namelen, int timeout)
 
 	return (err ? SOCKET_ERROR : 0);
 }
-
-#else  /** Unix */
-
-#warning "TODO: implement socket connection with event here"
 
 #endif
