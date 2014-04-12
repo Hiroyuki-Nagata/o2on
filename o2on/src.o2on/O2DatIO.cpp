@@ -35,6 +35,7 @@
 #include <fstream>
 
 #define MODULE			L"DatIO"
+#warning "TODO: o2on defined MODULE macro, but this is bad practice. It should be implemented by other way."
 
 
 

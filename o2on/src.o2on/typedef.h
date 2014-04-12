@@ -19,10 +19,12 @@
 /** UNIX only typedef for MSW dirty typedefs...               */
 /** @see http://www.jbox.dk/sanos/source/include/win32.h.html */
 #ifndef _WIN32
+   #include <cstring>
+   #include <cstdlib>
+   #include <iostream>
    #include <utime.h>
    #include <sys/stat.h>
-   #include <cstring>
-   #include <iostream>
+   #include <wchar.h>
    #include <boost/filesystem.hpp>
 
    typedef void*	 HANDLE;
@@ -63,6 +65,9 @@
    #define _wutime(x, y)	utime(x, y)
    #define _tstat(x, y)		stat(x, y)
    #define _wstat(x, y)		stat(x, y)
+
+   #define _strtoui64(x, y, z)	strtoull(x, y, z)
+   #define _wcstoui64(x, y, z)	wcstoul(x, y, z)
 
    /** MSW's many many ~_s function series... */
    #define sprintf_s(buffer, buffer_size, stringbuffer, ...)	sprintf(buffer, stringbuffer, __VA_ARGS__)
