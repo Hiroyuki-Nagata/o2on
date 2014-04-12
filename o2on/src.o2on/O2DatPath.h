@@ -462,7 +462,7 @@ private:
 		return (type);
 	}
 
-	char *host2domain(const char *hostname)
+	const char* host2domain(const char *hostname)
 	{
 		if (strstr(hostname, DOMAIN_2CH))
 			return (DOMAIN_2CH);

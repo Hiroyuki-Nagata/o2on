@@ -65,6 +65,7 @@
    #define _wutime(x, y)	utime(x, y)
    #define _tstat(x, y)		stat(x, y)
    #define _wstat(x, y)		stat(x, y)
+   #define _access_s(x, y)	access(x, y)
 
    #define _strtoui64(x, y, z)	strtoull(x, y, z)
    #define _wcstoui64(x, y, z)	wcstoul(x, y, z)

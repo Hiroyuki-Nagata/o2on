@@ -30,6 +30,7 @@
    #include <sys/utime.h>
 #else
    #include <sys/time.h>
+   #include <sys/statvfs.h>
 #endif
 
 #include <fstream>
@@ -64,20 +65,42 @@ O2DatIO(O2DatDB *db, O2Logger *lgr, O2Profile *prof, O2ProgressInfo *proginfo)
 	DWORD TotalNumberOfClusters;
 
 	ClusterSize = 1;
+
+#ifdef _WIN32 /** Windows */
 	wchar_t abspath[_MAX_PATH];
 	_wfullpath(abspath, Profile->GetCacheRootW(), _MAX_PATH);
-	if (wcslen(abspath) >= 2) {
+	if (wcslen(abspath) >= 2) 
+	{
 		wstring drive(abspath, abspath+2);
 		drive += L"\\";
 
 		if (GetDiskFreeSpace(
-				drive.c_str(),
-				//Profile->GetCacheRootW(),
-				&SectorsPerCluster, &BytesPerSector,
-				&NumberOfFreeClusters, &TotalNumberOfClusters)) {
+			    drive.c_str(),
+			    &SectorsPerCluster, &BytesPerSector,
+			    &NumberOfFreeClusters, &TotalNumberOfClusters)) {
 			ClusterSize = (uint64)SectorsPerCluster * (uint64)BytesPerSector;
 		}
 	}
+
+#else /** Unix */
+	char abspath[_MAX_PATH];
+	string relative;
+	// wchar_t -> char
+	FromUnicode(_T(DEFAULT_XML_CHARSET), Profile->GetCacheRootW(), relative);
+	realpath(relative.c_str(), abspath);
+	if (strlen(abspath) >= 2)
+	{
+		string drive(abspath, abspath+1);
+		drive += "/";
+
+		struct statvfs buf;
+		if (statvfs(drive.c_str(), &buf) != -1)
+		{
+			ClusterSize = buf.f_bsize * buf.f_frsize;
+		}		
+	}
+	
+#endif
 }
 
 
