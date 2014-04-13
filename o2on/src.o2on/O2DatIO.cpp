@@ -143,10 +143,17 @@ CheckQuarterOverflow(uint64 add_size)
 
 	if (quarter_size && DatDB->select_totaldisksize() + add_size >= quarter_size) {
 		if (hwndEmergencyHaltCallback) {
+
+#if defined(_WIN32) && !defined(__WXWINDOWS__)
 			PostMessage(
 				hwndEmergencyHaltCallback,
 				msgEmergencyHaltCallback,
 				0, 0);
+
+#else
+			#warning "TODO: implement wxWidgets event method here"
+#endif
+
 		}
 		return true;
 	}
@@ -199,7 +206,7 @@ KakoHantei(const char *dat, uint64 len, bool is_be)
 	int lf = 0;
 	const char *p[2] = {NULL};
 
-	for (__int64 i = len-1; i >= 0; i--) {
+	for (uint64 i = len-1; i >= 0; i--) {
 		if (dat[i] == '\n') { p[lf] = &dat[i]; lf++; }
 		if (lf == 2) break;
 	}
@@ -448,14 +455,14 @@ Load(const O2DatPath &datpath, uint64 offset, string &out)
 	if (_stat64(path.c_str(), &st) == -1)
 		goto cleanup;
 
-	__int64 filesize = st.st_size;
+	uint64 filesize = st.st_size;
 	if (filesize <= (int)offset)
 		goto cleanup;
 
 	if (fopen_s(&fp, path.c_str(), "rb") != 0)
 		goto cleanup;
 
-	if (_fseeki64(fp, (__int64)offset, SEEK_SET) != 0)
+	if (_fseeki64(fp, (uint64)offset, SEEK_SET) != 0)
 		goto cleanup;
 	
 	out.resize((size_t)(st.st_size - offset));
@@ -627,7 +634,7 @@ Put(O2DatPath &datpath, const char *dat, uint64 len, uint64 startpos)
 		}
 #endif
 		//dat有り
-		if (st.st_size < (__int64)startpos) {
+		if (st.st_size < (uint64)startpos) {
 			//dat有り&差分&足りない：キャッシュしない
 			TRACEA(">error (2)\n");
 			return (0);

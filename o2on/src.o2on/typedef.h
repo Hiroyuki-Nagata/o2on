@@ -36,6 +36,7 @@
    #define WINAPI       /** Linux or other don't call WINAPI... */
    #define _utimbuf	 utimbuf
    #define _stat         stat
+   #define _stat64       stat
 
    #define INVALID_HANDLE_VALUE ((HANDLE) -1)
 
@@ -69,6 +70,7 @@
 
    #define _strtoui64(x, y, z)	strtoull(x, y, z)
    #define _wcstoui64(x, y, z)	wcstoul(x, y, z)
+   #define _fseeki64(x, y, z)   fseeko(x, y, z)
 
    /** MSW's many many ~_s function series... */
    #define sprintf_s(buffer, buffer_size, stringbuffer, ...)	sprintf(buffer, stringbuffer, __VA_ARGS__)

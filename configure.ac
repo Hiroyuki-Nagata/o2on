@@ -44,9 +44,18 @@ case "$host" in
 		AM_CONDITIONAL(USE_PTHREAD, true)
                 ;;
         *)
-                AC_MSG_WARN([*** Please add $host to configure.ac checks!])
+                AC_MSG_WARN([*** Please add $host to configure.ac Checks!])
                 ;;
 esac
+
+# Checks for TargetCPU
+case $target in
+	x86_64-*)
+	AC_DEFINE([_LARGEFILE_SOURCE], [], [Large file support])
+	AC_DEFINE([_FILE_OFFSET_BITS], [64], [Large file support])
+	;;
+esac
+
 
 # Checks for compiler
 AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
