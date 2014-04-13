@@ -769,7 +769,12 @@ ExportToXML(const wchar_t *domain, const wchar_t *bbsname, string &out)
 {
 	wchar_t tmp[32];
 	wstring tmpstr;
+
+#ifdef _WIN32
 	struct tm tm;
+#else
+	struct tm* tm;
+#endif
 	time_t t;
 	uint64 totaldisksize = 0;
 
@@ -815,8 +820,14 @@ ExportToXML(const wchar_t *domain, const wchar_t *bbsname, string &out)
 		xml += tmpstr;
 		xml += L"</hash>" EOL;
 		t = _wcstoui64(it->datname.c_str(), NULL, 10);
+
+#ifdef _WIN32   /** Windows */
 		localtime_s(&tm, &t);
 		wcsftime(tmp, 32, L"%Y/%m/%d %H:%M:%S ", &tm);
+#else           /** Unix */
+		tm = localtime(&t);
+		wcsftime(tmp, 32, L"%Y/%m/%d %H:%M:%S ", tm);
+#endif
 		xml += L"<date>";
 		xml += tmp;
 		xml += L"</date>" EOL;
