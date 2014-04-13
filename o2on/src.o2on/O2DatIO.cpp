@@ -445,6 +445,9 @@ bool
 O2DatIO::
 Load(const O2DatPath &datpath, uint64 offset, string &out)
 {
+
+#ifdef _MSC_VER /** VC++の場合GOTO文でリソースを開放 */
+
 	bool ret = false;
 	struct _stat64 st;
 	FILE *fp = NULL;
@@ -476,6 +479,48 @@ cleanup:
 		fclose(fp);
 
 	return (ret);
+
+#else /** GCC or Clang more like C++ */
+
+	bool ret = false;
+	struct stat st;
+	string path;
+	datpath.getpath(Profile->GetCacheRootA(), path);
+
+	if (stat(path.c_str(), &st) == -1)
+		return ret;
+	
+	uint64 filesize = st.st_size;
+	if (filesize <= (int)offset)
+	{
+		return ret;
+	}
+	
+	std::ifstream ifs( path, std::ios::in | std::ios::binary );
+	if(ifs.fail())
+	{
+		return ret;
+	}
+
+	// 開始位置に移動してからオフセット分移動させる
+	ifs.seekg(0, std::ios_base::beg);
+	ifs.seekg(offset, std::ios_base::cur);
+	if (ifs.bad())
+	{
+		return ret;
+	}
+
+	// ファイルサイズからオフセット分を引いたデータをstd::stringに入れる
+	out.resize((size_t)(st.st_size - offset));
+	const std::istreambuf_iterator<char> fst(ifs);
+	std::istreambuf_iterator<char> tmp(ifs);
+	std::advance(tmp, (size_t)(st.st_size - offset));
+	const std::istreambuf_iterator<char> eof = tmp;
+	out = string(fst, eof);
+
+	ret = true;
+	return ret;
+#endif
 }
 
 bool

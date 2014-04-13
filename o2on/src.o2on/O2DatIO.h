@@ -10,6 +10,9 @@
  */
 
 #pragma once
+#include <sstream>
+#include <fstream>
+#include <iostream>
 #include "O2DatPath.h"
 #include "O2DatDB.h"
 #include "O2Logger.h"
@@ -18,7 +21,6 @@
 #include "mutex.h"
 #include "O2ProgressInfo.h"
 #include "sqlite3.h"
-#include <sstream>
 
 
 
