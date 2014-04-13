@@ -562,12 +562,17 @@ Delete(const hashListT &hashlist)
 
 		datpath.set(rec.domain.c_str(), rec.bbsname.c_str(), rec.datname.c_str());
 		datpath.getpath(Profile->GetCacheRootW(), path);
-#if 1
+
+#ifdef _WIN32   /** Windows:ファイルの属性から読み取り専用を削除する */
 		DWORD attr = GetFileAttributesW(path.c_str());
 		if (attr != 0xFFFFFFFF && (attr & FILE_ATTRIBUTE_READONLY)) {
-			attr ^= FILE_ATTRIBUTE_READONLY;
+			attr &= ~FILE_ATTRIBUTE_READONLY;
 			SetFileAttributesW(path.c_str(), attr);
 		}
+#else           /** Unix:ファイルの属性を書き込み可に変更 */
+		string cpath;
+		FromUnicode(_T(DEFAULT_XML_CHARSET), path, cpath);
+		chmod(cpath.c_str(), 0755);
 #endif
 		if (!boost::filesystem::remove(path.c_str()))
 			continue;
@@ -637,7 +642,6 @@ Put(O2DatPath &datpath, const char *dat, uint64 len, uint64 startpos)
 		return false;
 
 	struct _stat64 st;
-	//FILE *fp;
 	strmap::const_iterator it;
 	uint64 hokan_byte = 0;
 	uint64 total_size = 0;
@@ -654,12 +658,7 @@ Put(O2DatPath &datpath, const char *dat, uint64 len, uint64 startpos)
 		hokan_byte = len;
 		if (CheckQuarterOverflow(hokan_byte))
 			return (0);
-/*
-		if (fopen_s(&fp, path.c_str(), "wb") != 0)
-			return (0);
-		fwrite(dat, 1, (size_t)len, fp);
-		fclose(fp);
-*/
+
 		File f;
 		if (!f.open(path.c_str(), MODE_W))
 			return (0);
@@ -671,12 +670,14 @@ Put(O2DatPath &datpath, const char *dat, uint64 len, uint64 startpos)
 	}
 	else {
 
-#if 1
-		DWORD attr = GetFileAttributesA(path.c_str());
+#ifdef _WIN32   /** Windows:ファイルの属性から読み取り専用を削除する */
+		DWORD attr = GetFileAttributesW(path.c_str());
 		if (attr != 0xFFFFFFFF && (attr & FILE_ATTRIBUTE_READONLY)) {
-			attr ^= FILE_ATTRIBUTE_READONLY;
-			SetFileAttributesA(path.c_str(), attr);
+			attr &= ~FILE_ATTRIBUTE_READONLY;
+			SetFileAttributesW(path.c_str(), attr);
 		}
+#else           /** Unix:ファイルの属性を書き込み可に変更 */
+		chmod(path.c_str(), 0755);
 #endif
 		//dat有り
 		if (st.st_size < (uint64)startpos) {
@@ -1203,7 +1204,7 @@ uint WINAPI
 O2DatIO::
 StaticReindexThread(void *data)
 {
-	static char *targets[] = {"dat","idx_dat_domain_bbsname_datname","idx_dat_lastpublish","idx_dat_datname"};
+	const static char* targets[] = {"dat","idx_dat_domain_bbsname_datname","idx_dat_lastpublish","idx_dat_datname"};
 
 	O2DatIO *me = (O2DatIO*)data;
 
