@@ -1010,8 +1010,15 @@ StopRebuildDB(void)
 	if (!RebuildDBThreadHandle)
 		return;
 	LoopRebuildDB = false;
+
+#ifdef _WIN32 /** Windows */
 	WaitForSingleObject(RebuildDBThreadHandle, INFINITE);
+#else   /** Unix */
+	WaitForSingleObject(RebuildDBThreadHandle, DosMocking::INFINITE);
+#endif
 }
+
+#ifdef _WIN32  /** for win32 thread */
 
 uint WINAPI
 O2DatIO::
@@ -1043,9 +1050,42 @@ StaticRebuildDBThread(void *data)
 	CloseHandle(me->RebuildDBThreadHandle);
 	me->RebuildDBThreadHandle = NULL;
 
-	//_endthreadex(0);
 	return (0);
 }
+
+#else /** for POSIX thread processing */
+
+void*
+O2DatIO::
+StaticRebuildDBThread(void *data)
+{
+	O2DatIO *me = (O2DatIO*)data;
+
+	me->DatDB->StopUpdateThread();
+	O2DatRecList reclist;
+	if (me->DatDB->before_rebuild()) {
+		me->RebuildDBThread(me->Profile->GetCacheRootW(), 0, reclist);
+		bool manualstop = !me->LoopRebuildDB;
+		// 手動で停止した場合は差し替えなどをしない
+		if (!manualstop) {
+			if (me->DatDB->after_rebuild())
+				me->DatDB->analyze();
+			else
+				me->Logger->AddLog(O2LT_ERROR, L"DB再構築", 0, 0, "再構築済みDB差し替え失敗");
+		}
+	}
+	else {
+		me->Logger->AddLog(O2LT_ERROR, L"DB再構築", 0, 0, "再構築用DB作成失敗");
+		me->ProgressInfo->Reset(false, false);
+	}
+	me->DatDB->StartUpdateThread();
+
+	#warning "TODO: Add Handle close process here."
+	//CloseHandle(me->RebuildDBThreadHandle);
+	me->RebuildDBThreadHandle = NULL;
+}
+
+#endif
 
 void
 O2DatIO::
@@ -1211,6 +1251,8 @@ Reindex(void)
 		NULL, 0, StaticReindexThread, (void*)this, 0, NULL);
 }
 
+#ifdef _WIN32 /** for win32 thread */
+
 uint WINAPI
 O2DatIO::
 StaticReindexThread(void *data)
@@ -1240,9 +1282,40 @@ StaticReindexThread(void *data)
 	CloseHandle(me->ReindexThreadHandle);
 	me->ReindexThreadHandle = NULL;
 
-	//_endthreadex(0);
 	return (0);
 }
+
+#else   /** for POSIX thread processing */
+
+void*
+O2DatIO::
+StaticReindexThread(void *data)
+{
+	const static char* targets[] = {"dat","idx_dat_domain_bbsname_datname","idx_dat_lastpublish","idx_dat_datname"};
+	O2DatIO *me = (O2DatIO*)data;
+
+	me->ProgressInfo->Reset(true, false);
+	me->ProgressInfo->SetMessage(L"reindex...");
+	me->ProgressInfo->AddMax(4);
+
+	for (size_t i = 0; i < 4; i++) {
+		wstring tmp;
+		ascii2unicode(targets[i], strlen(targets[i]), tmp);
+		tmp.insert(0, L"reindex ");
+		tmp.append(L"...");
+		me->ProgressInfo->SetMessage(tmp.c_str());
+		me->DatDB->reindex(targets[i]);
+		me->ProgressInfo->AddPos(1);
+	}
+
+	me->ProgressInfo->Reset(false, false);
+
+	#warning "TODO: Add Handle close process here."
+        //CloseHandle(me->ReindexThreadHandle);
+	me->ReindexThreadHandle = NULL;
+}
+
+#endif
 
 void
 O2DatIO::
@@ -1253,6 +1326,8 @@ Analyze(void)
 	AnalyzeThreadHandle = (HANDLE)_beginthreadex(
 		NULL, 0, StaticAnalyzeThread, (void*)this, 0, NULL);
 }
+
+#ifdef _WIN32 /** for win32 thread */
 
 uint WINAPI
 O2DatIO::
@@ -1274,3 +1349,25 @@ StaticAnalyzeThread(void *data)
 
 	return (0);
 }
+
+#else   /** for POSIX thread processing */
+
+void*
+O2DatIO::
+StaticAnalyzeThread(void *data)
+{
+	O2DatIO *me = (O2DatIO*)data;
+
+	me->ProgressInfo->Reset(true, false);
+	me->ProgressInfo->SetMessage(L"analyze...");
+	me->ProgressInfo->AddMax(2);
+	me->ProgressInfo->pos = 1;
+	me->DatDB->analyze();
+	me->ProgressInfo->Reset(false, false);
+
+	#warning "TODO: Add Handle close process here."
+	//CloseHandle(me->AnalyzeThreadHandle);
+	me->AnalyzeThreadHandle = NULL;
+}
+
+#endif

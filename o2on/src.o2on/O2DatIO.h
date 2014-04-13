@@ -73,11 +73,17 @@ public:
 public:
 	void RebuildDB(void);
 	void StopRebuildDB(void);
-	static uint WINAPI StaticRebuildDBThread(void *data);
 	void RebuildDBThread(const wchar_t *dir, uint level, O2DatRecList &reclist);
-
 	void Reindex(void);
-	static uint WINAPI StaticReindexThread(void *data);
 	void Analyze(void);
+
+#ifdef _WIN32 /** for win32 thread */
+	static uint WINAPI StaticRebuildDBThread(void *data);
+	static uint WINAPI StaticReindexThread(void *data);
 	static uint WINAPI StaticAnalyzeThread(void *data);
+#else   /** for POSIX thread processing */
+	static void* StaticRebuildDBThread(void *data);
+	static void* StaticReindexThread(void *data);
+	static void* StaticAnalyzeThread(void *data);
+#endif
 };
