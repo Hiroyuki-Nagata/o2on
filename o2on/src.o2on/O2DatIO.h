@@ -13,6 +13,13 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
+#include <iostream>
+#include <algorithm>
+#include <boost/filesystem/path.hpp>
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/exception.hpp>
+#include <boost/filesystem/convenience.hpp>
 #include "O2DatPath.h"
 #include "O2DatDB.h"
 #include "O2Logger.h"
@@ -23,7 +30,7 @@
 #include "sqlite3.h"
 
 
-
+enum HandleEnum { REBUILDDB = 0, REINDEX = 1, ANALYZE = 2 }; // 列挙型の定義
 
 class O2DatIO
 {
@@ -34,11 +41,19 @@ protected:
 	uint64			ClusterSize;
 	HWND			hwndEmergencyHaltCallback;
 	UINT			msgEmergencyHaltCallback;
-	O2ProgressInfo	*ProgressInfo;
+	O2ProgressInfo		*ProgressInfo;
 
+#ifdef _WIN32 /** HANDLE for win32 thread */
 	HANDLE			RebuildDBThreadHandle;
 	HANDLE			ReindexThreadHandle;
 	HANDLE			AnalyzeThreadHandle;
+#else /** For POSIX thread processing */
+	pthread_t		RebuildDBThreadHandle;
+	pthread_t		ReindexThreadHandle;
+	pthread_t		AnalyzeThreadHandle;
+	neosmart::neosmart_event_t handles[3];
+#endif
+
 	bool			LoopRebuildDB;
 
 protected:
