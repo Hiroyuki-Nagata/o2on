@@ -53,10 +53,12 @@ O2DatIO(O2DatDB *db, O2Logger *lgr, O2Profile *prof, O2ProgressInfo *proginfo)
 	, hwndEmergencyHaltCallback(NULL)
 	, msgEmergencyHaltCallback(0)
 	, ProgressInfo(proginfo)
+	, LoopRebuildDB(false)
+#ifdef _WIN32
 	, RebuildDBThreadHandle(NULL)
 	, ReindexThreadHandle(NULL)
-	, LoopRebuildDB(false)
 	, AnalyzeThreadHandle(0)
+#endif
 
 {
 	DWORD BytesPerSector;
@@ -1115,6 +1117,10 @@ RebuildDBThread(const wchar_t *dir, uint level, O2DatRecList &reclist)
 		ProgressInfo->SetMessage(dir+wcslen(Profile->GetCacheRootW()));
 	}
 
+	/**
+	 * 元々の処理はFindFirstFileを一度呼んだあと、FindNextFileを呼んでいるので
+	 * 階層を下までたどってファイルを走査しているわけではない
+	 */
 
 #ifdef _WIN32 /** Windows */
 
@@ -1212,18 +1218,21 @@ RebuildDBThread(const wchar_t *dir, uint level, O2DatRecList &reclist)
 	strarray paths;
 	char* path[MAX_PATH];
 	string c_dir;
+	FromUnicode(_T(DEFAULT_XML_CHARSET), dir, c_dir);
 
-	FromUnicode(_T(DEFAULT_XML_CHARSET), 
-		    dir,
-		    c_dir);
+	boost::filesystem::path p(".");              // 列挙の起点
+	boost::filesystem::directory_iterator last;  // ディレクトリの最後のファイル or フォルダ
 
-	boost::filesystem::path p("."); // 列挙の起点
-	boost::filesystem::recursive_directory_iterator last;
-
-	for ( boost::filesystem::recursive_directory_iterator it(p); it != last; ++it )
+	for ( boost::filesystem::directory_iterator it(p); it != last; ++it )
 	{
 		if (boost::filesystem::is_regular_file(p)) 
 		{ 
+			// ログ出力用にファイル名をワイド文字変換
+			wstring filename;
+			ToUnicode(_T(DEFAULT_XML_CHARSET), 
+				  it->path().filename().string(),
+				  filename);
+
 			if (strcmp(it->path().filename().c_str(), ".index") == 0) 
 			{
 				boost::filesystem::remove(it->path().relative_path());
@@ -1231,10 +1240,6 @@ RebuildDBThread(const wchar_t *dir, uint level, O2DatRecList &reclist)
 			}
 			else if (level != 3) 
 			{
-				wstring filename;
-				ToUnicode(_T(DEFAULT_XML_CHARSET), 
-					  it->path().filename().string(),
-					  filename);
 				Logger->AddLog(O2LT_WARNING, 
 					       L"DB再構築", 
 					       0, 
@@ -1247,31 +1252,38 @@ RebuildDBThread(const wchar_t *dir, uint level, O2DatRecList &reclist)
 
 			if (level != 3) continue;
 
+			// std::stringに変換してから処理する
 			string cacheRootW;
 			FromUnicode(_T(DEFAULT_XML_CHARSET), Profile->GetCacheRootW(), cacheRootW);
 			string tmp = c_dir;
 			tmp += std::to_string(cacheRootW.size());
 			split(tmp.c_str(), "/", paths);
 
-			// TODO: 実装
-			if (!datpath.set(paths[0].c_str(), paths[1].c_str(), wfd.cFileName)) 
+			if (!datpath.set(paths[0].c_str(), 
+					 paths[1].c_str(), 
+					 it->path().filename().string().c_str())) 
 			{
-				Logger->AddLog(O2LT_WARNING, L"DB再構築", 0, 0,
-					       L"datじゃないファイル？(%s\\%s)", dir, wfd.cFileName);
+				Logger->AddLog(O2LT_WARNING, 
+					       L"DB再構築", 0, 0,
+					       L"datじゃないファイル？(%s\\%s)", 
+					       dir, 
+					       filename.c_str());
 				continue;
 			}
-			if (wfd.dwFileAttributes & FILE_ATTRIBUTE_READONLY) 
-			{
-				swprintf_s(path, MAX_PATH, L"%s\\%s", dir, wfd.cFileName);
-				wfd.dwFileAttributes ^= FILE_ATTRIBUTE_READONLY;
-				SetFileAttributes(path, wfd.dwFileAttributes);
-			}
+			/** Unix:ファイルの属性を書き込み可に変更 */
+			chmod(it->path().relative_path().c_str(), 0755);
+
+			wstrarray wpaths;
+			wpaths.resize(2);
+			// ワイド文字化
+			ToUnicode(_T(DEFAULT_XML_CHARSET), paths[0], wpaths[0]);
+			ToUnicode(_T(DEFAULT_XML_CHARSET), paths[1], wpaths[1]);
 
 			datpath.gethash(rec.hash);
-			rec.domain = paths[0];
-			rec.bbsname = paths[1];
-			rec.datname = wfd.cFileName;
-			rec.size = ((uint64)wfd.nFileSizeHigh << 32) | (uint64)wfd.nFileSizeLow;
+			rec.domain = wpaths[0];
+			rec.bbsname = wpaths[1];
+			rec.datname = filename;
+			rec.size = (boost::filesystem::file_size(it->path()));
 			rec.disksize = GetDiskFileSize(rec.size);
 			datpath.geturl(rec.url);
 			GetTitle(datpath);
@@ -1315,108 +1327,35 @@ RebuildDBThread(const wchar_t *dir, uint level, O2DatRecList &reclist)
 
 	}
 
-/**
-   std::for_each(boost::filesystem::recursive_directory_iterator(p), 
-   boost::filesystem::recursive_directory_iterator(),
-   [this, &c_dir, &dirs, level]
-   (const boost::filesystem::path& p, char* path) {
-   if (boost::filesystem::is_regular_file(p)) 
-   { 
-   if (strcmp(p.filename().c_str(), ".index") == 0) 
-   {
-   sprintf(path,
-   "%s/%s", 
-   c_dir.c_str(), 
-   p.filename().c_str());
-   boost::filesystem::remove(path);
-   continue;
-   }
-   else if (level != 3) 
-   {
-   Logger->AddLog(O2LT_WARNING, L"DB再構築", 0, 0,
-   L"変なファイルがあるよ(%s\\%s)", dir, wfd.cFileName);
-   continue;
-   }
-
-   if (level != 3) continue;
-
-   wsplit(dir+wcslen(Profile->GetCacheRootW()), L"\\", paths);
-   if (!datpath.set(paths[0].c_str(), paths[1].c_str(), wfd.cFileName)) 
-   {
-   Logger->AddLog(O2LT_WARNING, L"DB再構築", 0, 0,
-   L"datじゃないファイル？(%s\\%s)", dir, wfd.cFileName);
-   continue;
-   }
-   if (wfd.dwFileAttributes & FILE_ATTRIBUTE_READONLY) 
-   {
-   swprintf_s(path, MAX_PATH, L"%s\\%s", dir, wfd.cFileName);
-   wfd.dwFileAttributes ^= FILE_ATTRIBUTE_READONLY;
-   SetFileAttributes(path, wfd.dwFileAttributes);
-   }
-
-   datpath.gethash(rec.hash);
-   rec.domain = paths[0];
-   rec.bbsname = paths[1];
-   rec.datname = wfd.cFileName;
-   rec.size = ((uint64)wfd.nFileSizeHigh << 32) | (uint64)wfd.nFileSizeLow;
-   rec.disksize = GetDiskFileSize(rec.size);
-   datpath.geturl(rec.url);
-   GetTitle(datpath);
-   datpath.gettitle(rec.title);
-   rec.res = 0;
-   reclist.push_back(rec);
-   if (!DatDB->check_queue_size(reclist)) 
-   {
-   DatDB->insert(reclist, true);
-   reclist.clear();
-   }
-   } 
-   else if (boost::filesystem::is_directory(p)) 
-   { 
-   // ディレクトリにあたるもの
-   if (p.string().at(0) != '.') 
-   {
-   // ディレクトリの先頭の文字が「.」でない
-   // 自分自身と親ディレクトリを処理しないため
-   if (level == 3)
-   {
-   wstring dirName;
-   ToUnicode(_T(DEFAULT_XML_CHARSET), 
-   p.string(),
-   dirName);
-   Logger->AddLog(O2LT_WARNING, 
-   L"DB再構築", 
-   0, 
-   0,
-   L"余計なディレクトリがあるよ(%s\\%s)", 
-   dir, 
-   dirName.c_str());
-   }
-   else
-   {
-   // dirsにディレクトリ名を格納
-   dirs.push_back(p.string());
-   }
-   }
-   }
-   });
-
-*/
-
+	// ディレクトリのワイド文字化
+	wstrarray wdirs;
+	wdirs.resize(dirs.size());
 #endif
 
-	if (!dirs.empty()) {
+	if (!dirs.empty()) 
+	{
 		if (level == 1)
+		{
 			ProgressInfo->AddMax(dirs.size());
+		}
 
-		for (uint i = 0; i < dirs.size() && LoopRebuildDB; i++) {
+		for (uint i = 0; i < dirs.size() && LoopRebuildDB; i++) 
+		{
+
+#ifdef _WIN32           /** windows */
 			const wchar_t *s = dirs[i].c_str();
+#else                   /** unix */
+			ToUnicode(_T(DEFAULT_XML_CHARSET), dirs[i], wdirs[i]);
+			const wchar_t *s = wdirs[i].c_str();
+#endif
 			bool invalid = false;
-			switch (level) {
+			switch (level) 
+			{
 			case 0:
 				if (wcscmp(s, _T(DOMAIN_2CH)) != 0
 				    && wcscmp(s, _T(DOMAIN_BBSPINK)) != 0
-				    && wcscmp(s, _T(DOMAIN_MACHI)) != 0) {
+				    && wcscmp(s, _T(DOMAIN_MACHI)) != 0) 
+				{
 					invalid = true;
 					TRACEA("おかしい(0)\n");
 					TRACEW(s);
@@ -1425,13 +1364,30 @@ RebuildDBThread(const wchar_t *dir, uint level, O2DatRecList &reclist)
 				break;
 			case 1:
 				// 板フォルダ名のチェック
-				for (uint j = 0; j < wcslen(s); j++) {
+				for (uint j = 0; j < wcslen(s); j++) 
+				{
 					if (!(s[j] >= 0x30 && s[j] <= 0x39)
 					    && !(s[j] >= 0x41 && s[j] <= 0x5A) // 2013-09-12 Fujisaki
-					    && !(s[j] >= 0x61 && s[j] <= 0x7a)) {
+					    && !(s[j] >= 0x61 && s[j] <= 0x7a)) 
+					{
 						invalid = true;
-						Logger->AddLog(O2LT_WARNING, L"DB再構築", 0, 0,
-							       L"変なディレクトリがあるよ(%s\\%s)", dir, wfd.cFileName);
+#ifdef _WIN32                                   /** windows */
+						Logger->AddLog(O2LT_WARNING, 
+							       L"DB再構築", 0, 0,
+							       L"変なディレクトリがあるよ(%s\\%s)", 
+							       dir,
+							       wfd.cFileName);
+#else                                           /** unix */
+						wstring filename;
+						ToUnicode(_T(DEFAULT_XML_CHARSET), 
+							  p.filename().string(),
+							  filename);
+						Logger->AddLog(O2LT_WARNING, 
+							       L"DB再構築", 0, 0,
+							       L"変なディレクトリがあるよ(%s\\%s)", 
+							       c_dir.c_str(),
+							       filename.c_str());
+#endif
 						TRACEA("おかしい(1)\n");
 						TRACEW(s);
 						TRACEA("\n");
@@ -1445,9 +1401,24 @@ RebuildDBThread(const wchar_t *dir, uint level, O2DatRecList &reclist)
 				    || !(s[0] >= 0x30 && s[0] <= 0x39)
 				    || !(s[1] >= 0x30 && s[1] <= 0x39)
 				    || !(s[2] >= 0x30 && s[2] <= 0x39)
-				    || !(s[3] >= 0x30 && s[3] <= 0x39)) {
-					Logger->AddLog(O2LT_WARNING, L"DB再構築", 0, 0,
-						       L"変なディレクトリがあるよ(%s\\%s)", dir, wfd.cFileName);
+				    || !(s[3] >= 0x30 && s[3] <= 0x39)) 
+				{
+#ifdef _WIN32                           /** windows */
+					Logger->AddLog(O2LT_WARNING, 
+						       L"DB再構築", 0, 0,
+						       L"変なディレクトリがあるよ(%s\\%s)", 
+						       dir, wfd.cFileName);
+#else                                   /** unix */
+					wstring filename;
+					ToUnicode(_T(DEFAULT_XML_CHARSET), 
+						  p.filename().string(),
+						  filename);
+					Logger->AddLog(O2LT_WARNING, 
+						       L"DB再構築", 0, 0,
+						       L"変なディレクトリがあるよ(%s\\%s)", 
+						       c_dir.c_str(), filename.c_str());
+#endif
+
 					invalid = true;
 					TRACEA("おかしい(2)\n");
 					TRACEW(s);
@@ -1458,19 +1429,28 @@ RebuildDBThread(const wchar_t *dir, uint level, O2DatRecList &reclist)
 				invalid = true;
 			}
 
-			if (invalid)
-				continue;
+			if (invalid) continue;
 
+#ifdef _WIN32           /** windows */
 			swprintf_s(path, MAX_PATH, L"%s\\%s", dir, s);
 			RebuildDBThread(path, level+1, reclist); //再帰
+#else                   /** unix */
 
-			if (level == 1)
-				ProgressInfo->AddPos(1);
+			// ワイド文字化
+			wstring wpath = dir; 
+			wpath += wstring(L"/"); 
+			wpath += wstring(s);
+
+			RebuildDBThread(wpath.c_str(), level+1, reclist); //再帰
+#endif
+			if (level == 1) ProgressInfo->AddPos(1);
 		}
 	}
 
-	if (level == 0) {
-		if (LoopRebuildDB && !reclist.empty()) {
+	if (level == 0) 
+	{
+		if (LoopRebuildDB && !reclist.empty()) 
+		{
 			DatDB->insert(reclist, true);
 			reclist.clear();
 		}
