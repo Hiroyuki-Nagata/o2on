@@ -403,10 +403,24 @@ O2IMDB::
 Load(const wchar_t *filename)
 {
 	struct _stat st;
+
+#ifdef _WIN32 /** windows */
 	if (_wstat(filename, &st) == -1)
 		return false;
+
+#else         /** unix */
+
+	// マルチバイト化
+	string mFilename;
+	FromUnicode(_T(DEFAULT_XML_CHARSET), wstring(filename), mFilename);
+	
+	if (stat(mFilename.c_str(), &st) == -1)
+		return false;
+
+#endif
 	if (st.st_size == 0)
 		return false;
+
 	ImportFromXML(filename, NULL, 0);
 	NewMessageFlag = false;
 	return true;
@@ -544,14 +558,24 @@ MakeIMElement(O2IMessage &im, O2IMSelectCondition &cond, wstring &xml)
 		if (im.date == 0)
 			xml += L" <date></date>" EOL;
 		else {
+
 			long tzoffset;
+
+#ifdef _WIN32           /** windows */
 			_get_timezone(&tzoffset);
+#else                   /** unix */
+			DosMocking::getGmtOffset();
+#endif
 			if (!cond.timeformat.empty()) {
 				time_t t = im.date - tzoffset;
 
 				wchar_t timestr[TIMESTR_BUFF_SIZE];
 				struct tm tm;
+#ifdef _WIN32                   /** windows */
 				gmtime_s(&tm, &t);
+#else                           /** unix */
+				gmtime_r(&t, &tm);
+#endif
 				wcsftime(timestr, TIMESTR_BUFF_SIZE, cond.timeformat.c_str(), &tm);
 				xml += L" <date>";
 				xml += timestr;
@@ -603,7 +627,12 @@ ImportFromXML(const wchar_t *filename, const char *in, uint len)
 
 	try {
 		if (filename) {
+
+#ifdef _MSC_VER         /** loose VC++ cast...*/
 			LocalFileInputSource source(filename);
+#else                   /** use reinterpret_cast for GCC */
+			LocalFileInputSource source(reinterpret_cast<const XMLCh*>(filename));
+#endif
 			parser->parse(source);
 		}
 		else {
@@ -786,6 +815,11 @@ characters(const XMLCh* const chars, const unsigned int length)
 	if (!CurIM)
 		return;
 
+#ifdef _MSC_VER /** VC++ */
 	if (CurElm != IM_XMLELM_NONE)
 		buf.append(chars, length);
+#else   /** other compiler */
+	if (CurElm != IM_XMLELM_NONE)
+		buf.append(reinterpret_cast<const wchar_t*>(chars), length);
+#endif
 }

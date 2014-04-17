@@ -22,6 +22,7 @@
    #include <cstring>
    #include <cstdlib>
    #include <iostream>
+   #include <time.h>
    #include <utime.h>
    #include <sys/stat.h>
    #include <wchar.h>

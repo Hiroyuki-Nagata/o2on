@@ -56,3 +56,18 @@ void whex2byte(const wchar_t *in, uint len, byte *out)
 		out[i/2] = c;
 	}
 }
+
+namespace DosMocking {
+	long getGmtOffset() 
+	{ 
+		time_t now = time(NULL);
+
+		struct tm *gm = gmtime(&now);
+		time_t gmt = mktime(gm);
+
+		struct tm *loc = localtime(&now);
+		time_t local = mktime(loc);
+
+		return static_cast<long>(difftime(local, gmt));
+	}
+}
