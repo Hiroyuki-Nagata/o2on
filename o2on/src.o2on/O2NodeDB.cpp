@@ -15,6 +15,7 @@
 #include "dataconv.h"
 
 #define MODULE L"NodeDB"
+#warning "TODO: o2on defined MODULE macro, but this is bad practice. It should be implemented by other way."
 #define PORT0NODE_LIMIT	100
 
 
@@ -199,9 +200,23 @@ bool
 O2NodeDB::
 Load(const wchar_t *filename)
 {
+#warning "TODO: delete this duplicate code..."
 	struct _stat st;
+#ifdef _WIN32 /** windows */
 	if (_wstat(filename, &st) == -1)
 		return false;
+
+#else         /** unix */
+
+	// マルチバイト化
+	string mFilename;
+	FromUnicode(_T(DEFAULT_XML_CHARSET), wstring(filename), mFilename);
+	
+	if (stat(mFilename.c_str(), &st) == -1)
+		return false;
+
+#endif
+
 	if (st.st_size == 0)
 		return false;
 	ImportFromXML(filename, NULL, 0, NULL);
@@ -388,7 +403,11 @@ MakeNodeElement(const O2Node &node, const O2NodeSelectCondition &cond, wstring &
 			xml += L" <lastlink>-</lastlink>" EOL;
 		else {
 			long tzoffset;
+#ifdef _WIN32           /** windows */
 			_get_timezone(&tzoffset);
+#else                   /** unix */
+			tzoffset = DosMocking::getGmtOffset();
+#endif
 
 			if (!cond.timeformat.empty()) {
 				time_t t = node.lastlink - tzoffset;
@@ -635,6 +654,11 @@ characters(const XMLCh* const chars, const unsigned int length)
 	if (CurNode == NULL && CurElm != NODE_XMLELM_STR)
 		return;
 
+#ifdef _MSC_VER /** VC++ */
 	if (CurElm != NODE_XMLELM_NONE)
 		buf.append(chars, length);
+#else   /** other compiler */
+	if (CurElm != NODE_XMLELM_NONE)
+		buf.append(reinterpret_cast<const wchar_t*>(chars), length);
+#endif
 }

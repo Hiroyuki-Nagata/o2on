@@ -17,6 +17,7 @@
 #include <time.h>
 
 #define MODULE			L"IMDB"
+#warning "TODO: o2on defined MODULE macro, but this is bad practice. It should be implemented by other way."
 #define MIN_RECORDS		1
 #define MAX_RECORDS		UINT_MAX
 #define DEFAULT_LIMIT	UINT_MAX
@@ -402,6 +403,8 @@ bool
 O2IMDB::
 Load(const wchar_t *filename)
 {
+
+#warning "TODO: delete this duplicate code..."
 	struct _stat st;
 
 #ifdef _WIN32 /** windows */
@@ -564,7 +567,7 @@ MakeIMElement(O2IMessage &im, O2IMSelectCondition &cond, wstring &xml)
 #ifdef _WIN32           /** windows */
 			_get_timezone(&tzoffset);
 #else                   /** unix */
-			DosMocking::getGmtOffset();
+			tzoffset = DosMocking::getGmtOffset();
 #endif
 			if (!cond.timeformat.empty()) {
 				time_t t = im.date - tzoffset;

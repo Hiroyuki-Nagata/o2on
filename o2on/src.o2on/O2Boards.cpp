@@ -965,10 +965,10 @@ O2Boards::
 characters(const XMLCh* const chars
 		 , const unsigned int length)
 {
-#ifdef _MSC_VER
+#ifdef _MSC_VER /** VC++ */
 	if (parse_elm != 0)
 		buf.append(chars, length);
-#else
+#else   /** other compiler */
 	if (parse_elm != 0)
 		buf.append(reinterpret_cast<const wchar_t*>(chars), length);
 #endif

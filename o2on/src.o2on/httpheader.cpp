@@ -52,7 +52,11 @@ httpdate2time_t(const char *httpdate) const
 	tms.tm_isdst = 0;
 
 	long tzoffset;
+#ifdef _WIN32 /** windows */
 	_get_timezone(&tzoffset);
+#else                   /** unix */
+	tzoffset = DosMocking::getGmtOffset();
+#endif
 	time_t gmt = mktime(&tms) - tzoffset; //gmmktime()
 	
 	if (gmt == -1)

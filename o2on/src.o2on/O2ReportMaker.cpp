@@ -106,7 +106,11 @@ GetReport(string &out, bool pub)
 	PerformanceCounter->GetValue(ptime, ptimeavg, handle_c, thread_c);
 
 	long tzoffset;
+#ifdef _WIN32 /** windows */
 	_get_timezone(&tzoffset);
+#else                   /** unix */
+	tzoffset = DosMocking::getGmtOffset();
+#endif
 
 	// start time
 	time_t starttime = PerformanceCounter->GetStartTime();

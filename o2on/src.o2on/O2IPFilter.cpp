@@ -15,7 +15,7 @@
 #include <boost/regex.hpp>
 
 #define MODULE	L"IPFilter"
-
+#warning "TODO: o2on defined MODULE macro, but this is bad practice. It should be implemented by other way."
 
 
 O2IPFilter::
@@ -390,9 +390,22 @@ bool
 O2IPFilter::
 Load(const wchar_t *filename)
 {
+#warning "TODO: delete this duplicate code..."
 	struct _stat st;
+#ifdef _WIN32 /** windows */
 	if (_wstat(filename, &st) == -1)
 		return false;
+
+#else         /** unix */
+
+	// マルチバイト化
+	string mFilename;
+	FromUnicode(_T(DEFAULT_XML_CHARSET), wstring(filename), mFilename);
+	
+	if (stat(mFilename.c_str(), &st) == -1)
+		return false;
+
+#endif
 	if (st.st_size == 0)
 		return false;
 	ImportFromXML(filename, NULL, 0);
@@ -483,7 +496,12 @@ ImportFromXML(const wchar_t *filename, const char *in, uint len)
 
 	try {
 		if (filename) {
+
+#ifdef _MSC_VER         /** VC++ */
 			LocalFileInputSource source(filename);
+#else                   /** GCC/Clang */
+			LocalFileInputSource source(reinterpret_cast<const XMLCh*>(filename));
+#endif
 			parser->parse(source);
 		}
 		else {
@@ -635,6 +653,13 @@ void
 O2IPFilter_SAX2Handler::
 characters(const XMLCh* const chars, const unsigned int length)
 {
+
+#ifdef _MSC_VER /** VC++ */
 	if (CurElm != IPF_XMLELM_NONE)
 		buf.append(chars, length);
+#else   /** other compiler */
+	if (CurElm != IPF_XMLELM_NONE)
+		buf.append(reinterpret_cast<const wchar_t*>(chars), length);
+#endif
+
 }

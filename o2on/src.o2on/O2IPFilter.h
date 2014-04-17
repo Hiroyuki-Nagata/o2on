@@ -10,14 +10,17 @@
  */
 
 #pragma once
-#include "O2SAX2Parser.h"
-#include "O2Logger.h"
-#include "mutex.h"
 #ifdef _WIN32
    #include <windows.h>
+#else
+   #include <arpa/inet.h>
 #endif
 #include <map>
 #include <vector>
+
+#include "O2SAX2Parser.h"
+#include "O2Logger.h"
+#include "mutex.h"
 
 #define O2_ALLOW	0x00000000
 #define O2_DENY		0x00000001

@@ -81,13 +81,13 @@ public:
 		PdhAddCounter(hQuery, _T("\\Process(o2on)\\Handle Count"), 0, &hCounter_HandleCount);
 		PdhAddCounter(hQuery, _T("\\Process(o2on)\\Thread Count"), 0, &hCounter_ThreadCount);
 		PdhCollectQueryData(hQuery);
-	}
+	};
 
 	~O2PerformanceCounter()
 	{
 		if (hQuery)
 			PdhCloseQuery(hQuery);
-	}
+	};
 
 	void JobThreadFunc(void)
 	{
@@ -112,7 +112,7 @@ public:
 			SampleNum++;
 		}
 		Unlock();
-	}
+	};
 
 	void GetValue(double &ptime, double &ptimeavg, int &handle_c, int &thread_c)
 	{
@@ -121,12 +121,12 @@ public:
 		ptimeavg = ProcTimeAvg;
 		handle_c = HandleCount;
 		thread_c = ThreadCount;
-	}
+	};
 
 	void Start(void)
 	{
 		StartTime = time(NULL);
-	}
+	};
 
 	void Stop(uint64 total_send, uint64 total_recv)
 	{
@@ -135,32 +135,32 @@ public:
 		StartTime = 0;
 		Total_Send += total_send;
 		Total_Recv += total_recv;
-	}
+	};
 
 	time_t GetStartTime(void)
 	{
 		return (StartTime);
-	}
+	};
 
 	time_t GetUptime(void)
 	{
 		if (StartTime == 0)
 			return (0);
 		return (time(NULL) - StartTime);
-	}
+	};
 
 	time_t GetTotalUptime(void)
 	{
 		return (Total_Uptime);
-	}
+	};
 	time_t GetTotalSend(void)
 	{
 		return (Total_Send);
-	}
+	};
 	time_t GetTotalRecv(void)
 	{
 		return (Total_Recv);
-	}
+	};
 
 public:
 	bool Save(const wchar_t *filename)
@@ -194,11 +194,11 @@ public:
 		f.close();
 
 		return true;
-	}
+	};
 	bool Load(const wchar_t *filename)
 	{
 		bool ret = false;
-
+#warning "TODO: delete this duplicate code..."
 		struct _stat st;
 		if (_wstat(filename, &st) == -1)
 			return false;
@@ -239,12 +239,12 @@ public:
 
 		delete parser;
 		return (ret);
-	}
+	};
 
 public:
 	void endDocument(void)
 	{
-	}
+	};
 	void startElement(const XMLCh* const uri
 					, const XMLCh* const localname
 					, const XMLCh* const qname
@@ -260,7 +260,7 @@ public:
 		else if (MATCHLNAME(L"recv")) {
 			pval = &Total_Recv;
 		}
-	}
+	};
 	void endElement(const XMLCh* const uri
 				  , const XMLCh* const localname
 				  , const XMLCh* const qname)
@@ -269,12 +269,17 @@ public:
 			*pval = _wcstoui64(buf.c_str(), NULL, 10);
 		buf = L"";
 		pval = NULL;
-	}
+	};
 	void characters(const XMLCh* const chars
 				  , const unsigned int length)
 	{
 		if (!pval)
 			return;
+#ifdef _MSC_VER /** VC++ */
 		buf.append(chars, length);
-	}
+#else   /** other compiler */
+	if (parse_elm != 0)
+		buf.append(reinterpret_cast<const char*>(chars), length);
+#endif
+	};
 };

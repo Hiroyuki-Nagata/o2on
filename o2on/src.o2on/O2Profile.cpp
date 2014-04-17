@@ -1779,6 +1779,12 @@ void
 O2Profile_SAX2Handler::
 characters(const XMLCh* const chars, const unsigned int length)
 {
+
+#ifdef _MSC_VER /** VC++ */
 	if (CurElm != PROF_XMLELM_NONE)
 		buf.append(chars, length);
+#else   /** other compiler */
+	if (CurElm != PROF_XMLELM_NONE)
+		buf.append(reinterpret_cast<const wchar_t*>(chars), length);
+#endif
 }

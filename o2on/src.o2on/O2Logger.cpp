@@ -44,7 +44,11 @@ O2Logger(const wchar_t *dir)
 	IPFLogLimit		= DEFAULT_LIMIT;
 
 	long tzoffset;
+#ifdef _WIN32 /** windows */
 	_get_timezone(&tzoffset);
+#else   /** unix */
+	tzoffset = DosMocking::getGmtOffset();
+#endif
 	sessiontime = time(NULL) + tzoffset; //GMT
 }
 
@@ -337,16 +341,23 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 			}
 		}
 
-		if (cond.mask & LOG_XMLELM_DATETIME) {
+		if (cond.mask & LOG_XMLELM_DATETIME) 
+		{
 			if (rec.date == 0)
+			{
 				xml += L" <date></date>" EOL;
-			else {
+			}
+			else 
+			{
 				long tzoffset;
+#ifdef _WIN32                   /** windows */
 				_get_timezone(&tzoffset);
-
-				if (!cond.timeformat.empty()) {
+#else                           /** unix */
+				tzoffset = DosMocking::getGmtOffset();
+#endif
+				if (!cond.timeformat.empty()) 
+				{
 					time_t t = rec.date - tzoffset;
-
 					wchar_t timestr[TIMESTR_BUFF_SIZE];
 					struct tm tm;
 					gmtime_s(&tm, &t);
@@ -355,7 +366,8 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 					xml += timestr;
 					xml += L"</date>" EOL;
 				}
-				else {
+				else 
+				{
 					time_t2datetime(rec.date, - tzoffset, tmpstr);
 					xml += L" <date>";
 					xml += tmpstr;
@@ -364,14 +376,16 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 			}
 		}
 
-		if (cond.mask & LOG_XMLELM_MODULE) {
+		if (cond.mask & LOG_XMLELM_MODULE) 
+		{
 			makeCDATA(rec.module, tmpstr);
 			xml += L" <module>";
 			xml += tmpstr;
 			xml += L"</module>" EOL;
 		}
 
-		if (cond.mask & LOG_XMLELM_IP) {
+		if (cond.mask & LOG_XMLELM_IP) 
+		{
 			if (rec.ip == 0)
 				tmpstr = L"-";
 #if !defined(_DEBUG)
@@ -385,7 +399,8 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 			xml += L"</ip>" EOL;
 		}
 
-		if (cond.mask & LOG_XMLELM_PORT) {
+		if (cond.mask & LOG_XMLELM_PORT) 
+		{
 			if (rec.port == 0)
 				wcscpy_s(tmp, 16, L"-");
 			else
@@ -395,7 +410,8 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 			xml += L"</port>" EOL;
 		}
 
-		if (cond.mask & LOG_XMLELM_MSG) {
+		if (cond.mask & LOG_XMLELM_MSG) 
+		{
 			makeCDATA(rec.msg, tmpstr);
 			xml += L" <msg>";
 			xml += tmpstr;

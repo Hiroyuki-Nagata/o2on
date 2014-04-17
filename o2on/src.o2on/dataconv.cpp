@@ -214,7 +214,11 @@ time_t datetime2time_t(const wchar_t *in, int len)
 	delete [] str;
 
 	long tzoffset;
+#ifdef _WIN32 /** windows */
 	_get_timezone(&tzoffset);
+#else                   /** unix */
+	tzoffset = DosMocking::getGmtOffset();
+#endif
 	t = mktime(&tms) - tzoffset; //gmmktime()
 
 	if (sign)
