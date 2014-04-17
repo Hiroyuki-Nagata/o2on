@@ -18,6 +18,7 @@
 #define DEBUGOUT		0
 
 #define MODULE			L"Logger"
+#warning "TODO: o2on defined MODULE macro, but this is bad practice. It should be implemented by other way."
 #define MIN_RECORD		10
 #define MAX_RECORD		99999
 #define DEFAULT_LIMIT	500
@@ -280,6 +281,7 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 
 		std::set<wstring> files;
 
+#ifdef _WIN32   /** windows */
 		WIN32_FIND_DATA wfd;
 		wchar_t filename[MAX_PATH];
 		swprintf(filename, MAX_PATH, L"%s\\*.xml", logdir.c_str());
@@ -291,7 +293,30 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 			} while (FindNextFile(h, &wfd));
 			FindClose(h);
 		}
+#else           /** unix */
+		string mlogdir;
+		FromUnicode(_T(DEFAULT_XML_CHARSET), logdir, mlogdir);
+		
+		const string targetPath = mlogdir;
+		const boost::regex xmlFilter( "*.xml" );
 
+		boost::filesystem::directory_iterator last; // Default ctor yields past-the-end
+		for( boost::filesystem::directory_iterator i( targetPath ); i != last; ++i )
+		{
+			// Skip if not a file
+			if( !boost::filesystem::is_regular_file( i->status() ) ) continue;
+		 
+			boost::smatch what;
+		 
+			// Skip if no match
+			if( !boost::regex_match( i->path().string(), what, xmlFilter ) ) continue;
+		 
+			// File matches, store it
+			wstring wfile;
+			ToUnicode(_T(DEFAULT_XML_CHARSET), i->path().string(), wfile);
+			files.insert( wfile );
+		}
+#endif
 		std::set<wstring>::iterator it;
 		for (it = files.begin(); it != files.end(); it++) {
 			xml += L" <file>";
@@ -311,33 +336,33 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 
 		if (cond.mask & LOG_XMLELM_TYPE) {
 			switch (rec.type) {
-				case O2LT_INFO:
-					xml += L" <type>info</type>" EOL;
-					break;
-				case O2LT_WARNING:
-					xml += L" <type>warning</type>" EOL;
-					break;
-				case O2LT_ERROR:
-					xml += L" <type>error</type>" EOL;
-					break;
-				case O2LT_FATAL:
-					xml += L" <type>fatal</type>" EOL;
-					break;
-				case O2LT_IM:
-					xml += L" <type>im</type>" EOL;
-					break;
-				case O2LT_NET:
-					xml += L" <type>net</type>" EOL;
-					break;
-				case O2LT_NETERR:
-					xml += L" <type>neterr</type>" EOL;
-					break;
-				case O2LT_HOKAN:
-					xml += L" <type>hokan</type>" EOL;
-					break;
-				case O2LT_IPF:
-					xml += L" <type>ipf</type>" EOL;
-					break;
+			case O2LT_INFO:
+				xml += L" <type>info</type>" EOL;
+				break;
+			case O2LT_WARNING:
+				xml += L" <type>warning</type>" EOL;
+				break;
+			case O2LT_ERROR:
+				xml += L" <type>error</type>" EOL;
+				break;
+			case O2LT_FATAL:
+				xml += L" <type>fatal</type>" EOL;
+				break;
+			case O2LT_IM:
+				xml += L" <type>im</type>" EOL;
+				break;
+			case O2LT_NET:
+				xml += L" <type>net</type>" EOL;
+				break;
+			case O2LT_NETERR:
+				xml += L" <type>neterr</type>" EOL;
+				break;
+			case O2LT_HOKAN:
+				xml += L" <type>hokan</type>" EOL;
+				break;
+			case O2LT_IPF:
+				xml += L" <type>ipf</type>" EOL;
+				break;
 			}
 		}
 
@@ -360,7 +385,11 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 					time_t t = rec.date - tzoffset;
 					wchar_t timestr[TIMESTR_BUFF_SIZE];
 					struct tm tm;
+#ifdef _WIN32				/** windows */
 					gmtime_s(&tm, &t);
+#else					/** unix */
+					gmtime_r(&t, &tm);
+#endif
 					wcsftime(timestr, TIMESTR_BUFF_SIZE, cond.timeformat.c_str(), &tm);
 					xml += L" <date>";
 					xml += timestr;

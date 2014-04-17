@@ -10,18 +10,18 @@
  */
 
 #pragma once
-#include "O2Define.h"
-#include "mutex.h"
-#include "O2SAX2Parser.h"
 
 #ifdef _WIN32
    #include <tchar.h>   // For C++ Builder
 #else
    #include <iostream>  // std C++
+   #include <boost/regex.hpp>
 #endif
 
 #include <list>
-
+#include "O2Define.h"
+#include "mutex.h"
+#include "O2SAX2Parser.h"
 
 #define O2LT_INFO		0x00000001	//info
 #define O2LT_WARNING		0x00000002	//warning

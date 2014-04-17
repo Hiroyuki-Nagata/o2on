@@ -691,7 +691,11 @@ MakeKeyElement(const O2Key &key, O2KeySelectCondition &cond, wstring &xml)
 
 				wchar_t timestr[TIMESTR_BUFF_SIZE];
 				struct tm tm;
+#ifdef _WIN32                   /** windows */
 				gmtime_s(&tm, &t);
+#else                           /** unix */
+				gmtime_r(&t, &tm);
+#endif
 				wcsftime(timestr, TIMESTR_BUFF_SIZE, cond.timeformat.c_str(), &tm);
 				xml += L" <date>";
 				xml += timestr;
@@ -729,7 +733,13 @@ ImportFromXML(const wchar_t *filename, const char *in, uint len)
 
 	try {
 		if (filename) {
+
+#ifdef _MSC_VER         /** VC++ */
 			LocalFileInputSource source(filename);
+#else                   /** other compiler */
+			LocalFileInputSource source(reinterpret_cast<const XMLCh*>(filename));
+#endif
+
 			parser->parse(source);
 		}
 		else {

@@ -31,6 +31,7 @@
 class File
 {
 protected:
+	#warning "TODO: Implement file_unx.h"
 	// TODO: UNIX移植版では正直にvoid*を使ったほうが良いかも
 	//HANDLE hFile;
 

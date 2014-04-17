@@ -414,7 +414,11 @@ MakeNodeElement(const O2Node &node, const O2NodeSelectCondition &cond, wstring &
 
 				wchar_t timestr[TIMESTR_BUFF_SIZE];
 				struct tm tm;
+#ifdef _WIN32                   /** windows */
 				gmtime_s(&tm, &t);
+#else                           /** unix */
+				gmtime_r(&t, &tm);
+#endif
 				wcsftime(timestr, TIMESTR_BUFF_SIZE, cond.timeformat.c_str(), &tm);
 				xml += L" <lastlink>";
 				xml += timestr;

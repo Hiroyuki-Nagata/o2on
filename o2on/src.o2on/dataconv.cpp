@@ -241,7 +241,11 @@ void time_t2datetime(time_t in, long tzoffset, wstring &out)
 
 	wchar_t str[32];
 	struct tm tm;
+#ifdef _WIN32   /** windows */
 	gmtime_s(&tm, &t);
+#else	/** unix */
+	gmtime_r(&t, &tm);
+#endif
 	if (tzoffset == 0)
 		wcsftime(str, 32, L"%Y-%m-%dT%H:%M:%SZ", &tm);
 	else {

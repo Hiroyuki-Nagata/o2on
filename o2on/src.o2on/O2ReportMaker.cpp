@@ -118,7 +118,11 @@ GetReport(string &out, bool pub)
 	if (starttime != 0) {
 		time_t t = starttime - tzoffset;
 		struct tm tm;
+#ifdef _WIN32   /** windows */
 		gmtime_s(&tm, &t);
+#else		/** unix */
+		gmtime_r(&t, &tm);
+#endif
 		wcsftime(starttime_str, 32, L"%Y/%m/%d %H:%M:%S", &tm);
 	}
 	else

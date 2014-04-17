@@ -77,7 +77,11 @@ time_t2httpdate(time_t gmt, string &out)
 		gmt = time(NULL);
 
 	struct tm tm;
+#ifdef _WIN32   /** windows */
 	gmtime_s(&tm, &gmt);
+#else	/** unix */
+	gmtime_r(&gmt, &tm);
+#endif
 	strftime(tmp, 32,
 		"%a, %d %b %Y %H:%M:%S GMT", &tm);
 	out = tmp;
