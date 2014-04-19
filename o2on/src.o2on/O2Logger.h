@@ -20,6 +20,7 @@
    #include <algorithm>
    #include <memory>
    #include <boost/regex.hpp>
+   #include <stdarg.h>
 #endif
 
 #include <list>

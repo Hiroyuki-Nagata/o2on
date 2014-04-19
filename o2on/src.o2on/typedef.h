@@ -75,6 +75,7 @@
    #define _fseeki64(x, y, z)   fseeko(x, y, z)
 
    /** MSW's many many ~_s function series... */
+   #define vsprintf_s(str, format, ...)				vsprintf(str, format, __VA_ARGS__)
    #define sprintf_s(buffer, buffer_size, stringbuffer, ...)	sprintf(buffer, stringbuffer, __VA_ARGS__)
    #define swprintf_s(buffer, buffer_size, stringbuffer, ...)	swprintf(buffer, buffer_size, stringbuffer, __VA_ARGS__)
    #define fopen_s(pFile,filename,mode)				((*(pFile))=fopen((filename),(mode)))==NULL
