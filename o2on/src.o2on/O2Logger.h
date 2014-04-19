@@ -15,6 +15,10 @@
    #include <tchar.h>   // For C++ Builder
 #else
    #include <iostream>  // std C++
+   #include <sstream>
+   #include <fstream>
+   #include <algorithm>
+   #include <memory>
    #include <boost/regex.hpp>
 #endif
 

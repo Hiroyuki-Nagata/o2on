@@ -13,7 +13,6 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
-#include <iostream>
 #include <algorithm>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>

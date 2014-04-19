@@ -466,6 +466,8 @@ bool
 O2Logger::
 GetLogsFromFile(const O2LogSelectCondition &cond, string &out)
 {
+
+#ifdef _MSC_VER /** C言語風の書き方を残す */
 	bool ret = false;
 	uint size = 0;
 	struct _stat buf;
@@ -506,6 +508,60 @@ cleanup:
 	if (flog) delete flog;
 	if (fp) fclose(fp);
 	return (ret);
+
+#else /** C++風の書き方にする.可能ならばVC++も同じ処理にしたい */
+
+	bool ret = false;
+	string in;
+
+	if (logdir.empty())
+		return (false);
+#ifdef _WIN32 /** code for windows is start */ 
+	wchar_t wpath[MAX_PATH];
+	swprintf(path, MAX_PATH, L"%s\\%s", logdir.c_str(), cond.filename.c_str());
+#else   /** code for unix is start */
+	wstring wpath = logdir + L"/" + cond.filename;
+#endif
+
+	// read file
+	string path;
+	FromUnicode(_T(DEFAULT_XML_CHARSET), wpath, path);
+	std::ifstream ifs( path, std::ios::in | std::ios::binary );
+	if(ifs.fail())
+	{
+		return ret;
+	}
+
+	// get filesize
+	ifs.seekg(0, std::ifstream::end);
+	const uint eofPos = ifs.tellg();
+	ifs.clear();
+	ifs.seekg(0, std::fstream::beg);
+	const uint begPos = ifs.tellg();
+	const uint size = eofPos - begPos;
+	
+	if (size == 0)
+	{
+		return ret;
+	}
+
+	in.resize(size);
+
+	//load xml
+	const std::istreambuf_iterator<char> fst(ifs);
+	std::istreambuf_iterator<char> tmp(ifs);
+	std::advance(tmp, (size_t)(size));
+	const std::istreambuf_iterator<char> eof = tmp;
+	in = string(fst, eof);
+
+	//log
+	std::unique_ptr<O2Logger> flag(new O2Logger(logdir.c_str()));
+	flag->ImportFromXML(_T(DEFAULT_XML_CHARSET), in.c_str(), size);
+	flag->ExportToXML(cond, out);
+
+	ret = true;
+
+#endif /** C++lize code is end */
 }
 
 

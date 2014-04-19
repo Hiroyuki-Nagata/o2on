@@ -60,14 +60,15 @@
    #define OPEN_ALWAYS                      4
    #define TRUNCATE_EXISTING                5
 
-   #define _stricmp(x, y)	strcasecmp(x, y)
-   #define Sleep(x)		usleep((x)*1000)
-   #define _mkdir(x)		mkdir(x)
-   #define _wmkdir(x)		boost::filesystem::create_directory(x)
-   #define _wutime(x, y)	utime(x, y)
-   #define _tstat(x, y)		stat(x, y)
-   #define _wstat(x, y)		stat(x, y)
-   #define _access_s(x, y)	access(x, y)
+   #define _stricmp(x, y)	    strcasecmp(x, y)
+   #define Sleep(x)		    usleep((x)*1000)
+   #define _mkdir(x)		    mkdir(x)
+   #define _wmkdir(x)		    boost::filesystem::create_directory(x)
+   #define _wutime(x, y)	    utime(x, y)
+   #define _tstat(x, y)		    stat(x, y)
+   #define _wstat(x, y)		    stat(x, y)
+   #define _access_s(x, y)	    access(x, y)
+   #define wcscpy_s(dest, buf, src) wcscpy(dest, src)
 
    #define _strtoui64(x, y, z)	strtoull(x, y, z)
    #define _wcstoui64(x, y, z)	wcstoul(x, y, z)
