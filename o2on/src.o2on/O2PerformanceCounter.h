@@ -16,11 +16,16 @@
 #include "O2SAX2Parser.h"
 #include "file.h"
 #include "dataconv.h"
+#include <time.h>
+
 #ifdef _WIN32
    #include <tchar.h>
    #include <pdh.h> /** パフォーマンス データ ヘルパー (PDH) Api */
 #endif
-#include <time.h>
+
+#if __cplusplus > 199711L
+   #include <thread>
+#endif
 
 
 
@@ -72,9 +77,13 @@ public:
 		, Total_Recv(0)
 		, pval(NULL)
 	{
+#if __cplusplus > 199711L /** c++11 */
+		CPUNum = std::thread::hardware_concurrency();
+#else           /** windows */
 		SYSTEM_INFO sinf;
 		GetSystemInfo(&sinf);
 		CPUNum = sinf.dwNumberOfProcessors;
+#endif
 
 		PdhOpenQuery(NULL, 0, &hQuery);
 		PdhAddCounter(hQuery, _T("\\Process(o2on)\\% Processor Time"), 0, &hCounter_ProcessorTime);
@@ -168,12 +177,12 @@ public:
 		wstring xml;
 		xml += L"<?xml version=\"1.0\" encoding=\"";
 		xml += _T(DEFAULT_XML_CHARSET);
-		xml += L"\"?>"EOL;
-		xml += L"<report>"EOL;
+		xml += L"\"?>" EOL;
+		xml += L"<report>" EOL;
 		xml_AddElement(xml, L"uptime", NULL, Total_Uptime);
 		xml_AddElement(xml, L"send",   NULL, Total_Send);
 		xml_AddElement(xml, L"recv",   NULL, Total_Recv);
-		xml += L"</report>"EOL;
+		xml += L"</report>" EOL;
 		string out;
 		FromUnicode(_T(DEFAULT_XML_CHARSET), xml, out);
 /*
@@ -211,7 +220,11 @@ public:
 		Lock();
 		{
 			try {
+#ifdef _MSC_VER			/** VC++ */
 				LocalFileInputSource source(filename);
+#else				/** GCC/Clang */
+				LocalFileInputSource source(reinterpret_cast<const XMLCh*>(filename));
+#endif
 				parser->parse(source);
 				ret = true;
 			}

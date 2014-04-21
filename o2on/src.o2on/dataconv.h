@@ -17,6 +17,10 @@
    #include <windows.h>
 #endif
 
+#if __cplusplus > 199711L /** c++11 */
+   #include <type_traits>
+#endif
+
 extern const char *hex;
 extern const wchar_t *whex;
 
@@ -80,8 +84,45 @@ extern void makeCDATA(const string &in, string &out);
 extern void makeCDATA(const wstring &in, wstring &out);
 
 extern void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, const wchar_t *val, bool escape = false);
-extern void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, int val);
-extern void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, uint val);
+
+template <class T>
+extern void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, T val)
+{
+	wstring s;
+	size_t size;
+	wstring format = NULL;
+	if (std::is_same<int, T>::value || std::is_same<uint, T>::value)
+	{
+		size   = 16;
+		format = L"%d";
+	}
+	else if (std::is_same<uint64, T>::value)
+	{
+		size   = 32;
+		format = L"%I64u";
+	}
+	else if (std::is_same<double, T>::value)
+	{
+		size   = 16;
+		format = L"%.2lf";
+	}
+
+	wchar_t tmp[size];
+
+	xml += L'<';
+	xml += tag;
+	if (attr) {
+		xml += L' ';
+		xml += attr;
+	}
+	xml += L'>';
+	swprintf_s(tmp, size, format.c_str(), val);
+	xml += tmp;
+	xml += L"</";
+	xml += tag;
+	xml += L">\r\n";
+};
+
 #ifdef _WIN32
 extern void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, __int64 val);
 #endif

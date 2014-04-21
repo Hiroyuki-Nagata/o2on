@@ -30,6 +30,8 @@
 
    typedef void*	 HANDLE;
    typedef HANDLE	 HWND;
+   typedef HANDLE	 HQUERY;
+   typedef HANDLE	 HCOUNTER;
    typedef unsigned long DWORD;
    typedef unsigned int  UINT;
    #define FALSE	 false

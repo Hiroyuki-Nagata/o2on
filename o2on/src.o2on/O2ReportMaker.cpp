@@ -201,9 +201,9 @@ GetReport(string &out, bool pub)
 	wstring xml;
 	xml += L"<?xml version=\"1.0\" encoding=\"";
 	xml += _T(DEFAULT_XML_CHARSET);
-	xml += L"\"?>"EOL;
+	xml += L"\"?>" EOL;
 	if (pub) xml += L"<?xml-stylesheet type=\"text/xsl\" href=\"/profile.xsl\"?>";
-	xml += L"<report>"EOL;
+	xml += L"<report>" EOL;
 
 	//
 	//	名前、コメント、閲覧履歴
@@ -213,29 +213,29 @@ GetReport(string &out, bool pub)
 		makeCDATA(Profile->GetNodeNameW(), tmpstr);
 		xml += L"<name>";
 		xml += tmpstr;
-		xml += L"</name>"EOL;
-		xml += L"<category>"EOL;
-		xml += L"<table>"EOL;
+		xml += L"</name>" EOL;
+		xml += L"<category>" EOL;
+		xml += L"<table>" EOL;
 		//
-		xml += L"<tr>"EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"ID");
 		hashT hash;
 		Profile->GetID(hash);
 		wstring hashstr;
 		hash.to_string(hashstr);
 		xml_AddElement(xml, L"td", L"class=\"L\"", hashstr.c_str());
-		xml += L"</tr>"EOL;
+		xml += L"</tr>" EOL;
 		//
-		xml += L"<tr>"EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"コメント");
 		makeCDATA(Profile->GetComment(), tmpstr);
 		xml += L" <pre>";
 		xml += tmpstr;
-		xml += L"</pre>"EOL;
-		xml += L"</tr>"EOL;
+		xml += L"</pre>" EOL;
+		xml += L"</tr>" EOL;
 		//
 		if (Profile->IsPublicRecentDat()) {
-			xml += L"<tr>"EOL;
+			xml += L"<tr>" EOL;
 			xml_AddElement(xml, L"td", L"type=\"h\"", L"閲覧履歴");
 			xml += L"<pre>";
 			O2KeyList recent;
@@ -255,11 +255,11 @@ GetReport(string &out, bool pub)
 			}
 			makeCDATA(tmpstr, tmpstr);
 			xml += tmpstr;
-			xml += L"</pre>"EOL;
-			xml += L"</tr>"EOL;
+			xml += L"</pre>" EOL;
+			xml += L"</tr>" EOL;
 		}
-		xml += L"</table>"EOL;
-		xml += L"</category>"EOL;
+		xml += L"</table>" EOL;
+		xml += L"</category>" EOL;
 	}
 
 	//
@@ -267,10 +267,10 @@ GetReport(string &out, bool pub)
 	//
 	if (!pub || Profile->IsPublicReport())
 	{
-		xml += L"<category>"EOL;
+		xml += L"<category>" EOL;
 		xml_AddElement(xml, L"caption", NULL, L"概要");
-		xml += L"<table>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"<table>" EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"状態");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"CPU(平均)");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"ハンドル");
@@ -278,8 +278,8 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"総dat数");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"総datサイズ");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"publish率");
-		xml += L"</tr>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"<tr>" EOL;
 		if (PerformanceCounter->IsActive())
 			xml_AddElement(xml, L"td", L"class=\"active\"", L"稼動中");
 		else
@@ -290,19 +290,19 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"class=\"N\"", datnum);
 		xml_AddElement(xml, L"td", L"class=\"N\"", datsize);
 		xml_AddElement(xml, L"td", L"class=\"R\"", publishper);
-		xml += L"</tr>"EOL;
-		xml += L"</table>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"</table>" EOL;
 		//
-		xml += L"<table>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"<table>" EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"起動日時");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"グローバルIP");
 		xml_AddElement(xml, L"td", (Server_P2P->IsActive()   ? L"type=\"h\" class=\"active\"" : L"type=\"h\" class=\"deactive\""), L"P2P");
 		xml_AddElement(xml, L"td", (Server_Proxy->IsActive() ? L"type=\"h\" class=\"active\"" : L"type=\"h\" class=\"deactive\""), L"Proxy");
 		xml_AddElement(xml, L"td", (Server_Admin->IsActive() ? L"type=\"h\" class=\"active\"" : L"type=\"h\" class=\"deactive\""), L"Admin");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"Ver");
-		xml += L"</tr>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"<tr>" EOL;
 		wstring ipstr;
 		ulong2ipstr(Profile->GetIP(), ipstr);
 		xml_AddElement(xml, L"td", L"class=\"C\"", starttime_str);
@@ -311,11 +311,11 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"class=\"C\"", Profile->GetProxyPort());
 		xml_AddElement(xml, L"td", L"class=\"C\"", Profile->GetAdminPort());
 		xml_AddElement(xml, L"td", L"class=\"C\"", Profile->GetUserAgentW());
-		xml += L"</tr>"EOL;
-		xml += L"</table>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"</table>" EOL;
 		//
-		xml += L"<table>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"<table>" EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"稼働時間");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"上り");
@@ -325,8 +325,8 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"上りKB/s(bps)");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"下りKB/s(bps)");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"合計KB/s(bps)");
-		xml += L"</tr>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"今回");
 		xml_AddElement(xml, L"td", L"class=\"C\"", uptime_str);
 		xml_AddElement(xml, L"td", L"class=\"N\"", total_u);
@@ -336,8 +336,8 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"class=\"R\"", traffic_u);
 		xml_AddElement(xml, L"td", L"class=\"R\"", traffic_d);
 		xml_AddElement(xml, L"td", L"class=\"R\"", traffic_ud);
-		xml += L"</tr>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"累計");
 		xml_AddElement(xml, L"td", L"class=\"C\"", total_uptime_str);
 		xml_AddElement(xml, L"td", L"class=\"N\"", accum_total_u);
@@ -347,16 +347,16 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"class=\"R\"", a_traffic_u);
 		xml_AddElement(xml, L"td", L"class=\"R\"", a_traffic_d);
 		xml_AddElement(xml, L"td", L"class=\"R\"", a_traffic_ud);
-		xml += L"</tr>"EOL;
-		xml += L"</table>"EOL;
-		xml += L"</category>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"</table>" EOL;
+		xml += L"</category>" EOL;
 		//
 		//	DB
 		//
-		xml += L"<category>"EOL;
+		xml += L"<category>" EOL;
 		xml_AddElement(xml, L"caption", NULL, L"DB");
-		xml += L"<table>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"<table>" EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"Node");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"Friend");
@@ -370,8 +370,8 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"Logger");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"IPFilter");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"DatRequest");
-		xml += L"</tr>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"保持数");
 		xml_AddElement(xml, L"td", L"class=\"N\"", NodeDB->count());
 		xml_AddElement(xml, L"td", L"class=\"N\"", FriendDB->Count());
@@ -385,16 +385,16 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"class=\"N\"", Logger->Count());
 		xml_AddElement(xml, L"td", L"class=\"N\"", IPFilter_P2P->Count()+IPFilter_Proxy->Count()+IPFilter_Admin->Count());
 		xml_AddElement(xml, L"td", L"class=\"N\"", Job_QueryDat->GetRequestQueueCount());
-		xml += L"</tr>"EOL;
-		xml += L"</table>"EOL;
-		xml += L"</category>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"</table>" EOL;
+		xml += L"</category>" EOL;
 		//
 		//	Server
 		//
-		xml += L"<category>"EOL;
+		xml += L"<category>" EOL;
 		xml_AddElement(xml, L"caption", NULL, L"Server");
-		xml += L"<table>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"<table>" EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"dat");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"collection");
@@ -411,8 +411,8 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"Proxy");
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"Admin");
-		xml += L"</tr>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"接続回数");
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_P2P->GetSessionCountByPath("dat"));
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_P2P->GetSessionCountByPath("collection"));
@@ -429,8 +429,8 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"");
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_Proxy->GetTotalSessionCount());
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_Admin->GetTotalSessionCount());
-		xml += L"</tr>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"up");
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_P2P->GetSendByteByPath("dat"));
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_P2P->GetSendByteByPath("collection"));
@@ -447,8 +447,8 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"");
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_Proxy->GetSendByte());
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_Admin->GetSendByte());
-		xml += L"</tr>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"down");
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_P2P->GetRecvByteByPath("dat"));
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_P2P->GetRecvByteByPath("collection"));
@@ -465,8 +465,8 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"");
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_Proxy->GetRecvByte());
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_Admin->GetRecvByte());
-		xml += L"</tr>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"up + down");
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_P2P->GetSendByteByPath("dat")			+ Server_P2P->GetRecvByteByPath("dat"));
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_P2P->GetSendByteByPath("collection")	+ Server_P2P->GetRecvByteByPath("collection"));
@@ -483,23 +483,23 @@ GetReport(string &out, bool pub)
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"");
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_Proxy->GetSendByte() + Server_Proxy->GetRecvByte());
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_Admin->GetRecvByte() + Server_Admin->GetRecvByte());
-		xml += L"</tr>"EOL;
-		xml += L"</table>"EOL;
-		xml += L"<table>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"</table>" EOL;
+		xml += L"<table>" EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"同時接続数ピーク");
 		xml_AddElement(xml, L"td", L"class=\"N\"", Server_P2P->GetSessionPeak());
-		xml += L"</tr>"EOL;
-		xml += L"</table>"EOL;
-		xml += L"</category>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"</table>" EOL;
+		xml += L"</category>" EOL;
 		//
 		//	Agent
 		//
-		xml += L"<category>"EOL;
+		xml += L"<category>" EOL;
 		xml_AddElement(xml, L"caption", NULL, L"Agent");
-		xml += L"<table>"EOL;
+		xml += L"<table>" EOL;
 		//
-		xml += L"<tr>"EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"");
 		size_t i;
 		for (i = 0; i < Jobs.size(); i++) {
@@ -508,9 +508,9 @@ GetReport(string &out, bool pub)
 			else
 				xml_AddElement(xml, L"td", L"type=\"h\" class=\"deactive\"", Jobs[i]->GetName());
 		}
-		xml += L"</tr>"EOL;
+		xml += L"</tr>" EOL;
 		//
-		xml += L"<tr>"EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"実行");
 		for (i = 0; i < Jobs.size(); i++) {
 			if (!Jobs[i]->IsActive())
@@ -520,9 +520,9 @@ GetReport(string &out, bool pub)
 			else
 				xml_AddElement(xml, L"td", L"class=\"wait\"", L"待機");
 		}
-		xml += L"</tr>"EOL;
+		xml += L"</tr>" EOL;
 		//
-		xml += L"<tr>"EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"間隔(s)");
 		for (i = 0; i < Jobs.size(); i++) {
 			if (!Jobs[i]->IsActive())
@@ -530,9 +530,9 @@ GetReport(string &out, bool pub)
 			else
 				xml_AddElement(xml, L"td", L"class=\"C\"", Jobs[i]->GetInterval());
 		}
-		xml += L"</tr>"EOL;
+		xml += L"</tr>" EOL;
 		//
-		xml += L"<tr>"EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"起動まで");
 		for (i = 0; i < Jobs.size(); i++) {
 			if (!Jobs[i]->IsActive() || Jobs[i]->IsWorking())
@@ -540,9 +540,9 @@ GetReport(string &out, bool pub)
 			else
 				xml_AddElement(xml, L"td", L"class=\"C\"", Jobs[i]->GetRemain());
 		}
-		xml += L"</tr>"EOL;
+		xml += L"</tr>" EOL;
 		//
-		xml += L"<tr>"EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"接続回数");
 		for (i = 0; i < Jobs.size(); i++) {
 			if (!Jobs[i]->IsActive())
@@ -550,9 +550,9 @@ GetReport(string &out, bool pub)
 			else
 				xml_AddElement(xml, L"td", L"class=\"N\"", Jobs[i]->GetTotalSessionCount());
 		}
-		xml += L"</tr>"EOL;
+		xml += L"</tr>" EOL;
 		//
-		xml += L"<tr>"EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"up");
 		for (i = 0; i < Jobs.size(); i++) {
 			if (!Jobs[i]->IsActive())
@@ -560,9 +560,9 @@ GetReport(string &out, bool pub)
 			else
 				xml_AddElement(xml, L"td", L"class=\"N\"", Jobs[i]->GetSendByte());
 		}
-		xml += L"</tr>"EOL;
+		xml += L"</tr>" EOL;
 		//
-		xml += L"<tr>"EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"down");
 		for (i = 0; i < Jobs.size(); i++) {
 			if (!Jobs[i]->IsActive())
@@ -570,9 +570,9 @@ GetReport(string &out, bool pub)
 			else
 				xml_AddElement(xml, L"td", L"class=\"N\"", Jobs[i]->GetRecvByte());
 		}
-		xml += L"</tr>"EOL;
+		xml += L"</tr>" EOL;
 		//
-		xml += L"<tr>"EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"up+down");
 		for (i = 0; i < Jobs.size(); i++) {
 			if (!Jobs[i]->IsActive())
@@ -580,24 +580,24 @@ GetReport(string &out, bool pub)
 			else
 				xml_AddElement(xml, L"td", L"class=\"N\"", Jobs[i]->GetSendByte()+Jobs[i]->GetRecvByte());
 		}
-		xml += L"</tr>"EOL;
-		xml += L"</table>"EOL;
-		xml += L"<table>"EOL;
-		xml += L"<tr>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"</table>" EOL;
+		xml += L"<table>" EOL;
+		xml += L"<tr>" EOL;
 		xml_AddElement(xml, L"td", L"type=\"h\"", L"同時接続数ピーク");
 		xml_AddElement(xml, L"td", L"class=\"N\"", Client->GetSessionPeak());
-		xml += L"</tr>"EOL;
-		xml += L"</table>"EOL;
-		xml += L"</category>"EOL;
+		xml += L"</tr>" EOL;
+		xml += L"</table>" EOL;
+		xml += L"</category>" EOL;
 
 		if (O2DEBUG && TRACE_CONNECTIONS && !pub) {
 			//
 			//	Connections
 			//
-			xml += L"<category>"EOL;
+			xml += L"<category>" EOL;
 			xml_AddElement(xml, L"caption", NULL, L"Connections");
-			xml += L"<table>"EOL;
-			xml += L"<tr>"EOL;
+			xml += L"<table>" EOL;
+			xml += L"<tr>" EOL;
 			xml_AddElement(xml, L"td", L"type=\"h\"", L"");
 			xml_AddElement(xml, L"td", L"type=\"h\"", L"IP");
 			xml_AddElement(xml, L"td", L"type=\"h\"", L"Port");
@@ -605,7 +605,7 @@ GetReport(string &out, bool pub)
 			xml_AddElement(xml, L"td", L"type=\"h\"", L"recv");
 			xml_AddElement(xml, L"td", L"type=\"h\"", L"send");
 			xml_AddElement(xml, L"td", L"type=\"h\"", L"rbuff");
-			xml += L"</tr>"EOL;
+			xml += L"</tr>" EOL;
 			O2SocketSessionPList lst;
 			time_t now = time(NULL);
 			Server_P2P->GetSessionList(lst);
@@ -613,7 +613,7 @@ GetReport(string &out, bool pub)
 				O2SocketSession *ss = *it;
 				wstring e_ip;
 				ip2e(ss->ip, e_ip);
-				xml += L"<tr>"EOL;
+				xml += L"<tr>" EOL;
 				xml_AddElement(xml, L"td", L"class=\"C\"", L"Server");
 				xml_AddElement(xml, L"td", L"class=\"C\"", e_ip.c_str());
 				xml_AddElement(xml, L"td", L"class=\"C\"", ss->port);
@@ -623,7 +623,7 @@ GetReport(string &out, bool pub)
 				wstring rbuff;
 				ascii2unicode(ss->rbuff, rbuff);
 				xml_AddElement(xml, L"td", L"class=\"L\"", rbuff.c_str(), true);
-				xml += L"</tr>"EOL;
+				xml += L"</tr>" EOL;
 				delete *it;
 			}
 			lst.clear();
@@ -632,7 +632,7 @@ GetReport(string &out, bool pub)
 				O2SocketSession *ss = *it;
 				wstring e_ip;
 				ip2e(ss->ip, e_ip);
-				xml += L"<tr>"EOL;
+				xml += L"<tr>" EOL;
 				xml_AddElement(xml, L"td", L"class=\"C\"", L"Agent");
 				xml_AddElement(xml, L"td", L"class=\"C\"", e_ip.c_str());
 				xml_AddElement(xml, L"td", L"class=\"C\"", ss->port);
@@ -642,14 +642,14 @@ GetReport(string &out, bool pub)
 				wstring rbuff;
 				ascii2unicode(ss->rbuff, rbuff);
 				xml_AddElement(xml, L"td", L"class=\"L\"", rbuff.c_str(), true);
-				xml += L"</tr>"EOL;
+				xml += L"</tr>" EOL;
 				delete *it;
 			}
-			xml += L"</table>"EOL;
-			xml += L"</category>"EOL;
+			xml += L"</table>" EOL;
+			xml += L"</category>" EOL;
 		}
 	}
-	xml += L"</report>"EOL;
+	xml += L"</report>" EOL;
 
 	FromUnicode(_T(DEFAULT_XML_CHARSET), xml, out);
 }
