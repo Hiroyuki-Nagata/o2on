@@ -200,22 +200,9 @@ bool
 O2NodeDB::
 Load(const wchar_t *filename)
 {
-#warning "TODO: delete this duplicate code..."
 	struct _stat st;
-#ifdef _WIN32 /** windows */
 	if (_wstat(filename, &st) == -1)
 		return false;
-
-#else         /** unix */
-
-	// マルチバイト化
-	string mFilename;
-	FromUnicode(_T(DEFAULT_XML_CHARSET), wstring(filename), mFilename);
-	
-	if (stat(mFilename.c_str(), &st) == -1)
-		return false;
-
-#endif
 
 	if (st.st_size == 0)
 		return false;

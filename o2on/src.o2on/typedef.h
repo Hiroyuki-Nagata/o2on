@@ -66,7 +66,6 @@
    #define _wmkdir(x)		    boost::filesystem::create_directory(x)
    #define _wutime(x, y)	    utime(x, y)
    #define _tstat(x, y)		    stat(x, y)
-   #define _wstat(x, y)		    stat(x, y)
    #define _access_s(x, y)	    access(x, y)
    #define wcscpy_s(dest, buf, src) wcscpy(dest, src)
 

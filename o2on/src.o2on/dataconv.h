@@ -87,3 +87,8 @@ extern void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr
 #endif
 extern void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, uint64 val);
 extern void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, double val);
+
+#ifndef _WIN32
+extern int _waccess(const wchar_t *in, const int len);
+extern int _wstat(const wchar_t *in, struct stat* st);
+#endif

@@ -411,7 +411,7 @@ SetRSAKey(const byte *priv, size_t privlen, const byte *pub, size_t publen)
 #else           /** unix */
 		boost::uuids::random_generator gen;
 		boost::uuids::uuid uuid = gen();
-		randpool.Put((byte*)&uuid, sizeof(uuid));
+		randpool.Put((byte*)&uuid, sizeof(boost::uuids::uuid));
 #endif
 
 		byte tmpPriv[RSA_PRIVKEY_SIZE];
@@ -1090,8 +1090,6 @@ bool
 O2Profile::
 Save(void)
 {
-wchar_t aaa[256];GetCurrentDirectoryW(256,aaa);
-
 	O2ProfileSelectCondition cond;
 	cond.mask = PROF_XMLELM_ALL ^ PROF_XMLELM_IP;
 	cond.rootelement = L"profile";
@@ -1100,13 +1098,7 @@ wchar_t aaa[256];GetCurrentDirectoryW(256,aaa);
 	string out;
 	ExportToXML(cond, out);
 	Unlock();
-/*	
-	FILE *fp;
-	if (_wfopen_s(&fp, ProfileFilePath.c_str(), L"wb") != 0)
-		return false;
-	fwrite(&out[0], 1, out.size(), fp);
-	fclose(fp);
-*/
+
 	File f;
 	if (!f.open(ProfileFilePath.c_str(), MODE_W)) {
 		if (Logger)
@@ -1457,7 +1449,11 @@ ImportFromXML(const wchar_t *filename, const char *in, uint len)
 	{
 		try {
 			if (filename) {
+#ifdef _MSC_VER			/** VC++ */
 				LocalFileInputSource source(filename);
+#else				/** GCC/Clang */
+				LocalFileInputSource source(reinterpret_cast<const XMLCh*>(filename));
+#endif
 				parser->parse(source);
 			}
 			else {

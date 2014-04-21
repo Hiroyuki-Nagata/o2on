@@ -198,7 +198,6 @@ public:
 	bool Load(const wchar_t *filename)
 	{
 		bool ret = false;
-#warning "TODO: delete this duplicate code..."
 		struct _stat st;
 		if (_wstat(filename, &st) == -1)
 			return false;

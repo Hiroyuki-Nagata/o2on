@@ -21,6 +21,7 @@
    #include <boost/uuid/uuid.hpp>
    #include <boost/uuid/uuid_generators.hpp>
    #include <boost/uuid/uuid_io.hpp>
+   #include "dataconv.h"
 #endif
 
 #define PROF_XMLELM_NONE				0x00000000

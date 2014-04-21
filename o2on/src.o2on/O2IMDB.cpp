@@ -403,15 +403,9 @@ bool
 O2IMDB::
 Load(const wchar_t *filename)
 {
-
-#warning "TODO: delete this duplicate code..."
 	struct _stat st;
-
-#ifdef _WIN32 /** windows */
 	if (_wstat(filename, &st) == -1)
 		return false;
-
-#else         /** unix */
 
 	// マルチバイト化
 	string mFilename;
@@ -419,8 +413,6 @@ Load(const wchar_t *filename)
 	
 	if (stat(mFilename.c_str(), &st) == -1)
 		return false;
-
-#endif
 	if (st.st_size == 0)
 		return false;
 

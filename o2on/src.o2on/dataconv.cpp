@@ -943,3 +943,21 @@ void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, doubl
 	xml += tag;
 	xml += L">\r\n";
 }
+
+#ifndef _WIN32
+
+int _waccess(const wchar_t *in, const int len)
+{
+	string out;
+	FromUnicode(_T(DEFAULT_XML_CHARSET), wstring(in), out);
+	return access(out.c_str(), len);
+}
+
+int _wstat(const wchar_t *in, stat* st)
+{
+	string out;
+	FromUnicode(_T(DEFAULT_XML_CHARSET), wstring(in), out);
+	return stat(out.c_str(), st);
+}
+
+#endif

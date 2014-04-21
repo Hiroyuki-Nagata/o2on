@@ -852,15 +852,8 @@ LoadEx(void)
 	bool ret = false;
 
 	struct _stat st;
-#ifdef _WIN32
 	if (_wstat(exfilepath.c_str(), &st) == -1)
 		return false;
-#else
-	string unixFilepath;
-	FromUnicode(_T(DEFAULT_XML_CHARSET), exfilepath, unixFilepath);
-	if (_wstat(unixFilepath.c_str(), &st) == -1)
-		return false;
-#endif
 	if (st.st_size == 0)
 		return false;
 
