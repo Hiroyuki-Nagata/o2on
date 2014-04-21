@@ -401,11 +401,18 @@ SetRSAKey(const byte *priv, size_t privlen, const byte *pub, size_t publen)
 	}
 
 	if (!valid) {
-		GUID guid;
-		CoCreateGuid(&guid);
 
 		CryptoPP::RandomPool randpool;
+
+#ifdef _WIN32   /** windows */
+		GUID guid;
+		CoCreateGuid(&guid);
 		randpool.Put((byte*)&guid, sizeof(GUID));
+#else           /** unix */
+		boost::uuids::random_generator gen;
+		boost::uuids::uuid uuid = gen();
+		randpool.Put((byte*)&uuid, sizeof(uuid));
+#endif
 
 		byte tmpPriv[RSA_PRIVKEY_SIZE];
 		CryptoPP::RSAES_OAEP_SHA_Decryptor priv(randpool, RSA_KEYLENGTH);

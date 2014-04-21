@@ -491,7 +491,12 @@ ImportFromXML(const wchar_t *filename, const char *in, uint len, NodeListT *rlis
 
 	try {
 		if (filename) {
+
+#ifdef _MSC_VER         /** VC++ */
 			LocalFileInputSource source(filename);
+#else                   /** GCC/Clang */
+			LocalFileInputSource source(reinterpret_cast<const XMLCh*>(filename));
+#endif
 			parser->parse(source);
 		}
 		else {

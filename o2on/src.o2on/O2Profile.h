@@ -17,8 +17,11 @@
 #include "rsa.h"
 #include "O2SAX2Parser.h"
 
-
-
+#ifndef _WIN32 /** For Unix UUID generate */
+   #include <boost/uuid/uuid.hpp>
+   #include <boost/uuid/uuid_generators.hpp>
+   #include <boost/uuid/uuid_io.hpp>
+#endif
 
 #define PROF_XMLELM_NONE				0x00000000
 #define PROF_XMLELM_ID					0x00000001
