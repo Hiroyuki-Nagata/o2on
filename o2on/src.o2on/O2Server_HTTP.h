@@ -43,7 +43,11 @@ protected:
 	}
 	virtual void OnSessionLimit(O2SocketSession *ss)
 	{
+#ifdef _WIN32   /** windows */
 		closesocket(ss->sock);
+#else           /** unix */
+		close(ss->sock);
+#endif
 		delete ss;
 	}
 	virtual void OnAccept(O2SocketSession *ss)

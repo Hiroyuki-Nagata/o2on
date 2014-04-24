@@ -39,11 +39,11 @@ public:
 	//	MakeRequest_Dat
 	// -----------------------------------------------------------------------
 	void MakeRequest_Dat(const hashT *hash
-					   , const wchar_t *board
-					   , const O2SocketSession *ss
-					   , const O2Profile *profile
-					   , O2DatIO *datio
-					   , string &out)
+			     , const wchar_t *board
+			     , const O2SocketSession *ss
+			     , const O2Profile *profile
+			     , O2DatIO *datio
+			     , string &out)
 	{
 		O2DatPath datpath;
 		string rawdata;
@@ -104,10 +104,10 @@ public:
 	//	MakeResponse_Dat
 	// -----------------------------------------------------------------------
 	void MakeResponse_Dat(const hashT *target
-						, const wchar_t *board
-						, const O2Profile *profile
-					    , O2DatIO *datio
-					    , string &out)
+			      , const wchar_t *board
+			      , const O2Profile *profile
+			      , O2DatIO *datio
+			      , string &out)
 	{
 		O2DatPath datpath;
 		string rawdata;
@@ -160,17 +160,17 @@ public:
 	//	ImportDat
 	// -----------------------------------------------------------------------
 	bool ImportDat(O2DatIO *datio
-				 , const O2Profile *profile
-				 , O2Boards *boards
-				 , const HTTPHeader &header
-				 , const char *rawdata
-				 , const uint64 size
-				 , O2Logger *Logger
-				 , ulong ip
-				 , ushort port
-				 , O2KeyDB *QueryDB
-				 , HWND hwndBaloonCallback
-				 , UINT msgBaloonCallback)
+		       , const O2Profile *profile
+		       , O2Boards *boards
+		       , const HTTPHeader &header
+		       , const char *rawdata
+		       , const uint64 size
+		       , O2Logger *Logger
+		       , ulong ip
+		       , ushort port
+		       , O2KeyDB *QueryDB
+		       , HWND hwndBaloonCallback
+		       , UINT msgBaloonCallback)
 	{
 		O2DatPath datpath;
 
@@ -200,12 +200,14 @@ public:
 		}
 
 		// 保存すべきか？
-		if (boards) {
+		if (boards) 
+		{
 			wstring domain, bbsname, datname;
 			datpath.element(domain, bbsname, datname);
-			if (!boards->IsEnabledEx(domain.c_str(), bbsname.c_str())) {
+			if (!boards->IsEnabledEx(domain.c_str(), bbsname.c_str())) 
+			{
 				Logger->AddLog(O2LT_WARNING, L"dat", ip, port,
-					L"(゜⊿゜)イラネ (%s/%s/%s)", domain.c_str(), bbsname.c_str(), datname.c_str());
+					       L"(゜⊿゜)イラネ (%s/%s/%s)", domain.c_str(), bbsname.c_str(), datname.c_str());
 				return false;
 			}
 		}
@@ -219,24 +221,34 @@ public:
 
 
 		// 補完された
-		if (hokan_byte) {
-			if (Logger) {
+		if (hokan_byte) 
+		{
+			if (Logger) 
+			{
 				wstring url;
 				datpath.geturl(url);
 				Logger->AddLog(O2LT_HOKAN, L"Job", ip, port,
-					L"%s (%d)", url.c_str(), hokan_byte);
+					       L"%s (%d)", url.c_str(), hokan_byte);
 			}
-			if (QueryDB) {
+			if (QueryDB) 
+			{
 				hashT hash;
 				datpath.gethash(hash);
 				wstring title;
 				datpath.gettitle(title);
-				if (QueryDB->SetNote(hash, title.c_str(), size) && hwndBaloonCallback && profile->IsBaloon_Hokan()) {
+				if (QueryDB->SetNote(hash, title.c_str(), size) && 
+				    hwndBaloonCallback && 
+				    profile->IsBaloon_Hokan()) 
+				{
 					wchar_t msg[256];
 					swprintf_s(msg, 256, L"%s\nが補完されました", title.c_str());
+#ifdef _WIN32                           /** windows */
 					SendMessage(
 						hwndBaloonCallback, msgBaloonCallback,
 						(WPARAM)L"o2on", (LPARAM)msg);
+#else                                   /** unix */
+					#warning "TODO: implement wxWidgets event method here"
+#endif
 				}
 			}
 		}
@@ -248,9 +260,9 @@ public:
 	//	MakeRequest_Collection
 	// -----------------------------------------------------------------------
 	void MakeRequest_Collection(const O2SocketSession *ss
-							  , const O2Profile *profile
-							  , O2Boards *boards
-							  , string &out)
+				    , const O2Profile *profile
+				    , O2Boards *boards
+				    , string &out)
 	{
 		string proto_url;
 
@@ -275,8 +287,8 @@ public:
 	//	MakeResponse_Collection
 	// -----------------------------------------------------------------------
 	void MakeResponse_Collection(const O2Profile *profile
-							   , O2Boards *boards
-							   , string &out)
+				     , O2Boards *boards
+				     , string &out)
 	{
 		// 返す情報
 		string xml;

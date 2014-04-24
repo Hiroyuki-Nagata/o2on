@@ -53,7 +53,11 @@ protected:
 
    	O2SocketSessionPMap	sss;
 	Mutex		SessionMapLock;
+#ifdef _WIN32 /** windows */
 	EventObject	SessionExistSignal;
+#else   /** unix */
+	neosmart::neosmart_event_t SessionExistSignal;
+#endif
 	Mutex		IPFilteringThreadCountLock;
 
 	struct IPFilteringThreadParam {
