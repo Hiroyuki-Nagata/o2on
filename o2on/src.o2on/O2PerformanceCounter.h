@@ -5,7 +5,7 @@
 /*
  * project		: o2on
  * filename		: O2PerformanceCounter.h
- * description	: 
+ * description	: inspect o2on performance
  *
  */
 
@@ -18,9 +18,11 @@
 #include "dataconv.h"
 #include <time.h>
 
-#ifdef _WIN32
+#ifdef _WIN32 /** Performance Data Helper (PDH) API */
    #include <tchar.h>
-   #include <pdh.h> /** パフォーマンス データ ヘルパー (PDH) Api */
+   #include <pdh.h>
+#else /** getCPUTime */
+   #include <getCPUTime.h>
 #endif
 
 #if __cplusplus > 199711L
@@ -85,40 +87,78 @@ public:
 		CPUNum = sinf.dwNumberOfProcessors;
 #endif
 
+
+
+#ifdef _WIN32   /** windows */
 		PdhOpenQuery(NULL, 0, &hQuery);
+		// o2onのCPU使用率
 		PdhAddCounter(hQuery, _T("\\Process(o2on)\\% Processor Time"), 0, &hCounter_ProcessorTime);
+		// o2onの開いたハンドルの数(=FD:file descriptor)
 		PdhAddCounter(hQuery, _T("\\Process(o2on)\\Handle Count"), 0, &hCounter_HandleCount);
+		// o2onのスレッド数
 		PdhAddCounter(hQuery, _T("\\Process(o2on)\\Thread Count"), 0, &hCounter_ThreadCount);
 		PdhCollectQueryData(hQuery);
+
+#else		/** unix */
+		// おそらくここはハンドルを初期化しているだけなので何もしない
+#endif
 	};
 
+#ifdef _WIN32 /** start windows */
 	~O2PerformanceCounter()
 	{
 		if (hQuery)
 			PdhCloseQuery(hQuery);
 	};
+#endif /** end windows */
 
 	void JobThreadFunc(void)
 	{
 		Lock();
 		{
+
+#ifdef _WIN32           /** windows */
 			PdhCollectQueryData(hQuery);
 
 			PDH_FMT_COUNTERVALUE fcval;
-			PdhGetFormattedCounterValue(
-				hCounter_ProcessorTime, PDH_FMT_DOUBLE, NULL, &fcval);
+
+			// CPU使用率の取得
+			PdhGetFormattedCounterValue(hCounter_ProcessorTime, PDH_FMT_DOUBLE, NULL, &fcval);
 			ProcTime = fcval.doubleValue / CPUNum;
 			ProcTimeAvg = (ProcTimeAvg * SampleNum + ProcTime) / (SampleNum + 1);
-
-			PdhGetFormattedCounterValue(
-				hCounter_HandleCount, PDH_FMT_LONG, NULL, &fcval);
+			// o2onの開いたハンドルの数(=FD:file descriptor)
+			PdhGetFormattedCounterValue(hCounter_HandleCount, PDH_FMT_LONG, NULL, &fcval);
 			HandleCount = fcval.longValue;
-
-			PdhGetFormattedCounterValue(
-				hCounter_ThreadCount, PDH_FMT_LONG, NULL, &fcval);
+			// o2onのスレッド数
+			PdhGetFormattedCounterValue(hCounter_ThreadCount, PDH_FMT_LONG, NULL, &fcval);
 			ThreadCount = fcval.longValue;
 
 			SampleNum++;
+
+#else                   /** unix */
+
+			// CPU使用率の取得
+			ProcTime = getCPUTime() / CPUNum;
+			ProcTimeAvg = (ProcTimeAvg * SampleNum + ProcTime) / (SampleNum + 1);
+
+			// o2onの開いたハンドルの数(=FD:file descriptor)
+			HandleCount = 0;
+			const int maxFdNumber = ::getdtablesize();
+			struct stat stats;
+			
+			for ( int i = 0; i <= maxFdNumber; i++)
+			{
+				fstat(i, &stats);
+				if (errno != EBADF)
+				{
+					HandleCount++;
+				}
+			}
+
+			// o2onのスレッド数
+			#warning "TODO: implement here unix side counting thread method."
+
+#endif          /** end ifdef code */
 		}
 		Unlock();
 	};
@@ -290,8 +330,7 @@ public:
 #ifdef _MSC_VER /** VC++ */
 		buf.append(chars, length);
 #else   /** other compiler */
-	if (parse_elm != 0)
-		buf.append(reinterpret_cast<const char*>(chars), length);
+		buf.append(reinterpret_cast<const wchar_t*>(chars), length);
 #endif
 	};
 };

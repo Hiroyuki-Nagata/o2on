@@ -101,7 +101,8 @@ simpleudpsocket.h	  \
 stopwatch.h		  \
 typedef.h		  \
 upnp.h			  \
-upnp_description.h    
+upnp_description.h        \
+getCPUTime.h
 
 # if target can use win32 thread, use win32 thread
 if USE_PTHREAD
