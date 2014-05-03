@@ -17,8 +17,12 @@
 #include "O2IPFilter.hpp"
 #include "O2SocketSession.hpp"
 
-
-
+#ifndef _WIN32
+   #include <pevents.h>
+   #include <sys/socket.h>
+   #include <netinet/in.h>
+   #include <netinet/tcp.h>
+#endif
 
 //
 // O2Server

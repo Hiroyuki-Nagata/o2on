@@ -28,7 +28,13 @@ O2Server(const wchar_t *name, O2Logger *lgr, O2IPFilter *ipf)
 	, ServerSocket(INVALID_SOCKET)
 	, SessionLimit(0x7fffffff)
 	, SessionPeak(0)
-	, RecvSizeLimit(_UI64_MAX)
+	, RecvSizeLimit(
+#ifdef _WIN32 /** Windows 64bit変数の最大値の定義 */ 
+	_UI64_MAX 
+#else /** UNIX 64bit変数の最大値の定義 */ 
+	UINT_LEAST64_MAX 
+#endif
+	)
 	, RejectMultiLink(false)
 	, TotalSessionCount(0)
 	, TotalSessionLimitOver(0)
@@ -105,8 +111,13 @@ Stop(void)
 
 	SessionMapLock.Lock();
 	{
-		for (O2SocketSessionPMapIt ssit = sss.begin(); ssit != sss.end(); ssit++) {
+		for (O2SocketSessionPMapIt ssit = sss.begin(); ssit != sss.end(); ssit++) 
+		{
+#ifdef _WIN32           /** winsock */
 			closesocket(ssit->second->sock);
+#else                   /** bsd socket */
+			close(ssit->second->sock);
+#endif
 		}
 	}
 	SessionMapLock.Unlock();
@@ -360,16 +371,20 @@ bool
 O2Server::
 Bind(void)
 {
-	if (ServerPort == 0) {
-		if (Logger) {
+	if (ServerPort == 0) 
+	{
+		if (Logger) 
+		{
 			Logger->AddLog(O2LT_ERROR, ServerName.c_str(), 0, 0, L"ポートが0");
 		}
 		return false;
 	}
 
 	ServerSocket = socket(AF_INET, SOCK_STREAM, 0);
-	if (ServerSocket == INVALID_SOCKET) {
-		if (Logger) {
+	if (ServerSocket == INVALID_SOCKET) 
+	{
+		if (Logger) 
+		{
 			Logger->AddLog(O2LT_ERROR, ServerName.c_str(), 0, 0, L"socket生成失敗");
 		}
 		return false;
@@ -379,31 +394,47 @@ Bind(void)
 	// SO_REUSEADDR: socketがTIME_WAITでもbindできるようにする ←うそです
 	// ※Winsockの場合LISTENINGでも上書きbindされてしまう
 	// ※SO_REUSEADDRをセットしなくてもTIME_WAITならbindできる
-//	setsockopt(ServerSocket, SOL_SOCKET, SO_REUSEADDR, (const char*)&one, sizeof(int));
-    setsockopt(ServerSocket, SOL_SOCKET, SO_KEEPALIVE, (const char*)&one, sizeof(int));
-    setsockopt(ServerSocket, IPPROTO_TCP, TCP_NODELAY, (const char*)&one, sizeof(int));
+        // setsockopt(ServerSocket, SOL_SOCKET, SO_REUSEADDR, (const char*)&one, sizeof(int));
+	setsockopt(ServerSocket, SOL_SOCKET, SO_KEEPALIVE, (const char*)&one, sizeof(int));
+	setsockopt(ServerSocket, IPPROTO_TCP, TCP_NODELAY, (const char*)&one, sizeof(int));
 
 	sockaddr_in sin;
 	sin.sin_family = AF_INET;
+#ifdef _WIN32 /** winsock */
 	sin.sin_addr.S_un.S_addr = htonl(INADDR_ANY);
+#else   /** bsd sock */
+	sin.sin_addr.s_addr = htonl(INADDR_ANY);
+#endif
 	sin.sin_port = htons(ServerPort);
 
-	if (bind(ServerSocket, (struct sockaddr*)(&sin), sizeof(sockaddr_in)) != 0) {
-		if (Logger) {
+	if (bind(ServerSocket, (struct sockaddr*)(&sin), sizeof(sockaddr_in)) != 0) 
+	{
+		if (Logger) 
+		{
 			Logger->AddLog(O2LT_ERROR, ServerName.c_str(), 0, 0, 
-				L"bind失敗 (port:%d)", ServerPort);
+				       L"bind失敗 (port:%d)", ServerPort);
 		}
+#ifdef _WIN32   /** winsock */
 		closesocket(ServerSocket);
+#else           /** bsd socket */
+		close(ServerSocket);
+#endif
 		ServerSocket = INVALID_SOCKET;
 		return false;
 	}
 
-	if (listen(ServerSocket, (int)SessionLimit) != 0) {
-		if (Logger) {
+	if (listen(ServerSocket, (int)SessionLimit) != 0) 
+	{
+		if (Logger) 
+		{
 			Logger->AddLog(O2LT_ERROR, ServerName.c_str(), 0, 0,
-				L"listen失敗 (port:%d)", ServerPort);
+				       L"listen失敗 (port:%d)", ServerPort);
 		}
+#ifdef _WIN32   /** winsock */
 		closesocket(ServerSocket);
+#else           /** bsd socket */
+		close(ServerSocket);
+#endif
 		ServerSocket = INVALID_SOCKET;
 		return false;
 	}
@@ -472,7 +503,11 @@ ListenThread(void)
 		LastAcceptTime = time(NULL);
 		TotalSessionCount++;
 
+#ifdef _WIN32 /** winsock */
 		ulong ip = sin.sin_addr.S_un.S_addr;
+#else   /** bsd sock */
+		ulong ip = sin.sin_addr.s_addr;
+#endif
 		ushort port = htons(sin.sin_port);
 
 		// to non-blocking mode
@@ -516,13 +551,21 @@ ListenThread(void)
 					ip, port, L"Reject(multi link) %s:%d");
 			}
 			TotalMultiLinkReject++;
+#ifdef _WIN32           /** winsock */
 			closesocket(ss->sock);
+#else                   /** bsd socket */
+			close(ss->sock);
+#endif
 			delete ss;
 			continue;
 		}
 
 		if (!Active) {
+#ifdef _WIN32           /** winsock */
 			closesocket(ss->sock);
+#else                   /** bsd socket */
+			close(ss->sock);
+#endif
 			delete ss;
 			break;
 		}
@@ -534,8 +577,11 @@ ListenThread(void)
 		HANDLE handle = (HANDLE)_beginthreadex(NULL, 0, StaticIPFilteringThread, param, 0, NULL);
 		CloseHandle(handle);
 	}
-
+#ifdef _WIN32   /** winsock */
 	closesocket(ServerSocket);
+#else           /** bsd socket */
+	close(ServerSocket);
+#endif
 	ServerSocket = INVALID_SOCKET;
 }
 
@@ -708,8 +754,11 @@ NetIOThread(void)
 								ss->ip, ss->port, L"timeout");
 						}
 					}
-
+#ifdef _WIN32                           /** winsock */
 					closesocket(ss->sock);
+#else                                   /** bsd socket */
+					close(ss->sock);
+#endif
 					ss->sock = 0;
 
 					SessionMapLock.Lock();
@@ -733,7 +782,11 @@ NetIOThread(void)
 	SessionMapLock.Lock();
 	for (ssit = sss.begin(); ssit != sss.end(); ssit++) {
 		O2SocketSession *ss = ssit->second;
+#ifdef _WIN32   /** winsock */
 		closesocket(ss->sock);
+#else           /** bsd socket */
+		close(ss->sock);
+#endif
 		ss->sock = 0;
 
 		while (!ss->CanDelete())
@@ -821,7 +874,11 @@ IPFilteringThread(O2SocketSession *ss)
 		}
 
 		TotalIPFilterReject++;
+#ifdef _WIN32   /** winsock */
 		closesocket(ss->sock);
+#else           /** bsd socket */
+		close(ss->sock);
+#endif
 		delete ss;
 		return;
 	}
@@ -838,7 +895,11 @@ IPFilteringThread(O2SocketSession *ss)
 			SessionPeak = sss.size();
 	}
 	else {
+#ifdef _WIN32   /** winsock */
 		closesocket(ss->sock);
+#else           /** bsd socket */
+		close(ss->sock);
+#endif
 		delete ss;
 		ss = NULL;
 	}
