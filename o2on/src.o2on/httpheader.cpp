@@ -9,8 +9,8 @@
  *
  */
 
-#include "httpheader.h"
-#include "dataconv.h"
+#include "httpheader.hpp"
+#include "dataconv.hpp"
 
 #ifdef _WIN32
    #include <windows.h>

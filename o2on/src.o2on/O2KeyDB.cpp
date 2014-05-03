@@ -9,9 +9,9 @@
  *
  */
 
-#include "O2KeyDB.h"
-#include "file.h"
-#include "dataconv.h"
+#include "O2KeyDB.hpp"
+#include "file.hpp"
+#include "dataconv.hpp"
 #include <boost/regex.hpp>
 #include <sys/types.h>
 #include <sys/stat.h>

@@ -10,19 +10,19 @@
  */
 
 #pragma once
-#include "O2DatIO.h"
-#include "O2Key.h"
-#include "httpheader.h"
-#include "file.h"
-#include "dataconv.h"
+#include "O2DatIO.hpp"
+#include "O2Key.hpp"
+#include "httpheader.hpp"
+#include "file.hpp"
+#include "dataconv.hpp"
 
 #ifdef _MSC_VER
-   #include "../cryptopp/osrng.h"
+   #include "../cryptopp/osrng.hpp"
 #else
    #include <cryptopp/osrng.h>
 #endif
 
-#include "stopwatch.h"
+#include "stopwatch.hpp"
 #include <sys/types.h>
 #include <sys/stat.h>
 

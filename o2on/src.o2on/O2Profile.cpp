@@ -12,14 +12,14 @@
 #ifdef _WIN32
    #include <tchar.h>
 #endif
-#include "O2Profile.h"
-#include "O2Version.h"
-#include "file.h"
-#include "dataconv.h"
+#include "O2Profile.hpp"
+#include "O2Version.hpp"
+#include "file.hpp"
+#include "dataconv.hpp"
 
 #ifdef _MSC_VER
-   #include "../cryptopp/rsa.h"
-   #include "../cryptopp/randpool.h"
+   #include "../cryptopp/rsa.hpp"
+   #include "../cryptopp/randpool.hpp"
 #else
    #include <cryptopp/rsa.h>
    #include <cryptopp/randpool.h>

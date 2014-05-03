@@ -9,8 +9,8 @@
  *
  */
 
-#include "O2SAX2Parser.h"
-#include "O2Logger.h"
+#include "O2SAX2Parser.hpp"
+#include "O2Logger.hpp"
 
 
 

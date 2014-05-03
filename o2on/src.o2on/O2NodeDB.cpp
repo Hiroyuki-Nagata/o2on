@@ -9,10 +9,10 @@
  *
  */
 
-#include "O2NodeDB.h"
-#include "O2Version.h"
-#include "file.h"
-#include "dataconv.h"
+#include "O2NodeDB.hpp"
+#include "O2Version.hpp"
+#include "file.hpp"
+#include "dataconv.hpp"
 
 #define MODULE L"NodeDB"
 #warning "TODO: o2on defined MODULE macro, but this is bad practice. It should be implemented by other way."

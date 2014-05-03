@@ -9,15 +9,15 @@
  *
  */
 
-#include "O2DatDB.h"
+#include "O2DatDB.hpp"
 
 #ifdef _WIN32
    #include <windows.h>
    #include <process.h>
 #endif
 
-#include "dataconv.h"
-#include "stopwatch.h"
+#include "dataconv.hpp"
+#include "stopwatch.hpp"
 #include <time.h>
 
 #define UPDATE_THREAD_INTERVAL_S	15

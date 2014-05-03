@@ -9,8 +9,8 @@
  *
  */
 
-#include "O2Logger.h"
-#include "dataconv.h"
+#include "O2Logger.hpp"
+#include "dataconv.hpp"
 #include <time.h>
 #include <sys/types.h>
 #include <sys/stat.h>

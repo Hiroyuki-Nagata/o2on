@@ -9,9 +9,9 @@
  *
  */
 
-#include "O2IMDB.h"
-#include "file.h"
-#include "dataconv.h"
+#include "O2IMDB.hpp"
+#include "file.hpp"
+#include "dataconv.hpp"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <time.h>

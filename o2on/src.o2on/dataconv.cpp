@@ -9,13 +9,13 @@
  *
  */
 
-#include "typedef.h"
-#include "sha.h"
-#include "debug.h"
+#include "typedef.hpp"
+#include "sha.hpp"
+#include "debug.hpp"
 
 #ifdef _WIN32
-   #include "../cryptopp/aes.h"
-   #include "../cryptopp/modes.h"
+   #include "../cryptopp/aes.hpp"
+   #include "../cryptopp/modes.hpp"
    #include <mlang.h>
 #else
    #include <cryptopp/aes.h>
@@ -345,7 +345,7 @@ bool less_xor_bitlength(const hashT &target, const hashT &h1, const hashT &h2)
 	return false;
 }
 
-#include "stopwatch.h"
+#include "stopwatch.hpp"
 void bench(void)
 {
 	stopwatch *sw;

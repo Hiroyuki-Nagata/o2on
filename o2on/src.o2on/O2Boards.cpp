@@ -9,10 +9,10 @@
  *
  */
 
-#include "O2Define.h"
-#include "O2Boards.h"
-#include "simplehttpsocket.h"
-#include "file.h"
+#include "O2Define.hpp"
+#include "O2Boards.hpp"
+#include "simplehttpsocket.hpp"
+#include "file.hpp"
 
 #ifdef _WIN32
    #include <sys/utime.h>

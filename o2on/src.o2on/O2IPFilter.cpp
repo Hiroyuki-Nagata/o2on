@@ -9,9 +9,9 @@
  *
  */
 
-#include "O2IPFilter.h"
-#include "file.h"
-#include "dataconv.h"
+#include "O2IPFilter.hpp"
+#include "file.hpp"
+#include "dataconv.hpp"
 #include <boost/regex.hpp>
 
 #define MODULE	L"IPFilter"
@@ -322,7 +322,7 @@ disable(uint index)
 
 
 
-#include "stopwatch.h"
+#include "stopwatch.hpp"
 uint
 O2IPFilter::
 filtering(ulong ip, const wstrarray &hostnames)

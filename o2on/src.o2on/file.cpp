@@ -9,6 +9,6 @@
  *
  */
 
-#include "file.h"
+#include "file.hpp"
 
 DWORD MappedFile::AllocationGranularity = 0;

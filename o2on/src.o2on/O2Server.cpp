@@ -13,8 +13,8 @@
    #include <winsock2.h>
 #endif
 
-#include "O2Server.h"
-#include "dataconv.h"
+#include "O2Server.hpp"
+#include "dataconv.hpp"
 
 
 
