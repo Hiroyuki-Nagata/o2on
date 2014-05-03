@@ -49,8 +49,15 @@ protected:
 	time_t		LastAcceptTime;
 	bool		Active;
 
+#ifdef _WIN32 /** HANDLE for win32 thread */
 	HANDLE		ListenThreadHandle;
 	HANDLE		NetIOThreadHandle;
+#else /** For POSIX thread processing */
+	pthread_t	 ListenThreadHandle;
+	pthread_t	 NetIOThreadHandle;
+	enum O2ServerHandleEnum { LISTEN = 0, NETIO = 1 }; // 列挙型の定義
+	neosmart::neosmart_event_t handles[2];
+#endif
 	uint64		IPFilteringThreadCount;
 	HWND		hwndSetIconCallback;
 	UINT		msgSetIconCallback;
@@ -106,11 +113,19 @@ protected:
 	virtual void OnClose(O2SocketSession *ss) = 0;
 
 private:
-	bool Bind(void);
+
+#ifdef _WIN32 /** for win32 thread */
 	static uint WINAPI StaticListenThread(void *data);
-	void ListenThread(void);
 	static uint WINAPI StaticNetIOThread(void *data);
-	void NetIOThread(void);
 	static uint WINAPI StaticIPFilteringThread(void *data);
+#else /** for POSIX thread */
+	static void* StaticListenThread(void *data);
+	static void* StaticNetIOThread(void *data);
+	static void* StaticIPFilteringThread(void *data);
+#endif
+
+	bool Bind(void);
+	void ListenThread(void);
+	void NetIOThread(void);
 	void IPFilteringThread(O2SocketSession *ss);
 };

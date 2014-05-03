@@ -44,11 +44,13 @@ O2Server(const wchar_t *name, O2Logger *lgr, O2IPFilter *ipf)
 	, SendByte(0)
 	, LastAcceptTime(0)
 	, Active(false)
+	, hwndSetIconCallback(NULL)
+	, IPFilteringThreadCount(0)
+	, msgSetIconCallback(0)
+#ifdef _WIN32
 	, ListenThreadHandle(NULL)
 	, NetIOThreadHandle(NULL)
-	, IPFilteringThreadCount(0)
-	, hwndSetIconCallback(NULL)
-	, msgSetIconCallback(0)
+#endif
 {
 }
 
@@ -80,6 +82,8 @@ Start(void)
 	}
 
 	Active = true;
+
+#ifdef _WIN32 /** win32 thread */
 	SessionExistSignal.Off();
 
 	NetIOThreadHandle =
@@ -87,6 +91,20 @@ Start(void)
 	ListenThreadHandle =
 		(HANDLE)_beginthreadex(NULL, 0, StaticListenThread, this, 0, NULL);
 
+#else   /** POSIX thread */
+	neosmart::ResetEvent(SessionExistSignal);
+
+	handles[NETIO] = neosmart::CreateEvent();
+	handles[LISTEN] = neosmart::CreateEvent();
+
+	pthread_attr_t attr1;
+	if (pthread_attr_init(&attr1)) return false;
+	pthread_create(&NetIOThreadHandle, &attr1, StaticNetIOThread, this);
+
+	pthread_attr_t attr2;
+	if (pthread_attr_init(&attr2)) return false;
+	pthread_create(&ListenThreadHandle, &attr2, StaticListenThread, this);
+#endif
 	OnServerStart();
 
 	if (Logger) {
@@ -122,14 +140,27 @@ Stop(void)
 	}
 	SessionMapLock.Unlock();
 
-	SessionExistSignal.On();
+#ifdef _WIN32 /** win32 thread */
 
+	SessionExistSignal.On();
 	HANDLE handles[2] = { ListenThreadHandle, NetIOThreadHandle };
+
 	WaitForMultipleObjects(2, handles, TRUE, INFINITE);
 	CloseHandle(ListenThreadHandle);
 	CloseHandle(NetIOThreadHandle);
 	ListenThreadHandle = NULL;
 	NetIOThreadHandle = NULL;
+
+#else   /** POSIX thread */
+
+	neosmart::SetEvent(SessionExistSignal);
+
+	neosmart::WaitForMultipleEvents(handles, 2, TRUE, DosMocking::INFINITE);
+	neosmart::DestroyEvent(handles[0]);
+	neosmart::DestroyEvent(handles[1]);
+	ListenThreadHandle = 0;
+	NetIOThreadHandle = 0;
+#endif
 
 	while (1) {
 		IPFilteringThreadCountLock.Lock();
@@ -450,6 +481,8 @@ Bind(void)
 //
 // ---------------------------------------------------------------------------
 
+#ifdef _WIN32 /** for win32 thread */
+
 uint WINAPI
 O2Server::
 StaticListenThread(void *data)
@@ -464,6 +497,19 @@ StaticListenThread(void *data)
 	//_endthreadex(0);
 	return (0);
 }
+
+#else /** for POSIX thread processing */
+
+void*
+O2Server::
+StaticListenThread(void *data)
+{
+	O2Server *me = (O2Server*)data;
+	me->ListenThread();
+}
+
+#endif
+
 
 void
 O2Server::
@@ -574,8 +620,15 @@ ListenThread(void)
 		IPFilteringThreadParam *param = new IPFilteringThreadParam;
 		param->server = this;
 		param->ss = ss;
+
+#ifdef _WIN32   /** win32 thread */
 		HANDLE handle = (HANDLE)_beginthreadex(NULL, 0, StaticIPFilteringThread, param, 0, NULL);
 		CloseHandle(handle);
+#else           /** POSIX thread */
+		pthread_t handle;
+		pthread_create(&handle, NULL, StaticIPFilteringThread, (void*)param);
+#endif
+
 	}
 #ifdef _WIN32   /** winsock */
 	closesocket(ServerSocket);
@@ -593,6 +646,8 @@ ListenThread(void)
 //
 // ---------------------------------------------------------------------------
 
+#ifdef _WIN32 /** for win32 thread */
+
 uint WINAPI
 O2Server::
 StaticNetIOThread(void *data)
@@ -608,6 +663,18 @@ StaticNetIOThread(void *data)
 	return (0);
 }
 
+#else /** for POSIX thread processing */
+
+void*
+O2Server::
+StaticNetIOThread(void *data)
+{
+	O2Server *me = (O2Server*)data;
+	me->NetIOThread();
+}
+
+#endif
+
 void
 O2Server::
 NetIOThread(void)
@@ -619,13 +686,23 @@ NetIOThread(void)
 		// Signal Off
 		SessionMapLock.Lock();
 		{
+#ifdef _WIN32           /** win32 thread */
 			if (sss.empty())
 				SessionExistSignal.Off();
+#else                   /** POSIX thread */
+			if (sss.empty())
+				neosmart::ResetEvent(SessionExistSignal);
+#endif
 		}
 		SessionMapLock.Unlock();
 
+#ifdef _WIN32   /** win32 thread */
 		// Wait
 		SessionExistSignal.Wait();
+#else
+		// Wait
+		neosmart::WaitForEvent(SessionExistSignal, DosMocking::INFINITE);
+#endif
 		if (!Active) break;
 
 		// Setup FD
@@ -690,8 +767,13 @@ NetIOThread(void)
 					RecvByte += n;
 					OnRecv(ss);
 
-					if (hwndSetIconCallback) {
+					if (hwndSetIconCallback) 
+					{
+#if defined(_WIN32) && !defined(__WXWINDOWS__)  /** windows */
 						PostMessage(hwndSetIconCallback, msgSetIconCallback, 0, 0);
+#else                                           /** unix */
+                                		#warning "TODO: implement wxWidgets event method here"
+#endif
 					}
 				}
 				else if (n == 0) {
@@ -712,27 +794,38 @@ NetIOThread(void)
 			}
 
 			// Send
-			if (FD_ISSET(ss->sock, &writefds)) {
+			if (FD_ISSET(ss->sock, &writefds)) 
+			{
 				int len;
 				const char *buff = ss->GetNextSend(len);
-				if (len > 0) {
+				if (len > 0) 
+				{
 					int n = send(ss->sock, buff, len, 0);
-					if (n > 0) {
+					if (n > 0) 
+					{
 						ss->UpdateSend(n);
 						ss->UpdateTimer();
 
 						SendByte += n;
 						OnSend(ss);
 
-						if (hwndSetIconCallback) {
+						if (hwndSetIconCallback) 
+						{
+#if defined(_WIN32) && !defined(__WXWINDOWS__)          /** windows */
 							PostMessage(hwndSetIconCallback, msgSetIconCallback, 1, 0);
+#else                                                   /** unix */
+                                		        #warning "TODO: implement wxWidgets event method here"
+#endif
 						}
 					}
-					else if (n == 0) {
+					else if (n == 0) 
+					{
 						;
 					}
-					else if ((lasterror = WSAGetLastError()) != WSAEWOULDBLOCK) {
-						if (Logger) {
+					else if ((lasterror = WSAGetLastError()) != WSAEWOULDBLOCK) 
+					{
+						if (Logger) 
+						{
 							Logger->AddLog(O2LT_NETERR, ServerName.c_str(),
 								ss->ip, ss->port, L"送信エラー(%d)", lasterror);
 						}
@@ -745,11 +838,15 @@ NetIOThread(void)
 			}
 
 			// Delete
-			if (ss->CanDelete()) {
+			if (ss->CanDelete()) 
+			{
 				bool timeout = ss->GetPastTime() >= ss->timeout_s ? true : false;
-				if (!ss->IsActive() || timeout) {
-					if (timeout) {
-						if (Logger) {
+				if (!ss->IsActive() || timeout) 
+				{
+					if (timeout) 
+					{
+						if (Logger) 
+						{
 							Logger->AddLog(O2LT_NETERR, ServerName.c_str(),
 								ss->ip, ss->port, L"timeout");
 						}
@@ -806,6 +903,8 @@ NetIOThread(void)
 //
 // ---------------------------------------------------------------------------
 
+#ifdef _WIN32 /** for win32 thread */
+
 uint WINAPI
 O2Server::
 StaticIPFilteringThread(void *data)
@@ -833,6 +932,30 @@ StaticIPFilteringThread(void *data)
 	//_endthreadex(0);
 	return (0);
 }
+
+#else /** for POSIX thread processing */
+
+void*
+O2Server::
+StaticIPFilteringThread(void *data)
+{
+	IPFilteringThreadParam *param = (IPFilteringThreadParam*)data;
+	O2Server *server = param->server;
+	O2SocketSession *ss = param->ss;
+	delete param;
+
+	server->IPFilteringThreadCountLock.Lock();
+	server->IPFilteringThreadCount++;
+	server->IPFilteringThreadCountLock.Unlock();
+
+	server->IPFilteringThread(ss);
+
+	server->IPFilteringThreadCountLock.Lock();
+	server->IPFilteringThreadCount--;
+	server->IPFilteringThreadCountLock.Unlock();
+}
+
+#endif
 
 void
 O2Server::
@@ -905,8 +1028,13 @@ IPFilteringThread(O2SocketSession *ss)
 	}
 	SessionMapLock.Unlock();
 
+#ifdef _WIN32 /** win32 thread */
 	if (!ss) return;
 	SessionExistSignal.On();
+#else   /** POSIX thread */
+	if (!ss) return;
+	neosmart::SetEvent(SessionExistSignal);
+#endif
 
 	// 新規コネクションを記録
 	if (htonl(ss->ip) != 0x7f000001) {
