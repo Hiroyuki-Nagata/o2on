@@ -46,7 +46,12 @@ uint split(const char *in, const char *delim, strarray &token)
 
 	uint len = strlen(in);
 	char *str = new char[len+1];
+
+#ifdef _MSC_VER /** MSVC */
 	strcpy_s(str, len+1, in);
+#else
+	std::strcpy(str, in);
+#endif
 
 	char *context;
 	char *tok = strtok_s(str, delim, &context);
@@ -57,6 +62,7 @@ uint split(const char *in, const char *delim, strarray &token)
 	delete [] str;
 	return (token.size());
 }
+
 uint wsplit(const wchar_t *in, const wchar_t *delim, wstrarray &token)
 {
 	token.clear();
@@ -317,17 +323,17 @@ bool hash_bittest(const hashT &hash, size_t pos)
 }
 size_t hash_xor_bitlength(const hashT &h1, const hashT &h2)
 {
-	byte xor;
+	byte _xor;
 	for (size_t i = h1.block_length-1; ; i--) {
-		xor = h1.block[i] ^ h2.block[i];
-		if (xor & 0x80) return (i*8+8);
-		if (xor & 0x40) return (i*8+7);
-		if (xor & 0x20) return (i*8+6);
-		if (xor & 0x10) return (i*8+5);
-		if (xor & 0x08) return (i*8+4);
-		if (xor & 0x04) return (i*8+3);
-		if (xor & 0x02) return (i*8+2);
-		if (xor & 0x01) return (i*8+1);
+		_xor = h1.block[i] ^ h2.block[i];
+		if (_xor & 0x80) return (i*8+8);
+		if (_xor & 0x40) return (i*8+7);
+		if (_xor & 0x20) return (i*8+6);
+		if (_xor & 0x10) return (i*8+5);
+		if (_xor & 0x08) return (i*8+4);
+		if (_xor & 0x04) return (i*8+3);
+		if (_xor & 0x02) return (i*8+2);
+		if (_xor & 0x01) return (i*8+1);
 		if (i == 0) break;
 	}
 	return (0);
