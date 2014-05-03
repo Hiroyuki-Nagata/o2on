@@ -25,6 +25,7 @@
    #include <time.h>
    #include <utime.h>
    #include <sys/stat.h>
+   #include <netdb.h>
    #include <wchar.h>
    #include <boost/filesystem.hpp>
 
@@ -140,7 +141,9 @@ typedef std::map<wstring,uint64>		wstrnummap;
 /** Some WinSock to BSD socket equivalent */
 #ifndef _WIN32
    typedef uint		SOCKET;
+   typedef hostent	HOSTENT;
    #define INVALID_SOCKET -1
+   #define ioctlsocket(x,y,z) ioctl(x,y,z)
 #endif
 
 /** MAX_PATH defination */

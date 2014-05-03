@@ -538,7 +538,11 @@ ListenThread(void)
 		// accept
 		sockaddr_in sin;
 		int len = sizeof(sockaddr_in);
+#ifdef _WIN32   /** winsock */
 		SOCKET sock = accept(ServerSocket, (struct sockaddr*)&sin, &len);
+#else           /** bsd sock */
+		SOCKET sock = accept(ServerSocket, (struct sockaddr*)&sin, reinterpret_cast<socklen_t*>(&len));
+#endif
 		if (sock == INVALID_SOCKET) {
 			if (Logger) {
 				Logger->AddLog(O2LT_NETERR, ServerName.c_str(),
@@ -713,7 +717,8 @@ NetIOThread(void)
 
 		SessionMapLock.Lock();
 		{
-			for (ssit = sss.begin(); ssit != sss.end(); ssit++) {
+			for (ssit = sss.begin(); ssit != sss.end(); ssit++) 
+			{
 				O2SocketSession *ss = ssit->second;
 				if (ss->can_recv)
 					FD_SET(ss->sock, &readfds);
@@ -737,7 +742,8 @@ NetIOThread(void)
 		ssit = sss.begin();
 		SessionMapLock.Unlock();
 
-		while (Active) {
+		while (Active) 
+		{
 			bool end = false;
 			SessionMapLock.Lock();
 			{
@@ -757,10 +763,12 @@ NetIOThread(void)
 				ip2e(ss->ip, ipstr);
 
 			// Recv
-			if (FD_ISSET(ss->sock, &readfds)) {
+			if (FD_ISSET(ss->sock, &readfds)) 
+			{
 				char buff[RECVBUFFSIZE];
 				int n = recv(ss->sock, buff, RECVBUFFSIZE, 0);
-				if (n > 0) {
+				if (n > 0) 
+				{
 					ss->AppendRecv(buff, n);
 					ss->UpdateTimer();
 
@@ -776,15 +784,23 @@ NetIOThread(void)
 #endif
 					}
 				}
-				else if (n == 0) {
-					if (Logger) {
+				else if (n == 0) 
+				{
+					if (Logger) 
+					{
 						Logger->AddLog(O2LT_NETERR, ServerName.c_str(),
 							ss->ip, ss->port, L"受信0");
 					}
 					ss->Deactivate();
 				}
-				else if ((lasterror = WSAGetLastError()) != WSAEWOULDBLOCK) {
-					if (Logger) {
+#ifdef _WIN32                   /** Windows */
+				else if ((lasterror = WSAGetLastError()) != WSAEWOULDBLOCK) 
+#else                           /** Unix */
+				else if (errno == EAGAIN)
+#endif
+				{
+					if (Logger) 
+					{
 						Logger->AddLog(O2LT_NETERR, ServerName.c_str(),
 							ss->ip, ss->port, L"受信エラー(%d)", lasterror);
 					}
@@ -822,7 +838,11 @@ NetIOThread(void)
 					{
 						;
 					}
+#ifdef _WIN32                   	/** Windows */
 					else if ((lasterror = WSAGetLastError()) != WSAEWOULDBLOCK) 
+#else                           	/** Unix */
+					else if (errno == EAGAIN)
+#endif
 					{
 						if (Logger) 
 						{
@@ -967,28 +987,30 @@ IPFilteringThread(O2SocketSession *ss)
 
 #if !defined(_DEBUG)
 	// Lookup
-	if (is_globalIP(ss->ip)) {
-		HOSTENT *hostent = gethostbyaddr((char*)&ss->ip, sizeof(ulong), AF_INET);
-		if (hostent) {
+	if (is_globalIP(ss->ip)) 
+	{
+		HOSTENT* hostent = gethostbyaddr((char*)&ss->ip, sizeof(ulong), AF_INET);
+
+		if (hostent) 
+		{
 			ascii2unicode(hostent->h_name, strlen(hostent->h_name), hostname);
 			hostname = L"." + hostname;
 			hostnames.push_back(hostname);
 
-			//TRACEW(L" >");TRACEW(hostname.c_str());TRACEW(L"<\n");
-
-			for (uint i = 0; hostent->h_aliases[i]; i++) {
+			for (uint i = 0; hostent->h_aliases[i]; i++) 
+			{
 				ascii2unicode(hostent->h_aliases[i], strlen(hostent->h_aliases[i]), hostname);
 				hostname = L"." + hostname;
 				hostnames.push_back(hostname);
-
-				//TRACEW(L" >");TRACEW(hostname.c_str());TRACEW(L"<\n");
 			}
 		}
 	}
 
 	// IP Filter
-	if (IPFilter && IPFilter->filtering(ss->ip, hostnames) == O2_DENY) {
-		if (Logger) {
+	if (IPFilter && IPFilter->filtering(ss->ip, hostnames) == O2_DENY) 
+	{
+		if (Logger) 
+		{
 			ulong2ipstr(ss->ip, ipstr);
 			Logger->AddLog(O2LT_NETERR, ServerName.c_str(),
 				ss->ip, ss->port, L"Reject(IPFilter)");
@@ -1009,7 +1031,8 @@ IPFilteringThread(O2SocketSession *ss)
 
 	// add to session map
 	SessionMapLock.Lock();
-	if (Active) {
+	if (Active) 
+	{
 		ss->UpdateTimer();
 		ss->Activate();
 		OnAccept(ss);
@@ -1017,7 +1040,8 @@ IPFilteringThread(O2SocketSession *ss)
 		if (sss.size() > SessionPeak)
 			SessionPeak = sss.size();
 	}
-	else {
+	else 
+	{
 #ifdef _WIN32   /** winsock */
 		closesocket(ss->sock);
 #else           /** bsd socket */
@@ -1037,13 +1061,15 @@ IPFilteringThread(O2SocketSession *ss)
 #endif
 
 	// 新規コネクションを記録
-	if (htonl(ss->ip) != 0x7f000001) {
+	if (htonl(ss->ip) != 0x7f000001) 
+	{
 		if (O2DEBUG)
 			ulong2ipstr(ss->ip, ipstr);
 		else
 			ip2e(ss->ip, ipstr);
 
-		if (Logger) {
+		if (Logger) 
+		{
 			Logger->AddLog(O2LT_NET, ServerName.c_str(),
 				ss->ip, ss->port, L"accept");
 		}
