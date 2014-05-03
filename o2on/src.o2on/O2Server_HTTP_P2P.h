@@ -211,9 +211,17 @@ protected:
 		param->me = this;
 		param->ss = ss;
 
+#ifdef _WIN32   /** windows */
 		HANDLE handle =
 			(HANDLE)_beginthreadex(NULL, 0, StaticParseThread, (void*)param, 0, NULL);
 		CloseHandle(handle);
+
+#else           /** POSIX thread */
+		pthread_t tid;
+		pthread_attr_t attr1;
+		if (pthread_attr_init(&attr1)) return;
+		pthread_create(&tid, &attr1, StaticParseThread, (void*)param);
+#endif
 	}
 	virtual void OnClose(O2SocketSession *ss)
 	{
@@ -234,6 +242,7 @@ private:
 		O2SocketSession *ss;
 	};
 
+#ifdef _WIN32 /** windows */
 	static uint WINAPI StaticParseThread(void *data)
 	{
 		ThreadParam *param = (ThreadParam*)data;
@@ -256,6 +265,25 @@ private:
 		//_endthreadex(0);
 		return (0);
 	}
+#else   /** unix */
+	static void* StaticParseThread(void *data)
+	{
+		ThreadParam *param = (ThreadParam*)data;
+		O2Server_HTTP_P2P *me = param->me;
+		O2SocketSession *ss = param->ss;
+		delete param;
+
+		me->ThreadNumLock.Lock();
+		me->ThreadNum++;
+		me->ThreadNumLock.Unlock();
+
+		me->ParseThread(ss);
+
+		me->ThreadNumLock.Lock();
+		me->ThreadNum--;
+		me->ThreadNumLock.Unlock();
+	}
+#endif
 
 	void ParseThread(O2SocketSession *ss)
 	{
@@ -405,8 +433,13 @@ private:
 				L"メッセージ受信 (%d byte)", hdr->contentlength);
 		}
 		if (hwndBaloonCallback && Profile->IsBaloon_IM()) {
+#ifdef _WIN32           /** windows */
 			SendMessage(hwndBaloonCallback, msgBaloonCallback,
 				(WPARAM)L"o2on", (LPARAM)L"メッセージが届きました");
+#else                   /** unix */
+			#warning "TODO: implement wxWidgets event method here"
+#endif
+
 		}
 	}
 	// -----------------------------------------------------------------------

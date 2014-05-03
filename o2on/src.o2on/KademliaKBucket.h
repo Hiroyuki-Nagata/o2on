@@ -202,7 +202,7 @@ public:
 			{
 				hashT _xor;
 				hash_xor(_xor, target, it->id);
-				sorted_list.insert(SortedNodePListT::value_type(_xor, &(*it)));
+				sorted_list.insert(typename SortedNodePListT::value_type(_xor, &(*it)));
 			}
 			size_t i = 0;
 			typename SortedNodePListT::iterator sit = sorted_list.begin();

@@ -16,8 +16,6 @@
 #include "dataconv.h"
 
 
-
-
 class O2LagQueryQueue
 	: public Mutex
 {
@@ -26,8 +24,21 @@ protected:
 	typedef std::map<hashT,O2Key>::iterator O2KeyMapIt;
 
 	bool		Active;
-	EventObject StopSignal;
+
+#ifdef _WIN32 /** EventObject class for win32 thread */
+	EventObject	StopSignal;
+#else /** For Boost threads processing */
+	DosMocking::EventObject	StopSignal;
+#endif
+
+#ifdef _WIN32 /** HANDLE for win32 thread */
 	HANDLE		ThreadHandle;
+#else /** For POSIX thread processing */
+	pthread_t	ThreadHandle;
+	enum O2LagQueryQueueHandleEnum { THREAD = 0 };
+	neosmart::neosmart_event_t handles[1];
+#endif
+
 	O2KeyMap	queries;
 	O2Logger	*Logger;
 	O2Profile	*Profile;
@@ -44,7 +55,9 @@ public:
 		, Logger(lgr)
 		, Profile(prof)
 		, QueryDB(qdb)
+#ifdef _WIN32   /** windows */
 		, hwndBaloonCallback(NULL)
+#endif
 		, msgBaloonCallback(0)
 	{
 		start();
@@ -106,7 +119,14 @@ private:
 		if (!ThreadHandle) {
 			Active = true;
 			StopSignal.Off();
+#ifdef _WIN32           /** windows */
 			ThreadHandle = (HANDLE)_beginthreadex(NULL, 0, StaticThread, (void*)this, 0, NULL);
+#else                   /** unix */
+			pthread_attr_t attr1;
+			if (pthread_attr_init(&attr1)) return;
+			handles[0] = neosmart::CreateEvent();
+			pthread_create(&ThreadHandle, &attr1, StaticThread, this);
+#endif
 		}
 	}
 
@@ -116,13 +136,23 @@ private:
 			Active = false;
 			//note:SignalObjectAndWait関数の方が処理をatomicに行えるため適切
 			StopSignal.On();
+
 			//Join
+
+#ifdef _WIN32           /** win32 thread */
 			WaitForSingleObject(ThreadHandle, INFINITE);
 			CloseHandle(ThreadHandle);
 			ThreadHandle = NULL;
+
+#else                   /** Unix */
+			neosmart::WaitForEvent(handles[THREAD], DosMocking::INFINITE);
+			neosmart::DestroyEvent(handles[THREAD]);
+#endif
 		}
 	}
 
+
+#ifdef _WIN32 /** for win32 thread */
 	static uint WINAPI StaticThread(void *data)
 	{
 		O2LagQueryQueue *me = (O2LagQueryQueue*)data;
@@ -131,36 +161,51 @@ private:
 		me->Checker();
 		CoUninitialize();
 
-		//_endthreadex(0);
 		return (0);
-	}
+	};
+#else /** for POSIX thread processing */
+	static void* StaticThread(void *data)
+	{
+		O2LagQueryQueue *me = (O2LagQueryQueue*)data;
+		me->Checker();
+	};
+#endif
 
 	void Checker(void)
 	{
-		while (Active) {
+		while (Active) 
+		{
 			Lock();
-			for (O2KeyMapIt it = queries.begin(); it != queries.end(); ) {
+			for (O2KeyMapIt it = queries.begin(); it != queries.end(); ) 
+			{
 				O2Key &querykey = it->second;
-
 				TRACE(querykey.title.c_str());
 				TRACE(L"\n");
 
-				if (time(NULL) - querykey.date < 5) {
+				if (time(NULL) - querykey.date < 5) 
+				{
 					it++;
 					continue;
 				}
 
 				//キュー登録から5秒経過していたら登録
 				querykey.date = 0;
-				if (QueryDB->AddKey(querykey) == 1) {
-					if (Logger) {
+				if (QueryDB->AddKey(querykey) == 1) 
+				{
+					if (Logger) 
+					{
 						Logger->AddLog(O2LT_INFO, L"LagQueryQueue", 0, 0,
 							L"検索登録 %s", querykey.url.c_str());
 					}
 
-					if (hwndBaloonCallback && Profile->IsBaloon_Query()) {
+					if (hwndBaloonCallback && Profile->IsBaloon_Query()) 
+					{
+#ifdef _WIN32                                   /** windows */
 						SendMessage(hwndBaloonCallback, msgBaloonCallback,
 							(WPARAM)L"検索登録", (LPARAM)querykey.url.c_str());
+#else                                           /** unix */
+                                                #warning "TODO: implement wxWidgets event method here"
+#endif
 					}
 					QueryDB->Save(Profile->GetQueryFilePath());
 				}

@@ -92,6 +92,22 @@ if test $has_cryptopp = 0; then
   AC_MSG_ERROR("ERROR: cryptopp not found. o2on need cryptopp.")
 fi
 
+# Checks for zlib
+AC_CHECK_HEADER([zlib.h], 
+                [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], 
+                [AC_MSG_ERROR([zlib include file not found. o2on need zlib.])])
+
+AC_CHECK_LIB(z,gzopen,has_zlib=1,has_zlib=0)
+if test $has_zlib = 0; then
+  AC_MSG_ERROR("ERROR: zlib not found. o2on need zlib.")
+fi
+
+# Checks for pthread
+AC_CHECK_LIB(pthread,pthread_create,has_pthread=1,has_pthread=0)
+if test $has_pthread = 0; then
+  AC_MSG_ERROR("ERROR: pthread not found. o2on need pthread.")
+fi
+
 # Boost
 BOOST_REQUIRE([1.49.0])
 BOOST_REGEX

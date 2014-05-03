@@ -29,7 +29,7 @@
 #include "sqlite3.h"
 
 
-enum HandleEnum { REBUILDDB = 0, REINDEX = 1, ANALYZE = 2 }; // 列挙型の定義
+
 
 class O2DatIO
 {
@@ -50,6 +50,7 @@ protected:
 	pthread_t		RebuildDBThreadHandle;
 	pthread_t		ReindexThreadHandle;
 	pthread_t		AnalyzeThreadHandle;
+	enum O2DatIOHandleEnum { REBUILDDB = 0, REINDEX = 1, ANALYZE = 2 }; // 列挙型の定義
 	neosmart::neosmart_event_t handles[3];
 #endif
 

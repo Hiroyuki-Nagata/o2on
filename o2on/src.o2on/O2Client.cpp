@@ -89,7 +89,7 @@ Start(void)
 
 	pthread_attr_t attr2;
 	if (pthread_attr_init(&attr2)) return false;
-	pthread_create(&NetIOThreadHandle, &attr2, StaticLaunchThread, this);
+	pthread_create(&LaunchThreadHandle, &attr2, StaticLaunchThread, this);
 #endif
 
 	OnClientStart();
