@@ -243,9 +243,16 @@ GetReport(string &out, bool pub)
 			tmpstr.erase();
 			for (O2KeyListIt it = recent.begin(); it != recent.end(); it++) {
 				wchar_t timestr[TIMESTR_BUFF_SIZE];
+#ifdef _WIN32                   /** Windows */
 				struct tm tm;
 				localtime_s(&tm, &it->date);
 				wcsftime(timestr, TIMESTR_BUFF_SIZE, L"%Y/%m/%d %H:%M:%S", &tm);
+#else                           /** Unix */
+				struct tm* tm;
+				const time_t* timer = &(it->date);
+				tm = localtime(timer);
+				wcsftime(timestr, TIMESTR_BUFF_SIZE, L"%Y/%m/%d %H:%M:%S", tm);
+#endif
 				tmpstr += timestr;
 				tmpstr += L" [ ";
 				tmpstr += it->url;

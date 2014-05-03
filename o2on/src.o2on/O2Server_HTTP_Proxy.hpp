@@ -102,9 +102,17 @@ protected:
 		param->me = this;
 		param->ss = ss;
 
+#ifdef _WIN32   /** win32 thread */
 		HANDLE handle =
 			(HANDLE)_beginthreadex(NULL, 0, StaticParseThread, (void*)param, 0, NULL);
 		CloseHandle(handle);
+
+#else           /** POSIX thread */
+		pthread_t* handle;
+		pthread_attr_t attr;
+		if (pthread_attr_init(&attr)) return;
+		pthread_create(handle, &attr, StaticParseThread, (void*)param);
+#endif
 	};
 
 private:
@@ -116,6 +124,7 @@ private:
 		O2SocketSession *ss;
 	};
 
+#ifdef _WIN32 /** for win32 thread */
 	static uint WINAPI StaticParseThread(void *data)
 	{
 		ThreadParam *param = (ThreadParam*)data;
@@ -137,7 +146,29 @@ private:
 
 		//_endthreadex(0);
 		return (0);
-	}
+	};
+	
+#else  /** for POSIX thread processing */
+
+	static void* StaticParseThread(void *data)
+	{
+		ThreadParam *param = (ThreadParam*)data;
+		O2Server_HTTP_Proxy *me = param->me;
+		O2SocketSession *ss = param->ss;
+		delete param;
+
+		me->ThreadNumLock.Lock();
+		me->ThreadNum++;
+		me->ThreadNumLock.Unlock();
+
+		me->ParseThread(ss);
+
+		me->ThreadNumLock.Lock();
+		me->ThreadNum--;
+		me->ThreadNumLock.Unlock();
+	};
+
+#endif
 
 	void ParseThread(O2SocketSession *ss)
 	{

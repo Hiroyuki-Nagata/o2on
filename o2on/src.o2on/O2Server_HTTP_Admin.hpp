@@ -30,7 +30,7 @@
 #undef MODULE
 #endif
 #define MODULE	L"AdminServer"
-
+#warning "TODO: o2on defined MODULE macro, but this is bad practice. It should be implemented by other way."
 
 
 
@@ -117,23 +117,23 @@ public:
 		, msgBaloonCallback(0)
 		, ThreadNum(0)
 	{
-	}
+	};
 	~O2Server_HTTP_Admin()
 	{
-	}
+	};
 	uint64 GetThreadNum(void)
 	{
 		return (ThreadNum);
-	}
+	};
 	void SetReportMaker(O2ReportMaker *rm)
 	{
 		ReportMaker = rm;
-	}
+	};
 	void SetBaloonCallbackMsg(HWND hwnd, UINT msg)
 	{
 		hwndBaloonCallback = hwnd;
 		msgBaloonCallback = msg;
-	}
+	};
 
 protected:
 	// -----------------------------------------------------------------------
@@ -145,10 +145,19 @@ protected:
 		param->me = this;
 		param->ss = ss;
 
+#ifdef _WIN32   /** win32 thread */
 		HANDLE handle =
 			(HANDLE)_beginthreadex(NULL, 0, StaticParseThread, (void*)param, 0, NULL);
 		CloseHandle(handle);
-	}
+
+#else           /** POSIX thread */
+		pthread_t* handle;
+		pthread_attr_t attr;
+		if (pthread_attr_init(&attr)) return;
+		pthread_create(handle, &attr, StaticParseThread, (void*)param);
+#endif
+	};
+
 
 private:
 	// -----------------------------------------------------------------------
@@ -159,6 +168,7 @@ private:
 		O2SocketSession *ss;
 	};
 
+#ifdef _WIN32 /** for win32 thread */
 	static uint WINAPI StaticParseThread(void *data)
 	{
 		ThreadParam *param = (ThreadParam*)data;
@@ -178,9 +188,29 @@ private:
 		me->ThreadNum--;
 		me->ThreadNumLock.Unlock();
 
-		//_endthreadex(0);
 		return (0);
-	}
+	};
+
+#else  /** for POSIX thread processing */
+	static void* StaticParseThread(void *data)
+	{
+		ThreadParam *param = (ThreadParam*)data;
+		O2Server_HTTP_Admin *me = param->me;
+		O2SocketSession *ss = param->ss;
+		delete param;
+
+		me->ThreadNumLock.Lock();
+		me->ThreadNum++;
+		me->ThreadNumLock.Unlock();
+
+		me->ParseThread(ss);
+
+		me->ThreadNumLock.Lock();
+		me->ThreadNum--;
+		me->ThreadNumLock.Unlock();
+	};
+	
+#endif
 
 	void ParseThread(O2SocketSession *ss)
 	{
@@ -201,7 +231,7 @@ private:
 		}
 
 		ss->SetCanDelete(true);
-	}
+	};
 
 	// -----------------------------------------------------------------------
 	//	ReturnXML
@@ -299,7 +329,7 @@ private:
 			MakeResponse_404(Profile, ss->sbuff);
 			ss->Unlock();
 		}
-	}
+	};
 
 	// -----------------------------------------------------------------------
 	//	ReturnFile
@@ -396,7 +426,7 @@ private:
 			ss->sbuff += out;
 		}
 		ss->Unlock();
-	}
+	};
 
 public:
 	// -----------------------------------------------------------------------
@@ -421,7 +451,7 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	GET_xml_ininode
 	// -----------------------------------------------------------------------
@@ -457,7 +487,7 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	POST_xml_ininode
 	// -----------------------------------------------------------------------
@@ -511,7 +541,7 @@ public:
 		ss->Lock();
 		MakeResponse_302(Profile, "/main.html", ss->sbuff);
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	GET_xml_key
 	// -----------------------------------------------------------------------
@@ -533,7 +563,7 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	GET_xml_sakukey
 	// -----------------------------------------------------------------------
@@ -555,7 +585,7 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	GET_xml_query
 	// -----------------------------------------------------------------------
@@ -578,7 +608,7 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	POST_xml_query
 	// -----------------------------------------------------------------------
@@ -706,7 +736,7 @@ public:
 		ss->Lock();
 		MakeResponse_302(Profile, "/main.html", ss->sbuff);
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	GET_xml_saku
 	// -----------------------------------------------------------------------
@@ -729,7 +759,7 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	POST_xml_saku
 	// -----------------------------------------------------------------------
@@ -840,7 +870,7 @@ public:
 		ss->Lock();
 		MakeResponse_302(Profile, "/main.html", ss->sbuff);
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	GET_xml_ipf
 	// -----------------------------------------------------------------------
@@ -874,7 +904,7 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	POST_xml_ipf
 	// -----------------------------------------------------------------------
@@ -975,7 +1005,7 @@ public:
 		ss->Lock();
 		MakeResponse_302(Profile, "/main.html", ss->sbuff);
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	GET_xml_getboards
 	// -----------------------------------------------------------------------
@@ -987,7 +1017,7 @@ public:
 		ss->Lock();
 		MakeResponse_302(Profile, "/xml/bbsmenu", ss->sbuff);
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	GET_xml_bbsmenu
 	// -----------------------------------------------------------------------
@@ -1019,7 +1049,7 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	POST_xml_bbsmenu
 	// -----------------------------------------------------------------------
@@ -1051,7 +1081,7 @@ public:
 		ss->Lock();
 		MakeResponse_302(Profile, "/xml/bbsmenu", ss->sbuff);
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	GET_xml_thread
 	// -----------------------------------------------------------------------
@@ -1103,7 +1133,7 @@ public:
 		ss->sbuff += xml;
 //		ss->sbuff.append(gzxml.c_str(), gzxml.size());
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	POST_xml_thread
 	// -----------------------------------------------------------------------
@@ -1126,7 +1156,7 @@ public:
 		ss->Lock();
 		MakeResponse_302(Profile, "/main.html", ss->sbuff);
 		ss->Unlock();
-	}
+	};
 	// -----------------------------------------------------------------------
 	//	GET_xml_dat
 	// -----------------------------------------------------------------------
@@ -1156,7 +1186,8 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += html;
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	GET_xml_im
 	// -----------------------------------------------------------------------
@@ -1179,7 +1210,8 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	POST_xml_im
 	// -----------------------------------------------------------------------
@@ -1202,7 +1234,8 @@ public:
 		ss->Lock();
 		MakeResponse_302(Profile, "/main.html", ss->sbuff);
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	POST_xml_sendim
 	// -----------------------------------------------------------------------
@@ -1308,7 +1341,8 @@ public:
 		ss->Lock();
 		MakeResponse_302(Profile, "/main.html", ss->sbuff);
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	GET_xml_imbroadcast
 	// -----------------------------------------------------------------------
@@ -1332,7 +1366,8 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	POST_xml_imbroadcast
 	// -----------------------------------------------------------------------
@@ -1360,7 +1395,8 @@ public:
 		}
 
 		GET_xml_imbroadcast(ss);
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	GET_xml_friend
 	// -----------------------------------------------------------------------
@@ -1383,7 +1419,8 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	POST_xml_friend
 	// -----------------------------------------------------------------------
@@ -1448,7 +1485,8 @@ public:
 		ss->Lock();
 		MakeResponse_302(Profile, "/main.html", ss->sbuff);
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	GET_xml_log
 	// -----------------------------------------------------------------------
@@ -1485,7 +1523,8 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	GET_xml_report
 	// -----------------------------------------------------------------------
@@ -1503,7 +1542,8 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += out;
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	GET_xml_profile
 	// -----------------------------------------------------------------------
@@ -1521,7 +1561,8 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += out;
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	GET_xml_rprofile
 	// -----------------------------------------------------------------------
@@ -1605,7 +1646,8 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += out;
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	GET_xml_config
 	// -----------------------------------------------------------------------
@@ -1627,7 +1669,8 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	POST_xml_config
 	// -----------------------------------------------------------------------
@@ -1649,7 +1692,8 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	GET_xml_sql
 	// -----------------------------------------------------------------------
@@ -1705,7 +1749,8 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	POST_xml_sql
 	// -----------------------------------------------------------------------
@@ -1723,7 +1768,8 @@ public:
 		ss->Lock();
 		MakeResponse_302(Profile, "/main.html", ss->sbuff);
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	GET_xml_notification
 	// -----------------------------------------------------------------------
@@ -1758,7 +1804,8 @@ public:
 		header.Make(ss->sbuff);
 		ss->sbuff += xml;
 		ss->Unlock();
-	}
+	};
+	
 	// -----------------------------------------------------------------------
 	//	GET_xml_shutdown
 	// -----------------------------------------------------------------------
@@ -1781,7 +1828,10 @@ public:
 		ss->sbuff += xml;
 		ss->Unlock();
 
+#ifdef _WIN32   /** windows */
 		PostMessage(hwndBaloonCallback, WM_CLOSE, 0, 0);
-
-	}
+#else           /** unix */
+		#warning "TODO: implement wxWidgets event method here"
+#endif
+	};
 };
