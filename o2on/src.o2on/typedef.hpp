@@ -35,6 +35,10 @@
    typedef HANDLE	 HCOUNTER;
    typedef unsigned long DWORD;
    typedef unsigned int  UINT;
+   typedef struct _FILETIME {
+      DWORD dwLowDateTime;
+      DWORD dwHighDateTime;
+   } FILETIME, *PFILETIME;
    #define FALSE	 false
    #define TRUE		 true
    #define WINAPI       /** Linux or other don't call WINAPI... */
@@ -69,8 +73,11 @@
    #define _wmkdir(x)		    boost::filesystem::create_directory(x)
    #define _wutime(x, y)	    utime(x, y)
    #define _tstat(x, y)		    stat(x, y)
+   #define _wtoi(x)		    wcstol(x, NULL, 10)
    #define _access_s(x, y)	    access(x, y)
    #define wcscpy_s(dest, buf, src) wcscpy(dest, src)
+   #define wcstok_s(x, y, z)        wcstok(x, y, z)
+   #define strtok_s(x, y, z)        strtok_r(x, y, z)
 
    #define _strtoui64(x, y, z)	strtoull(x, y, z)
    #define _wcstoui64(x, y, z)	wcstoul(x, y, z)

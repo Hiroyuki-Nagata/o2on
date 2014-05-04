@@ -49,16 +49,16 @@ uint split(const char *in, const char *delim, strarray &token)
 
 #ifdef _MSC_VER /** MSVC */
 	strcpy_s(str, len+1, in);
-#else
-	std::strcpy(str, in);
+#else   /** other compiler */
+	boost::re_detail::strcpy_s(str, len+1, in);
 #endif
-
 	char *context;
 	char *tok = strtok_s(str, delim, &context);
 	while (tok) {
 		token.push_back(tok);
 		tok = strtok_s(NULL, delim, &context);
 	}
+
 	delete [] str;
 	return (token.size());
 }
@@ -69,6 +69,7 @@ uint wsplit(const wchar_t *in, const wchar_t *delim, wstrarray &token)
 
 	uint len = wcslen(in);
 	wchar_t *str = new wchar_t[len+1];
+
 	wcscpy_s(str, len+1, in);
 
 	wchar_t *context;
@@ -77,12 +78,10 @@ uint wsplit(const wchar_t *in, const wchar_t *delim, wstrarray &token)
 		token.push_back(tok);
 		tok = wcstok_s(NULL, delim, &context);
 	}
+
 	delete [] str;
 	return (token.size());
 }
-
-
-
 
 // ---------------------------------------------------------------------------
 //	splitstr
@@ -109,6 +108,7 @@ uint splitstr(const char *in, const char *delim, strarray &token)
 	}
 	return (token.size());
 }
+
 uint wsplitstr(const wchar_t *in, const wchar_t *delim, wstrarray &token)
 {
 	token.clear();
@@ -141,15 +141,13 @@ void random_hex(uint len, string &out)
 	for (uint i = 0; i < len; i++)
 		out += hex[rand()%16];
 }
+
 void random_whex(uint len, wstring &out)
 {
 	out.erase();
 	for (uint i = 0; i < len; i++)
 		out += whex[rand()%16];
 }
-
-
-
 
 // ---------------------------------------------------------------------------
 //	datetime2time_t 
@@ -181,8 +179,14 @@ time_t datetime2time_t(const wchar_t *in, int len)
 		sign = -1;
 
 	wchar_t *str = new wchar_t[len+1];
+
+#ifdef _MSC_VER /** MSVC */
 	wcsncpy_s(str, len+1, in, len);
 	str[len] = 0;
+#else   /** other compiler */
+	wcsncpy(str, in, len+1);
+	str[len] = 0;
+#endif
 
 	wchar_t *context;
 	wchar_t *tok = wcstok_s(str, delim, &context);
@@ -271,7 +275,7 @@ void time_t2datetime(time_t in, long tzoffset, wstring &out)
 
 time_t filetime2time_t(const FILETIME &ft)
 {
-	time_t t64 = ((_int64)ft.dwHighDateTime << 32) | (_int64)ft.dwLowDateTime;
+	time_t t64 = ((uint64)ft.dwHighDateTime << 32) | (uint64)ft.dwLowDateTime;
 	t64 = (t64 - 116444736000000000)/10000000;
 	return (t64);
 	//	VC8はtime_t型は64bitなので上記方法でOK
@@ -401,7 +405,11 @@ ulong ipstr2ulong(const wchar_t *in, int len)
 	ulong ul = 0;
 
 	wchar_t *str = new wchar_t[len+1];
+#ifdef _MSC_VER /** MSVC */
 	wcsncpy_s(str, len+1, in, len);
+#else   /** other compiler */
+	wcsncpy(str, in, len+1);
+#endif
 	str[len] = 0;
 
 	wchar_t *context;
