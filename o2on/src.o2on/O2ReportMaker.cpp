@@ -109,7 +109,7 @@ GetReport(string &out, bool pub)
 #ifdef _WIN32 /** windows */
 	_get_timezone(&tzoffset);
 #else                   /** unix */
-	tzoffset = DosMocking::getGmtOffset();
+	tzoffset = getGmtOffset();
 #endif
 
 	// start time

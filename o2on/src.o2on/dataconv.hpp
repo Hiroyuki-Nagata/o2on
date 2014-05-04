@@ -76,6 +76,7 @@ extern bool FromUnicode(const wchar_t *charset, const wchar_t *in, size_t len, s
 #ifndef _WIN32
 extern int _waccess(const wchar_t *in, const int len);
 extern int _wstat(const wchar_t *in, struct stat* st);
+extern long getGmtOffset();
 #endif
 
 void ascii2unicode(const char *a, size_t len, wstring &w);

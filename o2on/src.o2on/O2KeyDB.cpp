@@ -670,7 +670,7 @@ MakeKeyElement(const O2Key &key, O2KeySelectCondition &cond, wstring &xml)
 #ifdef _WIN32           /** windows */
 			_get_timezone(&tzoffset);
 #else                   /** unix */
-			tzoffset = DosMocking::getGmtOffset();
+			tzoffset = getGmtOffset();
 #endif
 			if (!cond.timeformat.empty()) {
 				time_t t = key.date - tzoffset;

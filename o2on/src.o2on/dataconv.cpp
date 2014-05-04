@@ -42,7 +42,7 @@
 
 constexpr const char*    hex	= "0123456789abcdef";
 constexpr const wchar_t* whex	= L"0123456789abcdef";
-
+long getGmtOffset();
 
 
 // ---------------------------------------------------------------------------
@@ -236,8 +236,8 @@ time_t datetime2time_t(const wchar_t *in, int len)
 	long tzoffset;
 #ifdef _WIN32 /** windows */
 	_get_timezone(&tzoffset);
-#else                   /** unix */
-	tzoffset = DosMocking::getGmtOffset();
+#else   /** unix */
+	tzoffset = getGmtOffset();
 #endif
 	t = mktime(&tms) - tzoffset; //gmmktime()
 
@@ -904,6 +904,19 @@ int _wstat(const wchar_t *in, struct stat* st)
 	string out;
 	FromUnicode(DC_DEFAULT_XML_CHARSET, wstring(in), out);
 	return stat(out.c_str(), st);
+}
+
+long getGmtOffset() 
+{ 
+	time_t now = time(NULL);
+
+	struct tm *gm = gmtime(&now);
+	time_t gmt = mktime(gm);
+
+	struct tm *loc = localtime(&now);
+	time_t local = mktime(loc);
+
+	return static_cast<long>(difftime(local, gmt));
 }
 
 #endif

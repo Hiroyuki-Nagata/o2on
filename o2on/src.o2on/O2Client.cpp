@@ -854,6 +854,14 @@ NetIOThread(void)
 
 #warning "TODO: implement socket connection with event here"
 
+int
+O2Client::
+connect2(SOCKET s, const struct sockaddr *name, int namelen, int timeout)
+{
+	// stub
+	return 0;
+}
+
 #else /** wxWidgetsが使用できない場合 ... MFC */
 
 int

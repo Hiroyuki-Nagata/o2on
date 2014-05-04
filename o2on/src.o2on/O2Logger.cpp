@@ -48,7 +48,7 @@ O2Logger(const wchar_t *dir)
 #ifdef _WIN32 /** windows */
 	_get_timezone(&tzoffset);
 #else   /** unix */
-	tzoffset = DosMocking::getGmtOffset();
+	tzoffset = getGmtOffset();
 #endif
 	sessiontime = time(NULL) + tzoffset; //GMT
 }
@@ -378,7 +378,7 @@ InternalGet(const O2LogSelectCondition &cond, string &out)
 #ifdef _WIN32                   /** windows */
 				_get_timezone(&tzoffset);
 #else                           /** unix */
-				tzoffset = DosMocking::getGmtOffset();
+				tzoffset = getGmtOffset();
 #endif
 				if (!cond.timeformat.empty()) 
 				{

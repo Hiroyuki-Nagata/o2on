@@ -14,8 +14,3 @@ extern void byte2hex(const byte *in, uint len, string &out);
 extern void byte2whex(const byte *in, uint len, wstring &out);
 extern void hex2byte(const char *in, uint len, byte *out);
 extern void whex2byte(const wchar_t *in, uint len, byte *out);
-
-namespace DosMocking 
-{
-  static long getGmtOffset();
-}
