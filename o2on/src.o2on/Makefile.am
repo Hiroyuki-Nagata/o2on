@@ -101,8 +101,7 @@ simpleudpsocket.hpp	  \
 stopwatch.hpp		  \
 typedef.hpp		  \
 upnp.hpp		  \
-upnp_description.hpp      \
-getCPUTime.h
+upnp_description.hpp
 
 # if use wxWidgets use wxmain.cpp, else use main.cpp(MFC)
 if USE_WXWIDGETS

@@ -34,6 +34,7 @@ extern void random_hex(uint len, string &out);
 extern void random_whex(uint len, wstring &out);
 extern time_t datetime2time_t(const wchar_t *in, int len);
 extern void time_t2datetime(time_t in, long tzoffset, wstring &out);
+extern double getCPUTime();
 
 #ifdef _WIN32
 extern time_t filetime2time_t(const FILETIME &ft);
@@ -66,9 +67,15 @@ extern bool ToUnicode(const wchar_t *charset, const char *in, const uint len, ws
 extern bool FromUnicode(const wchar_t *charset, const wchar_t *in, uint len, string &out);
 extern bool ToUnicode(const wchar_t *charset, const string &in, wstring &out);
 extern bool FromUnicode(const wchar_t *charset, const wstring &in, string &out);
+
 #ifdef _WIN64
 extern bool ToUnicode(const wchar_t *charset, const char *in, const size_t len, wstring &out);
 extern bool FromUnicode(const wchar_t *charset, const wchar_t *in, size_t len, string &out);
+#endif
+
+#ifndef _WIN32
+extern int _waccess(const wchar_t *in, const int len);
+extern int _wstat(const wchar_t *in, struct stat* st);
 #endif
 
 void ascii2unicode(const char *a, size_t len, wstring &w);
@@ -125,7 +132,3 @@ extern void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr
 	xml += L">\r\n";
 };
 
-#ifndef _WIN32
-extern int _waccess(const wchar_t *in, const int len);
-extern int _wstat(const wchar_t *in, struct stat* st);
-#endif

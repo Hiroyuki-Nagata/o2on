@@ -21,8 +21,6 @@
 #ifdef _WIN32 /** Performance Data Helper (PDH) API */
    #include <tchar.h>
    #include <pdh.h>
-#else /** getCPUTime */
-   #include <getCPUTime.h>
 #endif
 
 #if __cplusplus > 199711L
