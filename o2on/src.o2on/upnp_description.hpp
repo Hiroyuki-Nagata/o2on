@@ -212,15 +212,6 @@ protected:
 
 	wstring buf;
 
-	inline bool matchlname(const wchar_t *a, const wchar_t *b)
-	{
-		return (_wcsicmp(a, b) == 0 ? true : false);
-	}
-	inline bool matchelement(const wchar_t *a)
-	{
-		return (_wcsicmp(cur_element.c_str(), a) == 0 ? true : false);
-	}
-
 public:
 	UPnPDeviceDescriptionParser(UPnPObject *obj, void (*func)(const char *))
 		: object(obj)
@@ -290,19 +281,27 @@ public:
 					, const XMLCh* const qname
 					, const Attributes& attrs)
 	{
+#ifdef _MSC_VER /** MSVC */
 		cur_element = localname;
+#else           /** other compiler */
+		cur_element = reinterpret_cast<const wchar_t*>(localname);
+#endif
 
-		if (matchlname(localname, L"device")) {
-			if (cur_device == NULL) {
+		if (MATCHLNAME(L"device")) 
+		{
+			if (cur_device == NULL) 
+			{
 				cur_device = &object->device;
 			}
-			else {
+			else 
+			{
 				parents.push_back(cur_device);
 				cur_device = new UPnPDevice;
 			}
 			cur_device->rootObject = object;
 		}
-		else if (matchlname(localname, L"service")) {
+		else if (MATCHLNAME(L"service")) 
+		{
 			cur_service = new UPnPService;
 			cur_service->rootObject = object;
 		}
@@ -317,65 +316,72 @@ public:
 		string str;
 		unicode2ascii(buf, str);
 
-		if (wcsstr(cur_element.c_str(), L"URLBase")) {
+		if (wcsstr(cur_element.c_str(), L"URLBase")) 
+		{
 			if (str[str.size()-1] == '/')
 				str.erase(str.size()-1);
 			base_url = str;
 		}
-		else if (wcsstr(cur_element.c_str(), L"URL")) {
+		else if (wcsstr(cur_element.c_str(), L"URL")) 
+		{
 			if (strncmp(str.c_str(), "http://", 7) != 0)
 				str = base_url + (str[0] == '/' ? "" : "/") + str;
 		}
 
-		if (cur_device) {
-			if (matchelement(L"deviceType"))
+		if (cur_device) 
+		{
+			if (str == "deviceType")
 				cur_device->deviceType = str;
-			else if (matchelement(L"friendlyName"))
+			else if (str == "friendlyName")
 				cur_device->friendlyName = str;
-			else if (matchelement(L"manufacturer"))
+			else if (str == "manufacturer")
 				cur_device->manufacturer = str;
-			else if (matchelement(L"manufacturerURL"))
+			else if (str == "manufacturerURL")
 				cur_device->manufacturerURL = str;
-			else if (matchelement(L"modelDescription"))
+			else if (str == "modelDescription")
 				cur_device->modelDescription = str;
-			else if (matchelement(L"modelName"))
+			else if (str == "modelName")
 				cur_device->modelName = str;
-			else if (matchelement(L"modelNumber"))
+			else if (str == "modelNumber")
 				cur_device->modelNumber = str;
-			else if (matchelement(L"modelURL"))
+			else if (str == "modelURL")
 				cur_device->modelURL = str;
-			else if (matchelement(L"serialNumber"))
+			else if (str == "serialNumber")
 				cur_device->serialNumber = str;
-			else if (matchelement(L"UDN"))
+			else if (str == "UDN")
 				cur_device->UDN = str;
-			else if (matchelement(L"UPC"))
+			else if (str == "UPC")
 				cur_device->UPC = str;
 		}
 		if (cur_service) {
-			if (matchelement(L"serviceType"))
+			if (str == "serviceType")
 				cur_service->serviceType = str;
-			else if (matchelement(L"serviceId"))
+			else if (str == "serviceId")
 				cur_service->serviceId = str;
-			else if (matchelement(L"SCPDURL"))
+			else if (str == "SCPDURL")
 				cur_service->SCPDURL = str;
-			else if (matchelement(L"controlURL"))
+			else if (str == "controlURL")
 				cur_service->controlURL = str;
-			else if (matchelement(L"eventSubURL"))
+			else if (str == "eventSubURL")
 				cur_service->eventSubURL = str;
 		}
 
 		buf =L"";
 
-		if (matchlname(localname, L"device")) {
-			if (!parents.empty()) {
+		if (MATCHLNAME(L"device")) 
+		{
+			if (!parents.empty()) 
+			{
 				parents.back()->deviceList.push_back(*cur_device);
 				delete cur_device;
 				cur_device = parents.back();
 				parents.pop_back();
 			}
 		}
-		else if (matchlname(localname, L"service")) {
-			if (cur_device) {
+		else if (MATCHLNAME(L"service")) 
+		{
+			if (cur_device) 
+			{
 				cur_device->serviceList.push_back(*cur_service);
 				delete cur_service;
 				cur_service = NULL;
@@ -387,8 +393,13 @@ public:
 
 	void characters(const XMLCh* const chars, const unsigned int length)
 	{
+#ifdef _MSC_VER /** MSVC */
 		if (!cur_element.empty())
 			buf.append(chars, length);
+#else
+		if (!cur_element.empty())
+			buf.append(reinterpret_cast<const wchar_t*>(chars), length);
+#endif
 	}
 
 	void warning(const SAXParseException& e)
@@ -443,16 +454,6 @@ protected:
 	UPnPArgument *cur_argument;
 
 	wstring buf;
-
-	inline bool matchlname(const wchar_t *a, const wchar_t *b)
-	{
-		return (_wcsicmp(a, b) == 0 ? true : false);
-	}
-	inline bool matchelement(const wchar_t *a)
-	{
-		return (_wcsicmp(cur_element.c_str(), a) == 0 ? true : false);
-	}
-
 public:
 	UPnPServiceDescriptionParser(UPnPService *sv, void (*func)(const char *))
 		: service(sv)
@@ -517,12 +518,18 @@ public:
 					, const XMLCh* const qname
 					, const Attributes& attrs)
 	{
+#ifdef _MSC_VER /** MSVC */
 		cur_element = localname;
+#else           /** other compiler */
+		cur_element = reinterpret_cast<const wchar_t*>(localname);
+#endif
 
-		if (matchlname(localname, L"action")) {
+		if (MATCHLNAME(L"action")) 
+		{
 			cur_action = new UPnPAction;
 		}
-		else if (matchlname(localname, L"argument")) {
+		else if (MATCHLNAME(L"argument")) 
+		{
 			cur_argument = new UPnPArgument;
 		}
 
@@ -536,29 +543,32 @@ public:
 		string str;
 		unicode2ascii(buf, str);
 
-		if (cur_argument) {
-			if (matchelement(L"name"))
+		if (cur_argument) 
+		{
+			if (str == "name")
 				cur_argument->name = str;
-			else if (matchelement(L"direction"))
+			else if (str == "direction")
 				cur_argument->direction = str;
-			else if (matchelement(L"relatedStateVariable"))
+			else if (str == "relatedStateVariable")
 				cur_argument->relatedStateVariable = str;
 		}
-		else if (cur_action) {
-			if (matchelement(L"name"))
+		else if (cur_action) 
+		{
+			if (str == "name")
 				cur_action->name = str;
 		}
 
 		buf = L"";
 
-		if (matchlname(localname, L"action")) {
+		if (MATCHLNAME(L"action")) 
+		{
 			if (cur_action) {
 				service->actionList.push_back(*cur_action);
 				delete cur_action;
 				cur_action = NULL;
 			}
 		}
-		else if (matchlname(localname, L"argument")) {
+		else if (MATCHLNAME(L"argument")) {
 			if (cur_argument) {
 				if (cur_action)
 					cur_action->argumentList.push_back(*cur_argument);
@@ -572,8 +582,13 @@ public:
 
 	void characters(const XMLCh* const chars, const unsigned int length)
 	{
+#ifdef _MSC_VER /** MSVC */
 		if (!cur_element.empty())
 			buf.append(chars, length);
+#else
+		if (!cur_element.empty())
+			buf.append(reinterpret_cast<const wchar_t*>(chars), length);
+#endif
 	}
 
 	void warning(const SAXParseException& e)
@@ -693,23 +708,42 @@ public:
 					, const Attributes& attrs)
 	{
 		string name;
+#ifdef _MSC_VER /** MSVC */
 		unicode2ascii(localname, wcslen(localname), name);
+#else           /** other compiler */
+		unicode2ascii(reinterpret_cast<const wchar_t*>(localname), 
+			      wcslen(reinterpret_cast<const wchar_t*>(localname)), 
+			      name);
+#endif
 
-		if (wcsncmp(qname, L"m:", 2) == 0) {
+
+#ifdef _MSC_VER /** MSVC */
+		if (wcsncmp(qname, L"m:", 2) == 0)
+#else
+		if (wcsncmp(reinterpret_cast<const wchar_t*>(qname), L"m:", 2) == 0)
+#endif
+		{
 			const char *p;
-			if ((p = strstr(name.c_str(), "Response")) != NULL) {
-				string actionName(&name[0], p);
+			if ((p = strstr(name.c_str(), "Response")) != NULL) 
+			{
+				string actionName(&name[0], p - &name[0]);
 				cur_action = service->getAction(actionName.c_str());
 				if (cur_action)
 					cur_action->clearArgumentValue("out");
 			}
 		}
-		else if (cur_action) {
+		else if (cur_action) 
+		{
 			cur_argument = cur_action->getArgument(name.c_str());
 			if (cur_argument && cur_argument->direction != "out")
 				cur_argument = NULL;
 		}
-		else if(wcsncmp(qname, L"NewExternalIPAddress",20) == 0){
+#ifdef _MSC_VER /** MSVC */
+		else if(wcsncmp(qname, L"NewExternalIPAddress",20) == 0)
+#else           /** other compiler */
+		else if(wcsncmp(reinterpret_cast<const wchar_t*>(qname), L"NewExternalIPAddress",20) == 0)
+#endif
+		{
 			cur_action = service->getAction("GetExternalIPAddress");
 			if(cur_action)
 				cur_argument = cur_action->getArgument("NewExternalIPAddress");
@@ -721,25 +755,36 @@ public:
 				  , const XMLCh* const localname
 				  , const XMLCh* const qname)
 	{
-		if (cur_argument) {
+		if (cur_argument) 
+		{
 			unicode2ascii(buf, cur_argument->value);
 		}
 
 		buf = L"";
 
-		if (wcsncmp(qname, L"m:", 2) == 0) {
+#ifdef _MSC_VER /** MSVC */
+		if (wcsncmp(qname, L"m:", 2) == 0) 
+#else           /** other compiler */
+		if (wcsncmp(reinterpret_cast<const wchar_t*>(qname), L"m:", 2) == 0) 
+#endif
+		{
 			cur_action = NULL;
 		}
-		else if (cur_argument) {
+		else if (cur_argument) 
+		{
 			cur_argument = NULL;
 		}
 	}
 
 	void characters(const XMLCh* const chars, const unsigned int length)
 	{
-		if (cur_argument) {
+#ifdef _MSC_VER /** MSVC */
+		if (!cur_argument)
 			buf.append(chars, length);
-		}
+#else           /** other compiler */
+		if (!cur_argument)
+			buf.append(reinterpret_cast<const wchar_t*>(chars), length);
+#endif
 	}
 
 	void warning(const SAXParseException& e)

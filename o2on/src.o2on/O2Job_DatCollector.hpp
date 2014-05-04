@@ -20,7 +20,12 @@
 #include "O2Client.hpp"
 #include "O2Protocol_Dat.hpp"
 #include "dataconv.hpp"
-#include "../cryptopp/osrng.hpp"
+
+#ifdef _MSC_VER
+   #include "../cryptopp/osrng.h"
+#else
+   #include <cryptopp/osrng.h>
+#endif
 
 
 

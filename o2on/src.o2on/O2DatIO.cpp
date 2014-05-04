@@ -17,7 +17,7 @@
 #include "dataconv.hpp"
 
 #ifdef _MSC_VER
-   #include "../cryptopp/osrng.hpp"
+   #include "../cryptopp/osrng.h"
 #else
    #include <cryptopp/osrng.h>
 #endif

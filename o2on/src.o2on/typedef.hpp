@@ -85,6 +85,7 @@
    #define strtok_s(x, y, z)        strtok_r(x, y, z)
    #define MATCHLNAME(n)	    wcscasecmp(reinterpret_cast<const wchar_t*>(localname), n) == 0
    #define MATCHSTR(n)		    wcscasecmp(reinterpret_cast<const wchar_t*>(str), n) == 0
+//   #define MATCHMBSTR(n)	    strcasecmp(str.c_str(), n) == 0
    #define _wcsnicmp(x, y, z)	    wcscasecmp(x, y) 
    #define _strtoui64(x, y, z)	    strtoull(x, y, z)
    #define _wcstoui64(x, y, z)	    wcstoul(x, y, z)

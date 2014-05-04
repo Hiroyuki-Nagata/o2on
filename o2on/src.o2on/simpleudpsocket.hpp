@@ -15,8 +15,11 @@
    #include <winsock2.h>
    #include <ws2tcpip.h>
    #include <tchar.h>
+#else
+   #include <netinet/ip.h>
 #endif
 
+#include "typedef.hpp"
 #include "dataconv.hpp"
 #include "debug.hpp"
 
@@ -63,7 +66,11 @@ public:
 
 		sockaddr_in sin;
 		sin.sin_family = AF_INET;
+#ifdef _WIN32   /** winsock */
 		sin.sin_addr.S_un.S_addr = htonl(INADDR_ANY);
+#else           /** bsd sock */
+		sin.sin_addr.s_addr = htonl(INADDR_ANY);
+#endif
 		sin.sin_port = htons(port);
 
 		if (::bind(sock, (sockaddr*)(&sin), sizeof(sockaddr_in)) != 0) {
@@ -84,7 +91,11 @@ public:
 	void close(void)
 	{
 		if (sock) {
+#ifdef _WIN32           /** winsock */
 			closesocket(sock);
+#else                   /** bsd sock */
+			::close(sock);
+#endif
 			sock = INVALID_SOCKET;
 		}
 	}
@@ -108,8 +119,13 @@ public:
 		sockaddr_in addr;
 		int addrlen = sizeof(sockaddr_in);
 
-		int n = ::recvfrom(sock, buff, BUFFSIZE, 0, (sockaddr*)&addr, &addrlen);
+#ifdef _WIN32   /** winsock */
 		ip = addr.sin_addr.S_un.S_addr;
+		int n = ::recvfrom(sock, buff, BUFFSIZE, 0, (sockaddr*)&addr, &addrlen);
+#else           /** bsd sock */
+		ip = addr.sin_addr.s_addr;
+		int n = ::recvfrom(sock, buff, BUFFSIZE, 0, (sockaddr*)&addr, reinterpret_cast<socklen_t*>(&addrlen));
+#endif
 		port = htons(addr.sin_port);
 
 		if (n > 0)
@@ -117,10 +133,18 @@ public:
 		else if (n == 0)
 			return (-1);
 		else if (n < 0) {
+#ifdef _WIN32           /** Windows */
 			if (WSAGetLastError() == WSAEWOULDBLOCK)
+#else                   /** Unix */
+			if (errno != EAGAIN)
+#endif
+			{
 				return (0);
+			}
 			else
+			{
 				return (-1);
+			}
 		}
 		return (n);
 	}
@@ -142,16 +166,28 @@ public:
 
 		sockaddr_in sin;
 		sin.sin_family = AF_INET;
+#ifdef _WIN32   /** winsock */
 		sin.sin_addr.S_un.S_addr = ip;
+#else           /** bsd sock */
+		sin.sin_addr.s_addr = ip;
+#endif
 		sin.sin_port = htons(port);
 
 		int n = ::sendto(sock, in, len, 0, (sockaddr*)&sin, sizeof(sockaddr_in));
 
 		if (n < 0) {
+#ifdef _WIN32           /** Windows */
 			if (WSAGetLastError() == WSAEWOULDBLOCK)
+#else                   /** Unix */
+			if (errno != EAGAIN)
+#endif
+			{
 				return (0);
+			}
 			else
+			{
 				return (-1);
+			}
 		}
 		return (n);
 	}
@@ -164,6 +200,8 @@ public:
 		if (sock == INVALID_SOCKET || !len)
 			return (-1);
 
+#ifdef _WIN32   /** winsock RAW socket process */
+
 		// get interface address list
 		DWORD size = 0;
 		WSAIoctl(sock, SIO_ADDRESS_LIST_QUERY, NULL, 0, NULL, 0,&size, NULL, NULL);
@@ -171,14 +209,16 @@ public:
 			return (-1);
 		SOCKET_ADDRESS_LIST *if_list = new SOCKET_ADDRESS_LIST[size];
 		int ret = WSAIoctl(sock, SIO_ADDRESS_LIST_QUERY, NULL, 0, if_list, size, &size, NULL, NULL);
-		if (ret != 0) {
+		if (ret != 0) 
+		{
 			delete [] if_list;
 			return (-1);
 		}
 
 		// multicast
 		int send_complete = 0;
-		for (int i = 0; i < if_list->iAddressCount; i++) {
+		for (int i = 0; i < if_list->iAddressCount; i++) 
+		{
 			in_addr if_addr;
 			if_addr.s_addr = ((sockaddr_in*)if_list->Address[i].lpSockaddr)->sin_addr.s_addr;
 			if (setsockopt(sock, IPPROTO_IP, IP_MULTICAST_IF, (char*)&if_addr, sizeof(in_addr)) != 0)
@@ -186,9 +226,11 @@ public:
 
 			int sendbyte = 0;
 			int n;
-			while  ((n = sendto(ip, port, in+sendbyte, len-sendbyte)) >= 0) {
+			while  ((n = sendto(ip, port, in+sendbyte, len-sendbyte)) >= 0) 
+			{
 				sendbyte += n;
-				if (sendbyte >= len) {
+				if (sendbyte >= len) 
+				{
 					send_complete++;
 					break;
 				}
@@ -196,5 +238,10 @@ public:
 		}
 		delete [] if_list;
 		return (send_complete);
+
+#else           /** bsd sock RAW socket process */
+                #warning "TODO: rewrite here, BSD RAW socket process." 
+#endif
+
 	}
 };

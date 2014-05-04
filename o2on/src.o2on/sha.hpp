@@ -12,7 +12,7 @@
 #pragma once
 
 #ifdef _WIN32
-   #include "../cryptopp/sha.hpp"
+   #include "../cryptopp/sha.h"
 #else
    #include <cryptopp/sha.h>
 #endif

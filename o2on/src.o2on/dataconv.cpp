@@ -14,8 +14,8 @@
 #include "debug.hpp"
 
 #ifdef _WIN32
-   #include "../cryptopp/aes.hpp"
-   #include "../cryptopp/modes.hpp"
+   #include "../cryptopp/aes.h"
+   #include "../cryptopp/modes.h"
    #include <mlang.h>
 #else
    #include <cryptopp/aes.h>

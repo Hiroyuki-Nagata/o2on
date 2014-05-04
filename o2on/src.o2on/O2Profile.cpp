@@ -18,8 +18,8 @@
 #include "dataconv.hpp"
 
 #ifdef _MSC_VER
-   #include "../cryptopp/rsa.hpp"
-   #include "../cryptopp/randpool.hpp"
+   #include "../cryptopp/rsa.h"
+   #include "../cryptopp/randpool.h"
 #else
    #include <cryptopp/rsa.h>
    #include <cryptopp/randpool.h>

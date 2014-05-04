@@ -125,10 +125,16 @@ public:
 					handles.push_back((*sit)->GetHandle());
 				}
 
+#ifdef _WIN32                   /** windows */
 				DWORD ret = WaitForMultipleObjects(
 					handles.size(), &handles[0], FALSE, INFINITE);
-
 				uint index = ret - WAIT_OBJECT_0;
+
+#else                           /** unix */
+                                #warning "TODO: implement WaitForMultipleObjects method here"
+				DWORD ret = 0;
+				uint index = 0;
+#endif
 
 				for (sit = SessionList.begin(); sit != SessionList.end(); sit++) {
 					if ((*sit)->GetHandle() == handles[index])
