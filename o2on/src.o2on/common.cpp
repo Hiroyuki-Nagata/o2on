@@ -1,5 +1,8 @@
 #include "common.hpp"
 
+constexpr const char*    hex	= "0123456789abcdef";
+constexpr const wchar_t* whex	= L"0123456789abcdef";
+
 // ---------------------------------------------------------------------------
 //	byte2hex 
 //	byte2whex

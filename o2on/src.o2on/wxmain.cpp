@@ -35,6 +35,7 @@
 #include "upnp.hpp"
 //#include "resource.hpp"
 #include <boost/dynamic_bitset.hpp>
+#include <wx/wx.h>
 
 // ---------------------------------------------------------------------------
 //	macros
@@ -59,7 +60,7 @@
 // ---------------------------------------------------------------------------
 //	file-scope variables
 // ---------------------------------------------------------------------------
-static HINSTANCE			instance;
+//static HINSTANCE			instance;
 static HWND				hwndMain;
 static HWND				hwndProgressDlg;
 static HWND				hwndUPnPDlg;
@@ -118,3 +119,47 @@ static O2PerformanceCounter		*PerformanceCounter;
 static O2LagQueryQueue			*LagQueryQueue;
 static O2ReportMaker			*ReportMaker;
 static O2ProgressInfo			ProgressInfo;
+
+
+
+
+
+// ---------------------------------------------------------------------------
+//	function prototypes
+// ---------------------------------------------------------------------------
+// TODO ...この辺は必要なものから入れ込んでいくスタイル.
+//         WindowsのHANDLEウザイ、ただのvoid*のくせにいらんtypedefしすぎやし使いすぎ
+
+
+
+// ---------------------------------------------------------------------------
+//	wxWidgets main class definition
+// ---------------------------------------------------------------------------
+class O2Main : public wxApp 
+{
+
+public:
+  virtual bool OnInit();
+  virtual int OnExit();
+};
+
+IMPLEMENT_APP(O2Main)
+
+// ---------------------------------------------------------------------------
+//	OnInit
+//	wxWidgetsエントリ関数
+// ---------------------------------------------------------------------------
+bool O2Main::OnInit() 
+{
+
+    if (!wxApp::OnInit())
+	 return false;
+
+    return true;
+}
+
+int O2Main::OnExit() 
+{
+     return 0;
+}
+

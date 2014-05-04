@@ -73,7 +73,6 @@
    #define TRUNCATE_EXISTING                5
 
    #define _stricmp(x, y)	    strcasecmp(x, y)
-   #define Sleep(x)		    usleep((x)*1000)
    #define _mkdir(x)		    mkdir(x)
    #define _wmkdir(x)		    boost::filesystem::create_directory(x)
    #define _wutime(x, y)	    utime(x, y)
@@ -85,7 +84,6 @@
    #define strtok_s(x, y, z)        strtok_r(x, y, z)
    #define MATCHLNAME(n)	    wcscasecmp(reinterpret_cast<const wchar_t*>(localname), n) == 0
    #define MATCHSTR(n)		    wcscasecmp(reinterpret_cast<const wchar_t*>(str), n) == 0
-//   #define MATCHMBSTR(n)	    strcasecmp(str.c_str(), n) == 0
    #define _wcsnicmp(x, y, z)	    wcscasecmp(x, y) 
    #define _strtoui64(x, y, z)	    strtoull(x, y, z)
    #define _wcstoui64(x, y, z)	    wcstoul(x, y, z)
@@ -96,6 +94,27 @@
    #define sprintf_s(buffer, buffer_size, stringbuffer, ...)	sprintf(buffer, stringbuffer, __VA_ARGS__)
    #define swprintf_s(buffer, buffer_size, stringbuffer, ...)	swprintf(buffer, buffer_size, stringbuffer, __VA_ARGS__)
    #define fopen_s(pFile,filename,mode)				((*(pFile))=fopen((filename),(mode)))==NULL
+#endif
+
+/** When o2on don't use wxWidgets in MinGW/Cygwin */
+#if defined(_WIN32) && !defined(__WXWINDOWS__)
+   /** Sleep equivalent */
+   #define Sleep(x)		    usleep((x)*1000)
+
+   /* some _T macro trick */
+   #ifndef _WIN32
+      #if defined(UNICODE) || defined(_UNICODE) || !defined(_WIN32)
+         #define __T(x)      L ## x
+      #else
+         #define __T(x)      x
+      #endif
+       
+      #define _T(x)       __T(x)
+      #define _TEXT(x)    __T(x)
+   #endif
+#else
+   #include <wx/utils.h>
+   #define Sleep(x)		    wxMilliSleep(x)
 #endif
 
 /* unsigned */
@@ -140,18 +159,6 @@ typedef std::map<wstring,uint64>		wstrnummap;
 #endif
 
 #define FOUND(i) ((i) != tstring::npos)
-
-/* some _T macro trick */
-#ifndef _WIN32
-   #if defined(UNICODE) || defined(_UNICODE) || !defined(_WIN32)
-      #define __T(x)      L ## x
-   #else
-      #define __T(x)      x
-   #endif
-    
-   #define _T(x)       __T(x)
-   #define _TEXT(x)    __T(x)
-#endif
 
 /** Some WinSock to BSD socket equivalent */
 #ifndef _WIN32

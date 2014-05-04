@@ -72,10 +72,12 @@ AC_CHECK_HEADER([xercesc/util/XercesVersion.hpp],
 AC_CHECK_LIB([xerces-c], 
 	     [main], 
 	     [has_xerces_c=1],
-             [has_xerces_c=0])
+	     [has_xerces_c=0])
 
 if test $has_xerces_c = 0; then
   AC_MSG_ERROR("ERROR: libxerces-c not found. o2on need xerces-c.")
+else
+  LIBS="$LIBS -lxerces-c"
 fi
 
 # libcryptopp(crypto++)
@@ -90,6 +92,8 @@ AC_CHECK_LIB([cryptopp],
 
 if test $has_cryptopp = 0; then
   AC_MSG_ERROR("ERROR: cryptopp not found. o2on need cryptopp.")
+else
+  LIBS="$LIBS -lcryptopp"
 fi
 
 # Checks for zlib
@@ -100,6 +104,8 @@ AC_CHECK_HEADER([zlib.h],
 AC_CHECK_LIB(z,gzopen,has_zlib=1,has_zlib=0)
 if test $has_zlib = 0; then
   AC_MSG_ERROR("ERROR: zlib not found. o2on need zlib.")
+else
+  LIBS="$LIBS -lz"
 fi
 
 # Checks for pthread
@@ -108,10 +114,23 @@ if test $has_pthread = 0; then
   AC_MSG_ERROR("ERROR: pthread not found. o2on need pthread.")
 fi
 
+# Checks for sqlite3
+AC_CHECK_HEADER([sqlite3.h], 
+                [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], 
+                [AC_MSG_ERROR([sqlite3 include file not found. o2on need sqlite3.])])
+
+AC_CHECK_LIB(sqlite3,sqlite3_open,has_sqlite3=1,has_sqlite3=0)
+if test $has_sqlite3 = 0; then
+  AC_MSG_ERROR("ERROR: sqlite3 not found. o2on need sqlite3.")
+else
+  LIBS="$LIBS -lsqlite3"
+fi
+
 # Boost
 BOOST_REQUIRE([1.49.0])
 BOOST_REGEX
 BOOST_THREADS
+BOOST_FILESYSTEM
 
 # wxWidgets
 AM_OPTIONS_WXCONFIG
@@ -162,3 +181,12 @@ AC_CONFIG_FILES([Makefile
                  o2on/src.browser/Makefile
                  o2on/src.o2on/Makefile])
 AC_OUTPUT
+
+# Trace all options
+AC_MSG_RESULT([])
+AC_MSG_RESULT([])
+AC_MSG_RESULT([Configured $PACKAGE_STRING for $host])
+AC_MSG_RESULT([CXX     :	$CXX])
+AC_MSG_RESULT([CPPFLAGS:	$CPPFLAGS])
+AC_MSG_RESULT([CXXFLAGS:	$CXXFLAGS])
+AC_MSG_RESULT([LIBS    :	$LIBS])
