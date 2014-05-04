@@ -118,15 +118,25 @@ AM_OPTIONS_WXCONFIG
 reqwx=2.8.0
 AM_PATH_WXCONFIG($reqwx, wxWin=1)
 if test "$wxWin" != 1; then
-	AC_MSG_ERROR([
-		wxWidgets must be installed on your system.
- 
-		Please check that wx-config is in path, the directory
-		where wxWidgets libraries are installed (returned by
-		'wx-config --libs' or 'wx-config --static --libs' command)
-		is in LD_LIBRARY_PATH or equivalent variable and
-		wxWidgets version is $reqwx or above.
-		])
+	case "$host" in
+	        *-*-mingw*|*-*-cygwin*)
+	 	AC_MSG_WARN([o2on will be build without wxWidgets...(use MFC)])
+	 	AM_CONDITIONAL(USE_WXWIDGETS, false)
+	 	;;
+	        *)
+	 	AC_MSG_ERROR([
+	 		wxWidgets must be installed on your system.
+	 
+	 		Please check that wx-config is in path, the directory
+	 		where wxWidgets libraries are installed (returned by
+	 		'wx-config --libs' or 'wx-config --static --libs' command)
+	 		is in LD_LIBRARY_PATH or equivalent variable and
+	 		wxWidgets version is $reqwx or above.
+	 		])
+	        ;;
+	esac
+else
+	AM_CONDITIONAL(USE_WXWIDGETS, true)
 fi
 
 # Checks for typedefs, structures, and compiler characteristics.

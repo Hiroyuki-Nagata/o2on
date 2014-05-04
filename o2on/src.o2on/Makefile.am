@@ -87,7 +87,6 @@ file.hpp		  \
 headertest.cpp		  \
 httpheader.cpp		  \
 httpheader.hpp		  \
-main.cpp		  \
 mutex.hpp		  \
 resource.hpp		  \
 resource.rc		  \
@@ -104,6 +103,13 @@ typedef.hpp		  \
 upnp.hpp		  \
 upnp_description.hpp      \
 getCPUTime.h
+
+# if use wxWidgets use wxmain.cpp, else use main.cpp(MFC)
+if USE_WXWIDGETS
+o2on_SOURCES		+= wxmain.cpp
+else
+o2on_SOURCES		+= main.cpp
+endif
 
 # if target can use win32 thread, use win32 thread
 if USE_PTHREAD
