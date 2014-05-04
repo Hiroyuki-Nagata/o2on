@@ -70,7 +70,7 @@ public:
 
 	time_t httpdate2time_t(const char *httpdate) const;
 	void time_t2httpdate(time_t gmt, string &out);
-	char *filename2contenttype(const char *filename);
+	const char *filename2contenttype(const char *filename);
 	void dump(void);
 
 	uint GetType(void) const;

@@ -123,6 +123,8 @@ private:
 class MappedFile
 {
 protected:
+	static DWORD AllocationGranularity;
+
 	/** TODO: このへんもUNIX移植版ではtypedefされてない型で正直に作る
 	HANDLE			hFile;
 	HANDLE			hMap;
@@ -137,6 +139,11 @@ public:
 	};
 
 	~MappedFile()
+	{
+		// TODO
+	};
+
+	static void GetAllocationGranularity(void)
 	{
 		// TODO
 	};

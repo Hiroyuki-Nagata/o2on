@@ -16,9 +16,13 @@
 #include <set>
 #include <map>
 
-/** UNIX only typedef for MSW dirty typedefs...               */
-/** @see http://www.jbox.dk/sanos/source/include/win32.h.html */
-#ifndef _WIN32
+#ifdef _WIN32
+   /* for XML Parse Handler */
+   #define MATCHLNAME(n)	(_wcsicmp(localname, (n)) == 0)
+   #define MATCHSTR(n)		(_wcsicmp(str, (n)) == 0)
+#else
+   /** UNIX only typedef for MSW dirty typedefs...               */
+   /** @see http://www.jbox.dk/sanos/source/include/win32.h.html */
    #include <cstring>
    #include <cstdlib>
    #include <iostream>
@@ -28,6 +32,7 @@
    #include <netdb.h>
    #include <wchar.h>
    #include <boost/filesystem.hpp>
+   #include <string.h>
 
    typedef void*	 HANDLE;
    typedef HANDLE	 HWND;
@@ -78,10 +83,12 @@
    #define wcscpy_s(dest, buf, src) wcscpy(dest, src)
    #define wcstok_s(x, y, z)        wcstok(x, y, z)
    #define strtok_s(x, y, z)        strtok_r(x, y, z)
-
-   #define _strtoui64(x, y, z)	strtoull(x, y, z)
-   #define _wcstoui64(x, y, z)	wcstoul(x, y, z)
-   #define _fseeki64(x, y, z)   fseeko(x, y, z)
+   #define MATCHLNAME(n)	    wcscasecmp(reinterpret_cast<const wchar_t*>(localname), n) == 0
+   #define MATCHSTR(n)		    wcscasecmp(reinterpret_cast<const wchar_t*>(str), n) == 0
+   #define _wcsnicmp(x, y, z)	    wcscasecmp(x, y) 
+   #define _strtoui64(x, y, z)	    strtoull(x, y, z)
+   #define _wcstoui64(x, y, z)	    wcstoul(x, y, z)
+   #define _fseeki64(x, y, z)       fseeko(x, y, z)
 
    /** MSW's many many ~_s function series... */
    #define vsprintf_s(str, format, ...)				vsprintf(str, format, __VA_ARGS__)
@@ -168,6 +175,11 @@ typedef std::map<wstring,uint64>		wstrnummap;
 /** macro expansion */
 #define XSTR(x) #x
 #define STR(x)  XSTR(x)
+
+#ifndef _WIN32
+   #define __STR2WSTR(str)    L##str
+   #define _STR2WSTR(str)     __STR2WSTR(str)
+#endif
 
 /** windows OutputDebugString is std::cerr */
 #ifndef _WIN32

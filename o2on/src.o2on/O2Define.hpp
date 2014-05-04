@@ -4,14 +4,13 @@
 
 /*
  * project		: o2on
- * filename		: define.h
- * description	: 
+ * filename		: O2Define.hpp
+ * description	: o2on macro define
  *
  */
 
 #pragma once
 #pragma warning(disable : 4786 4503 4819)
-#include "typedef.hpp"
 #include "debug.hpp"
 
 // o2on cpp string define
@@ -61,20 +60,6 @@
 #define O2_MAX_KEY_NOTE_LEN		32
 #define O2_SAKUKEY_LIMIT		10
 #define O2_BROADCAST_PATH_LIMIT		4
-
-
-
-
-/* for XML Parse Handler */
-#ifdef _WIN32
-   #define MATCHLNAME(n)	(_wcsicmp(localname, (n)) == 0)
-   #define MATCHSTR(n)		(_wcsicmp(str, (n)) == 0)
-#else
-   #include <string.h>
-   #define MATCHLNAME(n)	wcscasecmp(reinterpret_cast<const wchar_t*>(localname), n) == 0
-   #define MATCHSTR(n)		wcscasecmp(reinterpret_cast<const wchar_t*>(str), n) == 0
-   #define _wcsnicmp(x, y, z)	wcscasecmp(x, y)
-#endif
 
 /* debug flag */
 #if defined(_DEBUG) || defined(DEBUG)

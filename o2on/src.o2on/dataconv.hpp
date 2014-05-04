@@ -11,6 +11,7 @@
 
 #pragma once
 #include "sha.hpp"
+#include "O2Define.hpp"
 #include "typedef.hpp"
 
 #ifdef _WIN32
@@ -21,8 +22,9 @@
    #include <type_traits>
 #endif
 
-extern const char *hex;
-extern const wchar_t *whex;
+extern char*	hex;
+extern wchar_t* whex;
+extern wchar_t* DC_DEFAULT_XML_CHARSET;
 
 extern uint split(const char *in, const char *delim, strarray &token);
 extern uint wsplit(const wchar_t *in, const wchar_t *delim, wstrarray &token);

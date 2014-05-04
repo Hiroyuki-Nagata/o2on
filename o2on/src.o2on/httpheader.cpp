@@ -90,7 +90,7 @@ time_t2httpdate(time_t gmt, string &out)
 
 
 
-char *
+const char *
 HTTPHeader::
 filename2contenttype(const char *filename)
 {
@@ -488,27 +488,27 @@ bool
 HTTPHeader::
 MakeStatusLine(ushort code, uint ver, string &out)
 {
-	char *reason = NULL;
+	string reason;
 
 	//主要コードのみ対応
 	switch (code) {
-		case 200: reason = "OK"; break;
-		case 206: reason = "Partial Content"; break;
-		case 302: reason = "Found"; break;
-		case 304: reason = "Not Modified"; break;
-		case 400: reason = "Bad Request"; break;
-		case 401: reason = "Authorization Required"; break;
-		case 403: reason = "Forbidden"; break;
-		case 404: reason = "Not Found"; break;
-		case 500: reason = "Internal Server Error"; break;
-		case 501: reason = "Not Implemented"; break;
-		case 502: reason = "Bad Gateway"; break;
-		case 503: reason = "Service Temporary Unavailable"; break;
-		default: return false;
+        	case 200: reason = "OK"; break;
+        	case 206: reason = "Partial Content"; break;
+        	case 302: reason = "Found"; break;
+        	case 304: reason = "Not Modified"; break;
+        	case 400: reason = "Bad Request"; break;
+        	case 401: reason = "Authorization Required"; break;
+        	case 403: reason = "Forbidden"; break;
+        	case 404: reason = "Not Found"; break;
+        	case 500: reason = "Internal Server Error"; break;
+        	case 501: reason = "Not Implemented"; break;
+        	case 502: reason = "Bad Gateway"; break;
+        	case 503: reason = "Service Temporary Unavailable"; break;
+        	default: return false;
 	}
 
 	char line[64];
-	sprintf_s(line, 64, "HTTP/%1d.%1d %d %s\r\n", ver/10, ver%10, code, reason);
+	sprintf_s(line, 64, "HTTP/%1d.%1d %d %s\r\n", ver/10, ver%10, code, reason.c_str());
 	out = line;
 
 	return true;

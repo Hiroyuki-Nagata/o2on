@@ -29,9 +29,8 @@
 #include <cassert>
 #include <babel.h>
 
-const char *hex		= "0123456789abcdef";
-const wchar_t *whex	= L"0123456789abcdef";
-
+constexpr const char*    hex	= "0123456789abcdef";
+constexpr const wchar_t* whex	= L"0123456789abcdef";
 
 
 
@@ -602,13 +601,17 @@ bool is_globalIP(ulong ip)
 
 
 
-// ---------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------
 //	ToUnicode 
 //	FromUnicode
-// ---------------------------------------------------------------------------
+//      MSVCでコンパイルするときはネイティブの機構を使う、それ以外の場合はbabelを使用する
+// --------------------------------------------------------------------------------------
 
 bool ToUnicode(const wchar_t *charset, const char *in, const uint len, wstring &out)
 {
+
+#ifdef _MSC_VER /** MSVC */
+
 	//IMultiLanguage生成
 	IMultiLanguage2 *lang = NULL;
 	HRESULT hr = CoCreateInstance(CLSID_CMultiLanguage, NULL,
@@ -645,10 +648,17 @@ bool ToUnicode(const wchar_t *charset, const char *in, const uint len, wstring &
 		lang->Release();
 
 	return (SUCCEEDED(hr) ? true : false);
+
+#else   /** GCC or Clang */
+        #warning "TODO: implement babel's char convert method here"
+#endif
 }
 
 bool FromUnicode(const wchar_t *charset, const wchar_t *in, uint len, string &out)
 {
+
+#ifdef _MSC_VER /** MSVC */
+
 	//IMultiLanguage生成
 	IMultiLanguage2 *lang = NULL;
 	HRESULT hr = CoCreateInstance(CLSID_CMultiLanguage, NULL,
@@ -685,6 +695,10 @@ bool FromUnicode(const wchar_t *charset, const wchar_t *in, uint len, string &ou
 		lang->Release();
 
 	return (SUCCEEDED(hr) ? true : false);
+
+#else   /** GCC or Clang */
+        #warning "TODO: implement babel's char convert method here"
+#endif
 }
 
 bool ToUnicode(const wchar_t *charset, const string &in, wstring &out)
@@ -865,17 +879,19 @@ void xml_AddElement(wstring &xml, const wchar_t *tag, const wchar_t *attr, const
 
 #ifndef _WIN32
 
+constexpr const wchar_t* DC_DEFAULT_XML_CHARSET = L"utf-8";
+
 int _waccess(const wchar_t *in, const int len)
 {
 	string out;
-	FromUnicode(_T(DEFAULT_XML_CHARSET), wstring(in), out);
+	FromUnicode(DC_DEFAULT_XML_CHARSET, wstring(in), out);
 	return access(out.c_str(), len);
 }
 
-int _wstat(const wchar_t *in, stat* st)
+int _wstat(const wchar_t *in, struct stat* st)
 {
 	string out;
-	FromUnicode(_T(DEFAULT_XML_CHARSET), wstring(in), out);
+	FromUnicode(DC_DEFAULT_XML_CHARSET, wstring(in), out);
 	return stat(out.c_str(), st);
 }
 

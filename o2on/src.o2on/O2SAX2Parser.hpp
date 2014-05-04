@@ -11,6 +11,7 @@
 
 #pragma once
 #include "O2Define.hpp"
+#include "typedef.hpp"
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
