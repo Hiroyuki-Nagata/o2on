@@ -101,7 +101,10 @@ simpleudpsocket.hpp	  \
 stopwatch.hpp		  \
 typedef.hpp		  \
 upnp.hpp		  \
-upnp_description.hpp
+upnp_description.hpp	  \
+../babel/babel.cpp	  \
+../babel/balel.h
+
 
 # if use wxWidgets use wxmain.cpp, else use main.cpp(MFC)
 if USE_WXWIDGETS
@@ -109,6 +112,7 @@ o2on_SOURCES		+= wxmain.cpp
 else
 o2on_SOURCES		+= main.cpp
 endif
+
 
 # if target can use win32 thread, use win32 thread
 if USE_PTHREAD

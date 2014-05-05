@@ -36,6 +36,7 @@
 //#include "resource.hpp"
 #include <boost/dynamic_bitset.hpp>
 #include <wx/wx.h>
+#include <wx/snglinst.h>
 
 // ---------------------------------------------------------------------------
 //	macros
@@ -139,8 +140,12 @@ class O2Main : public wxApp
 {
 
 public:
-  virtual bool OnInit();
-  virtual int OnExit();
+	virtual bool OnInit();
+	virtual int OnExit();
+	static bool InitializeApp();
+
+private:
+	wxSingleInstanceChecker* m_checker;
 };
 
 IMPLEMENT_APP(O2Main)
@@ -152,14 +157,523 @@ IMPLEMENT_APP(O2Main)
 bool O2Main::OnInit() 
 {
 
-    if (!wxApp::OnInit())
-	 return false;
+	if (!wxApp::OnInit())
+		return false;
 
-    return true;
+	if (!O2DEBUG) {
+		const wxString name = wxString::Format(_("o2on-%s"), wxGetUserId().c_str());
+		m_checker = new wxSingleInstanceChecker(name);
+		if ( m_checker->IsAnotherRunning()) {
+			// 他のプロセスが走っていた場合終了
+			return false;
+		}
+	}
+
+	if (!InitializeApp())
+		return false;
+
+	/**
+	MSG msg;
+	while (GetMessage(&msg, NULL, 0, 0)) {
+		if (!hwndProgressDlg || !IsDialogMessage(hwndProgressDlg, &msg)) {
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+	}
+	*/
+
+	//if (Mutex) CloseHandle(Mutex);
+
+	//return ((int)msg.wParam);
+	return true;
 }
 
 int O2Main::OnExit() 
 {
-     return 0;
+	return 0;
 }
 
+// ---------------------------------------------------------------------------
+//	InitializeApp
+//	アプリケーションの初期化処理
+// ---------------------------------------------------------------------------
+static bool
+InitializeApp()
+{
+#ifdef _WIN32 /** 終了時のプロセス優先度：最初の方でシャットダウンするアプリケーション用  */
+	SetProcessShutdownParameters(0x3FF, 0);
+#endif
+
+	wxString msg[1024];
+
+/**     commctl関連：移植は不可
+
+	INITCOMMONCONTROLSEX icex;
+	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+	icex.dwICC = ICC_PROGRESS_CLASS;
+	InitCommonControlsEx(&icex);
+
+	CoInitialize(NULL); 
+*/	
+
+#ifdef _WIN32 /** winsock の初期化 */
+	WSADATA wsaData;
+	WSAStartup(MAKEWORD(2, 0), &wsaData);
+#endif
+
+	// Xerces-Cの初期化
+	XMLPlatformUtils::Initialize();
+
+#ifdef _WIN32 // タスクバー関連か、WIN32APIなので移植は難しい
+	TaskbarRestartMsg = RegisterWindowMessage(_T("TaskbarCreated"));
+	if (!O2DEBUG) {
+		ChangeToModuleDir();
+	}
+#endif
+
+	//
+	//	Logger
+	//
+	Logger = new O2Logger(NULL/*L"logs"*/);
+
+	//
+	//	Profile
+	//
+	Profile = new O2Profile(Logger, true);
+	if (!Profile->MakeConfDir()) {
+		swprintf_s(msg, 1024,
+			L"ディレクトリ「%s」の作成に失敗しました\n起動を中止します",
+			Profile->GetConfDirW());
+		MessageBoxW(NULL, msg, NULL, MB_ICONERROR | MB_OK);
+		return false;
+	}
+	if (!Profile->MakeDBDir()) {
+		swprintf_s(msg, 1024,
+			L"ディレクトリ「%s」の作成に失敗しました\n起動を中止します",
+			Profile->GetDBDirW());
+		MessageBoxW(NULL, msg, NULL, MB_ICONERROR | MB_OK);
+		return false;
+	}
+	if (!Profile->MakeCacheRoot()) {
+		swprintf_s(msg, 1024,
+			L"ディレクトリ「%s」の作成に失敗しました\n起動を中止します",
+			Profile->GetCacheRootW());
+		MessageBoxW(NULL, msg, NULL, MB_ICONERROR | MB_OK);
+		return false;
+	}
+	if (!Profile->CheckAdminRoot()) {
+		swprintf_s(msg, 1024,
+			L"ディレクトリ「%s」が存在しません\n起動を中止します",
+			Profile->GetAdminRootW());
+		MessageBox(NULL, msg, NULL, MB_ICONERROR | MB_OK);
+		return false;
+	}
+	Logger->SetLimit(LOGGER_LOG, Profile->GetLogLimit());
+	Logger->SetLimit(LOGGER_NETLOG, Profile->GetNetLogLimit());
+	Logger->SetLimit(LOGGER_HOKANLOG, Profile->GetHokanLogLimit());
+	Logger->SetLimit(LOGGER_IPFLOG, Profile->GetIPFLogLimit());
+
+#if 0 && defined(_DEBUG)
+	string s;
+	Profile->SetIP(inet_addr("192.168.0.99"));
+	//Profile->SetIP(inet_addr("61.203.18.50"));
+	Profile->GetEncryptedProfile(s);
+	Profile->SetIP(0);
+	TRACEA(s.c_str());
+	TRACEA("\n");
+#endif
+
+	//
+	//	IPFilter
+	//
+	IPF_P2P	= new O2IPFilter(L"P2P", Logger);
+	if (!IPF_P2P->Load(Profile->GetIPF_P2PFilePath())) {
+		IPF_P2P->setdefault(O2_ALLOW);
+	}
+	IPF_Proxy	= new O2IPFilter(L"Proxy", Logger);
+	if (!IPF_Proxy->Load(Profile->GetIPF_ProxyFilePath())) {
+		IPF_Proxy->setdefault(O2_DENY);
+		IPF_Proxy->add(true, O2_ALLOW, L"127.0.0.1/255.255.255.255");
+		IPF_Proxy->add(true, O2_ALLOW, L"192.168.0.0/255.255.0.0");
+	}
+	IPF_Admin	= new O2IPFilter(L"Admin", Logger);
+	if (!IPF_Admin->Load(Profile->GetIPF_AdminFilePath())) {
+		IPF_Admin->setdefault(O2_DENY);
+		IPF_Admin->add(true, O2_ALLOW, L"127.0.0.1/255.255.255.255");
+		IPF_Admin->add(true, O2_ALLOW, L"192.168.0.0/255.255.0.0");
+	}
+
+	//
+	//	DatDB
+	//
+	wstring dbfilename(Profile->GetDBDirW());
+	dbfilename += L"\\dat.db";
+	DatDB = new O2DatDB(Logger, dbfilename.c_str());
+	if (!DatDB->create_table(false)) {
+		MessageBox(NULL,
+			L"DBオープンに失敗しました\n起動を中止します",
+			NULL, MB_ICONERROR | MB_OK);
+		return false;
+	}
+	DatDB->StartUpdateThread();
+
+	//
+	//	Agent
+	//
+	Agent = new O2Agent(L"Agent", Logger);
+	Agent->SetRecvSizeLimit(RECV_SIZE_LIMIT);
+	Agent->ClientStart();
+
+	//
+	//	DBs
+	//
+	DatIO = new O2DatIO(DatDB, Logger, Profile, &ProgressInfo);
+	NodeDB = new O2NodeDB(Logger, Profile, Agent);
+	hashT myID;
+	Profile->GetID(myID);
+	NodeDB->SetSelfNodeID(myID);
+	NodeDB->SetSelfNodePort(Profile->GetP2PPort());
+#if 0 && defined(_DEBUG)
+	StopWatch *sw = new StopWatch("BIGNODE");
+	NodeDB->Load(L"doc\\BIGNodeList.xml");
+	delete sw;
+	sw = new StopWatch("BIGNODE");
+	NodeDB->Save(L"doc\\BIGNodeList_save.xml");
+	delete sw;
+	return false;
+#endif
+	NodeDB->Load(Profile->GetNodeFilePath());
+	FriendDB = new O2FriendDB(Logger, NodeDB);
+	FriendDB->Load(Profile->GetFriendFilePath());
+	KeyDB = new O2KeyDB(L"KeyDB", false, Logger);
+	KeyDB->SetSelfNodeID(myID);
+	KeyDB->SetLimit(Profile->GetKeyLimit());
+	SakuKeyDB = new O2KeyDB(L"SakuKeyDB", false, Logger);
+	SakuKeyDB->SetSelfNodeID(myID);
+	SakuKeyDB->SetLimit(O2_SAKUKEY_LIMIT);
+	QueryDB = new O2KeyDB(L"QueryDB", true, Logger);
+	QueryDB->Load(Profile->GetQueryFilePath());
+	QueryDB->SetLimit(Profile->GetQueryLimit());
+	SakuDB = new O2KeyDB(L"SakuDB", true, Logger);
+	SakuDB->Load(Profile->GetSakuFilePath());
+	IMDB = new O2IMDB(Logger);
+	IMDB->Load(Profile->GetIMFilePath());
+	BroadcastDB = new O2IMDB(Logger);
+	LagQueryQueue = new O2LagQueryQueue(Logger, Profile, QueryDB);
+	// Boards
+	wstring brdfile(Profile->GetConfDirW());
+	brdfile += L"\\2channel.brd";
+	wstring exbrdfile(Profile->GetConfDirW());
+	exbrdfile += L"\\BoardEx.xml";
+	Boards = new O2Boards(Logger, Profile, Agent, brdfile.c_str(), exbrdfile.c_str());
+	if (!Boards->Load()) {
+		brdfile += L".default";
+		Boards->Load(brdfile.c_str());
+		Boards->Save();
+		if (!Boards->LoadEx()) {
+			Boards->EnableExAll();
+		}
+	}
+	else {
+		Boards->LoadEx();
+	}
+	Profile->SetDatStorageFlag(Boards->SizeEx() ? true : false);
+
+	//
+	//	Jobs
+	//
+	PerformanceCounter = new O2PerformanceCounter(
+		L"PerformanceCounter",
+		JOB_INTERVAL_PERFORMANCE_COUNTER,
+		false,
+		Logger);
+	PerformanceCounter->Load(Profile->GetReportFilePath());
+	Job_GetGlobalIP = new O2Job_GetGlobalIP(
+		L"GetGlobalIP",
+		JOB_INTERVAL_GET_GLOBAL_IP,
+		true,
+		Logger,
+		Profile,
+		NodeDB,
+		Agent);
+	Job_QueryDat = new O2Job_QueryDat(
+		L"QueryDat",
+		JOB_INTERVAL_QUERY_DAT,
+		false,
+		Logger,
+		Profile,
+		NodeDB,
+		KeyDB,
+		QueryDB,
+		DatIO,
+		Agent);
+	Job_DatCollector = new O2Job_DatCollector(
+		L"DatCollector",
+		JOB_INTERVAL_DAT_COLLECTOR,
+		false,
+		Logger,
+		Profile,
+		NodeDB,
+		KeyDB,
+		QueryDB,
+		DatIO,
+		Boards,
+		Agent);
+	Job_AskCollection = new O2Job_AskCollection(
+		L"AskCollection",
+		JOB_INTERVAL_ASK_COLLECTION,
+		false,
+		Logger,
+		Profile,
+		NodeDB,
+		KeyDB,
+		Boards,
+		Agent);
+	Job_PublishKeys = new O2Job_PublishKeys(
+		L"PublishKey",
+		JOB_INTERVAL_PUBLISH_KEYS,
+		false,
+		Logger,
+		Profile,
+		NodeDB,
+		KeyDB,
+		SakuKeyDB,
+		Agent);
+	Job_PublishOriginal = new O2Job_PublishOriginal(
+		L"PublishOriginal",
+		JOB_INTERVAL_PUBLISH_ORIGINAL,
+		false,
+		Logger,
+		Profile,
+		NodeDB,
+		KeyDB,
+		SakuDB,
+		DatIO,
+		DatDB,
+		Agent);
+	Job_NodeCollector = new O2Job_NodeCollector(
+		L"NodeCollector",
+		JOB_INTERVAL_COLLECT_NODE,
+		false,
+		Logger,
+		Profile,
+		NodeDB,
+		KeyDB,
+		Agent,
+		Job_PublishOriginal);
+	Job_Search = new O2Job_Search(
+		L"Search",
+		JOB_INTERVAL_SEARCH,
+		false,
+		Logger,
+		Profile,
+		NodeDB,
+		KeyDB,
+		QueryDB,
+		Agent,
+		Job_QueryDat);
+	Job_SearchFriends = new O2Job_SearchFriends(
+		L"SearchFriends",
+		JOB_INTERVAL_SEARCHFRIENDS,
+		true,
+		Logger,
+		Profile,
+		NodeDB,
+		FriendDB,
+		Agent);
+	Job_Broadcast = new O2Job_Broadcast(
+		L"Broadcast",
+		JOB_INTERVAL_BROADCAST,
+		false,
+		Logger,
+		Profile,
+		NodeDB,
+		KeyDB,
+		BroadcastDB,
+		Agent);
+	Job_ClearWorkset = new O2Job_ClearWorkset(
+		L"ClearWorkset",
+		JOB_INTERVAL_WORKSET_CLEAR,
+		false);
+	Job_AutoSave = new O2Job_AutoSave(
+		L"AutoSave",
+		JOB_INTERVAL_AUTO_SAVE,
+		false,
+		Profile,
+		NodeDB);
+
+	Agent->Add(PerformanceCounter);
+	Agent->Add(Job_GetGlobalIP);
+	Agent->Add(Job_QueryDat);
+	Agent->Add(Job_DatCollector);
+	Agent->Add(Job_AskCollection);
+	Agent->Add(Job_PublishKeys);
+	Agent->Add(Job_PublishOriginal);
+	Agent->Add(Job_NodeCollector);
+	Agent->Add(Job_Search);
+	Agent->Add(Job_SearchFriends);
+	Agent->Add(Job_Broadcast);
+	Agent->Add(Job_ClearWorkset);
+	Agent->Add(Job_AutoSave);
+
+	//
+	//	Servers
+	//
+	Server_P2P = new O2Server_HTTP_P2P(
+		Logger,
+		IPF_P2P,
+		Profile,
+		DatIO,
+		Boards,
+		NodeDB,
+		KeyDB,
+		SakuKeyDB,
+		QueryDB,
+		IMDB,
+		BroadcastDB,
+		Job_Broadcast);
+	Server_P2P->SetMultiLinkRejection(false);
+	Server_P2P->SetSessionLimit(Profile->GetP2PSessionLimit());
+	Server_P2P->SetRecvSizeLimit(RECV_SIZE_LIMIT);
+	Server_P2P->SetPort(Profile->GetP2PPort());
+
+	Server_Proxy = new O2Server_HTTP_Proxy(
+		Logger,
+		IPF_Proxy,
+		Profile,
+		DatIO,
+		Boards,
+		LagQueryQueue);
+	Server_Proxy->SetMultiLinkRejection(false);
+	Server_Proxy->SetPort(Profile->GetProxyPort());
+
+	Server_Admin = new O2Server_HTTP_Admin(
+		Logger,
+		IPF_Admin,
+		Profile,
+		DatDB,
+		DatIO,
+		NodeDB,
+		FriendDB,
+		KeyDB,
+		SakuKeyDB,
+		QueryDB,
+		SakuDB,
+		IMDB,
+		BroadcastDB,
+		IPF_P2P,
+		IPF_Proxy,
+		IPF_Admin,
+		Job_Broadcast,
+		Agent,
+		Boards);
+	Server_Admin->SetMultiLinkRejection(false);
+	Server_Admin->SetPort(Profile->GetAdminPort());
+
+	//
+	//	ReportMaker
+	//
+	ReportMaker = new O2ReportMaker(
+		Logger,
+		Profile,
+		DatDB,
+		DatIO,
+		NodeDB,
+		FriendDB,
+		KeyDB,
+		SakuKeyDB,
+		QueryDB,
+		SakuDB,
+		IMDB,
+		BroadcastDB,
+		IPF_P2P,
+		IPF_Proxy,
+		IPF_Admin,
+		PerformanceCounter,
+		Server_P2P,
+		Server_Proxy,
+		Server_Admin,
+		Agent,
+		Job_QueryDat,
+		Job_Broadcast);
+	ReportMaker->PushJob(Job_GetGlobalIP);
+	ReportMaker->PushJob(Job_NodeCollector);
+	ReportMaker->PushJob(Job_PublishKeys);
+	ReportMaker->PushJob(Job_PublishOriginal);
+	ReportMaker->PushJob(Job_Search);
+	ReportMaker->PushJob(Job_SearchFriends);
+	ReportMaker->PushJob(Job_Broadcast);
+	ReportMaker->PushJob(Job_QueryDat);
+	ReportMaker->PushJob(Job_DatCollector);
+	ReportMaker->PushJob(Job_AskCollection);
+
+	Server_P2P->SetReportMaker(ReportMaker);
+	Server_Admin->SetReportMaker(ReportMaker);
+
+	// メインウィンドウクラス登録
+	WNDCLASSEX wc;
+	wc.cbSize			= sizeof(WNDCLASSEX);
+	wc.style			= CS_HREDRAW | CS_VREDRAW;
+	wc.lpfnWndProc		= MainWindowProc;
+	wc.cbClsExtra		= 0;
+	wc.cbWndExtra		= 0;
+	wc.hInstance		= instance;
+	wc.hIcon			= LoadIcon(instance, MAKEINTRESOURCE(IDI_O2ON));
+	wc.hCursor			= LoadCursor(NULL, IDC_ARROW);
+	wc.hbrBackground	= NULL;//(HBRUSH)(COLOR_MENU + 1);
+	wc.lpszMenuName 	= NULL;
+	wc.lpszClassName	= _T(CLASS_NAME);
+	wc.hIconSm			= NULL;
+
+	if (!RegisterClassEx(&wc))
+		return false;
+
+	// メインウィンドウ作成
+	hwndMain = CreateWindowEx(
+		WS_EX_TOOLWINDOW | WS_EX_TOPMOST,
+		_T(CLASS_NAME),
+		_T(APP_NAME),
+		WS_POPUP,
+		-1, -1, 0, 0,
+		NULL,
+		(HMENU)0,
+		instance,
+		NULL);
+
+	if (!hwndMain)
+		return false;
+
+	// コールバックメッセージ登録
+	LagQueryQueue->SetBaloonCallbackMsg(hwndMain, UM_SHOWBALOON);
+	Server_P2P->SetIconCallbackMsg(hwndMain, UM_SETICON);
+	Server_P2P->SetBaloonCallbackMsg(hwndMain, UM_SHOWBALOON);
+	Server_Proxy->SetIconCallbackMsg(hwndMain, UM_SETICON);
+	Server_Admin->SetIconCallbackMsg(hwndMain, UM_SETICON);
+	Server_Admin->SetBaloonCallbackMsg(hwndMain, UM_SHOWBALOON);
+	Agent->SetIconCallbackMsg(hwndMain, UM_SETICON);
+	Job_DatCollector->SetBaloonCallbackMsg(hwndMain, UM_SHOWBALOON);
+	Job_QueryDat->SetBaloonCallbackMsg(hwndMain, UM_SHOWBALOON);
+
+	// ProxyとAdminを起動
+	if (!StartProxy(L"\n\no2onの起動を中止します"))
+		return false;
+	if (!StartAdmin(L"\n\no2onの起動を中止します"))
+		return false;
+
+	// トレイアイコン追加
+	AddTrayIcon(IDI_DISABLE);
+
+	if (!CheckPort()) {
+		ShowTrayBaloon(_T("o2on"),
+			_T("オプションでポート番号を設定してください"),
+			5*1000, NIIF_INFO);
+	}
+	else {
+		// 自動起動
+		if (Profile->IsP2PAutoStart())
+			StartP2P(true);
+	}
+
+	CLEAR_WORKSET;
+	return true;
+}
