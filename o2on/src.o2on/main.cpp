@@ -28,6 +28,7 @@
 #endif
 
 #include <math.h>
+#include "O2Agent.hpp"
 #include "O2DatDB.hpp"
 #include "O2Server_HTTP_P2P.hpp"
 #include "O2Server_HTTP_Proxy.hpp"
@@ -103,6 +104,7 @@ static uint64				Recv;
 static double				SendRate;
 static double				RecvRate;
 
+static O2Agent				*Agent;
 static O2Logger				*Logger;
 static O2Profile			*Profile;
 static O2Profile			*ProfBuff;

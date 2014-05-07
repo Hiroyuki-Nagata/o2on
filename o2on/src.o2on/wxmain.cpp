@@ -10,6 +10,7 @@
  */
 
 #include <math.h>
+#include "O2Agent.hpp"
 #include "O2DatDB.hpp"
 #include "O2Server_HTTP_P2P.hpp"
 #include "O2Server_HTTP_Proxy.hpp"
@@ -84,6 +85,7 @@ static uint64				Recv;
 static double				SendRate;
 static double				RecvRate;
 
+static O2Agent				*Agent;
 static O2Logger				*Logger;
 static O2Profile			*Profile;
 static O2Profile			*ProfBuff;
@@ -197,14 +199,16 @@ int O2Main::OnExit()
 //	InitializeApp
 //	アプリケーションの初期化処理
 // ---------------------------------------------------------------------------
-static bool
-InitializeApp()
+bool
+O2Main::InitializeApp()
 {
 #ifdef _WIN32 /** 終了時のプロセス優先度：最初の方でシャットダウンするアプリケーション用  */
 	SetProcessShutdownParameters(0x3FF, 0);
 #endif
 
-	wxString msg[1024];
+	// ログ出力用
+	wxString msg;
+	const wxString msgTitle = wxT("o2on初期化");
 
 /**     commctl関連：移植は不可
 
@@ -241,31 +245,28 @@ InitializeApp()
 	//
 	Profile = new O2Profile(Logger, true);
 	if (!Profile->MakeConfDir()) {
-		swprintf_s(msg, 1024,
-			L"ディレクトリ「%s」の作成に失敗しました\n起動を中止します",
-			Profile->GetConfDirW());
-		MessageBoxW(NULL, msg, NULL, MB_ICONERROR | MB_OK);
+		msg = wxString::Format(wxT("ディレクトリ「%s」の作成に失敗しました\n起動を中止します"),
+				       wxString(Profile->GetConfDirW()).c_str());
+		wxMessageBox(msgTitle, msg, wxICON_ERROR | wxOK);
 		return false;
 	}
+
 	if (!Profile->MakeDBDir()) {
-		swprintf_s(msg, 1024,
-			L"ディレクトリ「%s」の作成に失敗しました\n起動を中止します",
-			Profile->GetDBDirW());
-		MessageBoxW(NULL, msg, NULL, MB_ICONERROR | MB_OK);
+		msg = wxString::Format(wxT("ディレクトリ「%s」の作成に失敗しました\n起動を中止します"),
+				       wxString(Profile->GetDBDirW()).c_str());
+		wxMessageBox(msgTitle, msg, wxICON_ERROR | wxOK);
 		return false;
 	}
 	if (!Profile->MakeCacheRoot()) {
-		swprintf_s(msg, 1024,
-			L"ディレクトリ「%s」の作成に失敗しました\n起動を中止します",
-			Profile->GetCacheRootW());
-		MessageBoxW(NULL, msg, NULL, MB_ICONERROR | MB_OK);
+		msg = wxString::Format(wxT("ディレクトリ「%s」の作成に失敗しました\n起動を中止します"),
+				       wxString(Profile->GetCacheRootW()).c_str());
+		wxMessageBox(msgTitle, msg, wxICON_ERROR | wxOK);
 		return false;
 	}
 	if (!Profile->CheckAdminRoot()) {
-		swprintf_s(msg, 1024,
-			L"ディレクトリ「%s」が存在しません\n起動を中止します",
-			Profile->GetAdminRootW());
-		MessageBox(NULL, msg, NULL, MB_ICONERROR | MB_OK);
+		msg = wxString::Format(wxT("ディレクトリ「%s」が存在しません\n起動を中止します"),
+				       wxString(Profile->GetAdminRootW()).c_str());
+		wxMessageBox(msgTitle, msg, wxICON_ERROR | wxOK);
 		return false;
 	}
 	Logger->SetLimit(LOGGER_LOG, Profile->GetLogLimit());
@@ -276,7 +277,6 @@ InitializeApp()
 #if 0 && defined(_DEBUG)
 	string s;
 	Profile->SetIP(inet_addr("192.168.0.99"));
-	//Profile->SetIP(inet_addr("61.203.18.50"));
 	Profile->GetEncryptedProfile(s);
 	Profile->SetIP(0);
 	TRACEA(s.c_str());
@@ -302,7 +302,6 @@ InitializeApp()
 		IPF_Admin->add(true, O2_ALLOW, L"127.0.0.1/255.255.255.255");
 		IPF_Admin->add(true, O2_ALLOW, L"192.168.0.0/255.255.0.0");
 	}
-
 	//
 	//	DatDB
 	//
@@ -310,9 +309,9 @@ InitializeApp()
 	dbfilename += L"\\dat.db";
 	DatDB = new O2DatDB(Logger, dbfilename.c_str());
 	if (!DatDB->create_table(false)) {
-		MessageBox(NULL,
-			L"DBオープンに失敗しました\n起動を中止します",
-			NULL, MB_ICONERROR | MB_OK);
+		wxMessageBox(msgTitle,
+			     wxT("DBオープンに失敗しました\n起動を中止します"),
+			     wxICON_ERROR | wxOK);
 		return false;
 	}
 	DatDB->StartUpdateThread();
@@ -610,7 +609,7 @@ InitializeApp()
 	Server_P2P->SetReportMaker(ReportMaker);
 	Server_Admin->SetReportMaker(ReportMaker);
 
-	// メインウィンドウクラス登録
+/**     メインウィンドウクラス登録...この辺もwxWidgets使えば移植できるはず
 	WNDCLASSEX wc;
 	wc.cbSize			= sizeof(WNDCLASSEX);
 	wc.style			= CS_HREDRAW | CS_VREDRAW;
@@ -675,5 +674,7 @@ InitializeApp()
 	}
 
 	CLEAR_WORKSET;
+	return true;
+*/
 	return true;
 }

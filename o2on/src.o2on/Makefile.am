@@ -14,6 +14,7 @@ o2on_SOURCES		= \
 KademliaKBucket.hpp	  \
 KademliaNode.hpp	  \
 KademliaRoutingTable.hpp  \
+O2Agent.hpp		  \
 O2Boards.cpp		  \
 O2Boards.hpp		  \
 O2Client.cpp		  \
