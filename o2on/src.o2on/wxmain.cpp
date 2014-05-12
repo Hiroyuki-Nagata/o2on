@@ -38,6 +38,8 @@
 #include <boost/dynamic_bitset.hpp>
 #include <wx/wx.h>
 #include <wx/snglinst.h>
+#include <wx/progdlg.h>
+#include <pevents.h>
 
 // ---------------------------------------------------------------------------
 //	macros
@@ -144,10 +146,14 @@ class O2Main : public wxApp
 public:
 	virtual bool OnInit();
 	virtual int OnExit();
-	static bool InitializeApp();
 
 private:
+	static bool  InitializeApp();
+	static void  FinalizeApp(void);
+	static void* FinalizeAppThread(void *param);
+
 	wxSingleInstanceChecker* m_checker;
+	static neosmart::neosmart_event_t threadHandle;
 };
 
 IMPLEMENT_APP(O2Main)
@@ -677,4 +683,185 @@ O2Main::InitializeApp()
 	return true;
 */
 	return true;
+}
+
+
+// ---------------------------------------------------------------------------
+//	FinalizeApp
+//	アプリケーションの終了処理
+// ---------------------------------------------------------------------------
+void
+O2Main::FinalizeApp(void)
+{
+	wxProgressDialog o2ProgressDlg(wxT("o2on"), wxT("o2on終了..."),
+				       0, NULL, wxPD_APP_MODAL | wxPD_CAN_ABORT);
+
+	ThreadHandle = neosmart::CreateEvent();
+	pthread_t thread;
+	pthread_create(&thread, NULL, FinalizeAppThread, NULL);
+
+	MSG msg;
+	while (ThreadHandle) {
+		while (PeekMessage(&msg, hwndProgressDlg, 0, 0, PM_REMOVE)) {
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+		wxSleep(1);
+	}
+
+/**
+	ThreadHandle =
+		(HANDLE)_beginthreadex(NULL, 0, FinalizeAppThread, NULL, 0, NULL);
+
+	MSG msg;
+	while (ThreadHandle) {
+		while (PeekMessage(&msg, hwndProgressDlg, 0, 0, PM_REMOVE)) {
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+		Sleep(1);
+	}
+
+	HWND hwnd;
+	while ((hwnd = FindWindow(_T("o2browser"), NULL)) != NULL) {
+		PostMessage(hwnd, WM_CLOSE, 0, 0);
+	}
+*/
+}
+
+void* 
+O2Main::FinalizeAppThread(void *param)
+{
+	CoInitialize(NULL);
+
+	DatIO->StopRebuildDB();
+
+	ProgressInfo.Reset(true, false);
+	ProgressInfo.AddMax(7);
+
+	if (Profile->IsBaloon_P2P())
+		ShowTrayBaloon(L"o2on", L"o2onを終了しています…", 5*1000, NIIF_INFO);
+
+	ProgressInfo.SetMessage(L"P2Pを終了しています");
+	StopP2P(false);
+	ProgressInfo.AddPos(1);
+
+	ProgressInfo.SetMessage(L"Agentを終了しています");
+	Agent->ClientStop();
+	ProgressInfo.AddPos(1);
+
+	ProgressInfo.SetMessage(L"Proxyを終了しています");
+	Server_Proxy->Stop();
+	ProgressInfo.AddPos(1);
+
+	ProgressInfo.SetMessage(L"Adminを終了しています");
+	Server_Admin->Stop();
+	ProgressInfo.AddPos(1);
+
+	ProgressInfo.SetMessage(L"設定を保存しています");
+
+	Profile->Save();
+	NodeDB->Save(Profile->GetNodeFilePath());
+	FriendDB->Save(Profile->GetFriendFilePath());
+	QueryDB->Save(Profile->GetQueryFilePath());
+	SakuDB->Save(Profile->GetSakuFilePath());
+	IMDB->Save(Profile->GetIMFilePath(), false);
+	IPF_P2P->Save(Profile->GetIPF_P2PFilePath());
+	IPF_Proxy->Save(Profile->GetIPF_ProxyFilePath());
+	IPF_Admin->Save(Profile->GetIPF_AdminFilePath());
+	PerformanceCounter->Save(Profile->GetReportFilePath());
+	Boards->Save();
+	Boards->SaveEx();
+
+	ProgressInfo.AddPos(1);
+
+	if (Agent)
+		delete Agent;
+
+	if (ReportMaker)
+		delete ReportMaker;
+
+	if (PerformanceCounter)
+		delete PerformanceCounter;
+	if (Job_GetGlobalIP)
+		delete Job_GetGlobalIP;
+	if (Job_QueryDat)
+		delete Job_QueryDat;
+	if (Job_DatCollector)
+		delete Job_DatCollector;
+	if (Job_AskCollection)
+		delete Job_AskCollection;
+	if (Job_PublishKeys)
+		delete Job_PublishKeys;
+	if (Job_PublishOriginal)
+		delete Job_PublishOriginal;
+	if (Job_NodeCollector)
+		delete Job_NodeCollector;
+	if (Job_Search)
+		delete Job_Search;
+	if (Job_SearchFriends)
+		delete Job_SearchFriends;
+	if (Job_Broadcast)
+		delete Job_Broadcast;
+	if (Job_ClearWorkset)
+		delete Job_ClearWorkset;
+	if (Job_AutoSave)
+		delete Job_AutoSave;
+
+	if (Server_P2P)
+		delete Server_P2P;
+	if (Server_Proxy)
+		delete Server_Proxy;
+	if (Server_Admin)
+		delete Server_Admin;
+
+	if (DatIO)
+		delete DatIO;
+	if (NodeDB)
+		delete NodeDB;
+	if (FriendDB)
+		delete FriendDB;
+	if (KeyDB)
+		delete KeyDB;
+	if (SakuKeyDB)
+		delete SakuKeyDB;
+	if (QueryDB)
+		delete QueryDB;
+	if (SakuDB)
+		delete SakuDB;
+	if (IMDB)
+		delete IMDB;
+	if (BroadcastDB)
+		delete BroadcastDB;
+	if (LagQueryQueue)
+		delete LagQueryQueue;
+	if (Boards)
+		delete Boards;
+
+	if (DatDB) {
+		DatDB->StopUpdateThread();
+		delete DatDB;
+	}
+
+	if (IPF_P2P)
+		delete IPF_P2P;
+	if (IPF_Proxy)
+		delete IPF_Proxy;
+	if (IPF_Admin)
+		delete IPF_Admin;
+
+	if (Profile)
+		delete Profile;
+	if (Logger)
+		delete Logger;
+
+	ProgressInfo.Reset(false, false);
+	DeleteTrayIcon();
+	XMLPlatformUtils::Terminate();
+	WSACleanup();
+	CoUninitialize(); 
+
+	CloseHandle(ThreadHandle);
+	ThreadHandle = NULL;
+	return (0);
 }

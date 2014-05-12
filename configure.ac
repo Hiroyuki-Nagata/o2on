@@ -59,6 +59,11 @@ esac
 
 # Checks for compiler
 AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
+# If Clang++ & Mac OS X, add -stdlib=libc++...
+AC_CHECK_DECLS([__clang__],
+	       [AC_CHECK_DECLS([__APPLE__], 
+	       [AM_CXXFLAGS="-stdlib=libc++ $CXXFLAGS $AM_CXXFLAGS"])
+	       ])
 
 #
 # Checks for libraries.
